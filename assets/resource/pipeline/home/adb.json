@@ -1,0 +1,27 @@
+{
+	"startApp": {
+		"action": "StartApp",
+		"package": "com.haugland.woa",
+		"anchor": {
+			"afterStop": ""
+		},
+		"next": [
+			"[Anchor]afterStart"
+		]
+	},
+	"stopApp": {
+		"action": "StopApp",
+		"package": "com.haugland.woa",
+		"next": [
+			"[Anchor]afterStop"
+		]
+	},
+	"restartApp": {
+		"anchor": {
+			"afterStop": "startApp"
+		},
+		"next": [
+			"stopApp"
+		]
+	}
+}

@@ -1,0 +1,297 @@
+{
+	"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"actionRequire"
+					],
+					"order_by": "Random"
+				}
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "finishNode" //在CheckHandlingPass节点被分配的anchor被前置节点使用后立即清除
+		},
+		"action": "Click",
+		"next": [
+			"detectFlight_info", //检测航班信息面板
+			"finishNode"
+			//"[JumpBack]isFreezeOrNot"
+		]
+	},
+	"detectFlight_info": { //指派地勤節點鏈,等待FlightCard面板出现
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"flight_info"
+					]
+				}
+			}
+		},
+		"next": [
+			"detectAssignCrewCard", //尋找AssignCrew面板
+			"detetctStandSelectCard", //尋找standSelect面板
+			"UniversalAction", //其它通用的actionRequire
+			"finishNode"
+		]
+	},
+	"detectAssignCrewCard": { //指派地勤節點鏈,檢測AssignCrew面板
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"assignCrewCard"
+					]
+				}
+			}
+		},
+		"next": [
+			"FindSlideBlock",
+			"finishNode"
+		]
+	},
+	"FindSlideBlock": { //指派地勤節點鏈,尋找slide塊，並滑動最大
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"slideBlock"
+					]
+				} //,
+				//"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
+			}
+		},
+		"next": [
+			"MaxCrew",
+			"finishNode"
+		]
+	},
+	"MaxCrew": { //将crew分配至最大
+		"action": {
+			"type": "Swipe",
+			"param": {
+				"begin": "FindSlideBlock", //找到的滑块位置
+				"end": "actionRequiringSelect", //选择的flight Card action requiring位置
+				"duration": 500
+			}
+		},
+		"next": [
+			"ClickRampAgentSwitch",
+			"finishNode"
+		],
+		"focus": "slide塊調至最大"
+	},
+	"ClickRampAgentSwitch": { //指派地勤節點鏈,尋找並打開Ramp Agent
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"switch"
+					]
+				} //,
+				//"roi": "detectAssignCrewCard"
+			}
+		},
+		"action": "Click",
+		"next": [
+			"CheckHandlingPass",
+			"finishNode"
+		]
+	},
+	"CheckHandlingPass": {
+		"recognition": {
+			"type": "And",
+			"param": {
+				"all_of": [
+					//{
+					//	"sub_name": "detectFlight_info",
+					//	"recognition": {
+					//		"type": "Custom",
+					//		"param": {
+					//			"custom_recognition": "onnxDetect",
+					//			"custom_recognition_param": {
+					//				"expected": [
+					//					"flight_info"
+					//				]
+					//			}
+					//		}
+					//	}
+					//},
+					{
+						"recognition": { //检查时间限制是否通过
+							"type": "Custom",
+							"param": {
+								"custom_recognition": "onnxDetect",
+								"custom_recognition_param": {
+									"expected": [
+										"handleTimePass"
+									]
+								}
+								//"roi": "detectFlight_info"
+							}
+						}
+					},
+					{
+						"recognition": { //检查rampAgent是否启用
+							"type": "OCR",
+							"param": {
+								"expected": "\\+1",
+								"roi": "detectFlight_info"
+							}
+						}
+					}
+				]
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "actionRequiringSelect"
+		}, //成功处理后再次进入随机选择
+		"next": [
+			"clickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"detetctStandSelectCard": { //机位分配的节点链，等待stand select面板
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"standSelectCard"
+					]
+				}
+			}
+		},
+		"next": [
+			"selectStandAvailable",
+			"finishNode"
+		]
+	},
+	"selectStandAvailable": { //選擇可用的stand
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"standAvailable"
+					]
+				} //,
+				//"roi": "detetctStandSelectCard"
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "clickFlight_infoYellowButtonAgain"
+		},
+		"action": "Click",
+		"next": [
+			"clickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"UniversalAction": { //指派地勤行動外的節點鏈
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "detectContractUpgradeCard"
+		},
+		"next": [
+			"clickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"clickFlight_infoYellowButton": { //click flight info card button
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					]
+				} //,
+				//"roi": "detectFlight_info"
+			}
+		},
+		"action": "Click",
+		"timeout": 100,
+		"next": [
+			"[Anchor]afterClickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"clickFlight_infoYellowButtonAgain": { //分配机位后再次点击
+		"target": "clickFlight_infoYellowButton",
+		"action": "Click",
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "finishNode" //在selectStandAvailable节点被分配的anchor被前置节点使用后立即清除
+		},
+		"next": [
+			"finishNode"
+		]
+	},
+	"detectContractUpgradeCard": { //檢測是否是延續升級合同的卡片
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"contractUpgradeCard"
+					]
+				}
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "finishNode" //在UniversalAction节点被分配的anchor被前置节点使用后立即清除
+		},
+		"next": [
+			"[JumpBack]detectLoadingPage",
+			"clickContractUpgradeCardYellowButton",
+			"finishNode"
+		]
+	},
+	"clickContractUpgradeCardYellowButton": { //click Contract Upgrade Card button
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					]
+				},
+				"roi": "detectContractUpgradeCard"
+			}
+		},
+		"action": "Click"
+	},
+	"actionRequiringSelectDeparture": { //选择departure//暂未开发
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"departure"
+					]
+				}
+			}
+		},
+		"action": "Click",
+		"next": [
+			"UniversalAction"
+		]
+	}
+}

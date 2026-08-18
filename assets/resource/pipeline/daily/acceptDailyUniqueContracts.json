@@ -1,0 +1,280 @@
+{
+	"dailyUniqueContract.selectUniqueAirport": { //检测特殊入港的机场
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"dailyAirportCard"
+					],
+					"order_by": "Vertical"
+				}
+			}
+		},
+		"action": "Click",
+		"next": [
+			"detectAirport_info",
+			"finishNode"
+		]
+	},
+	"dailyUniqueContract.detectUniqueAirport": { //在选择列表中检测特殊入港机场
+		"recognition": {
+			"type": "Or",
+			"param": {
+				"any_of": [
+					{
+						"recognition": {
+							"type": "Custom",
+							"param": {
+								"custom_recognition": "onnxDetect",
+								"custom_recognition_param": {
+									"expected": [
+										"dailyAirportCard"
+									],
+									"order_by": "Vertical"
+								}
+							}
+						}
+					},
+					"dailyUniqueContract.detectAitportListEnd"
+				]
+			}
+		},
+		"inverse": true,
+		"action": "Custom",
+		"custom_action": "swipe_inBoxByVector",
+		"custom_action_param": {
+			"node_name": "detectAitportList",
+			"vector": [
+				0,
+				"-20%"
+			],
+			"duration": 300,
+			"random_start": true
+		},
+		"post_wait_freezes": {
+			"time": 500,
+			"target": "detectAitportList",
+			"target_offset": [
+				0,
+				5,
+				0,
+				0
+			]
+		},
+		"next": [
+			"dailyUniqueContract.detectUniqueAirport",
+			"dailyUniqueContract.selectUniqueAirport",
+			"dailyUniqueContract.detectAitportListEnd"
+		]
+	},
+	"dailyUniqueContract.detectAitportListEnd": {
+		"recognition": {
+			"type": "OCR",
+			"param": {
+				"expected": [
+					"CNN"
+				],
+				"roi": "detectAitportList",
+				"roi_offset": [
+					0,
+					5,
+					0,
+					0
+				]
+			}
+		},
+		"action": "StopTask"
+	},
+	"dailyUniqueContract.detectDockerContractNotice": { //检测合同管理图标
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"dockerContractNotice"
+					]
+				}
+			}
+		},
+		"action": "Click",
+		"next": [
+			"dailyUniqueContract.detectContractPage"
+		]
+	},
+	"dailyUniqueContract.detectContractPage": { //检测合同管理页
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"contractPage"
+					]
+				}
+			}
+		},
+		"next": [
+			"dailyUniqueContract.detectUniqueContractOffers",
+			"dailyUniqueContract.exitContractPage"
+		]
+	},
+	"dailyUniqueContract.detectUniqueContractOffers": { //检测特殊入港合同
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"uniqueContractOffers"
+					]
+				}
+			}
+		},
+		"action": "Click",
+		"next": [
+			"dailyUniqueContract.acceptDailyUniqueContract"
+		]
+	},
+	"dailyUniqueContract.acceptDailyUniqueContract": { //点击接受合同
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					]
+				},
+				"roi": "dailyUniqueContract.detectUniqueContractOffers"
+			}
+		},
+		"post_delay": 1000,
+		"action": "Click",
+		"next": [
+			"dailyUniqueContract.detectContractAcceptConfirmCard",
+			"dailyUniqueContract.detectUniqueContractOffers",
+			"dailyUniqueContract.exitContractPage"
+		]
+	},
+	"dailyUniqueContract.detectContractAcceptConfirmCard": { //检测合同确认卡片的box
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"contractAcceptConfirmCard"
+					]
+				}
+			}
+		},
+		"next": [
+			"dailyUniqueContract.acceptDailyUniqueContractConfirm"
+		]
+	},
+	"dailyUniqueContract.acceptDailyUniqueContractConfirm": { //点击确认
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					]
+				},
+				"roi": "dailyUniqueContract.detectContractAcceptConfirmCard"
+			}
+		},
+		"action": "Click",
+		"next": [
+			"[JumpBack]detectLoadingPage",
+			"dailyUniqueContract.detectUniqueContractOffers",
+			"dailyUniqueContract.exitContractPage"
+		]
+	},
+	"dailyUniqueContract.exitContractPage": { //退出合同管理
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"back"
+					]
+				}
+			}
+		},
+		"action": "Click",
+		"next": [
+			"dailyUniqueContract.detectEntryAirportPage"
+		]
+	},
+	"dailyUniqueContract.detectEntryAirportPage": { //检测entry airport page并点击菜单
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"entryAirportPage"
+					]
+				}
+			}
+		},
+		"next": [
+			"dailyUniqueContract.detectMenuButton"
+		]
+	},
+	"dailyUniqueContract.detectMenuButton": { //检测菜单按钮并点击
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"menuButton"
+					]
+				}
+			}
+		},
+		"action": "Click",
+		"next": [
+			"dailyUniqueContract.detectMenu"
+		]
+	},
+	"dailyUniqueContract.detectMenu": { //检测菜单界面
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"menu"
+					]
+				}
+			}
+		},
+		"next": [
+			"dailyUniqueContract.exitEntryAirportPage"
+		]
+	},
+	"dailyUniqueContract.exitEntryAirportPage": {
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					],
+					"order_by": "Vertical"
+				}
+			}
+		},
+		"post_delay": 2000,
+		"action": "Click"
+	}
+}

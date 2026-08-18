@@ -1,0 +1,104 @@
+{
+	"detectPage": { //检测当前所在页面
+		"anchor": {
+			"afterStart": ""
+		},
+		"next": [
+			"[JumpBack]detectEntryAirportPage", //进入机场页
+			"[JumpBack]detectAirportSelectPage", //机场选择页
+			"[JumpBack]detectHomePage", //主页
+			"[JumpBack]detectLoadingPage" //加载页面
+		]
+	},
+	"detectEntryAirportPage": { //检测进入机场后的页面
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"entryAirportPage"
+					]
+				}
+			}
+		},
+		"next": [
+			"filterReady"
+		]
+	},
+	"detectAirportSelectPage": { //检测机场IATA选择页面
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"airportSelectPage"
+					]
+				}
+			}
+		},
+		"next": [
+			"detectAirport_info",
+			"detectAitportList"
+		]
+	},
+	"detectHomePage": { //检测主页
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"homePage"
+					]
+				}
+			}
+		},
+		"next": [
+			"entryAirportSelectPage", //该节点不含next
+			"finishNode"
+		]
+	},
+	"detectLoadingPage": { //检测当前所在页面是否为LoadingPage
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"loadingPage"
+					]
+				}
+			}
+		},
+		"next": [
+			"[JumpBack]waitLoadingPageFinish", //该节点不含next
+			"finishNode"
+		]
+	},
+	"waitLoadingPageFinish": { //等待加载页面结束
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"loadingPage"
+					]
+				}
+			}
+		},
+		"pre_delay": 2000
+	},
+	"finishNode": { //用于跳回JumpBack的父节点、结束节点链等功能
+	},
+	"unattendedMode": { //开始无人值守吧！
+		"anchor": {
+			"afterStart": "detectPage"
+		},
+		"next": [
+			"startApp"
+		]
+	}
+}

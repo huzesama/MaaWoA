@@ -1,0 +1,12 @@
+{
+	"isFreezeOrNot": {
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "freezeCheck"
+			}
+		},
+		"next": [], //默认为画面没有冻结
+		"enabled": false
+	}
+}

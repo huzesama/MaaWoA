@@ -1,0 +1,18 @@
+{
+	"pi.label": "机场世界小助手",
+	"pi.description": "机场世界小助手。图像技术 + 模拟控制，解放双手！由 MaaFramework 强力驱动！",
+	"pi.contact": "QQ:1215186276 ",
+	"pi.welcome": "本软件的使用需遵守 AGPL-v3 许可证",
+	"pi.control.adb.description": "通过 ADB 连接安卓设备",
+	"pi.resource.label.google": "官方",
+	"pi.task.dailyUniqueArrival.name": "领取每日特殊入港合同",
+	"pi.task.unattendedMode.name": "无人值守模式",
+	"pi.task.option.acceptDailyUniqueContractsType.name": "每日特殊入港合同处理方式",
+	"pi.task.option.acceptDailyUniqueContractsType.acceptOnly.name": "仅领取",
+	"pi.task.option.acceptDailyUniqueContractsType.handleAll.name": "全部处理",
+	"pi.task.option.acceptDailyUniqueContractsType.threshold.name": "超过数量时处理",
+	"pi.task.option.entryAirportIATA.name": "机场IATA",
+	"pi.task.option.entryAirportIATA.description": "启动游戏后自动进入机场的机场IATA",
+	"pi.task.option.freezeCheck.name": "卡死检测",
+	"pi.task.option.freezeCheck.description": "检测画面卡死时自动重启游戏，启用前先配置“机场IATA”"
+}

@@ -1,0 +1,173 @@
+{
+	"entryAirportSelectPage": { //从主页进入机场选择页
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectAirport_info": { //检测机场信息面板
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"airport_info"
+					]
+				}
+			}
+		},
+		"next": [
+			"ocrAirport_infoIATA",
+			"detectAitportList"
+		]
+	},
+	"ocrAirport_infoIATA": { //在Airport info中OCR IATA信息
+		"recognition": {
+			"type": "OCR",
+			"param": {
+				"expected": [
+					"INN" //通过interface option机场IATA覆写
+				],
+				"roi": "detectAirport_info"
+			}
+		},
+		"next": [
+			"entryAirport"
+		]
+	},
+	"entryAirport": { //通过Airport info面板进入已选择的机场
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"confirmButton"
+					]
+				},
+				"roi": "detectAirport_info"
+			}
+		},
+		"action": "Click"
+	},
+	"detectAitportList": { //检测机场选择列表
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"airportList"
+					]
+				}
+			}
+		},
+		"next": [
+			"[JumpBack]resetAirportList", //该节点不含next
+			"ocrAirportListIATA",
+			"selectTargetIATA"
+		]
+	},
+	"resetAirportList": { //重置机场选择列表的定位，使INN可见
+		"recognition": {
+			"type": "OCR",
+			"param": {
+				"expected": [
+					"INN"
+				],
+				"roi": "detectAitportList",
+				"roi_offset": [
+					0,
+					5,
+					0,
+					0
+				]
+			}
+		},
+		"inverse": true,
+		"action": "Custom",
+		"custom_action": "swipe_inBoxByVector",
+		"custom_action_param": {
+			"node_name": "detectAitportList",
+			"vector": [
+				0,
+				"50%"
+			],
+			"duration": 300,
+			"random_start": true
+		}
+	},
+	"selectTargetIATA": { //选择目标的IATA
+		"recognition": {
+			"type": "OCR",
+			"param": {
+				"expected": [
+					"INN" //通过interface option机场IATA覆写
+				],
+				"roi": "detectAitportList",
+				"roi_offset": [
+					0,
+					5,
+					0,
+					0
+				]
+			}
+		},
+		"action": "Click",
+		"post_wait_freezes": {
+			"time": 500,
+			"target": "detectAitportList",
+			"target_offset": [
+				0,
+				5,
+				0,
+				0
+			]
+		},
+		"next": [
+			"detectAirport_info"
+		]
+	},
+	"ocrAirportListIATA": { //在选择列表中ocr目标机场IATA
+		"recognition": {
+			"type": "OCR",
+			"param": {
+				"expected": [
+					"INN" //通过interface option机场IATA覆写
+				],
+				"roi": "detectAitportList",
+				"roi_offset": [
+					0,
+					5,
+					0,
+					0
+				]
+			}
+		},
+		"inverse": true,
+		"action": "Custom",
+		"custom_action": "swipe_inBoxByVector",
+		"custom_action_param": {
+			"node_name": "detectAitportList",
+			"vector": [
+				0,
+				"-20%"
+			],
+			"duration": 300,
+			"random_start": true
+		},
+		"next": [
+			"ocrAirportListIATA",
+			"selectTargetIATA"
+		]
+	}
+}
