@@ -168,6 +168,13 @@ jobs:
         env:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create changelog if missing
+        if: ${{ !hashFiles('CHANGES.md') }}
+        run: |
+          echo "# Changelog" > CHANGES.md
+          echo "Changes will be documented here." >> CHANGES.md
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
