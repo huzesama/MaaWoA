@@ -161,6 +161,7 @@ jobs:
       - name: Generate a changelog
         uses: orhun/git-cliff-action@v4
         id: git-cliff
+        continue-on-error: true
         with:
           config: .github/cliff.toml
           # 正式版：使用 tag-pattern 只匹配正式版标签，包含所有从上一个正式版以来的提交
@@ -174,10 +175,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Create changelog if missing
-        if: ${{ !hashFiles('CHANGES.md') }}
         run: |
-          echo "# Changelog" > CHANGES.md
-          echo "Changes will be documented here." >> CHANGES.md
+          if [ ! -f CHANGES.md ]; then
+            echo "# Changelog" > CHANGES.md
+            echo "Changes will be documented here." >> CHANGES.md
+          fi
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
