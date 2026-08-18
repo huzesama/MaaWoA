@@ -147,6 +147,9 @@ jobs:
     name: Generate changelog
     needs: meta
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull_request: read
     outputs:
       release_body: ${{ steps.git-cliff.outputs.content }}
     steps:
