@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull_request: read
+      pull-requests: read
     outputs:
       release_body: ${{ steps.git-cliff.outputs.content }}
     steps:
