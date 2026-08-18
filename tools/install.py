@@ -135,8 +135,8 @@ def install_chores():
 
 def install_agent():
     shutil.copytree(
-        working_dir / "agent",
-        install_path / "agent",
+        working_dir / "assets" / "agent",
+        install_path / "assets" / "agent",
         dirs_exist_ok=True,
     )
 
