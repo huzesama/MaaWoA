@@ -1,72 +1,11 @@
 {
-	"compareCrewUsed": { //对比crew used
-		"recognition": {
-			"type": "Custom",
-			"param": {
-				"custom_recognition": "crewUsedCompare"
-			}
-		}
-	},
-	"detectCrewUsed": { //检测crew used的box
-		"recognition": {
-			"type": "Custom",
-			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"crewUsed"
-					]
-				}
-			}
-		}
-	},
-	"crewUsedOCR": { //通过检测crew used的定位进行OCR
-		"recognition": "OCR",
-		"roi": "detectCrewUsed"
-	},
-	"NodeA": {
-		"recognition": "DirectHit",
-		"action": "DoNothing",
-		"focus": "一样"
-	},
-	"NodeB": {
-		"recognition": "DirectHit",
-		"action": "DoNothing",
-		"focus": "不一样"
-	},
-	"detectCurrentPageParam": { //查看神经网络检测(IoM)在当前页面可以检测到的元素
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA_202608092_imgsz256.onnx"
-			}
-		}
-	},
-	"MyDetectNode": { //查看神经网络检测(IoU)在当前页面可以检测到的元素
-		"recognition": "Custom",
-		"custom_recognition": "onnxDetect",
-		"custom_recognition_param": {
-			//"expected":11
-		}
-	},
-	"swipeAirportCard": {
-		"recognition": "Custom",
-		"custom_recognition": "onnxDetect",
-		"custom_recognition_param": {
-			//"expected":11
-		},
-		"action": "Click"
-	},
-	"MySwipeNode": {
-		"action": "Custom",
-		"custom_action": "SwipeByVector",
-		"custom_action_param": {
-			"node_name": "SomeHitNode",
-			"vector": [
-				100,
-				-50
-			],
-			"duration": 300
-		}
-	}
+    "test": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {}
+            }
+        }
+    }
 }

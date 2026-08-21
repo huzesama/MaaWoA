@@ -1,15 +1,11 @@
 {
-	// 本文件主要定义了通用 UI 的行为和显示内容
-	// 可参考文档和示例添加更多您需要的功能
-	// 文档：https://maafw.xyz/docs/3.3-ProjectInterfaceV2
-	// 示例：https://github.com/MaaXYZ/MaaFramework/blob/main/sample/interface.json
 	"interface_version": 2,
 	"languages": {
-		"zh_hans": "./languages/cn_hans.json" //,
+		"zh_hans": "resource/languages/cn_hans.json" //,
 		//"zh_hant":"./languages/cn_hant.json",
 		//"en_us": "./languages/en_us.json"
 	},
-	//"icon": "/",
+	"icon": "resource/icon.png",
 	"name": "MaaWoA",
 	"label": "$pi.label",
 	//"title": "",//窗口标题，Client 会直接显示该内容，不添加其他修饰。可选，默认使用 name 和 version 拼接生成。
@@ -19,7 +15,7 @@
 	"welcome": "$pi.welcome",
 	// 填写项目地址和版本号可实现自动更新功能
 	"github": "https://github.com/huzesama/MaaWoA",
-	"version": "1.0.0",
+	"version": "0.0.1_beta1",
 	// Mirror酱为第三方分发服务，新项目默认关闭
 	// 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
 	// "mirrorchyan_rid": "MaaXXX",
@@ -40,7 +36,52 @@
 			"display_short_side": 720, // 默认缩放分辨率的短边长度，用于屏幕适配。与long_side二选一
 			// "display_long_side": 1080, // 默认缩放分辨率的长边长度，与short_side二选一
 			"display_raw": false, // 是否使用原始分辨率进行截图，与缩放分辨率设置互斥
-			"permission_required": false
+			"permission_required": false,
+			"attach_resource_path": [
+				"./adb_resource"
+			]
+		},
+		{
+			"name": "Win32",
+			"label": "Win32",
+			"description": "", // 控制器详细描述。支持文件路径、URL或直接文本，内容支持Markdown格式，支持国际化
+			//"icon": "adb.png", // 控制器图标文件路径，相对于项目根目录
+			"type": "Win32",
+			"display_short_side": 720, // 默认缩放分辨率的短边长度，用于屏幕适配。与long_side二选一
+			// "display_long_side": 1080, // 默认缩放分辨率的长边长度，与short_side二选一
+			"display_raw": false, // 是否使用原始分辨率进行截图，与缩放分辨率设置互斥
+			"permission_required": true,
+			"win32": {
+				"mouse": "Seize",
+				"keyboard": "Seize",
+				"screencap": "FramePool"
+			}
+		},
+		{
+			"name": "MacOS",
+			"label": "MacOS",
+			"description": "", // 控制器详细描述。支持文件路径、URL或直接文本，内容支持Markdown格式，支持国际化
+			//"icon": "adb.png", // 控制器图标文件路径，相对于项目根目录
+			"type": "MacOS",
+			"display_short_side": 720, // 默认缩放分辨率的短边长度，用于屏幕适配。与long_side二选一
+			// "display_long_side": 1080, // 默认缩放分辨率的长边长度，与short_side二选一
+			"display_raw": false, // 是否使用原始分辨率进行截图，与缩放分辨率设置互斥
+			"permission_required": true,
+			"macos": {
+				"input": "PostToPid",
+				"screencap": "ScreenCaptureKit"
+			}
+		},
+		{
+			"name": "Linux",
+			"label": "Linux",
+			"description": "", // 控制器详细描述。支持文件路径、URL或直接文本，内容支持Markdown格式，支持国际化
+			//"icon": "adb.png", // 控制器图标文件路径，相对于项目根目录
+			"type": "WlRoots",
+			"display_short_side": 720, // 默认缩放分辨率的短边长度，用于屏幕适配。与long_side二选一
+			// "display_long_side": 1080, // 默认缩放分辨率的长边长度，与short_side二选一
+			"display_raw": false, // 是否使用原始分辨率进行截图，与缩放分辨率设置互斥
+			"permission_required": true
 		}
 	],
 	"resource": [
@@ -88,19 +129,8 @@
 			]
 		},
 		{
-			"name": "测试检查 画面元素",
-			"entry": "MyDetectNode"
-		},
-		{
-			"name": "測試功能",
-			"entry": "actionRequiringSelect"
-		},
-		{
-			"name": "检测地勤detectCrewUsed",
-			"entry": "detectCrewUsed",
-			"option": [
-				"freezeCheck"
-			]
+			"name": "test",
+			"entry": "test"
 		}
 	],
 	"option": {
@@ -145,20 +175,73 @@
 					}
 				},
 				{
-					"name": "handleAll",
-					"label": "$pi.task.option.acceptDailyUniqueContractsType.handleAll.name",
-					"option": [
-						"dailyTaskTower"
-					],
-					"pipeline_override": {}
-				},
-				{
 					"name": "threshold",
 					"label": "$pi.task.option.acceptDailyUniqueContractsType.threshold.name",
 					"option": [
-						"dailyTaskTower"
+						//"dailyTaskTower",
+						"dailyUniqueContractsHandleThreshold"
 					],
-					"pipeline_override": {}
+					"pipeline_override": {
+						"detectAirportSelectPage": { //更改只从列表选择
+							"next": [
+								"detectAitportList",
+								"finishNode"
+							]
+						},
+						"detectAitportList": {
+							"next": [
+								"[JumpBack]resetAirportList", //该节点不含next
+								"dailyUniqueContract.detectUniqueAirport",
+								"dailyUniqueContract.selectUniqueAirport",
+								"dailyUniqueContract.detectAitportListEnd",
+								"finishNode"
+							]
+						},
+						"detectAirport_info": { //检测机场信息面板不再OCR IATA而是直接进入
+							"next": [
+								"entryAirport",
+								"finishNode"
+							]
+						},
+						"dailyUniqueContract.exitContractPage": { //退出合同管理页后回退至父节点检测当前页面
+							"next": "finishNode"
+						},
+						"detectEntryAirportPage": { //从筛选器准备改为点击合同管理，检测特殊入港合同数量阈值
+							"next": [
+								"dailyUniqueContract.detectDockerContractNotice",
+								"[JumpBack]detectFilter",
+								"[JumpBack]dailyUniqueContract.entryHandleUnique",
+								"dailyUniqueContract.detectEntryAirportPage",
+								"finishNode"
+							]
+						},
+						"filterReady": { //更改了next的顺序，并将loop action替换为continue Handle Unique
+							"next": [
+								"[JumpBack]detectFilter",
+								"[JumpBack]detectFilterArrivalButton",
+								"[JumpBack]detectFilterAirplaneOnAirportButton",
+								"[JumpBack]detectFilterDepartureButton",
+								"[JumpBack]detectFilterActionRequiringButton",
+								"[JumpBack]detectFilterUniqueButton",
+								"[JumpBack]detectFilterFavoriteButton",
+								"[JumpBack]dailyUniqueContract.continueHandleUnique",
+								"finishNode" //跳回dailyUniqueContract.entryHandleUnique节点
+							]
+						},
+						"detectFilterUniqueButton": { //更改为筛选特殊入港航班
+							"recognition": {
+								"type": "Custom",
+								"param": {
+									"custom_recognition": "onnxDetect",
+									"custom_recognition_param": {
+										"expected": [
+											"filterUnique"
+										]
+									}
+								}
+							}
+						}
+					}
 				}
 			]
 		},
@@ -189,12 +272,54 @@
 					"name": "dailyUniqueContractsLower",
 					"label": "",
 					"description": "",
-					"default": "0",
+					"default": "10",
 					"pipeline_type": "int",
 					"verify": "^\\d+$"
 				}
 			],
-			"pipeline_override": {} //通过custom传参Int类型{dailyUniqueContractsUpper}{dailyUniqueContractsLower}
+			"pipeline_override": {
+				"dailyUniqueContract.entryHandleUnique": { //主要更改阈值
+					"recognition": {
+						"type": "And",
+						"param": {
+							"all_of": [
+								"dailyUniqueContract.detectFilterUniqueBox",
+								{
+									"recognition": {
+										"type": "Custom",
+										"param": {
+											"custom_recognition": "dailyUniqueCompare",
+											"custom_recognition_param": {
+												"threshold": "{dailyUniqueContractsUpper}"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					"next": [
+						"filterReady",
+						"finishNode"
+					]
+				},
+				"dailyUniqueContract.continueHandleUnique": { //主要更改阈值
+					"recognition": {
+						"type": "Custom",
+						"param": {
+							"custom_recognition": "dailyUniqueCompare",
+							"custom_recognition_param": {
+								"threshold": "{dailyUniqueContractsLower}"
+							}
+						}
+					},
+					"next": [
+						"compareCrewUsed",
+						"[JumpBack]actionRequiringSelectDeparture",
+						"finishNode"
+					]
+				}
+			} //通过custom传参Int类型{dailyUniqueContractsUpper}{dailyUniqueContractsLower}
 		},
 		"entryAirportIATA": {
 			"label": "$pi.task.option.entryAirportIATA.name",
@@ -507,6 +632,12 @@
 			"child_exec": "python", //crew用量对比
 			"child_args": [
 				"./agent/crewUsedCompare.py"
+			]
+		},
+		{
+			"child_exec": "python", //unique contracts判断
+			"child_args": [
+				"./agent/dailyUniqueCompare.py"
 			]
 		},
 		{

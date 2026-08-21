@@ -1,92 +1,4 @@
 {
-	"dailyUniqueContract.selectUniqueAirport": { //检测特殊入港的机场
-		"recognition": {
-			"type": "Custom",
-			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"dailyAirportCard"
-					],
-					"order_by": "Vertical"
-				}
-			}
-		},
-		"action": "Click",
-		"next": [
-			"detectAirport_info",
-			"finishNode"
-		]
-	},
-	"dailyUniqueContract.detectUniqueAirport": { //在选择列表中检测特殊入港机场
-		"recognition": {
-			"type": "Or",
-			"param": {
-				"any_of": [
-					{
-						"recognition": {
-							"type": "Custom",
-							"param": {
-								"custom_recognition": "onnxDetect",
-								"custom_recognition_param": {
-									"expected": [
-										"dailyAirportCard"
-									],
-									"order_by": "Vertical"
-								}
-							}
-						}
-					},
-					"dailyUniqueContract.detectAitportListEnd"
-				]
-			}
-		},
-		"inverse": true,
-		"action": "Custom",
-		"custom_action": "swipe_inBoxByVector",
-		"custom_action_param": {
-			"node_name": "detectAitportList",
-			"vector": [
-				0,
-				"-20%"
-			],
-			"duration": 300,
-			"random_start": true
-		},
-		"post_wait_freezes": {
-			"time": 500,
-			"target": "detectAitportList",
-			"target_offset": [
-				0,
-				5,
-				0,
-				0
-			]
-		},
-		"next": [
-			"dailyUniqueContract.detectUniqueAirport",
-			"dailyUniqueContract.selectUniqueAirport",
-			"dailyUniqueContract.detectAitportListEnd"
-		]
-	},
-	"dailyUniqueContract.detectAitportListEnd": {
-		"recognition": {
-			"type": "OCR",
-			"param": {
-				"expected": [
-					"CNN"
-				],
-				"roi": "detectAitportList",
-				"roi_offset": [
-					0,
-					5,
-					0,
-					0
-				]
-			}
-		},
-		"action": "StopTask"
-	},
 	"dailyUniqueContract.detectDockerContractNotice": { //检测合同管理图标
 		"recognition": {
 			"type": "Custom",
@@ -133,7 +45,6 @@
 				}
 			}
 		},
-		"action": "Click",
 		"next": [
 			"dailyUniqueContract.acceptDailyUniqueContract"
 		]
@@ -212,7 +123,7 @@
 			"dailyUniqueContract.detectEntryAirportPage"
 		]
 	},
-	"dailyUniqueContract.detectEntryAirportPage": { //检测entry airport page并点击菜单
+	"dailyUniqueContract.detectEntryAirportPage": { //检测entry airport page
 		"recognition": {
 			"type": "Custom",
 			"param": {

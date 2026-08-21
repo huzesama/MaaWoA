@@ -1,0 +1,121 @@
+{
+	"filterReady": { //过滤器筛选的准备
+		"next": [
+			"[JumpBack]startLoopAction",
+			"[JumpBack]detectFilter",
+			"[JumpBack]detectFilterArrivalButton",
+			"[JumpBack]detectFilterAirplaneOnAirportButton",
+			"[JumpBack]detectFilterDepartureButton",
+			"[JumpBack]detectFilterActionRequiringButton",
+			"[JumpBack]detectFilterUniqueButton",
+			"[JumpBack]detectFilterFavoriteButton",
+			"finishNode" //跳回detectPage节点
+		]
+	},
+	"startLoopAction": { //开始行动请求的处理循环
+		"next": [
+			"[JumpBack]compareCrewUsed",
+			"[JumpBack]actionRequiringSelectDeparture",
+			"finishNode"
+		]
+	},
+	"detectFilter": { //默认打开过滤器
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filter"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectFilterActionRequiringButton": { //默认筛选行动事件
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filterActionRequire"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectFilterArrivalButton": { //默认取消过滤到达航班
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filterArrivalPressed"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectFilterAirplaneOnAirportButton": { //默认取消过滤在机场航班
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filterAirplaneOnAirportPressed"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectFilterDepartureButton": { //默认取消过滤离场航班
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filterDeparturePressed"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectFilterFavoriteButton": { //默认取消过滤喜爱航班
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filterFavoritePressed"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	},
+	"detectFilterUniqueButton": { //默认取消过滤特殊入港航班
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "onnxDetect",
+				"custom_recognition_param": {
+					"expected": [
+						"filterUniquePressed"
+					]
+				}
+			}
+		},
+		"action": "Click"
+	}
+	//"extandTower":{}
+}

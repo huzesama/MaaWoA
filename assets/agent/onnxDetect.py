@@ -112,12 +112,12 @@ class onnxDetect(CustomRecognition):
 		param = json.loads(argv.custom_recognition_param or "{}")
 		model_path = os.path.join(AGENT_DIR, param.get("model", "../resource/model/detect/WoA.onnx"))
 		raw_expected = param.get("expected", [])
-		conf_threshold = param.get("conf_threshold", 0.25)
-		iou_threshold = param.get("iou_threshold", 0.7)
-		labels = param.get("labels", [])
+		conf_threshold = param.get("conf_threshold", 0.85)
+		iou_threshold = param.get("iou_threshold", 0.25)
 		self._load(model_path, param.get("labels", []))
 		order_by = param.get("order_by", "Score")
 		index = param.get("index", 0) 
+		
 
 		image = argv.image
 		roi = argv.roi
@@ -136,9 +136,9 @@ class onnxDetect(CustomRecognition):
 		if raw_expected and not expected_indices:  
 			return CustomRecognition.AnalyzeResult(  
 			    box=None,  
-			    detail={"msg": "expected labels not matched", "raw_expected": raw_expected},  
-
-		)  
+			    detail={"msg": "expected labels not matched", "raw_expected": raw_expected}
+			)
+		
 		if expected_indices:
 			candidates = [c for c in candidates if c["cls_index"] in expected_indices]
 
@@ -146,7 +146,7 @@ class onnxDetect(CustomRecognition):
 		boxes = order_boxes(boxes, order_by, list(expected_indices) if order_by == "Expected" else None)
 
 		if not boxes:
-			return CustomRecognition.AnalyzeResult(box=None, detail={"msg": "no detection"})
+			return CustomRecognition.AnalyzeResult(box=None, detail={"msg": "no detection", "raw_expected": raw_expected,"candidates":candidates})
 
 		n = len(boxes)
 		idx = index if index >= 0 else n + index
@@ -239,7 +239,7 @@ class onnxDetect(CustomRecognition):
 
 def main():
 	if len(sys.argv) < 2:
-		print("Usage: python my_agent.py <socket_id>")
+		print("Usage: python onnxDetect.py <socket_id>")
 		exit(1)
 
 	socket_id = sys.argv[-1]

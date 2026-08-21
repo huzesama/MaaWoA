@@ -48,13 +48,13 @@
 		"recognition": {
 			"type": "Custom",
 			"param": {
+				//"roi": "detectAirport_info",
 				"custom_recognition": "onnxDetect",
 				"custom_recognition_param": {
 					"expected": [
 						"confirmButton"
 					]
-				},
-				"roi": "detectAirport_info"
+				}
 			}
 		},
 		"action": "Click"
@@ -128,7 +128,7 @@
 			"target": "detectAitportList",
 			"target_offset": [
 				0,
-				5,
+				10,
 				0,
 				0
 			]

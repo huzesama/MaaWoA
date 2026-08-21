@@ -225,8 +225,8 @@
 			}
 		},
 		"action": "Click",
-		"timeout": 100,
 		"next": [
+			"[JumpBack]detectLoadingPage",
 			"[Anchor]afterClickFlight_infoYellowButton",
 			"finishNode"
 		]
@@ -236,10 +236,7 @@
 		"action": "Click",
 		"anchor": {
 			"afterClickFlight_infoYellowButton": "finishNode" //在selectStandAvailable节点被分配的anchor被前置节点使用后立即清除
-		},
-		"next": [
-			"finishNode"
-		]
+		}
 	},
 	"detectContractUpgradeCard": { //檢測是否是延續升級合同的卡片
 		"recognition": {

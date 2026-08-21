@@ -1,0 +1,23 @@
+{
+    "startApp": {
+        "anchor": {
+            "afterStop": "finishNode"
+        },
+        "next": [
+            "[Anchor]afterStart"
+        ]
+    },
+    "stopApp": {
+        "next": [
+            "[Anchor]afterStop"
+        ]
+    },
+    "restartApp": {
+        "anchor": {
+            "afterStop": "startApp"
+        },
+        "next": [
+            "stopApp"
+        ]
+    }
+}

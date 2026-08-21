@@ -41,7 +41,7 @@ def main():
 	Tasker.set_log_dir("./debug")
 
 	if len(sys.argv) < 2:
-		print("Usage: python agent_main.py <socket_id>")
+		print("Usage: python freezeCheck.py <socket_id>")
 		print("socket_id is provided by AgentIdentifier.")
 		exit(1)
 

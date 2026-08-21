@@ -1,0 +1,145 @@
+{
+    "detectDockerTower": { //点击docker栏的塔台入口
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "dockerTower"
+                    ]
+                }
+            }
+        },
+        "action": "Click",
+        "next": [
+            "detectTower_info",
+            "finishNode"
+        ]
+    },
+    "detectTower_info": { //检测塔台页的延时卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "tower_info"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "detectTowerControlEntry",
+            "finishNode"
+        ]
+    },
+    "detectTowerControlEntry": { //在延时卡片中点击全部控制器的延时控制卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "towerControlEntry"
+                    ]
+                }
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [
+            "[JumpBack]detectTowerControlCard",
+            "finishNode"
+        ]
+    },
+    "detectTowerControlCard": { //检测延时控制卡片是否弹出
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "towerControlCard"
+                    ]
+                },
+                "roi": "detectTowerControlEntry"
+            }
+        },
+        "next": [
+            "enableTower",
+            "finishNode"
+        ]
+    },
+    "enableTower": { //启动塔台延时，暂不考虑速度和启动时长
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "confirmButton"
+                    ]
+                },
+                "roi": "detectTowerControlCard"
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [
+            "detectTowerControlConfirmCard",
+            "finishNode"
+        ]
+    },
+    "detectTowerControlConfirmCard": { //检测塔台延时的二次确认卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "towerConfirmCard"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "confirmEnableTower",
+            "finishNode"
+        ]
+    },
+    "confirmEnableTower": { //点击塔台延时二次确认按钮
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "confirmButton"
+                    ]
+                },
+                "roi": "detectTowerControlConfirmCard"
+            }
+        },
+        "action": "Click",
+        "next": [
+            "[JumpBack]detectLoadingPage",
+            "exitTowerPage",
+            "finishNode"
+        ]
+    },
+    "exitTowerPage": { //退出塔台页面
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "onnxDetect",
+                "custom_recognition_param": {
+                    "expected": [
+                        "back"
+                    ]
+                }
+            }
+        },
+        "action": "Click"
+    }
+}
