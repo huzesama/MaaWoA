@@ -1,0 +1,4 @@
+maaagentbinary==1.0.1
+maafw==5.12.3
+numpy==2.5.2
+onnx==1.22.0

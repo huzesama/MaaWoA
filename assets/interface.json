@@ -38,7 +38,7 @@
 			"display_raw": false, // 是否使用原始分辨率进行截图，与缩放分辨率设置互斥
 			"permission_required": false,
 			"attach_resource_path": [
-				"./adb_resource"
+				"./resource_adb"
 			]
 		},
 		{
@@ -204,7 +204,11 @@
 							]
 						},
 						"dailyUniqueContract.exitContractPage": { //退出合同管理页后回退至父节点检测当前页面
-							"next": "finishNode"
+							"next": [
+								"[JumpBack]detectFilter",
+								"[JumpBack]dailyUniqueContract.entryHandleUnique",
+								"dailyUniqueContract.detectEntryAirportPage"
+							]
 						},
 						"detectEntryAirportPage": { //从筛选器准备改为点击合同管理，检测特殊入港合同数量阈值
 							"next": [

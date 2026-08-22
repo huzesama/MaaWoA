@@ -1,11 +1,27 @@
 {
     "test": {
         "recognition": {
-            "type": "Custom",
+            "type": "And",
             "param": {
-                "custom_recognition": "onnxDetect",
-                "custom_recognition_param": {}
+                "all_of": [
+                    "insideOnnx",
+                    {
+                        "recognition": {
+                            "type": "custom",
+                            "param": {
+                                "custom_recognition": "onnxDetect",
+                                "custom_recognition_param": {
+                                    "expected": []
+                                }
+                            }
+                        }
+                    }
+                ]
             }
         }
+    },
+    "insideOnnx": {
+        "recognition": "NeuralNetworkDetect",
+        "model": "WoA.onnx"
     }
 }

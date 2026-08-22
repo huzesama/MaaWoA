@@ -11,7 +11,8 @@
 				}
 			}
 		},
-		"action": "Click"
+		"action": "Click",
+		"post_wait_freezes": 500
 	},
 	"detectAirport_info": { //检测机场信息面板
 		"recognition": {
