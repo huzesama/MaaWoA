@@ -109,8 +109,8 @@ def install_resource():
         dirs_exist_ok=True,
     )
     shutil.copytree(  
-        working_dir / "assets" / "resource_*",  
-        install_path / "resource_*",  
+        working_dir / "assets" / "resource_android",  
+        install_path / "resource_android",  
         dirs_exist_ok=True,  
     )
     shutil.copytree(  
