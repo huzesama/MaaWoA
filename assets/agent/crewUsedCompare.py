@@ -31,19 +31,20 @@ class crewUsedCompare(CustomRecognition):
 		# 对比本次与上一次 OCR 内容
 		if current_ocr_crew_used == _last_ocr_crew_used:
 			#context.override_next(argv.node_name, ["NodeA"])#相等则使recognition不命中
-			return CustomRecognition.AnalyzeResult(
-				box=None,
-				detail={"text": current_ocr_crew_used},
-			)
+			_return_box_=None,
 		else:
 			#context.override_next(argv.node_name, ["NodeB"])#不相等则使recognition命中
-			return CustomRecognition.AnalyzeResult(
-				box=reco_detail.best_result.box if reco_detail and reco_detail.hit else (0, 0, 0, 0),
-				detail={"text": current_ocr_crew_used},
-			)
+			_return_box_=reco_detail.best_result.box if reco_detail and reco_detail.hit else (0, 0, 0, 0),
+
 
 		# 更新缓存变量
 		_last_ocr_crew_used = current_ocr_crew_used
+
+		return CustomRecognition.AnalyzeResult(
+			box=_return_box_,
+			detail={"text": current_ocr_crew_used},
+		)
+
 
 		
 

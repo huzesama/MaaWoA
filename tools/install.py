@@ -109,9 +109,14 @@ def install_resource():
         dirs_exist_ok=True,
     )
     shutil.copytree(  
-    working_dir / "assets" / "resource_adb",  
-    install_path / "resource_adb",  
-    dirs_exist_ok=True,  
+        working_dir / "assets" / "resource_*",  
+        install_path / "resource_*",  
+        dirs_exist_ok=True,  
+    )
+    shutil.copytree(  
+        working_dir / "assets" / "Languages",  
+        install_path / "Languages",  
+        dirs_exist_ok=True,  
     )
     shutil.copy2(
         working_dir / "assets" / "interface.json",

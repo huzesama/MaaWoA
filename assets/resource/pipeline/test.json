@@ -1,27 +1,6 @@
 {
-    "test": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "insideOnnx",
-                    {
-                        "recognition": {
-                            "type": "custom",
-                            "param": {
-                                "custom_recognition": "onnxDetect",
-                                "custom_recognition_param": {
-                                    "expected": []
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
-        }
-    },
-    "insideOnnx": {
-        "recognition": "NeuralNetworkDetect",
-        "model": "WoA.onnx"
-    }
+	"testStartApp": {
+		"action": "StartApp",
+		"package": "com.haugland.woa"
+	}
 }

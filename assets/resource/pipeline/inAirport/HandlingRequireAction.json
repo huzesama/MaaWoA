@@ -1,15 +1,11 @@
 {
-	"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card
+	"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card,
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"actionRequire"
-					],
-					"order_by": "Random"
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 23
 			}
 		},
 		"anchor": {
@@ -24,14 +20,11 @@
 	},
 	"detectFlight_info": { //指派地勤節點鏈,等待FlightCard面板出现
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"flight_info"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 8
 			}
 		},
 		"next": [
@@ -43,14 +36,11 @@
 	},
 	"detectAssignCrewCard": { //指派地勤節點鏈,檢測AssignCrew面板
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"assignCrewCard"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 9
 			}
 		},
 		"next": [
@@ -60,15 +50,12 @@
 	},
 	"FindSlideBlock": { //指派地勤節點鏈,尋找slide塊，並滑動最大
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"slideBlock"
-					]
-				} //,
-				//"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 0
+				//,"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
 			}
 		},
 		"next": [
@@ -93,15 +80,12 @@
 	},
 	"ClickRampAgentSwitch": { //指派地勤節點鏈,尋找並打開Ramp Agent
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"switch"
-					]
-				} //,
-				//"roi": "detectAssignCrewCard"
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 1
+				//,"roi": "detectAssignCrewCard"
 			}
 		},
 		"action": "Click",
@@ -130,15 +114,12 @@
 					//	}
 					//},
 					{
-						"recognition": { //检查时间限制是否通过
-							"type": "Custom",
+						"recognition": {
+							"type": "NeuralNetworkDetect",
 							"param": {
-								"custom_recognition": "onnxDetect",
-								"custom_recognition_param": {
-									"expected": [
-										"handleTimePass"
-									]
-								}
+								"model": "WoA-widget.onnx",
+								"threshold": 0.708,
+								"expected": 38
 								//"roi": "detectFlight_info"
 							}
 						}
@@ -165,14 +146,11 @@
 	},
 	"detetctStandSelectCard": { //机位分配的节点链，等待stand select面板
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"standSelectCard"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 10
 			}
 		},
 		"next": [
@@ -182,15 +160,12 @@
 	},
 	"selectStandAvailable": { //選擇可用的stand
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"standAvailable"
-					]
-				} //,
-				//"roi": "detetctStandSelectCard"
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 39
+				//,"roi": "detetctStandSelectCard"
 			}
 		},
 		"anchor": {
@@ -213,15 +188,16 @@
 	},
 	"clickFlight_infoYellowButton": { //click flight info card button
 		"recognition": {
-			"type": "Custom",
+			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
+			"type": "TemplateMatch",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"confirmButton"
-					]
-				} //,
-				//"roi": "detectFlight_info"
+				"template": "Button_0_GreenMask.png",
+				"green_mask": true,
+				"method": 10001,
+				//"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				//"expected": 4,
+				"roi": "detectFlight_info"
 			}
 		},
 		"action": "Click",
@@ -232,7 +208,19 @@
 		]
 	},
 	"clickFlight_infoYellowButtonAgain": { //分配机位后再次点击
-		"target": "clickFlight_infoYellowButton",
+		"recognition": {
+			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
+			"type": "TemplateMatch",
+			"param": {
+				"template": "Button_0_GreenMask.png",
+				"green_mask": true,
+				"method": 10001,
+				//"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				//"expected": 4,
+				"roi": "detectFlight_info"
+			}
+		},
 		"action": "Click",
 		"anchor": {
 			"afterClickFlight_infoYellowButton": "finishNode" //在selectStandAvailable节点被分配的anchor被前置节点使用后立即清除
@@ -240,14 +228,11 @@
 	},
 	"detectContractUpgradeCard": { //檢測是否是延續升級合同的卡片
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"contractUpgradeCard"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 11
 			}
 		},
 		"anchor": {
@@ -261,29 +246,41 @@
 	},
 	"clickContractUpgradeCardYellowButton": { //click Contract Upgrade Card button
 		"recognition": {
-			"type": "Custom",
+			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
+			"type": "TemplateMatch",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"confirmButton"
-					]
-				},
+				"template": "Button_0_GreenMask.png",
+				"green_mask": true,
+				"method": 10001,
+				//"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				//"expected": 4,
 				"roi": "detectContractUpgradeCard"
 			}
 		},
-		"action": "Click"
+		"action": "Click",
+		"next": [
+			"waitContractUpgradeCardDisappear"
+		]
 	},
-	"actionRequiringSelectDeparture": { //选择departure//暂未开发
+	"waitContractUpgradeCardDisappear": {
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"departure"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 11
+			}
+		},
+		"inverse": true
+	},
+	"actionRequiringSelectDeparture": { //选择departure
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 26
 			}
 		},
 		"action": "Click",

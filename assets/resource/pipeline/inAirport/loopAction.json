@@ -14,105 +14,90 @@
 	},
 	"startLoopAction": { //开始行动请求的处理循环
 		"next": [
-			"[JumpBack]compareCrewUsed",
+			"compareCrewUsed",
 			"[JumpBack]actionRequiringSelectDeparture",
 			"finishNode"
 		]
 	},
 	"detectFilter": { //默认打开过滤器
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filter"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 10
 			}
 		},
-		"action": "Click"
+		"action": "Click",
+		"focus": {
+			"Node.Node.Action.Starting": "$pipeline.loopAction.detectFilter.focus.action.Starting"
+		}
 	},
 	"detectFilterActionRequiringButton": { //默认筛选行动事件
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filterActionRequire"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 20
 			}
 		},
-		"action": "Click"
+		"action": "Click",
+		"focus": {
+			"Node.Node.Action.Starting": "$pipeline.loopAction.detectFilterActionRequiringButton.focus.action.Starting"
+		}
 	},
 	"detectFilterArrivalButton": { //默认取消过滤到达航班
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filterArrivalPressed"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 11
 			}
 		},
 		"action": "Click"
 	},
 	"detectFilterAirplaneOnAirportButton": { //默认取消过滤在机场航班
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filterAirplaneOnAirportPressed"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 13
 			}
 		},
 		"action": "Click"
 	},
 	"detectFilterDepartureButton": { //默认取消过滤离场航班
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filterDeparturePressed"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 15
 			}
 		},
 		"action": "Click"
 	},
 	"detectFilterFavoriteButton": { //默认取消过滤喜爱航班
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filterFavoritePressed"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 17
 			}
 		},
 		"action": "Click"
 	},
 	"detectFilterUniqueButton": { //默认取消过滤特殊入港航班
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"filterUniquePressed"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 21
 			}
 		},
 		"action": "Click"

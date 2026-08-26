@@ -23,14 +23,11 @@
 	},
 	"detectCrewUsed": { //检测crew used的box
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"crewUsed"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 8
 			}
 		}
 	},

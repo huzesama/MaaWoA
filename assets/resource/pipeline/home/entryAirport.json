@@ -1,14 +1,11 @@
 {
 	"entryAirportSelectPage": { //从主页进入机场选择页
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"confirmButton"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 4
 			}
 		},
 		"action": "Click",
@@ -16,14 +13,11 @@
 	},
 	"detectAirport_info": { //检测机场信息面板
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"airport_info"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 3
 			}
 		},
 		"next": [
@@ -47,29 +41,22 @@
 	},
 	"entryAirport": { //通过Airport info面板进入已选择的机场
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				//"roi": "detectAirport_info",
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"confirmButton"
-					]
-				}
+				"model": "WoA-widget.onnx",
+				"threshold": 0.708,
+				"expected": 4
 			}
 		},
 		"action": "Click"
 	},
 	"detectAitportList": { //检测机场选择列表
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"airportList"
-					]
-				}
+				"model": "WoA-card.onnx",
+				"threshold": 0.633,
+				"expected": 1
 			}
 		},
 		"next": [
@@ -123,6 +110,12 @@
 				]
 			}
 		},
+		"target_offset": [
+			-10,
+			10,
+			10,
+			20
+		],
 		"action": "Click",
 		"post_wait_freezes": {
 			"time": 500,
@@ -161,10 +154,20 @@
 			"node_name": "detectAitportList",
 			"vector": [
 				0,
-				"-20%"
+				"-40%"
 			],
-			"duration": 300,
+			"duration": 500,
 			"random_start": true
+		},
+		"post_wait_freezes": {
+			"time": 500,
+			"target": "detectAitportList",
+			"target_offset": [
+				0,
+				10,
+				0,
+				0
+			]
 		},
 		"next": [
 			"ocrAirportListIATA",

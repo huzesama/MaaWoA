@@ -1,7 +1,7 @@
 {
 	"detectPage": { //检测当前所在页面
 		"anchor": {
-			"afterStart": ""
+			"afterStart": "finishNode"
 		},
 		"next": [
 			"[JumpBack]detectEntryAirportPage", //进入机场页
@@ -12,14 +12,11 @@
 	},
 	"detectEntryAirportPage": { //检测进入机场后的页面
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"entryAirportPage"
-					]
-				}
+				"model": "WoA-page.onnx",
+				"threshold": 0.893,
+				"expected": 5
 			}
 		},
 		"next": [
@@ -28,14 +25,11 @@
 	},
 	"detectAirportSelectPage": { //检测机场IATA选择页面
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"airportSelectPage"
-					]
-				}
+				"model": "WoA-page.onnx",
+				"threshold": 0.893,
+				"expected": 4
 			}
 		},
 		"next": [
@@ -45,14 +39,11 @@
 	},
 	"detectHomePage": { //检测主页
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"homePage"
-					]
-				}
+				"model": "WoA-page.onnx",
+				"threshold": 0.893,
+				"expected": 2
 			}
 		},
 		"next": [
@@ -60,33 +51,30 @@
 			"finishNode"
 		]
 	},
-	"detectLoadingPage": { //检测当前所在页面是否为LoadingPage
+	"detectLoadingPage": { //检测当前所在页面是否为LoadingPage，节点没有后续循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待，可以配合jumpback
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"loadingPage"
-					]
-				}
+				"model": "WoA-page.onnx",
+				"threshold": 0.893,
+				"expected": 0
 			}
 		},
 		"next": [
 			"[JumpBack]waitLoadingPageFinish", //该节点不含next
 			"finishNode"
-		]
+		],
+		"focus": {
+			"Node.Recognition.Succeeded": "$pipeline.processUp.detectLoadingPage.focus.reconigtion.Succeeded"
+		}
 	},
 	"waitLoadingPageFinish": { //等待加载页面结束
 		"recognition": {
-			"type": "Custom",
+			"type": "NeuralNetworkDetect",
 			"param": {
-				"custom_recognition": "onnxDetect",
-				"custom_recognition_param": {
-					"expected": [
-						"loadingPage"
-					]
-				}
+				"model": "WoA-page.onnx",
+				"threshold": 0.893,
+				"expected": 0
 			}
 		},
 		"pre_delay": 2000
