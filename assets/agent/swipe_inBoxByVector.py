@@ -1,11 +1,8 @@
-import sys
-import json
-import random
-
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
-from maa.tasker import Tasker
+import random
+import json
 
 
 def resolve_vector_component(value, length: int) -> int:
@@ -39,24 +36,33 @@ class swipe_inBoxByVector(CustomAction):
 		duration = param.get("duration", 200)
 		# 起点是否在 box 内随机取一点，默认 False（取 box 中心）
 		random_start = param.get("random_start", False)
+		# 坐标偏移
+		target_offset = param.get("target_offset", [0,0,0,0])
 
 		if target_node:
 			node_detail = context.tasker.get_latest_node(target_node)
 			if not node_detail or not node_detail.recognition or not node_detail.recognition.best_result:
-				print(f"[SwipeByVector] node '{target_node}' has no recognition result")
+				print(f"[SwipeByVector] 节点 '{target_node}' 没有识别结果")
 				return False
+			
 			box = node_detail.recognition.box
 		else:
 			box = argv.box
+
 		print(f"box:'{box}'")
 		if not box:
 			# 没有可用的 box，直接返回失败
-			print(f"[SwipeByVector] node '{target_node}' has no box")
+			print(f"[SwipeByVector] 节点 '{target_node}' 没有框坐标")
 			return False
-		
+
+		ox, oy, ow, oh = target_offset
 		# 解包 box：左上角坐标 (x, y) 和宽高 (w, h)
 		x, y, w, h = box
-
+		x += ox  
+		y += oy  
+		w += ow  
+		h += oh
+		
 		if random_start:
 			# 在 box 内随机取一点作为起点
 			start_x = x + random.randint(0, max(w - 1, 0))
@@ -77,25 +83,3 @@ class swipe_inBoxByVector(CustomAction):
 		controller.post_swipe(start_x, start_y, end_x, end_y, duration).wait()
 
 		return True
-
-
-def main():
-	# Agent 子进程入口：由框架传入 socket_id 作为唯一参数
-	if len(sys.argv) < 2:
-		print("Usage: python swipe_inBoxByVector.py <socket_id>")
-		exit(1)
-
-	socket_id = sys.argv[-1]
-
-	# 设置日志输出目录，便于调试
-	Tasker.set_log_dir("./debug")
-
-	# 启动 Agent 服务，注册的自定义动作/识别会在此进程内生效
-	AgentServer.start_up(socket_id)
-	# 阻塞等待，直到主进程通知关闭
-	AgentServer.join()
-	AgentServer.shut_down()
-
-
-if __name__ == "__main__":
-	main()

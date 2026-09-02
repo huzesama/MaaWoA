@@ -1,0 +1,125 @@
+{
+	"option": {
+		"acceptDailyUniqueContractsType": { //每日特殊入港的处理方式
+			"label": "$pi.task.option.acceptDailyUniqueContractsType.name",
+			"description": "$pi.task.option.acceptDailyUniqueContractsType.description",
+			"type": "select",
+			"default_case": "acceptOnly",
+			"cases": [
+				{
+					"name": "acceptOnly",
+					"label": "$pi.task.option.acceptDailyUniqueContractsType.acceptOnly.name",
+					"pipeline_override": {
+						"detectEntryAirportPage": { //从筛选器准备改为点击合同管理
+							"next": [
+								"dailyUniqueContract.detectDockerContractNotice",
+								"dailyUniqueContract.detectEntryAirportPage",
+								"finishNode"
+							]
+						}
+					}
+				},
+				{
+					"name": "threshold",
+					"label": "$pi.task.option.acceptDailyUniqueContractsType.threshold.name",
+					"option": [
+						//"dailyTaskTower",
+						"dailyUniqueContractsHandleThreshold"
+					],
+					"pipeline_override": {
+						"dailyUniqueContract.exitContractPage": { //退出合同管理页后回退至父节点检测当前页面
+							"next": [
+								"[JumpBack]detectFilter",
+								"dailyUniqueContract.entryHandleUnique",
+								"dailyUniqueContract.detectEntryAirportPage"
+							]
+						},
+						"detectEntryAirportPage": { //从筛选器准备改为点击合同管理，检测特殊入港合同数量阈值
+							"next": [
+								"dailyUniqueContract.detectDockerContractNotice",
+								"[JumpBack]detectFilter",
+								"dailyUniqueContract.entryHandleUnique",
+								"dailyUniqueContract.detectEntryAirportPage",
+								"finishNode"
+							]
+						},
+						"startLoopAction": { //更改了next的顺序，并将loop action替换为continue Handle Unique
+							"next": [
+								"[JumpBack]cacheCrewUsedBox", //max_hit=1
+								"[JumpBack]dailyUniqueContract.continueHandleUnique",
+								"dailyUniqueContract.detectEntryAirportPage",
+								"finishNode"
+							]
+						},
+						"detectFilterUniqueButton": { //更改为筛选特殊入港航班
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									//"threshold": 0.708,
+									"expected": 22
+								}
+							}
+						}
+					}
+				}
+			]
+		},
+		"dailyUniqueContractsHandleThreshold": { //每日特殊入港处理方式阈值选项下的输入
+			"label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.name",
+			"type": "input",
+			"inputs": [
+				{
+					"name": "dailyUniqueContractsUpper",
+					"label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsUpper.name",
+					"description": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsUpper.description",
+					"default": "60",
+					"pipeline_type": "int",
+					"verify": "^\\d+$"
+				},
+				{
+					"name": "dailyUniqueContractsLower",
+					"label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsLower.name",
+					"description": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsLower.description",
+					"default": "10",
+					"pipeline_type": "int",
+					"verify": "^\\d+$"
+				}
+			],
+			"pipeline_override": {
+				"dailyUniqueContract.entryHandleUnique": { //主要更改阈值
+					"recognition": {
+						"type": "And",
+						"param": {
+							"all_of": [
+								"dailyUniqueContract.detectFilterUniqueBox",
+								{
+									"recognition": {
+										"type": "Custom",
+										"param": {
+											"custom_recognition": "dailyUniqueCompare",
+											"custom_recognition_param": {
+												"threshold": "{dailyUniqueContractsUpper}"
+											}
+										}
+									}
+								}
+							]
+						}
+					}
+				},
+				"dailyUniqueContract.continueHandleUnique": { //主要更改阈值
+					"recognition": {
+						"type": "Custom",
+						"param": {
+							"custom_recognition": "dailyUniqueCompare",
+							"custom_recognition_param": {
+								"threshold": "{dailyUniqueContractsLower}"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

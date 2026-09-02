@@ -109,8 +109,8 @@ def install_resource():
         dirs_exist_ok=True,
     )
     shutil.copytree(  
-        working_dir / "assets" / "resource_android",  
-        install_path / "resource_android",  
+        working_dir / "assets" / "resource_desktop",  
+        install_path / "resource_desktop",  
         dirs_exist_ok=True,  
     )
     shutil.copytree(  
@@ -145,7 +145,7 @@ def install_chores():
 
 def install_agent():
     shutil.copytree(
-        working_dir / "assets" / "agent",
+        working_dir  / "agent",
         install_path / "agent",
         dirs_exist_ok=True,
     )

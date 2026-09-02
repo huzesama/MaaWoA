@@ -1,6 +1,88 @@
 {
-	"testStartApp": {
-		"action": "StartApp",
-		"package": "com.haugland.woa"
+	"test": {
+		"recognition": {
+			"type": "OCR",
+			"param": {
+				"expected": [
+					"%d/(%d)"
+				],
+				"roi": [
+					385,
+					68,
+					59,
+					26
+				],
+				"only_rec": true
+			}
+		}
+	},
+	"filterUnpress": {
+		"recognition": {
+			"type": "TemplateMatch",
+			"param": {
+				"method": 10001,
+				"threshold": 0.9,
+				"template": [
+					"筛选器（未按下）.png"
+				]
+			}
+		}
+	},
+	"airportLock": {
+		"recognition": {
+			"type": "TemplateMatch",
+			"param": {
+				"method": 10001,
+				"threshold": 0.9,
+				"template": [
+					"锁.png"
+				],
+				"roi": [
+					10,
+					228,
+					328,
+					465
+				]
+			}
+		}
+	},
+	"dailyUniqueAirportTemplayeMatch": {
+		"recognition": {
+			"type": "TemplateMatch",
+			"param": {
+				"method": 10001,
+				"threshold": 0.9,
+				"template": [
+					"特殊入港.png"
+				],
+				"roi": [
+					957,
+					0,
+					323,
+					720
+				]
+			}
+		}
+	},
+	"universalButtonColorMatch": {
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 5000,
+				"order_by": "Area",
+				"connected": true
+			}
+		}
 	}
 }

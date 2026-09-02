@@ -1,0 +1,107 @@
+{
+	"detectPage": { //检测当前所在页面
+		"anchor": {
+			"afterStart": "finishNode"
+		},
+		"next": [
+			"[JumpBack]detectEntryAirportPage", //进入机场页
+			"[JumpBack]detectAirportSelectPage", //机场选择页
+			"[JumpBack]detectHomePage", //主页
+			"[JumpBack]detectLoadingPage", //加载页面
+			"[JumpBack]detectErrorPage", //错误页面
+			"restartApp"
+		]
+	},
+	"detectEntryAirportPage": { //检测进入机场后的页面
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-page.onnx",
+				//"threshold": 0.893,
+				"expected": 5
+			}
+		},
+		"next": [
+			"startLoopAction"
+		]
+	},
+	"detectAirportSelectPage": { //检测机场IATA选择页面
+		"pre_wait_freezes": 0,
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-page.onnx",
+				//"threshold": 0.893,
+				"expected": 4
+			}
+		},
+		"next": [
+			"detectAirport_info",
+			"[Anchor]findAirportList"
+		]
+	},
+	"detectHomePage": { //检测主页
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-page.onnx",
+				//"threshold": 0.893,
+				"expected": 2
+			}
+		},
+		"next": [
+			"entryAirportSelectPage", //该节点不含next
+			"finishNode"
+		]
+	},
+	"detectLoadingPage": { //检测当前所在页面是否为LoadingPage，节点没有后续循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待，可以配合jumpback
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-page.onnx",
+				//"threshold": 0.893,
+				"expected": 0
+			}
+		},
+		"next": [
+			"[JumpBack]waitLoadingPageFinish", //该节点不含next
+			"finishNode"
+		],
+		"focus": {
+			"Node.Recognition.Succeeded": "$pipeline.processUp.detectLoadingPage.focus.recognition.Succeeded"
+		}
+	},
+	"waitLoadingPageFinish": { //等待加载页面结束
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-page.onnx",
+				//"threshold": 0.893,
+				"expected": 0
+			}
+		},
+		"pre_delay": 2000
+	},
+	"detectErrorPage": { //错误页
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-page.onnx",
+				//"threshold": 0.893,
+				"expected": 1
+			}
+		},
+		"action": "Click"
+	},
+	"finishNode": { //用于跳回JumpBack的父节点、结束节点链等功能
+	},
+	"unattendedMode": { //开始无人值守吧！//被多个节点用于获取全屏实体矩形
+		"anchor": {
+			"afterStart": "detectPage",
+			"findAirportList": "detectAitportList"
+		},
+		"next": [
+			"startApp"
+		]
+	}
+}

@@ -1,0 +1,318 @@
+{
+	"option": {
+		"bribery": { //行动请求事件处理超时贿赂选项开关
+			"label": "$pi.task.option.bribery.name",
+			"description": "$pi.task.option.bribery.description",
+			"type": "switch",
+			"default_case": "Yes",
+			"cases": [
+				{
+					"name": "Yes",
+					"pipeline_override": {
+						"universalAction_bribeFlight": {
+							"enabled": true
+						}
+					}
+				},
+				{
+					"name": "No",
+					"pipeline_override": {
+						"universalAction_bribeFlight": {
+							"enabled": false
+						}
+					}
+				}
+			]
+		},
+		"enableTower": { //处理合同开启塔台选项
+			"type": "switch",
+			"default_case": "No",
+			"cases": [
+				{
+					"name": "Yes"
+				},
+				{
+					"name": "No"
+				}
+			]
+		},
+		"entryAirportIATA": {
+			"label": "$pi.task.option.entryAirportIATA.name",
+			"description": "$pi.task.option.entryAirportIATA.description",
+			"type": "select",
+			"default_case": "INN",
+			"cases": [
+				{
+					"name": "INN",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "INN"
+						},
+						"ocrAirportListIATA": {
+							"expected": "INN"
+						},
+						"selectTargetIATA": {
+							"expected": "INN"
+						}
+					}
+				},
+				{
+					"name": "BRI",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "BRI"
+						},
+						"ocrAirportListIATA": {
+							"expected": "BRI"
+						},
+						"selectTargetIATA": {
+							"expected": "BRI"
+						}
+					}
+				},
+				{
+					"name": "PRG",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "PRG"
+						},
+						"ocrAirportListIATA": {
+							"expected": "PRG"
+						},
+						"selectTargetIATA": {
+							"expected": "PRG"
+						}
+					}
+				},
+				{
+					"name": "IAD",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "IAD"
+						},
+						"ocrAirportListIATA": {
+							"expected": "IAD"
+						},
+						"selectTargetIATA": {
+							"expected": "IAD"
+						}
+					}
+				},
+				{
+					"name": "NGO",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "NGO"
+						},
+						"ocrAirportListIATA": {
+							"expected": "NGO"
+						},
+						"selectTargetIATA": {
+							"expected": "NGO"
+						}
+					}
+				},
+				{
+					"name": "SAN",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "SAN"
+						},
+						"ocrAirportListIATA": {
+							"expected": "SAN"
+						},
+						"selectTargetIATA": {
+							"expected": "SAN"
+						}
+					}
+				},
+				{
+					"name": "MCT",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "MCT"
+						},
+						"ocrAirportListIATA": {
+							"expected": "MCT"
+						},
+						"selectTargetIATA": {
+							"expected": "MCT"
+						}
+					}
+				},
+				{
+					"name": "LEJ",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "LEJ"
+						},
+						"ocrAirportListIATA": {
+							"expected": "LEJ"
+						},
+						"selectTargetIATA": {
+							"expected": "LEJ"
+						}
+					}
+				},
+				{
+					"name": "SXM",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "SXM"
+						},
+						"ocrAirportListIATA": {
+							"expected": "SXM"
+						},
+						"selectTargetIATA": {
+							"expected": "SXM"
+						}
+					}
+				},
+				{
+					"name": "LHR",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "LHR"
+						},
+						"ocrAirportListIATA": {
+							"expected": "LHR"
+						},
+						"selectTargetIATA": {
+							"expected": "LHR"
+						}
+					}
+				},
+				{
+					"name": "SYD",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "SYD"
+						},
+						"ocrAirportListIATA": {
+							"expected": "SYD"
+						},
+						"selectTargetIATA": {
+							"expected": "SYD"
+						}
+					}
+				},
+				{
+					"name": "BKK",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "BKK"
+						},
+						"ocrAirportListIATA": {
+							"expected": "BKK"
+						},
+						"selectTargetIATA": {
+							"expected": "BKK"
+						}
+					}
+				},
+				{
+					"name": "MSY",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "MSY"
+						},
+						"ocrAirportListIATA": {
+							"expected": "MSY"
+						},
+						"selectTargetIATA": {
+							"expected": "MSY"
+						}
+					}
+				},
+				{
+					"name": "GRU",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "GRU"
+						},
+						"ocrAirportListIATA": {
+							"expected": "GRU"
+						},
+						"selectTargetIATA": {
+							"expected": "GRU"
+						}
+					}
+				},
+				{
+					"name": "SCL",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "SCL"
+						},
+						"ocrAirportListIATA": {
+							"expected": "SCL"
+						},
+						"selectTargetIATA": {
+							"expected": "SCL"
+						}
+					}
+				},
+				{
+					"name": "HKG",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "HKG"
+						},
+						"ocrAirportListIATA": {
+							"expected": "HKG"
+						},
+						"selectTargetIATA": {
+							"expected": "HKG"
+						}
+					}
+				},
+				{
+					"name": "ZRH",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "ZRH"
+						},
+						"ocrAirportListIATA": {
+							"expected": "ZRH"
+						},
+						"selectTargetIATA": {
+							"expected": "ZRH"
+						}
+					}
+				},
+				{
+					"name": "CNN",
+					//"icon": "",
+					"pipeline_override": {
+						"ocrAirport_infoIATA": {
+							"expected": "CNN"
+						},
+						"ocrAirportListIATA": {
+							"expected": "CNN"
+						},
+						"selectTargetIATA": {
+							"expected": "CNN"
+						}
+					}
+				}
+			]
+		}
+	}
+}

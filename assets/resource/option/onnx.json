@@ -1,0 +1,212 @@
+{
+	"option": {
+		"ONNX": { //减少使用ONNX
+			"label": "$pi.task.option.ONNX.name",
+			"description": "$pi.task.option.ONNX.description",
+			"type": "select",
+			"default_case": "default",
+			"cases": [
+				{
+					"name": "default",
+					"label": "$pi.task.option.ONNX.default.name",
+					"description": "$pi.task.option.ONNX.default.description"
+				},
+				{
+					"name": "reduceONNX",
+					"label": "$pi.task.option.ONNX.reduceONNX.name",
+					"description": "$pi.task.option.ONNX.reduceONNX.description",
+					"pipeline_override": {
+						"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "Custom",
+								"param": {
+									"custom_recognition": "airlineCardListColorMatch",
+									"custom_recognition_param": {
+										"lower": [
+											13,
+											244,
+											222
+										],
+										"upper": [
+											35,
+											255,
+											244
+										]
+									}
+								}
+							}
+						},
+						"FindSlideBlock": { //指派地勤節點鏈,尋找slide塊，並滑動最大//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "ColorMatch",
+								"param": {
+									"method": 40,
+									"lower": [
+										62,
+										91,
+										229
+									],
+									"upper": [
+										84,
+										113,
+										251
+									],
+									"roi": "detectAssignCrewCard",
+									"count": 400,
+									"order_by": "Vertical",
+									"connected": true
+								}
+							}
+						},
+						"ClickRampAgentSwitch": { //指派地勤節點鏈,尋找並打開Ramp Agent//recognition由ONNX选项覆写//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "ColorMatch",
+								"param": {
+									"method": 40,
+									"lower": [
+										94,
+										45,
+										154
+									],
+									"upper": [
+										116,
+										67,
+										176
+									],
+									"roi": "detectAssignCrewCard",
+									"count": 300,
+									"order_by": "Vertical",
+									"connected": true
+								}
+							}
+						},
+						"universalAction_bribeFlight": { //检测是否存在开关例如需要贿赂的超时处理离场航班//默认贿赂需通过选项覆写//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "ColorMatch",
+								"param": {
+									"method": 40,
+									"lower": [
+										94,
+										45,
+										154
+									],
+									"upper": [
+										116,
+										67,
+										176
+									],
+									"roi": "detectFlight_info",
+									"count": 555,
+									"order_by": "Vertical",
+									"index": -1,
+									"connected": true
+								}
+							}
+						},
+						"actionRequiringSelectDeparture": { //选择departure//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "TemplateMatch",
+								"param": {
+									"method": 10001,
+									"threshold": 0.9,
+									"template": [
+										"离场航班.png"
+									]
+								}
+							}
+						},
+						"dailyUniqueContract.detectMenuButton": { //检测菜单按钮并点击//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "ColorMatch",
+								"param": {
+									"method": 40,
+									"lower": [
+										94,
+										145,
+										51
+									],
+									"upper": [
+										116,
+										167,
+										73
+									],
+									"count": 1500,
+									"order_by": "Vertical",
+									"connected": true
+								}
+							}
+						}
+					}
+				},
+				{
+					"name": "preferONNX",
+					"label": "$pi.task.option.ONNX.preferONNX.name",
+					"description": "$pi.task.option.ONNX.preferONNX.description",
+					"pipeline_override": {
+						"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									"threshold": 0.708,
+									"expected": 23
+								}
+							}
+						},
+						"FindSlideBlock": { //指派地勤節點鏈,尋找slide塊，並滑動最大//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									//"threshold": 0.708,
+									"expected": 0
+									//,"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
+								}
+							}
+						},
+						"ClickRampAgentSwitch": { //指派地勤節點鏈,尋找並打開Ramp Agent//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									//"threshold": 0.708,
+									"expected": 1
+									//,"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
+								}
+							}
+						},
+						"universalAction_bribeFlight": { //检测是否存在开关例如需要贿赂的超时处理离场航班//默认贿赂需通过选项覆写//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									"expected": 1
+								}
+							}
+						},
+						"actionRequiringSelectDeparture": { //选择departure//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									//"threshold": 0.708,
+									"expected": 26
+								}
+							}
+						},
+						"dailyUniqueContract.detectMenuButton": { //检测菜单按钮并点击//recognition由ONNX选项覆写
+							"recognition": {
+								"type": "NeuralNetworkDetect",
+								"param": {
+									"model": "WoA-widget.onnx",
+									//"threshold": 0.708,
+									"expected": 7
+								}
+							}
+						}
+					}
+				}
+			]
+		}
+	}
+}

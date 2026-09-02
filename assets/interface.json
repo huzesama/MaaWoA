@@ -1,11 +1,11 @@
 {
 	"interface_version": 2,
 	"languages": {
-		"zh_hans": "Languages/cn_hans.json" //,
-		//"zh_hant":"./languages/cn_hant.json",
-		//"en_us": "./languages/en_us.json"
+		"zh_hans": "Languages/zh_hans.json",
+		"zh_hant": "./languages/zh_hant.json",
+		"en_us": "./languages/en_us.json"
 	},
-	"icon": "resource/MaaWoA.png",
+	"icon": "resource/logo.png",
 	"name": "MaaWoA",
 	"label": "$pi.label",
 	//"title": "",//窗口标题，Client 会直接显示该内容，不添加其他修饰。可选，默认使用 name 和 version 拼接生成。
@@ -15,7 +15,7 @@
 	"welcome": "$pi.welcome",
 	// 填写项目地址和版本号可实现自动更新功能
 	"github": "https://github.com/huzesama/MaaWoA",
-	"version": "v0.0.1_beta1",
+	"version": "v0.0.1_202509021_prerelease",
 	// Mirror酱为第三方分发服务，新项目默认关闭
 	// 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
 	// "mirrorchyan_rid": "MaaXXX",
@@ -28,10 +28,7 @@
 			//"icon": "adb.png", // 控制器图标文件路径，相对于项目根目录
 			"type": "Adb",
 			"display_short_side": 720, // 默认缩放分辨率的短边长度，用于屏幕适配。与long_side二选一
-			"permission_required": false,
-			"attach_resource_path": [
-				"./resource_android"
-			]
+			"permission_required": false
 		},
 		{
 			"name": "Win32",
@@ -45,7 +42,10 @@
 				"mouse": "Seize",
 				"keyboard": "Seize",
 				"screencap": "FramePool"
-			}
+			},
+			"attach_resource_path": [
+				"./resource_desktop"
+			]
 		},
 		{
 			"name": "MacOS",
@@ -58,7 +58,10 @@
 			"macos": {
 				"input": "PostToPid",
 				"screencap": "ScreenCaptureKit"
-			}
+			},
+			"attach_resource_path": [
+				"./resource_desktop"
+			]
 		},
 		{
 			"name": "Linux",
@@ -67,7 +70,10 @@
 			//"icon": "adb.png", // 控制器图标文件路径，相对于项目根目录
 			"type": "WlRoots",
 			"display_short_side": 720, // 默认缩放分辨率的短边长度，用于屏幕适配。与long_side二选一
-			"permission_required": true
+			"permission_required": true,
+			"attach_resource_path": [
+				"./resource_desktop"
+			]
 		}
 	],
 	"resource": [
@@ -87,501 +93,72 @@
 	//     ]
 	// },
 	"task": [
-		{
+		{ //日常特殊入港
 			"name": "dailyUniqueArrival",
 			"label": "$pi.task.dailyUniqueArrival.name",
 			"entry": "unattendedMode",
 			"default_check": true,
 			"description": "$pi.task.dailyUniqueArrival.description",
 			"option": [
-				"acceptDailyUniqueContractsType"
-			]
+				//"enableTower",
+				"ONNX",
+				"acceptDailyUniqueContractsType",
+				"bribery"
+			],
+			"pipeline_override": {
+				"detectAirportSelectPage": { //更改只从列表选择
+					"next": [
+						"[Anchor]findAirportList",
+						"finishNode"
+					]
+				},
+				"detectAitportList": { //只更改选择方式
+					"next": [
+						"[JumpBack]resetAirportList", //该节点不含next
+						"dailyUniqueContract.detectUniqueAirport",
+						"dailyUniqueContract.selectUniqueAirport",
+						"dailyUniqueContract.detectAitportListEnd",
+						"finishNode"
+					]
+				},
+				"existAitportList": { //只更改选择方式
+					"next": [
+						"[JumpBack]resetAirportList", //该节点不含next
+						"dailyUniqueContract.detectUniqueAirport",
+						"dailyUniqueContract.selectUniqueAirport",
+						"dailyUniqueContract.detectAitportListEnd",
+						"finishNode"
+					]
+				},
+				"detectAirport_info": { //检测机场信息面板不再OCR IATA而是直接进入
+					"next": [
+						"entryAirport",
+						"finishNode"
+					]
+				}
+			}
 		},
-		{
+		{ //挂机
 			"name": "unattendedMode",
 			"label": "$pi.task.unattendedMode.name",
 			"entry": "unattendedMode",
 			"default_check": true,
 			"description": "$pi.task.unattendedMode.description",
 			"option": [
-				"entryAirportIATA"
+				//"enableTower",
+				"ONNX",
+				"entryAirportIATA",
+				"bribery"
 			]
 		},
-		{
+		{ //功能测试
 			"name": "test",
 			"label": "$pi.task.test.name",
 			"description": "$pi.task.test.description",
-			"entry": "testStartApp"
+			"entry": "test"
 		}
 	],
 	"option": {
-		"acceptDailyUniqueContractsType": { //每日特殊入港的处理方式
-			"label": "$pi.task.option.acceptDailyUniqueContractsType.name",
-			"description": "$pi.task.option.acceptDailyUniqueContractsType.description",
-			"type": "select",
-			"default_case": "acceptOnly",
-			"cases": [
-				{
-					"name": "acceptOnly",
-					"label": "$pi.task.option.acceptDailyUniqueContractsType.acceptOnly.name",
-					"pipeline_override": {
-						"detectAirportSelectPage": { //更改只从列表选择
-							"next": [
-								"detectAitportList",
-								"finishNode"
-							]
-						},
-						"detectAitportList": {
-							"next": [
-								"[JumpBack]resetAirportList", //该节点不含next
-								"dailyUniqueContract.detectUniqueAirport",
-								"dailyUniqueContract.selectUniqueAirport",
-								"dailyUniqueContract.detectAitportListEnd",
-								"finishNode"
-							]
-						},
-						"detectAirport_info": { //检测机场信息面板不再OCR IATA而是直接进入
-							"next": [
-								"entryAirport",
-								"finishNode"
-							]
-						},
-						"detectEntryAirportPage": { //从筛选器准备改为点击合同管理
-							"next": [
-								"dailyUniqueContract.detectDockerContractNotice",
-								"dailyUniqueContract.detectEntryAirportPage",
-								"finishNode"
-							]
-						}
-					}
-				},
-				{
-					"name": "threshold",
-					"label": "$pi.task.option.acceptDailyUniqueContractsType.threshold.name",
-					"option": [
-						//"dailyTaskTower",
-						"dailyUniqueContractsHandleThreshold"
-					],
-					"pipeline_override": {
-						"detectAirportSelectPage": { //更改只从列表选择
-							"next": [
-								"detectAitportList",
-								"finishNode"
-							]
-						},
-						"detectAitportList": {
-							"next": [
-								"[JumpBack]resetAirportList", //该节点不含next
-								"dailyUniqueContract.detectUniqueAirport",
-								"dailyUniqueContract.selectUniqueAirport",
-								"dailyUniqueContract.detectAitportListEnd",
-								"finishNode"
-							]
-						},
-						"detectAirport_info": { //检测机场信息面板不再OCR IATA而是直接进入
-							"next": [
-								"entryAirport",
-								"finishNode"
-							]
-						},
-						"dailyUniqueContract.exitContractPage": { //退出合同管理页后回退至父节点检测当前页面
-							"next": [
-								"[JumpBack]detectFilter",
-								"[JumpBack]dailyUniqueContract.entryHandleUnique",
-								"dailyUniqueContract.detectEntryAirportPage"
-							]
-						},
-						"detectEntryAirportPage": { //从筛选器准备改为点击合同管理，检测特殊入港合同数量阈值
-							"next": [
-								"dailyUniqueContract.detectDockerContractNotice",
-								"[JumpBack]detectFilter",
-								"[JumpBack]dailyUniqueContract.entryHandleUnique",
-								"dailyUniqueContract.detectEntryAirportPage",
-								"finishNode"
-							]
-						},
-						"filterReady": { //更改了next的顺序，并将loop action替换为continue Handle Unique
-							"next": [
-								"[JumpBack]detectFilter",
-								"[JumpBack]detectFilterArrivalButton",
-								"[JumpBack]detectFilterAirplaneOnAirportButton",
-								"[JumpBack]detectFilterDepartureButton",
-								"[JumpBack]detectFilterActionRequiringButton",
-								"[JumpBack]detectFilterUniqueButton",
-								"[JumpBack]detectFilterFavoriteButton",
-								"[JumpBack]dailyUniqueContract.continueHandleUnique",
-								"finishNode" //跳回dailyUniqueContract.entryHandleUnique节点
-							]
-						},
-						"detectFilterUniqueButton": { //更改为筛选特殊入港航班
-							"recognition": {
-								"type": "NeuralNetworkDetect",
-								"param": {
-									"model": "WoA-widget.onnx",
-									"threshold": 0.708,
-									"expected": 22
-								}
-							}
-						}
-					}
-				}
-			]
-		},
-		"dailyTaskTower": { //每日特殊入港任务的是否开启塔台选项
-			"type": "switch",
-			"default_case": "No",
-			"cases": [
-				{
-					"name": "Yes"
-				},
-				{
-					"name": "No"
-				}
-			]
-		},
-		"dailyUniqueContractsHandleThreshold": { //每日特殊入港处理方式阈值选项下的输入
-			"label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.name",
-			"type": "input",
-			"inputs": [
-				{
-					"name": "dailyUniqueContractsUpper",
-					"label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsUpper.name",
-					"description": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsUpper.description",
-					"default": "60",
-					"pipeline_type": "int",
-					"verify": "^\\d+$"
-				},
-				{
-					"name": "dailyUniqueContractsLower",
-					"label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsLower.name",
-					"description": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.dailyUniqueContractsLower.description",
-					"default": "10",
-					"pipeline_type": "int",
-					"verify": "^\\d+$"
-				}
-			],
-			"pipeline_override": {
-				"dailyUniqueContract.entryHandleUnique": { //主要更改阈值
-					"recognition": {
-						"type": "And",
-						"param": {
-							"all_of": [
-								"dailyUniqueContract.detectFilterUniqueBox",
-								{
-									"recognition": {
-										"type": "Custom",
-										"param": {
-											"custom_recognition": "dailyUniqueCompare",
-											"custom_recognition_param": {
-												"threshold": "{dailyUniqueContractsUpper}"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					"next": [
-						"filterReady",
-						"finishNode"
-					]
-				},
-				"dailyUniqueContract.continueHandleUnique": { //主要更改阈值
-					"recognition": {
-						"type": "Custom",
-						"param": {
-							"custom_recognition": "dailyUniqueCompare",
-							"custom_recognition_param": {
-								"threshold": "{dailyUniqueContractsLower}"
-							}
-						}
-					},
-					"next": [
-						"compareCrewUsed",
-						"[JumpBack]actionRequiringSelectDeparture",
-						"finishNode"
-					]
-				}
-			}
-		},
-		"entryAirportIATA": {
-			"label": "$pi.task.option.entryAirportIATA.name",
-			"description": "$pi.task.option.entryAirportIATA.description",
-			"type": "select",
-			"default_case": "INN",
-			"cases": [
-				{
-					"name": "INN",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "INN"
-						},
-						"ocrAirportListIATA": {
-							"expected": "INN"
-						},
-						"selectTargetIATA": {
-							"expected": "INN"
-						}
-					}
-				},
-				{
-					"name": "BRI",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "BRI"
-						},
-						"ocrAirportListIATA": {
-							"expected": "BRI"
-						},
-						"selectTargetIATA": {
-							"expected": "BRI"
-						}
-					}
-				},
-				{
-					"name": "PRG",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "PRG"
-						},
-						"ocrAirportListIATA": {
-							"expected": "PRG"
-						},
-						"selectTargetIATA": {
-							"expected": "PRG"
-						}
-					}
-				},
-				{
-					"name": "IAD",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "IAD"
-						},
-						"ocrAirportListIATA": {
-							"expected": "IAD"
-						},
-						"selectTargetIATA": {
-							"expected": "IAD"
-						}
-					}
-				},
-				{
-					"name": "NGO",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "NGO"
-						},
-						"ocrAirportListIATA": {
-							"expected": "NGO"
-						},
-						"selectTargetIATA": {
-							"expected": "NGO"
-						}
-					}
-				},
-				{
-					"name": "SAN",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "SAN"
-						},
-						"ocrAirportListIATA": {
-							"expected": "SAN"
-						},
-						"selectTargetIATA": {
-							"expected": "SAN"
-						}
-					}
-				},
-				{
-					"name": "MCT",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "MCT"
-						},
-						"ocrAirportListIATA": {
-							"expected": "MCT"
-						},
-						"selectTargetIATA": {
-							"expected": "MCT"
-						}
-					}
-				},
-				{
-					"name": "LEJ",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "LEJ"
-						},
-						"ocrAirportListIATA": {
-							"expected": "LEJ"
-						},
-						"selectTargetIATA": {
-							"expected": "LEJ"
-						}
-					}
-				},
-				{
-					"name": "SXM",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "SXM"
-						},
-						"ocrAirportListIATA": {
-							"expected": "SXM"
-						},
-						"selectTargetIATA": {
-							"expected": "SXM"
-						}
-					}
-				},
-				{
-					"name": "LHR",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "LHR"
-						},
-						"ocrAirportListIATA": {
-							"expected": "LHR"
-						},
-						"selectTargetIATA": {
-							"expected": "LHR"
-						}
-					}
-				},
-				{
-					"name": "SYD",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "SYD"
-						},
-						"ocrAirportListIATA": {
-							"expected": "SYD"
-						},
-						"selectTargetIATA": {
-							"expected": "SYD"
-						}
-					}
-				},
-				{
-					"name": "BKK",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "BKK"
-						},
-						"ocrAirportListIATA": {
-							"expected": "BKK"
-						},
-						"selectTargetIATA": {
-							"expected": "BKK"
-						}
-					}
-				},
-				{
-					"name": "MSY",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "MSY"
-						},
-						"ocrAirportListIATA": {
-							"expected": "MSY"
-						},
-						"selectTargetIATA": {
-							"expected": "MSY"
-						}
-					}
-				},
-				{
-					"name": "GRU",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "GRU"
-						},
-						"ocrAirportListIATA": {
-							"expected": "GRU"
-						},
-						"selectTargetIATA": {
-							"expected": "GRU"
-						}
-					}
-				},
-				{
-					"name": "SCL",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "SCL"
-						},
-						"ocrAirportListIATA": {
-							"expected": "SCL"
-						},
-						"selectTargetIATA": {
-							"expected": "SCL"
-						}
-					}
-				},
-				{
-					"name": "HKG",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "HKG"
-						},
-						"ocrAirportListIATA": {
-							"expected": "HKG"
-						},
-						"selectTargetIATA": {
-							"expected": "HKG"
-						}
-					}
-				},
-				{
-					"name": "ZRH",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "ZRH"
-						},
-						"ocrAirportListIATA": {
-							"expected": "ZRH"
-						},
-						"selectTargetIATA": {
-							"expected": "ZRH"
-						}
-					}
-				},
-				{
-					"name": "CNN",
-					//"icon": "",
-					"pipeline_override": {
-						"ocrAirport_infoIATA": {
-							"expected": "CNN"
-						},
-						"ocrAirportListIATA": {
-							"expected": "CNN"
-						},
-						"selectTargetIATA": {
-							"expected": "CNN"
-						}
-					}
-				}
-			]
-		},
 		"freezeCheck": {
 			"controller": [
 				"ADB"
@@ -612,34 +189,15 @@
 	},
 	"agent": [
 		{
-			"child_exec": "python", //crew用量对比
+			"child_exec": "python",
 			"child_args": [
-				"./agent/crewUsedCompare.py"
-			]
-		},
-		{
-			"child_exec": "python", //unique contracts判断
-			"child_args": [
-				"./agent/dailyUniqueCompare.py"
-			]
-		},
-		//{
-		//	"child_exec": "python", //画面冻结检测
-		//	"child_args": [
-		//		"./agent/freezeCheck.py"
-		//	]
-		//},
-		//{
-		//	"child_exec": "python", //相比内置的神经网络检测(IoM)，此逻辑采用IoU
-		//	"child_args": [
-		//		"./agent/onnxDetect.py"
-		//	]
-		//},
-		{
-			"child_exec": "python", //自定义swipe
-			"child_args": [
-				"./agent/swipe_inBoxByVector.py"
+				"./agent/main.py"
 			]
 		}
+	],
+	"import": [
+		"./resource/option/dailyUnique.json",
+		"./resource/option/base.json",
+		"./resource/option/onnx.json"
 	]
 }

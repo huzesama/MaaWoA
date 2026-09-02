@@ -1,0 +1,124 @@
+{
+	"detectFilter": { //默认打开过滤器
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 10
+			}
+		},
+		"action": "Click",
+		"focus": {
+			"Node.Node.Action.Starting": "$pipeline.loopAction.detectFilter.focus.action.Starting"
+		},
+		"next": [
+			"detectFilterActionRequiringButton",
+			"detectFilterArrivalButton",
+			"detectFilterAirplaneOnAirportButton",
+			"detectFilterDepartureButton",
+			"detectFilterFavoriteButton",
+			"detectFilterUniqueButton",
+			"finishNode"
+		]
+	},
+	"detectFilterActionRequiringButton": { //默认筛选行动事件
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 20
+			}
+		},
+		"action": "Click",
+		"focus": {
+			"Node.Node.Action.Starting": "$pipeline.loopAction.detectFilterActionRequiringButton.focus.action.Starting"
+		},
+		"next": [
+			"detectFilterArrivalButton",
+			"detectFilterAirplaneOnAirportButton",
+			"detectFilterDepartureButton",
+			"detectFilterFavoriteButton",
+			"detectFilterUniqueButton",
+			"finishNode"
+		]
+	},
+	"detectFilterArrivalButton": { //默认取消过滤到达航班
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 11
+			}
+		},
+		"action": "Click",
+		"next": [
+			"detectFilterAirplaneOnAirportButton",
+			"detectFilterDepartureButton",
+			"detectFilterFavoriteButton",
+			"detectFilterUniqueButton",
+			"finishNode"
+		]
+	},
+	"detectFilterAirplaneOnAirportButton": { //默认取消过滤在机场航班
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 13
+			}
+		},
+		"action": "Click",
+		"next": [
+			"detectFilterDepartureButton",
+			"detectFilterFavoriteButton",
+			"detectFilterUniqueButton",
+			"finishNode"
+		]
+	},
+	"detectFilterDepartureButton": { //默认取消过滤离场航班
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 15
+			}
+		},
+		"action": "Click",
+		"next": [
+			"detectFilterFavoriteButton",
+			"detectFilterUniqueButton",
+			"finishNode"
+		]
+	},
+	"detectFilterFavoriteButton": { //默认取消过滤喜爱航班
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 17
+			}
+		},
+		"action": "Click",
+		"next": [
+			"detectFilterUniqueButton",
+			"finishNode"
+		]
+	},
+	"detectFilterUniqueButton": { //默认取消过滤特殊入港航班
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-widget.onnx",
+				//"threshold": 0.708,
+				"expected": 21
+			}
+		},
+		"action": "Click"
+	}
+}

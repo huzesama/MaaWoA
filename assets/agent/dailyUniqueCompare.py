@@ -1,11 +1,7 @@
-import sys
-import json
-
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
-from maa.tasker import Tasker
-
+import json
 
 @AgentServer.custom_recognition("dailyUniqueCompare")
 class dailyUniqueCompare(CustomRecognition):
@@ -62,21 +58,3 @@ class dailyUniqueCompare(CustomRecognition):
 				box=None,
 				detail={"text": text, "value": value, "threshold": threshold}
 			)
-
-def main():
-	Tasker.set_log_dir("./debug")
-
-	if len(sys.argv) < 2:
-		print("Usage: python dailyUniqueCompare.py <socket_id>")
-		print("socket_id is provided by AgentIdentifier.")
-		exit(1)
-
-	socket_id = sys.argv[-1]
-
-	AgentServer.start_up(socket_id)
-	AgentServer.join()
-	AgentServer.shut_down()
-
-
-if __name__ == "__main__":
-	main()

@@ -4,11 +4,15 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				"threshold": 0.633,
+				//"threshold": 0.633,
 				"expected": 2
 			}
 		},
-		"post_wait_freezes": 500,
+		"post_wait_freezes": {
+			"method": 1,
+			"time": 200,
+			"rate_limit": 200
+		},
 		"action": "Click",
 		"target_offset": [
 			10,
@@ -21,7 +25,7 @@
 			"finishNode"
 		],
 		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.reconigtion.Succeeded"
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.recognition.Succeeded"
 		}
 	},
 	"dailyUniqueContract.detectUniqueAirport": { //在选择列表中检测特殊入港机场
@@ -34,7 +38,7 @@
 							"type": "NeuralNetworkDetect",
 							"param": {
 								"model": "WoA-card.onnx",
-								"threshold": 0.633,
+								//"threshold": 0.633,
 								"expected": 2
 							}
 						}
@@ -52,18 +56,26 @@
 				0,
 				"-20%"
 			],
-			"duration": 300,
-			"random_start": true
+			"duration": 500,
+			"random_start": true,
+			"target_offset": [
+				20,
+				0,
+				-40,
+				0
+			]
 		},
 		"post_wait_freezes": {
-			"time": 500,
+			"method": 1,
+			"time": 200,
 			"target": "detectAitportList",
 			"target_offset": [
 				0,
 				10,
 				0,
 				0
-			]
+			],
+			"rate_limit": 200
 		},
 		"next": [
 			"dailyUniqueContract.detectUniqueAirport",
@@ -89,7 +101,7 @@
 		},
 		"action": "StopTask",
 		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectAitportListEnd.focus.reconigtion.Succeeded"
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectAitportListEnd.focus.recognition.Succeeded"
 		}
 	},
 	"dailyUniqueContract.detectFilterUniqueBox": { //检测过滤器的特殊入港筛选按钮位置
@@ -97,7 +109,7 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				"threshold": 0.708,
+				//"threshold": 0.708,
 				"expected": [
 					21,
 					22
@@ -143,11 +155,10 @@
 			}
 		},
 		"next": [
-			"filterReady",
-			"finishNode"
+			"startLoopAction"
 		],
 		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.entryHandleUnique.focus.reconigtion.Succeeded"
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.entryHandleUnique.focus.recognition.Succeeded"
 		}
 	},
 	"dailyUniqueContract.continueHandleUnique": { //判断是否继续特殊入港处理的节点//filterUniquePressed需要强化学习
@@ -163,6 +174,7 @@
 		"next": [
 			"compareCrewUsed",
 			"[JumpBack]actionRequiringSelectDeparture",
+			"[JumpBack]detectContractUpgradeCard",
 			"finishNode"
 		]
 	}

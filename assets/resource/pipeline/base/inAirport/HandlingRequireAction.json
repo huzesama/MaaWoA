@@ -1,0 +1,535 @@
+{
+	"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+		"recognition": {
+			"type": "Or",
+			"param": {
+				"any_of": [
+					{
+						"recognition": {
+							"type": "Custom",
+							"param": {
+								"custom_recognition": "airlineCardListColorMatch",
+								"custom_recognition_param": {
+									"lower": [
+										13,
+										244,
+										222
+									],
+									"upper": [
+										35,
+										255,
+										244
+									]
+								}
+							}
+						}
+					},
+					{
+						"recognition": {
+							"type": "NeuralNetworkDetect",
+							"param": {
+								"model": "WoA-widget.onnx",
+								"threshold": 0.708,
+								"expected": 23
+							}
+						}
+					}
+				]
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "finishNode" //在CheckHandlingPass节点被分配的anchor被前置节点使用后立即清除
+		},
+		"action": "Click",
+		"next": [
+			"detectFlight_info", //检测航班信息面板
+			"finishNode"
+			//"[JumpBack]isFreezeOrNot"
+		]
+	},
+	"detectFlight_info": { //指派地勤節點鏈,等待FlightCard面板出现
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-card.onnx",
+				//"threshold": 0.633,
+				"expected": 8
+			}
+		},
+		"next": [
+			"detectAssignCrewCard", //尋找AssignCrew面板
+			"detetctStandSelectCard", //尋找standSelect面板
+			"universalAction_bribeFlight", //其它通用的actionRequire先检查有没有开关
+			"universalAction", //其它通用的actionRequire
+			"finishNode"
+		]
+	},
+	"detectAssignCrewCard": { //指派地勤節點鏈,檢測AssignCrew面板
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-card.onnx",
+				//"threshold": 0.633,
+				"expected": 9
+			}
+		},
+		"next": [
+			"FindSlideBlock",
+			"finishNode"
+		]
+	},
+	"FindSlideBlock": { //指派地勤節點鏈,尋找slide塊，並滑動最大//recognition由ONNX选项覆写
+		"recognition": {
+			"type": "Or",
+			"param": {
+				"any_of": [
+					{
+						"recognition": {
+							"type": "ColorMatch",
+							"param": {
+								"method": 40,
+								"lower": [
+									62,
+									91,
+									229
+								],
+								"upper": [
+									84,
+									113,
+									251
+								],
+								"roi": "detectAssignCrewCard",
+								"count": 400,
+								"order_by": "Vertical",
+								"connected": true
+							}
+						}
+					},
+					{
+						"recognition": {
+							"type": "NeuralNetworkDetect",
+							"param": {
+								"model": "WoA-widget.onnx",
+								//"threshold": 0.708,
+								"expected": 0
+								//,"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
+							}
+						}
+					}
+				]
+			}
+		},
+		"next": [
+			"MaxCrew",
+			"finishNode"
+		]
+	},
+	"MaxCrew": { //将crew分配至最大
+		"action": {
+			"type": "Swipe",
+			"param": {
+				"begin": "FindSlideBlock", //找到的滑块位置
+				"end": "actionRequiringSelect", //选择的flight Card action requiring位置
+				"duration": 200
+			}
+		},
+		"next": [
+			"ClickRampAgentSwitch",
+			"finishNode"
+		]
+	},
+	"ClickRampAgentSwitch": { //指派地勤節點鏈,尋找並打開Ramp Agent//recognition由ONNX选项覆写
+		"recognition": {
+			"type": "Or",
+			"param": {
+				"any_of": [
+					{
+						"recognition": {
+							"type": "ColorMatch",
+							"param": {
+								"method": 40,
+								"lower": [
+									94,
+									45,
+									154
+								],
+								"upper": [
+									116,
+									67,
+									176
+								],
+								"roi": "detectAssignCrewCard",
+								"count": 300,
+								"order_by": "Vertical",
+								"connected": true
+							}
+						}
+					},
+					{
+						"recognition": {
+							"type": "NeuralNetworkDetect",
+							"param": {
+								"model": "WoA-widget.onnx",
+								//"threshold": 0.708,
+								"expected": 1
+								//,"roi": "detectAssignCrewCard" //在AssignCrew面板检测slide block
+							}
+						}
+					}
+				]
+			}
+		},
+		"action": "Click",
+		"next": [
+			"CheckHandlingPass",
+			"updateCrewUsed",
+			"finishNode"
+		]
+	},
+	"textBinarization": {
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					81,
+					38,
+					25
+				],
+				"upper": [
+					129,
+					180,
+					177
+				]
+			}
+		}
+	},
+	"CheckHandlingPass": {
+		"recognition": {
+			"type": "And",
+			"param": {
+				"all_of": [
+					{
+						"recognition": {
+							"type": "Or",
+							"param": {
+								"any_of": [
+									{
+										"recognition": {
+											"type": "TemplateMatch",
+											"param": {
+												"method": 10001,
+												"threshold": 0.9,
+												"template": [
+													"timeLimited(Pass)_GreenMask.png"
+												],
+												"roi": "detectFlight_info",
+												"green_mask": true
+											}
+										}
+									},
+									{
+										"recognition": {
+											"type": "NeuralNetworkDetect",
+											"param": {
+												"model": "WoA-widget.onnx",
+												//"threshold": 0.708,
+												"expected": 38
+												//"roi": "detectFlight_info"
+											}
+										}
+									}
+								]
+							}
+						}
+					},
+					{
+						"recognition": { //检查rampAgent是否启用
+							"type": "OCR",
+							"param": {
+								"expected": "\\+1",
+								"roi": "detectFlight_info",
+								"color_filter": "textBinarization"
+							}
+						}
+					}
+				]
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "actionRequiringSelect"
+		}, //成功处理后再次进入随机选择
+		"next": [
+			"clickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"detetctStandSelectCard": { //机位分配的节点链，等待stand select面板
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-card.onnx",
+				//"threshold": 0.633,
+				"expected": 10
+			}
+		},
+		"next": [
+			"selectStandAvailable",
+			"finishNode"
+		]
+	},
+	"selectStandAvailable": { //選擇可用的stand
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					93,
+					19,
+					192
+				],
+				"upper": [
+					115,
+					41,
+					214
+				],
+				"count": 3000,
+				"order_by": "Area",
+				"connected": true,
+				"roi": "detetctStandSelectCard"
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "clickFlight_infoYellowButtonAgain"
+		},
+		"action": "Click",
+		"next": [
+			"clickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"universalAction": { //指派地勤行動外的節點鏈
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "detectContractUpgradeCard"
+		},
+		"next": [
+			"clickFlight_infoYellowButton",
+			"detectContractUpgradeCard",
+			"finishNode"
+		]
+	},
+	"universalAction_bribeFlight": { //检测是否存在开关例如需要贿赂的超时处理离场航班//enabled由bribery选项覆写//recognition由ONNX选项覆写
+		"recognition": {
+			"type": "Or",
+			"param": {
+				"any_of": [
+					{
+						"recognition": {
+							"type": "ColorMatch",
+							"param": {
+								"method": 40,
+								"lower": [
+									94,
+									45,
+									154
+								],
+								"upper": [
+									116,
+									67,
+									176
+								],
+								"roi": "detectFlight_info",
+								"count": 555,
+								"order_by": "Vertical",
+								"index": -1,
+								"connected": true
+							}
+						}
+					},
+					//{
+					//	"recognition": {
+					//		"type": "TemplateMatch",
+					//		"param": {
+					//			"method": 10001,
+					//			"threshold": 0.9,
+					//			"template": [
+					//				"开关（关）.png"
+					//			],
+					//			"roi": "detectFlight_info"
+					//		}
+					//	}
+					//},
+					{
+						"recognition": {
+							"type": "NeuralNetworkDetect",
+							"param": {
+								"model": "WoA-widget.onnx",
+								//"threshold": 0.708,
+								"expected": 1
+								//,"roi": "detectFlight_info"
+							}
+						}
+					}
+				]
+			}
+		},
+		"action": "Click",
+		"next": [
+			"universalAction"
+		]
+	},
+	"clickFlight_infoYellowButton": { //click flight info card button
+		"recognition": {
+			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 5000,
+				"order_by": "Area",
+				"connected": true,
+				"roi": "detectFlight_info"
+			}
+		},
+		"action": "Click",
+		"next": [
+			"[JumpBack]detectLoadingPage",
+			"[Anchor]afterClickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"clickFlight_infoYellowButtonAgain": { //分配机位后再次点击
+		"recognition": {
+			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 5000,
+				"order_by": "Area",
+				"connected": true,
+				//"model": "WoA-widget.onnx",
+				////"threshold": 0.708,
+				//"expected": 4,
+				"roi": "detectFlight_info"
+			}
+		},
+		"action": "Click",
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "finishNode" //在selectStandAvailable节点被分配的anchor被前置节点使用后立即清除
+		}
+	},
+	"detectContractUpgradeCard": { //檢測是否是延續升級合同的卡片
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-card.onnx",
+				//"threshold": 0.633,
+				"expected": 11
+			}
+		},
+		"anchor": {
+			"afterClickFlight_infoYellowButton": "finishNode" //在UniversalAction节点被分配的anchor被前置节点使用后立即清除
+		},
+		"next": [
+			"[JumpBack]detectLoadingPage",
+			"clickContractUpgradeCardYellowButton",
+			"finishNode"
+		]
+	},
+	"clickContractUpgradeCardYellowButton": { //click Contract Upgrade Card button
+		"recognition": {
+			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 5000,
+				"order_by": "Area",
+				"connected": true,
+				//"model": "WoA-widget.onnx",
+				////"threshold": 0.708,
+				//"expected": 4,
+				"roi": "detectContractUpgradeCard"
+			}
+		},
+		"action": "Click",
+		"next": [
+			"waitContractUpgradeCardDisappear"
+		]
+	},
+	"waitContractUpgradeCardDisappear": {
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-card.onnx",
+				//"threshold": 0.633,
+				"expected": 11
+			}
+		},
+		"inverse": true
+	},
+	"actionRequiringSelectDeparture": { //选择departure//recognition由ONNX选项覆写
+		"recognition": {
+			"type": "Or",
+			"param": {
+				"any_of": [
+					{
+						"recognition": {
+							"type": "TemplateMatch",
+							"param": {
+								"method": 10001,
+								"threshold": 0.9,
+								"template": [
+									"离场航班.png"
+								]
+							}
+						}
+					},
+					{
+						"recognition": {
+							"type": "NeuralNetworkDetect",
+							"param": {
+								"model": "WoA-widget.onnx",
+								//"threshold": 0.708,
+								"expected": 26
+							}
+						}
+					}
+				]
+			}
+		},
+		"action": "Click",
+		"next": [
+			"universalAction_bribeFlight",
+			"universalAction"
+		]
+	}
+}

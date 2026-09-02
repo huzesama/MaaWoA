@@ -4,16 +4,22 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				"threshold": 0.708,
+				//"threshold": 0.708,
 				"expected": 41
 			}
 		},
+		"target_offset": [
+			10,
+			10,
+			-20,
+			-20
+		],
 		"action": "Click",
 		"next": [
 			"dailyUniqueContract.detectContractPage"
 		],
 		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectDockerContractNotice.focus.reconigtion.Succeeded"
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectDockerContractNotice.focus.recognition.Succeeded"
 		}
 	},
 	"dailyUniqueContract.detectContractPage": { //检测合同管理页
@@ -21,51 +27,62 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				"threshold": 0.893,
+				//"threshold": 0.893,
 				"expected": 7
 			}
 		},
 		"next": [
-			"dailyUniqueContract.detectUniqueContractOffers",
+			"[JumpBack]dailyUniqueContract.detectUniqueContractOffers",
 			"dailyUniqueContract.exitContractPage"
 		]
 	},
-	"dailyUniqueContract.detectUniqueContractOffers": { //检测特殊入港合同
+	"dailyUniqueContract.detectUniqueContractOffers": { //检测特殊入港合同卡片
 		"recognition": {
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				"threshold": 0.633,
+				//"threshold": 0.633,
 				"expected": 19
 			}
 		},
 		"next": [
-			"dailyUniqueContract.acceptDailyUniqueContract"
+			"dailyUniqueContract.acceptDailyUniqueContract",
+			"dailyUniqueContract.detectContractAcceptConfirmCard"
 		],
 		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectUniqueContractOffers.focus.reconigtion.Succeeded"
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectUniqueContractOffers.focus.recognition.Succeeded"
 		}
 	},
 	"dailyUniqueContract.acceptDailyUniqueContract": { //点击接受合同
 		"recognition": {
 			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
-			"type": "TemplateMatch",
+			"type": "ColorMatch",
 			"param": {
-				"template": "Button_0_GreenMask.png",
-				"green_mask": true,
-				"method": 10001,
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 3000,
+				"order_by": "Area",
+				"connected": true,
 				//"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
+				////"threshold": 0.708,
 				//"expected": 4,
 				"roi": "dailyUniqueContract.detectUniqueContractOffers"
 			}
 		},
-		"post_delay": 1000,
 		"action": "Click",
+		"post_delay": 500,
 		"next": [
 			"dailyUniqueContract.detectContractAcceptConfirmCard",
-			"dailyUniqueContract.detectUniqueContractOffers",
-			"dailyUniqueContract.exitContractPage"
+			"finishNode"
 		],
 		"focus": {
 			"Node.Action.Starting": "$pipeline.dailyUniqueContract.acceptDailyUniqueContract.focus.action.Starting"
@@ -76,7 +93,7 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				"threshold": 0.633,
+				//"threshold": 0.633,
 				"expected": 17
 			}
 		},
@@ -87,13 +104,24 @@
 	"dailyUniqueContract.acceptDailyUniqueContractConfirm": { //点击确认
 		"recognition": {
 			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
-			"type": "TemplateMatch",
+			"type": "ColorMatch",
 			"param": {
-				"template": "Button_0_GreenMask.png",
-				"green_mask": true,
-				"method": 10001,
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 3000,
+				"order_by": "Area",
+				"connected": true,
 				//"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
+				////"threshold": 0.708,
 				//"expected": 4,
 				"roi": "dailyUniqueContract.detectContractAcceptConfirmCard"
 			}
@@ -101,17 +129,27 @@
 		"action": "Click",
 		"next": [
 			"[JumpBack]detectLoadingPage",
-			"dailyUniqueContract.detectUniqueContractOffers",
-			"dailyUniqueContract.exitContractPage"
+			"finishNode"
 		]
 	},
 	"dailyUniqueContract.exitContractPage": { //退出合同管理
 		"recognition": {
-			"type": "NeuralNetworkDetect",
+			"type": "ColorMatch",
 			"param": {
-				"model": "WoA-widget.onnx",
-				"threshold": 0.708,
-				"expected": 5
+				"method": 40,
+				"lower": [
+					94,
+					145,
+					51
+				],
+				"upper": [
+					116,
+					167,
+					73
+				],
+				"connected": true,
+				"order_by": "Horizontal",
+				"count": 1000
 			}
 		},
 		"action": "Click",
@@ -127,7 +165,7 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				"threshold": 0.893,
+				//"threshold": 0.893,
 				"expected": 5
 			}
 		},
@@ -135,21 +173,59 @@
 			"dailyUniqueContract.detectMenuButton"
 		],
 		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectEntryAirportPage.focus.reconigtion.Succeeded"
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectEntryAirportPage.focus.recognition.Succeeded"
 		}
 	},
-	"dailyUniqueContract.detectMenuButton": { //检测菜单按钮并点击
+	"dailyUniqueContract.detectMenuButton": { //检测菜单按钮并点击//recognition由ONNX选项覆写
 		"recognition": {
-			"type": "NeuralNetworkDetect",
+			"type": "Or",
 			"param": {
-				"model": "WoA-widget.onnx",
-				"threshold": 0.708,
-				"expected": 7
+				"any_of": [
+					{
+						"recognition": {
+							"type": "ColorMatch",
+							"param": {
+								"method": 40,
+								"lower": [
+									94,
+									145,
+									51
+								],
+								"upper": [
+									116,
+									167,
+									73
+								],
+								"count": 1500,
+								"order_by": "Vertical",
+								"connected": true
+							}
+						}
+					},
+					{
+						"recognition": {
+							"type": "NeuralNetworkDetect",
+							"param": {
+								"model": "WoA-widget.onnx",
+								//"threshold": 0.708,
+								"expected": 7
+							}
+						}
+					}
+				]
 			}
 		},
 		"action": "Click",
+		"target_offset": [
+			10,
+			10,
+			-20,
+			-20
+		],
+		"post_delay": 500,
 		"next": [
-			"dailyUniqueContract.detectMenu"
+			"dailyUniqueContract.detectMenu",
+			"finishNode"
 		]
 	},
 	"dailyUniqueContract.detectMenu": { //检测菜单界面
@@ -157,7 +233,7 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				"threshold": 0.633,
+				//"threshold": 0.633,
 				"expected": 13
 			}
 		},
@@ -168,19 +244,26 @@
 	"dailyUniqueContract.exitEntryAirportPage": { //更换机场，后续如果出现进入图鉴的情况需要优化训练，并增加通过roi_offset进行target检查
 		"recognition": {
 			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
-			"type": "TemplateMatch",
+			"type": "ColorMatch",
 			"param": {
-				"template": "Button_0_GreenMask.png",
-				"green_mask": true,
-				"method": 10001,
-				//"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
-				//"expected": 4,
-				"roi": "dailyUniqueContract.detectMenu",
-				"order_by": "Vertical"
+				"method": 40,
+				"lower": [
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
+				],
+				"count": 5000,
+				"order_by": "Vertical",
+				"connected": true,
+				"roi": "dailyUniqueContract.detectMenu"
 			}
 		},
-		"post_delay": 2000,
+		"post_delay": 500,
 		"action": "Click"
 	}
 }
