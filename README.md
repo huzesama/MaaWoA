@@ -45,7 +45,7 @@ Powered by [MaaFramework](https://github.com/MaaXYZ/MaaFramework) & [MFAAvalonia
 
 ## 💖 贡献者
 
-[![贡献者](https://contrib.rocks/image?repo=MaaEnd/MaaEnd&max=1000)](https://github.com/huzesama/MaaWoA/graphs/contributors)
+[![贡献者](https://contrib.rocks/image?repo=huzesama/MaaWoA&max=1000)](https://github.com/huzesama/MaaWoA/graphs/contributors)
 
 ## 💬 加入社区
 
