@@ -1,0 +1,86 @@
+{
+	"__cacheFlight_infoCard__": { //缓存航班详细信息卡片
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "roiManager",
+				"custom_recognition_param": {
+					"roi_name": "__cacheFlight_infoCard__",
+					"model": "WoA-card.onnx",
+					"expected": 8
+				}
+			}
+		},
+		"max_hit": 1
+	},
+	"__cacheAssignCrewCard__": { //缓存分配地勤卡片
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "roiManager",
+				"custom_recognition_param": {
+					"roi_name": "__cacheAssignCrewCard__",
+					"model": "WoA-card.onnx",
+					"expected": 9
+				}
+			}
+		},
+		"max_hit": 1
+	},
+	"__cacheStandSelectCard__": { //缓存机位选择卡片
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "roiManager",
+				"custom_recognition_param": {
+					"roi_name": "__cacheStandSelectCard__",
+					"model": "WoA-card.onnx",
+					"expected": 10
+				}
+			}
+		},
+		"max_hit": 1
+	},
+	"__cacheContractUpgradeCard__": { //缓存合同延续升级卡片
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "roiManager",
+				"custom_recognition_param": {
+					"roi_name": "__cacheContractUpgradeCard__",
+					"model": "WoA-card.onnx",
+					"expected": 11
+				}
+			}
+		},
+		"max_hit": 1
+	},
+	"__cacheAssignCrewCardRampAgentSwitch__": { //缓存分配地勤卡片上的ramp agent开关
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "roiManager",
+				"custom_recognition_param": {
+					"roi_name": "__cacheAssignCrewCardRampAgentSwitch__",
+					"model": "WoA-widget.onnx",
+					"expected": 1
+				}
+			}
+		},
+		"max_hit": 1
+	},
+	"__cacheAirportSelectList__": { //缓存机场选择列表
+		"recognition": {
+			"type": "Custom",
+			"param": {
+				"custom_recognition": "roiManager",
+				"custom_recognition_param": {
+					"roi_name": "__cacheAirportSelectList__",
+					"model": "WoA-card.onnx",
+					"expected": 1
+				}
+			}
+		},
+		"max_hit": 1
+	}
+}

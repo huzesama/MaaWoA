@@ -25,24 +25,26 @@ class swipe_inBoxByVector(CustomAction):
 		context: Context,
 		argv: CustomAction.RunArg,
 	) -> bool:
-		# 解析 pipeline 里传入的 custom_action_param（JSON 字符串）
-		param = json.loads(argv.custom_action_param or "{}")
+		# 解析 pipeline 里传入的 custom_action_params（JSON 字符串）
+		try:
+			params = json.loads(argv.custom_action_param or "{}")
+		except json.JSONDecodeError:
+			params = {}
 
 		# 要取哪个节点命中的 box；不传则使用当前动作节点自身的识别结果
-		target_node = param.get("node_name")
+		target_node = params.get("node_name")
 		# 滑动向量 [dx, dy]，可以是 int（像素）或 "xx%"（box 边长的百分比）
-		vector = param.get("vector", [0, 0])
+		vector = params.get("vector", [0, 0])
 		# 滑动耗时（毫秒）
-		duration = param.get("duration", 200)
+		duration = params.get("duration", 200)
 		# 起点是否在 box 内随机取一点，默认 False（取 box 中心）
-		random_start = param.get("random_start", False)
+		random_start = params.get("random_start", False)
 		# 坐标偏移
-		target_offset = param.get("target_offset", [0,0,0,0])
+		target_offset = params.get("target_offset", [0,0,0,0])
 
 		if target_node:
 			node_detail = context.tasker.get_latest_node(target_node)
 			if not node_detail or not node_detail.recognition or not node_detail.recognition.best_result:
-				print(f"[SwipeByVector] 节点 '{target_node}' 没有识别结果")
 				return False
 			
 			box = node_detail.recognition.box
@@ -52,7 +54,6 @@ class swipe_inBoxByVector(CustomAction):
 		print(f"box:'{box}'")
 		if not box:
 			# 没有可用的 box，直接返回失败
-			print(f"[SwipeByVector] 节点 '{target_node}' 没有框坐标")
 			return False
 
 		ox, oy, ow, oh = target_offset

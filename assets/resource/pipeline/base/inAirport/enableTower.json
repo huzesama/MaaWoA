@@ -4,7 +4,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 40
 			}
 		},
@@ -19,7 +18,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 14
 			}
 		},
@@ -33,7 +31,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 42
 			}
 		},
@@ -49,7 +46,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 16,
 				"roi": "detectTowerControlEntry"
 			}
@@ -64,7 +60,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 4,
 				"roi": "detectTowerControlCard"
 			}
@@ -81,7 +76,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 15
 			}
 		},
@@ -95,7 +89,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 4,
 				"roi": "detectTowerControlConfirmCard"
 			}
@@ -112,7 +105,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 5
 			}
 		},

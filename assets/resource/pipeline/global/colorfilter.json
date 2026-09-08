@@ -1,0 +1,20 @@
+{
+	"textBinarization": { //全局适用，引用：crewUsedCompare
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					81,
+					38,
+					25
+				],
+				"upper": [
+					129,
+					180,
+					177
+				]
+			}
+		}
+	}
+}

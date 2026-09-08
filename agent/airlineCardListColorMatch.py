@@ -38,7 +38,7 @@ class airlineCardListColorMatch(CustomRecognition):
 			new_y = 0
 			new_h = img_h
 			self._cached_rect = (x, new_y, w, new_h)
-			print(f'[airlineCardListColorMatch]: 缓存航班卡片列表box{self._cached_rect}')
+			print(f'[airlineCardList]: 缓存航班卡片列表box{self._cached_rect}')
 
 		x, y, w, h = self._cached_rect
 
@@ -48,6 +48,7 @@ class airlineCardListColorMatch(CustomRecognition):
 			method=param.get("method", 40),
 			lower=param.get("lower"),
 			upper=param.get("upper"),
+			count=param.get("count"),
 			order_by=param.get("order_by", "Random"),
 			connected=param.get("connected", True),
 			roi = (x, y, w, h),

@@ -1,5 +1,5 @@
 {
-	"detectPage": { //检测当前所在页面
+	"detectPage": { //检测当前所在页面//next列表由base选项unknownPageWaitting覆盖
 		"anchor": {
 			"afterStart": "finishNode"
 		},
@@ -17,7 +17,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 5
 			}
 		},
@@ -31,13 +30,12 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 4
 			}
 		},
 		"next": [
 			"detectAirport_info",
-			"[Anchor]findAirportList"
+			"detectAitportList"
 		]
 	},
 	"detectHomePage": { //检测主页
@@ -45,7 +43,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 2
 			}
 		},
@@ -59,7 +56,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 0
 			}
 		},
@@ -76,7 +72,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 0
 			}
 		},
@@ -87,18 +82,14 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 1
 			}
 		},
 		"action": "Click"
 	},
-	"finishNode": { //用于跳回JumpBack的父节点、结束节点链等功能
-	},
 	"unattendedMode": { //开始无人值守吧！//被多个节点用于获取全屏实体矩形
 		"anchor": {
-			"afterStart": "detectPage",
-			"findAirportList": "detectAitportList"
+			"afterStart": "detectPage"
 		},
 		"next": [
 			"startApp"

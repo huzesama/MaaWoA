@@ -15,7 +15,7 @@
 	"welcome": "$pi.welcome",
 	// 填写项目地址和版本号可实现自动更新功能
 	"github": "https://github.com/huzesama/MaaWoA",
-	"version": "v0.0.1_202509021_prerelease",
+	"version": "v0.0.1_beta(202509081)",
 	// Mirror酱为第三方分发服务，新项目默认关闭
 	// 若有需要请联系 Mirror酱 开通，直接自行开启是无法使用的
 	// "mirrorchyan_rid": "MaaXXX",
@@ -101,6 +101,7 @@
 			"description": "$pi.task.dailyUniqueArrival.description",
 			"option": [
 				//"enableTower",
+				"unknownPageWaitting",
 				"ONNX",
 				"acceptDailyUniqueContractsType",
 				"bribery"
@@ -108,20 +109,11 @@
 			"pipeline_override": {
 				"detectAirportSelectPage": { //更改只从列表选择
 					"next": [
-						"[Anchor]findAirportList",
+						"detectAitportList",
 						"finishNode"
 					]
 				},
 				"detectAitportList": { //只更改选择方式
-					"next": [
-						"[JumpBack]resetAirportList", //该节点不含next
-						"dailyUniqueContract.detectUniqueAirport",
-						"dailyUniqueContract.selectUniqueAirport",
-						"dailyUniqueContract.detectAitportListEnd",
-						"finishNode"
-					]
-				},
-				"existAitportList": { //只更改选择方式
 					"next": [
 						"[JumpBack]resetAirportList", //该节点不含next
 						"dailyUniqueContract.detectUniqueAirport",
@@ -146,6 +138,7 @@
 			"description": "$pi.task.unattendedMode.description",
 			"option": [
 				//"enableTower",
+				"unknownPageWaitting",
 				"ONNX",
 				"entryAirportIATA",
 				"bribery"

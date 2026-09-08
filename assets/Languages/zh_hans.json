@@ -14,6 +14,8 @@
 	"pi.task.unattendedMode.description": "目前较为粗糙的无人挂机自动操作，仅支持接管处理所有行动请求事件（行动请求筛选器过滤后显示的所有航班卡片）",
 	"pi.task.test.name": "功能测试任务",
 	"pi.task.test.description": "开发者保留的任务入口且需在开发环境配置的任务，正常用户请忽略",
+	"pi.task.option.unknownPageWaitting.name": "未知页面等待",
+	"pi.task.option.unknownPageWaitting.description": "当不在可识别操作的界面时进行等待。如果关闭选项则会重启游戏。",
 	"pi.task.option.ONNX.name": "神经网络检测",
 	"pi.task.option.ONNX.description": "在本地运行的深度学习识别模型",
 	"pi.task.option.ONNX.default.name": "自动回退",

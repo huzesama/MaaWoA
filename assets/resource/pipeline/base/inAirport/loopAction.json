@@ -1,12 +1,11 @@
 {
 	"startLoopAction": { //开始行动请求的处理循环
-		"rate_limit": 2048,
 		"next": [
 			"[JumpBack]cacheCrewUsedBox", //max_hit=1
 			"[JumpBack]compareCrewUsed",
 			"[JumpBack]detectFilter", //过滤器筛选的准备
 			"actionRequiringSelectDeparture",
-			"finishNode" //跳回detectPage节点
+			"finishWithDelay" //跳回detectPage节点
 		]
 	}
 	//"extandTower":{}

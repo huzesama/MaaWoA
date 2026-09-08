@@ -22,10 +22,17 @@ class crewUsedCompare(CustomRecognition):
 			param = {}  
 		update_cache = param.get("update_cache", True)
 
-		# 走内置 OCR 识别当前画面
 		reco_detail = context.run_recognition(
-			"crewUsedOCR",  # pipeline.json 中定义的 OCR 节点
+			"__crewUsedCompareOCR__",
 			argv.image,
+			pipeline_override={
+				"__crewUsedCompareOCR__": {
+					"recognition":"OCR",
+					"only_rec": True,
+					"roi": "cacheCrewUsedBox",
+					"replace": ["\\|","/"],
+				}
+			}
 		)
 
 		current_ocr_crew_used = ""
@@ -40,11 +47,14 @@ class crewUsedCompare(CustomRecognition):
 			#context.override_next(argv.node_name, ["NodeB"])#不相等则使recognition命中
 			_return_box_=reco_detail.box if reco_detail and reco_detail.hit else (0, 0, 0, 0)
 
-		print(f'[crewUsedCompared]: 当前地勤用量： {current_ocr_crew_used}  缓存地勤用量: {_last_ocr_crew_used} 更新缓存选项: {update_cache} box:{_return_box_}')
-
 		# 仅当 update_cache 为 True 时才更新缓存
 		if update_cache:
-			_last_ocr_crew_used = current_ocr_crew_used
+			if not current_ocr_crew_used:
+				print(f'[crewUsedCompared]: handling busy reco. Last cache Crew: {_last_ocr_crew_used}  update cache Crew: reco faild.')
+				_last_ocr_crew_used = "???/???"
+			else:
+				print(f'[crewUsedCompared]: handling busy reco. Last cache Crew: {_last_ocr_crew_used}  update cache Crew: {current_ocr_crew_used}')
+				_last_ocr_crew_used = current_ocr_crew_used
 
 		return CustomRecognition.AnalyzeResult(
 			box=_return_box_,

@@ -4,7 +4,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 10
 			}
 		},
@@ -27,7 +26,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 20
 			}
 		},
@@ -49,7 +47,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 11
 			}
 		},
@@ -67,7 +64,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 13
 			}
 		},
@@ -84,7 +80,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 15
 			}
 		},
@@ -100,7 +95,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 17
 			}
 		},
@@ -115,7 +109,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 21
 			}
 		},

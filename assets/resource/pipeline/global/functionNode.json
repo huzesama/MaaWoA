@@ -1,0 +1,7 @@
+{
+    "finishNode": { //用于跳回JumpBack的父节点、结束节点链等功能
+    },
+    "finishWithDelay": { //用于跳回JumpBack的父节点、结束节点链等功能并延时1s
+        "pre_delay": 1000
+    }
+}

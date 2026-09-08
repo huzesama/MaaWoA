@@ -4,7 +4,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": 41
 			}
 		},
@@ -27,7 +26,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 7
 			}
 		},
@@ -41,7 +39,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 19
 			}
 		},
@@ -69,7 +66,7 @@
 					255,
 					244
 				],
-				"count": 3000,
+				"count": 2000,
 				"order_by": "Area",
 				"connected": true,
 				//"model": "WoA-widget.onnx",
@@ -93,7 +90,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 17
 			}
 		},
@@ -117,12 +113,9 @@
 					255,
 					244
 				],
-				"count": 3000,
+				"count": 2000,
 				"order_by": "Area",
 				"connected": true,
-				//"model": "WoA-widget.onnx",
-				////"threshold": 0.708,
-				//"expected": 4,
 				"roi": "dailyUniqueContract.detectContractAcceptConfirmCard"
 			}
 		},
@@ -165,7 +158,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-page.onnx",
-				//"threshold": 0.893,
 				"expected": 5
 			}
 		},
@@ -197,7 +189,7 @@
 									73
 								],
 								"count": 1500,
-								"order_by": "Vertical",
+								"order_by": "Horizontal",
 								"connected": true
 							}
 						}
@@ -207,7 +199,6 @@
 							"type": "NeuralNetworkDetect",
 							"param": {
 								"model": "WoA-widget.onnx",
-								//"threshold": 0.708,
 								"expected": 7
 							}
 						}
@@ -233,7 +224,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 13
 			}
 		},
@@ -257,7 +247,7 @@
 					255,
 					244
 				],
-				"count": 5000,
+				"count": 2000,
 				"order_by": "Vertical",
 				"connected": true,
 				"roi": "dailyUniqueContract.detectMenu"

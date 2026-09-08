@@ -1,5 +1,31 @@
 {
 	"option": {
+		"unknownPageWaitting": { //识别失败的页面不重启而是等待操作。
+			"label": "$pi.task.option.unknownPageWaitting.name",
+			"description": "$pi.task.option.unknownPageWaitting.description",
+			"type": "switch",
+			"default_case": "No",
+			"cases": [
+				{
+					"name": "Yes",
+					"pipeline_override": {
+						"detectPage": { //检测当前所在页面
+							"next": [
+								"[JumpBack]detectEntryAirportPage", //进入机场页
+								"[JumpBack]detectAirportSelectPage", //机场选择页
+								"[JumpBack]detectHomePage", //主页
+								"[JumpBack]detectLoadingPage", //加载页面
+								"[JumpBack]detectErrorPage", //错误页面
+								"[JumpBack]finishWithDelay"
+							]
+						}
+					}
+				},
+				{
+					"name": "No"
+				}
+			]
+		},
 		"bribery": { //行动请求事件处理超时贿赂选项开关
 			"label": "$pi.task.option.bribery.name",
 			"description": "$pi.task.option.bribery.description",

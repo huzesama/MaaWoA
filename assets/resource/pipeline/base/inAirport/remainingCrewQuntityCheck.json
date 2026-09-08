@@ -22,7 +22,10 @@
 		},
 		"action": "Click",
 		"next": [
-			"detectFlight_info",
+			"detectAssignCrewCard", //尋找AssignCrew面板
+			"detetctStandSelectCard", //尋找standSelect面板
+			"universalAction_bribeFlight", //其它通用的actionRequire先检查有没有开关
+			"universalAction", //其它通用的actionRequire
 			"finishNode"
 		]
 	},
@@ -37,7 +40,6 @@
 							"type": "NeuralNetworkDetect",
 							"param": {
 								"model": "WoA-widget.onnx",
-								//"threshold": 0.708,
 								"expected": 8
 							}
 						}
@@ -69,16 +71,6 @@
 			}
 		},
 		"max_hit": 1
-	},
-	"crewUsedOCR": { //通过检测crew used的定位进行OCR,在crewUsedCompare.py中引用
-		"recognition": {
-			"type": "OCR",
-			"param": {
-				"only_rec": true,
-				"roi": "cacheCrewUsedBox",
-				"color_filter": "textBinarization"
-			}
-		}
 	},
 	"updateCrewUsed": { //使用and类型更新缓存记录
 		"recognition": {

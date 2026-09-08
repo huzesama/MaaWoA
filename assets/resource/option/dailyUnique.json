@@ -56,7 +56,6 @@
 								"type": "NeuralNetworkDetect",
 								"param": {
 									"model": "WoA-widget.onnx",
-									//"threshold": 0.708,
 									"expected": 22
 								}
 							}
@@ -93,6 +92,7 @@
 						"param": {
 							"all_of": [
 								"dailyUniqueContract.detectFilterUniqueBox",
+								"dailyUniqueContract.textBinarizationFilterUniqueBox",
 								{
 									"recognition": {
 										"type": "Custom",

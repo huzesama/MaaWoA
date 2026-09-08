@@ -6,6 +6,7 @@ import crewUsedCompare
 import dailyUniqueCompare
 import swipe_inBoxByVector
 import airlineCardListColorMatch
+import roiManager
 
 def main():  
     socket_id = sys.argv[-1]  

@@ -14,16 +14,15 @@
 					255,
 					244
 				],
-				"count": 5000,
+				"count": 2000,
 				"order_by": "Area",
 				"connected": true
 			}
 		},
 		"action": "Click",
 		"post_wait_freezes": {
-			"time": 200,
-			"method": 1,
-			"rate_limit": 200
+			"time": 500,
+			"method": 3
 		}
 	},
 	"detectAirport_info": { //检测机场信息面板
@@ -31,13 +30,45 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
 				"expected": 3
 			}
 		},
 		"next": [
+			"detectAirport_infoTitle",
+			"detectAitportList",
+			"finishNode"
+		]
+	},
+	"detectAirport_infoTitle": {
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					93,
+					147,
+					23
+				],
+				"upper": [
+					115,
+					169,
+					45
+				],
+				"roi": [
+					8,
+					261,
+					402,
+					427
+				],
+				"count": 10000,
+				"order_by": "Area",
+				"connected": true
+			}
+		},
+		"next": [
 			"ocrAirport_infoIATA",
-			"[Anchor]findAirportList"
+			"detectAitportList",
+			"finishNode"
 		]
 	},
 	"ocrAirport_infoIATA": { //在Airport info中OCR IATA信息
@@ -47,7 +78,8 @@
 				"expected": [
 					"INN" //通过interface option机场IATA覆写
 				],
-				"roi": "detectAirport_info"
+				"roi": "detectAirport_infoTitle",
+				"color_filter": "textBinarization"
 			}
 		},
 		"next": [
@@ -76,29 +108,24 @@
 			}
 		},
 		"action": "Click",
+		"post_wait_freezes": {
+			"method": 3,
+			"time": 200
+		},
 		"next": [
-			"detectLoadingPage"
+			"detectLoadingPage",
+			"finishNode"
 		]
 	},
 	"detectAitportList": { //检测机场选择列表
 		"recognition": {
-			"type": "NeuralNetworkDetect",
+			"type": "Or",
 			"param": {
-				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
-				"expected": 1
+				"any_of": [
+					"__cacheAirportSelectList__"
+				]
 			}
 		},
-		"anchor": {
-			"findAirportList": "existAitportList"
-		},
-		"next": [
-			"[JumpBack]resetAirportList", //该节点不含next
-			"ocrAirportListIATA",
-			"selectTargetIATA"
-		]
-	},
-	"existAitportList": { //检测机场选择列表
 		"next": [
 			"[JumpBack]resetAirportList", //该节点不含next
 			"ocrAirportListIATA",
@@ -122,6 +149,10 @@
 			}
 		},
 		"inverse": true,
+		"post_wait_freezes": {
+			"time": 200,
+			"method": 3
+		},
 		"action": {
 			"type": "Custom",
 			"param": {
@@ -130,9 +161,9 @@
 					"node_name": "detectAitportList",
 					"vector": [
 						0,
-						"50%"
+						"60%"
 					],
-					"duration": 500,
+					"duration": 300,
 					"random_start": true,
 					"target_offset": [
 						20,
@@ -160,24 +191,10 @@
 				]
 			}
 		},
-		"target_offset": [
-			-50,
-			10,
-			60,
-			30
-		],
 		"action": "Click",
 		"post_wait_freezes": {
 			"time": 200,
-			"method": 1,
-			"target": "detectAitportList",
-			"target_offset": [
-				0,
-				10,
-				0,
-				0
-			],
-			"rate_limit": 200
+			"method": 3
 		},
 		"next": [
 			"detectAirport_info",
@@ -209,7 +226,7 @@
 				0,
 				"-40%"
 			],
-			"duration": 500,
+			"duration": 350,
 			"random_start": true,
 			"target_offset": [
 				20,
@@ -219,16 +236,15 @@
 			]
 		},
 		"post_wait_freezes": {
-			"method": 1,
-			"time": 200,
+			"method": 3,
+			"time": 300,
 			"target": "detectAitportList",
 			"target_offset": [
 				0,
 				10,
 				0,
 				0
-			],
-			"rate_limit": 200
+			]
 		},
 		"next": [
 			"ocrAirportListIATA",

@@ -1,33 +1,4 @@
 {
-	"dailyUniqueContract.selectUniqueAirport": { //检测特殊入港的机场
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA-card.onnx",
-				//"threshold": 0.633,
-				"expected": 2
-			}
-		},
-		"post_wait_freezes": {
-			"method": 1,
-			"time": 200,
-			"rate_limit": 200
-		},
-		"action": "Click",
-		"target_offset": [
-			10,
-			10,
-			-10,
-			-10
-		],
-		"next": [
-			"detectAirport_info",
-			"finishNode"
-		],
-		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.recognition.Succeeded"
-		}
-	},
 	"dailyUniqueContract.detectUniqueAirport": { //在选择列表中检测特殊入港机场
 		"recognition": {
 			"type": "Or",
@@ -38,7 +9,6 @@
 							"type": "NeuralNetworkDetect",
 							"param": {
 								"model": "WoA-card.onnx",
-								//"threshold": 0.633,
 								"expected": 2
 							}
 						}
@@ -54,9 +24,9 @@
 			"node_name": "detectAitportList",
 			"vector": [
 				0,
-				"-20%"
+				"-40%"
 			],
-			"duration": 500,
+			"duration": 350,
 			"random_start": true,
 			"target_offset": [
 				20,
@@ -66,22 +36,48 @@
 			]
 		},
 		"post_wait_freezes": {
-			"method": 1,
-			"time": 200,
+			"method": 3,
+			"time": 300,
 			"target": "detectAitportList",
 			"target_offset": [
 				0,
 				10,
 				0,
 				0
-			],
-			"rate_limit": 200
+			]
 		},
 		"next": [
 			"dailyUniqueContract.detectUniqueAirport",
 			"dailyUniqueContract.selectUniqueAirport",
 			"dailyUniqueContract.detectAitportListEnd"
 		]
+	},
+	"dailyUniqueContract.selectUniqueAirport": { //检测特殊入港的机场
+		"recognition": {
+			"type": "NeuralNetworkDetect",
+			"param": {
+				"model": "WoA-card.onnx",
+				"expected": 2
+			}
+		},
+		"target_offset": [
+			10,
+			10,
+			-20,
+			-20
+		],
+		"action": "Click",
+		"post_wait_freezes": {
+			"method": 3,
+			"time": 500
+		},
+		"next": [
+			"detectAirport_info",
+			"finishNode"
+		],
+		"focus": {
+			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.recognition.Succeeded"
+		}
 	},
 	"dailyUniqueContract.detectAitportListEnd": { //当滑动机场选择列表出现最后一个机场的IATA时结束此任务（当前版本最后一个IATA为CNN）
 		"recognition": {
@@ -109,7 +105,6 @@
 			"type": "NeuralNetworkDetect",
 			"param": {
 				"model": "WoA-widget.onnx",
-				//"threshold": 0.708,
 				"expected": [
 					21,
 					22
@@ -117,10 +112,31 @@
 			}
 		}
 	},
+	"dailyUniqueContract.textBinarizationFilterUniqueBox": { //对FilterUniqueBox二值化
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					93,
+					13,
+					222
+				],
+				"upper": [
+					115,
+					35,
+					244
+				],
+				"connected": true,
+				"roi": "dailyUniqueContract.detectFilterUniqueBox"
+			}
+		}
+	},
 	"dailyUniqueContract.checkRemainingUniqueContrtactsQuantity": { //OCR特殊入港的字符串，由dailyUniqueCompare.py引用
 		"recognition": {
 			"type": "OCR",
 			"param": {
+				"only_rec": true,
 				"expected": [
 					"^\\d+/\\d+$"
 				],
@@ -130,7 +146,7 @@
 						"/"
 					]
 				],
-				"roi": "dailyUniqueContract.detectFilterUniqueBox"
+				"roi": "dailyUniqueContract.textBinarizationFilterUniqueBox"
 			}
 		}
 	},
@@ -140,6 +156,7 @@
 			"param": {
 				"all_of": [
 					"dailyUniqueContract.detectFilterUniqueBox",
+					"dailyUniqueContract.textBinarizationFilterUniqueBox",
 					{
 						"recognition": {
 							"type": "Custom",
@@ -175,7 +192,7 @@
 			"compareCrewUsed",
 			"[JumpBack]actionRequiringSelectDeparture",
 			"[JumpBack]detectContractUpgradeCard",
-			"finishNode"
+			"finishWithDelay"
 		]
 	}
 }
