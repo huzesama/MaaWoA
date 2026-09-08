@@ -1,10 +1,26 @@
 name: Android resource APK
 
-on:
-  workflow_dispatch:
-
 permissions:
   contents: read
+
+on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - "**"
+    paths:
+      - ".github/workflows/android.yml"
+      - "assets/**"
+      - "**.py"
+  pull_request:
+    branches:
+      - "**"
+    paths:
+      - ".github/workflows/android.yml"
+      - "assets/**"
+      - "**.py"
+  workflow_dispatch:
 
 # Resource project integration settings. Resource developers normally only
 # need to edit this block when copying the workflow to another repository.
