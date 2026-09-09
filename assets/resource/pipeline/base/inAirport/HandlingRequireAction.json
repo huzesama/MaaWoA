@@ -136,7 +136,7 @@
 		],
 		"next": [
 			"CheckHandlingPass",
-			"updateCrewUsed",
+			"updateCrewUsedBefore",
 			"finishNode"
 		]
 	},

@@ -72,6 +72,13 @@
 		},
 		"max_hit": 1
 	},
+	"updateCrewUsedBefore": { //
+		"target": "actionRequiringSelect",
+		"action": "Click",
+		"next": [
+			"updateCrewUsed"
+		]
+	},
 	"updateCrewUsed": { //使用and类型更新缓存记录
 		"recognition": {
 			"type": "Custom",

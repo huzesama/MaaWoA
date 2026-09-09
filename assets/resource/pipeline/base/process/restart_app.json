@@ -5,6 +5,7 @@
 		"anchor": {
 			"afterStop": "finishNode"
 		},
+		"post_delay": 3000,
 		"next": [
 			"[Anchor]afterStart"
 		]

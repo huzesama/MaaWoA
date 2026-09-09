@@ -1,57 +1,9 @@
 {
 	"test": {
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"cacheCrewUsedBox",
-					{
-						"recognition": {
-							"type": "Custom",
-							"param": {
-								"custom_recognition": "crewUsedCompare",
-								"custom_recognition_param": {
-									"update_cache": false
-								}
-							}
-						}
-					}
-				],
-				"box_index": 1
-			}
-		}
-	},
-	"t2": {
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA-widget.onnx",
-				"expected": [
-					21,
-					22
-				]
-			}
-		}
-	},
-	"textb": {
-		"recognition": {
-			"type": "ColorMatch",
-			"param": {
-				"method": 40,
-				"lower": [
-					93,
-					13,
-					222
-				],
-				"upper": [
-					115,
-					35,
-					244
-				],
-				"roi": "t2",
-				"connected": true
-			}
-		}
+		"next": [
+			"[JumpBack]cacheCrewUsedBox",
+			"compareCrewUsed"
+		]
 	},
 	"filterUnpress": {
 		"recognition": {

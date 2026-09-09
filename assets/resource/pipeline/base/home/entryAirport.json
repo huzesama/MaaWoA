@@ -76,7 +76,7 @@
 			"type": "OCR",
 			"param": {
 				"expected": [
-					"INN" //通过interface option机场IATA覆写
+					"(?i)INN" //通过interface option机场IATA覆写
 				],
 				"roi": "detectAirport_infoTitle",
 				"color_filter": "textBinarization"
@@ -137,7 +137,7 @@
 			"type": "OCR",
 			"param": {
 				"expected": [
-					"INN"
+					"(?i)INN"
 				],
 				"roi": "detectAitportList",
 				"roi_offset": [
@@ -180,7 +180,7 @@
 			"type": "OCR",
 			"param": {
 				"expected": [
-					"INN" //通过interface option机场IATA覆写
+					"(?i)INN" //通过interface option机场IATA覆写
 				],
 				"roi": "detectAitportList",
 				"roi_offset": [
@@ -206,7 +206,7 @@
 			"type": "OCR",
 			"param": {
 				"expected": [
-					"INN" //通过interface option机场IATA覆写
+					"(?i)INN" //通过interface option机场IATA覆写
 				],
 				"roi": "detectAitportList",
 				"roi_offset": [
