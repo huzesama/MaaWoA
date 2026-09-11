@@ -2,8 +2,8 @@
 	"interface_version": 2,
 	"languages": {
 		"zh_hans": "Languages/zh_hans.json",
-		"zh_hant": "./languages/zh_hant.json",
-		"en_us": "./languages/en_us.json"
+		"zh_hant": "Languages/zh_hant.json",
+		"en_us": "Languages/en_us.json"
 	},
 	"icon": "resource/logo.png",
 	"name": "MaaWoA",
