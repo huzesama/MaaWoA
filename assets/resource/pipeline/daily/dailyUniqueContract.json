@@ -52,7 +52,6 @@
 	},
 	"dailyUniqueContract.acceptDailyUniqueContract": { //点击接受合同
 		"recognition": {
-			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
 			"type": "ColorMatch",
 			"param": {
 				"method": 40,
@@ -69,12 +68,15 @@
 				"count": 2000,
 				"order_by": "Area",
 				"connected": true,
-				//"model": "WoA-widget.onnx",
-				////"threshold": 0.708,
-				//"expected": 4,
 				"roi": "dailyUniqueContract.detectUniqueContractOffers"
 			}
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"post_delay": 500,
 		"next": [
@@ -99,7 +101,6 @@
 	},
 	"dailyUniqueContract.acceptDailyUniqueContractConfirm": { //点击确认
 		"recognition": {
-			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
 			"type": "ColorMatch",
 			"param": {
 				"method": 40,
@@ -119,6 +120,12 @@
 				"roi": "dailyUniqueContract.detectContractAcceptConfirmCard"
 			}
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"next": [
 			"[JumpBack]detectLoadingPage",
@@ -145,6 +152,12 @@
 				"count": 1000
 			}
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"next": [
 			"dailyUniqueContract.detectEntryAirportPage"
@@ -208,10 +221,10 @@
 		},
 		"action": "Click",
 		"target_offset": [
-			10,
-			10,
-			-20,
-			-20
+			5,
+			5,
+			-10,
+			-10
 		],
 		"post_delay": 500,
 		"next": [
@@ -233,7 +246,6 @@
 	},
 	"dailyUniqueContract.exitEntryAirportPage": { //更换机场，后续如果出现进入图鉴的情况需要优化训练，并增加通过roi_offset进行target检查
 		"recognition": {
-			//"type": "NeuralNetworkDetect",//神经网络检测识别目标的box 是在反算完 x、y、w、h 并加上 roi_.x/roi_.y 偏移后直接构造出来的，没有与 roi_ 求交集，待修复
 			"type": "ColorMatch",
 			"param": {
 				"method": 40,
@@ -254,6 +266,12 @@
 			}
 		},
 		"post_delay": 500,
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click"
 	}
 }

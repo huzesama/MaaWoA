@@ -112,6 +112,12 @@
 				"expected": 21
 			}
 		},
+		"target_offset": [
+			0,
+			0,
+			-20,
+			-10
+		],
 		"action": "Click"
 	}
 }

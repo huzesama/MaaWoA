@@ -1,5 +1,29 @@
 {
 	"option": {
+		"notSkipProcessUp": { //识别失败的页面不重启而是等待操作。
+			"label": "$pi.task.option.notSkipProcessUp.name",
+			"description": "$pi.task.option.notSkipProcessUp.description",
+			"type": "switch",
+			"default_case": "Yes",
+			"cases": [
+				{
+					"name": "Yes"
+				},
+				{
+					"name": "No",
+					"pipeline_override": {
+						"unattendedMode": { //主要更改next
+							"anchor": {
+								"afterStart": ""
+							},
+							"next": [
+								"detectPage"
+							]
+						}
+					}
+				}
+			]
+		},
 		"unknownPageWaitting": { //识别失败的页面不重启而是等待操作。
 			"label": "$pi.task.option.unknownPageWaitting.name",
 			"description": "$pi.task.option.unknownPageWaitting.description",
@@ -23,6 +47,25 @@
 				},
 				{
 					"name": "No"
+				}
+			]
+		},
+		"randomSelectStand": { //随机选择降落航班的机位。
+			"label": "$pi.task.option.randomSelectStand.name",
+			"description": "$pi.task.option.randomSelectStand.description",
+			"type": "switch",
+			"default_case": "Yes",
+			"cases": [
+				{
+					"name": "Yes"
+				},
+				{
+					"name": "No",
+					"pipeline_override": {
+						"__standSelectMatch__": {
+							"order_by": "Horizontal" //由base选项randomSelectStand覆写
+						}
+					}
 				}
 			]
 		},

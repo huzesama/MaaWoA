@@ -19,6 +19,12 @@
 				"connected": true
 			}
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"post_wait_freezes": {
 			"time": 500,
@@ -83,7 +89,8 @@
 			}
 		},
 		"next": [
-			"entryAirport"
+			"entryAirport",
+			"finishNode"
 		]
 	},
 	"entryAirport": { //通过Airport info面板进入已选择的机场
@@ -91,15 +98,15 @@
 			"type": "ColorMatch",
 			"param": {
 				"method": 40,
-				"upper": [
-					25,
-					255,
-					234
-				],
 				"lower": [
-					23,
-					254,
-					232
+					13,
+					244,
+					222
+				],
+				"upper": [
+					35,
+					255,
+					244
 				],
 				"count": 5000,
 				"order_by": "Area",
@@ -107,13 +114,19 @@
 				"roi": "detectAirport_info"
 			}
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"post_wait_freezes": {
 			"method": 3,
 			"time": 200
 		},
 		"next": [
-			"detectLoadingPage",
+			"[JumpBack]detectLoadingPage",
 			"finishNode"
 		]
 	},
@@ -129,7 +142,8 @@
 		"next": [
 			"[JumpBack]resetAirportList", //该节点不含next
 			"ocrAirportListIATA",
-			"selectTargetIATA"
+			"selectTargetIATA",
+			"finishNode"
 		]
 	},
 	"resetAirportList": { //重置机场选择列表的定位，使INN可见
@@ -167,9 +181,9 @@
 					"random_start": true,
 					"target_offset": [
 						20,
-						0,
+						100,
 						-40,
-						0
+						-200
 					]
 				}
 			}
@@ -230,9 +244,9 @@
 			"random_start": true,
 			"target_offset": [
 				20,
-				0,
+				100,
 				-40,
-				0
+				-200
 			]
 		},
 		"post_wait_freezes": {

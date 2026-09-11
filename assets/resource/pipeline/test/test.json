@@ -1,9 +1,28 @@
 {
 	"test": {
-		"next": [
-			"[JumpBack]cacheCrewUsedBox",
-			"compareCrewUsed"
-		]
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					62,
+					133,
+					209
+				],
+				"upper": [
+					84,
+					155,
+					231
+				],
+				"roi": [
+					614,
+					502,
+					55,
+					33
+				],
+				"connected": true
+			}
+		}
 	},
 	"filterUnpress": {
 		"recognition": {

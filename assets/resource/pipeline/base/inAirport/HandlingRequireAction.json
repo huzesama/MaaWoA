@@ -41,6 +41,10 @@
 		"anchor": {
 			"afterClickFlight_infoYellowButton": "finishNode" //恢复默认
 		},
+		"post_wait_freezes": {
+			"time": 50,
+			"method": 3
+		},
 		"action": "Click",
 		"next": [
 			"detectAssignCrewCard", //尋找AssignCrew面板
@@ -109,6 +113,12 @@
 			"type": "Swipe",
 			"param": {
 				"begin": true,
+				"begin_offset": [
+					2,
+					2,
+					-4,
+					-4
+				],
 				"end": "actionRequiringSelect", //选择的flight Card action requiring位置
 				"duration": 200
 			}
@@ -135,29 +145,53 @@
 			-4
 		],
 		"next": [
-			"CheckHandlingPass",
+			"checkHandlingPass",
 			"updateCrewUsedBefore",
 			"finishNode"
 		]
 	},
-	"CheckHandlingPass": {
+	"checkHandlingPass": {
 		"recognition": {
 			"type": "And",
 			"param": {
 				"all_of": [
 					"__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+					"__cacheAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
 					"__cacheAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
 					{
 						"recognition": {
-							"type": "TemplateMatch",
+							"type": "Or",
 							"param": {
-								"method": 10001,
-								"threshold": 0.9,
-								"template": [
-									"timeLimited(Pass)_GreenMask.png"
-								],
-								"roi": "__cacheFlight_infoCard__",
-								"green_mask": true
+								"any_of": [
+									{
+										"recognition": {
+											"type": "TemplateMatch",
+											"param": {
+												"method": 10001,
+												"threshold": 0.9,
+												"template": [
+													"timeLimited(Pass)_GreenMask.png"
+												],
+												"roi": "__cacheFlight_infoCard__",
+												"green_mask": true
+											}
+										}
+									},
+									{
+										"recognition": {
+											"type": "TemplateMatch",
+											"param": {
+												"method": 10001,
+												"threshold": 0.9,
+												"template": [
+													"加号（灰）.png"
+												],
+												"roi": "__cacheAssignCrewCard__",
+												"green_mask": true
+											}
+										}
+									}
+								]
 							}
 						}
 					},
@@ -169,12 +203,12 @@
 								"lower": [
 									62,
 									133,
-									209
+									200
 								],
 								"upper": [
 									84,
 									155,
-									231
+									222
 								],
 								"count": 300,
 								"order_by": "Horizontal",
@@ -191,38 +225,91 @@
 			"finishNode"
 		]
 	},
+	"__standSelectMatch__": {
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					93,
+					19,
+					192
+				],
+				"upper": [
+					115,
+					41,
+					214
+				],
+				"count": 2000,
+				"order_by": "Random", //由base选项randomSelectStand覆写
+				"connected": true,
+				"roi": "__cacheStandSelectCard__"
+			}
+		}
+	},
+	"__plannerStandSelectMatch__": {
+		"recognition": {
+			"type": "ColorMatch",
+			"param": {
+				"method": 40,
+				"lower": [
+					84,
+					244,
+					244
+				],
+				"upper": [
+					106,
+					255,
+					255
+				],
+				"count": 400,
+				"order_by": "Horizontal",
+				"connected": true,
+				"roi": "__cacheStandSelectCard__"
+			}
+		}
+	},
 	"detetctStandSelectCard": { //机位分配的节点链，匹配stand select面板
 		"recognition": {
 			"type": "And",
 			"param": {
 				"all_of": [
 					"__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					{
-						"recognition": {
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									93,
-									19,
-									192
-								],
-								"upper": [
-									115,
-									41,
-									214
-								],
-								"count": 2000,
-								"order_by": "Random",
-								"connected": true,
-								"roi": "__cacheStandSelectCard__"
-							}
-						}
-					}
+					"__standSelectMatch__"
 				],
 				"box_index": 1
 			}
 		},
+		"next": [
+			"plannerStandSelect", //规划器
+			"baseStandSelect", //基本
+			"finishNode"
+		]
+	},
+	"plannerStandSelect": {
+		"recognition": {
+			"type": "And",
+			"param": {
+				"all_of": [
+					"__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+					"__plannerStandSelectMatch__"
+				],
+				"box_index": 1
+			}
+		},
+		"next": [
+			"clickFlight_infoYellowButton",
+			"finishNode"
+		]
+	},
+	"baseStandSelect": {
+		"target": "detetctStandSelectCard",
+		"target_offset": [
+			10,
+			10,
+			-20,
+			-20
+		],
 		"action": "Click",
 		"next": [
 			"clickFlight_infoYellowButton",
@@ -236,6 +323,7 @@
 		"next": [
 			"clickFlight_infoYellowButton",
 			"detectContractUpgradeCard",
+			"detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
 			"finishNode"
 		]
 	},
@@ -273,6 +361,12 @@
 			}
 		},
 		"enabled": true,
+		"target_offset": [
+			2,
+			2,
+			-4,
+			-4
+		],
 		"action": "Click",
 		"next": [
 			"universalAction"
@@ -310,6 +404,12 @@
 				"box_index": 1
 			}
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"next": [
 			"[JumpBack]detectLoadingPage",
@@ -352,6 +452,12 @@
 		"anchor": {
 			"afterClickFlight_infoYellowButton": "finishNode" //在UniversalAction节点被分配的anchor被前置节点使用后立即清除
 		},
+		"target_offset": [
+			5,
+			5,
+			-10,
+			-10
+		],
 		"action": "Click",
 		"next": [
 			"[JumpBack]waitContractUpgradeCardDisappear",
@@ -399,6 +505,10 @@
 					}
 				]
 			}
+		},
+		"post_wait_freezes": {
+			"time": 50,
+			"method": 3
 		},
 		"action": "Click",
 		"next": [

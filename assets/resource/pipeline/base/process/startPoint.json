@@ -51,7 +51,7 @@
 			"finishNode"
 		]
 	},
-	"detectLoadingPage": { //检测当前所在页面是否为LoadingPage，节点没有后续循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待，可以配合jumpback
+	"detectLoadingPage": { //配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
 		"recognition": {
 			"type": "NeuralNetworkDetect",
 			"param": {
@@ -60,22 +60,9 @@
 			}
 		},
 		"next": [
-			"[JumpBack]waitLoadingPageFinish", //该节点不含next
+			"detectLoadingPage", //该节点不含next
 			"finishNode"
-		],
-		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.processUp.detectLoadingPage.focus.recognition.Succeeded"
-		}
-	},
-	"waitLoadingPageFinish": { //等待加载页面结束
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA-page.onnx",
-				"expected": 0
-			}
-		},
-		"pre_delay": 2000
+		]
 	},
 	"detectErrorPage": { //错误页
 		"recognition": {
@@ -87,7 +74,7 @@
 		},
 		"action": "Click"
 	},
-	"unattendedMode": { //开始无人值守吧！//被多个节点用于获取全屏实体矩形
+	"unattendedMode": { //开始无人值守吧！//被多个节点用于获取全屏实体矩形//由base选项notSkipProcessUp覆盖next
 		"anchor": {
 			"afterStart": "detectPage"
 		},
