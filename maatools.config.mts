@@ -1,16 +1,11 @@
-import type { FullConfig } from '@nekosu/maa-tools'
-
-const config: FullConfig = {
+export default {
   cwd: import.meta.dirname,
   maaVersion: 'latest',
-  interfacePath: 'assets/interface.json',
-  check: {
-    override: {
-      // 忽略 mpe-config 带来的报错
-      // ignore warning caused by mpe-config
-      // 'mpe-config': 'ignore'
-    }
-  }
+  interfacePath: 'interface.json',
+  check: {},
+  vscode: {
+    agents: {
+      uv: 'Maa Agent: Debug',
+    },
+  },
 }
-
-export default config

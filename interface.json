@@ -1,0 +1,101 @@
+{
+	"interface_version": 2,
+	"icon": "resource/base/logo.png",
+	"name": "maawoa",
+	"label": "MaaWoA",
+	"version": "v0.1.0",
+	"description": "$pi.description",
+	"contact": "$pi.contact",
+	"license": "[GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)",
+	"welcome": "$pi.welcome",
+	"github": "https://github.com/huzesama/MaaWoA",
+	"languages": {
+		"zh_hans": "resource/base/languages/zh_hans.json",
+		"zh_hant": "resource/base/languages/zh_hant.json",
+		"en_us": "resource/base/languages/en_us.json"
+	},
+	"controller": [
+		{
+			"name": "Adb",
+			"label": "Android / Emulator",
+			"type": "Adb",
+			"display_short_side": 720
+		},
+		{
+			"name": "Windows",
+			"label": "Windows app",
+			"type": "Win32",
+			"display_short_side": 720,
+			"permission_required": true,
+			"win32": {
+				"mouse": "Seize",
+				"keyboard": "Seize",
+				"screencap": "FramePool"
+			},
+			"attach_resource_path": [
+				"./resource/desktop"
+			]
+		},
+		{
+			"name": "macOS",
+			"label": "macOS app",
+			"type": "MacOS",
+			"display_short_side": 720,
+			"permission_required": true,
+			"macos": {
+				"input": "PostToPid",
+				"screencap": "ScreenCaptureKit"
+			},
+			"attach_resource_path": [
+				"./resource/desktop"
+			]
+		},
+		{
+			"name": "PlayCover",
+			"label": "PlayCover iOS app",
+			"type": "PlayCover",
+			"display_short_side": 720
+		},
+		{
+			"name": "Gamepad",
+			"label": "Gamepad (Windows)",
+			"type": "Gamepad",
+			"display_short_side": 720
+		},
+		{
+			"name": "WlRoots",
+			"label": "wlroots app (Linux)",
+			"type": "Linux",
+			"display_short_side": 720,
+			"permission_required": true,
+			"attach_resource_path": [
+				"./resource_desktop"
+			]
+		}
+	],
+	"resource": [
+		{
+			"name": "base",
+			"label": "$pi.resource.label.base.name",
+			"path": [
+				"./resource/base"
+			]
+		}
+	],
+	"import": [
+		"./tasks/base.json",
+		"./resource/base/option/dailyUnique.json",
+		"./resource/base/option/base.json",
+		"./resource/base/option/onnx.json"
+	],
+	"agent": [
+		{
+			"child_exec": "uv",
+			"child_args": [
+				"run",
+				"python",
+				"agent/main.py"
+			]
+		}
+	]
+}

@@ -4,7 +4,7 @@
 ---
 
 <p align="center">
-  <img alt="LOGO" src="./assets/resource/logo.png" width="256" height="256" />
+  <img alt="LOGO" src="./resource/base/logo.png" width="256" height="256" />
 </p>
 
 <div align="center">
