@@ -74,6 +74,7 @@
     },
     "project": {
         "displayName": "MaaWoA",
+        "github": "https://github.com/huzesama/MaaWoA",
         "initialTemplate": "agent",
         "slug": "maawoa",
         "version": "0.0.3"
