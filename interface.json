@@ -69,7 +69,7 @@
             "display_short_side": 720,
             "permission_required": true,
             "attach_resource_path": [
-                "./resource_desktop"
+                "./resource/desktop"
             ]
         }
     ],
