@@ -6,6 +6,7 @@ from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.pipeline import JColorMatch, JNeuralNetworkDetect, JRecognitionType
 
+
 @AgentServer.custom_recognition("airlineCardListColorMatch")
 class airlineCardListColorMatch(CustomRecognition):
 

@@ -1,5 +1,5 @@
-import random
 import json
+import random
 
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
