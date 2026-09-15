@@ -6,7 +6,7 @@ from maa.context import Context
 from maa.custom_action import CustomAction
 
 
-def resolve_vector_component(value, length: int) -> int:
+def resolve_vector_component(value: int|str, length: int) -> int:
 	#解析向量的单个分量：支持固定像素值(int)或百分比字符串("60%")
 	#百分比模式下，实际偏移量 = 百分比 * box 对应边长
 

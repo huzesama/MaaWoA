@@ -12,7 +12,7 @@ class airlineCardListColorMatch(CustomRecognition):
 
 	def __init__(self):
 		super().__init__()
-		self._cached_rect: tuple | None = None  # 缓存扩展后的矩形，供复用
+		self._cached_rect: tuple[int, int, int, int] | None = None  # 缓存扩展后的矩形，供复用
 
 	def analyze(
 		self,
@@ -47,9 +47,9 @@ class airlineCardListColorMatch(CustomRecognition):
 		# 3. 在扩展后的区域内跑内置 ColorMatch，method/lower/upper 透传自定义参数
 		cm_param = JColorMatch(
 			method=param.get("method", 40),
-			lower=param.get("lower"),
-			upper=param.get("upper"),
-			count=param.get("count"),
+			lower=param.get("lower", [0, 0, 0, 0]),
+			upper=param.get("upper", [0, 0, 0, 0]),
+			count=param.get("count",0),
 			order_by=param.get("order_by", "Random"),
 			connected=param.get("connected", True),
 			roi = (x, y, w, h),

@@ -26,7 +26,10 @@ class dailyUniqueCompare(CustomRecognition):
 			threshold = param.get("threshold", 0)
 			if not isinstance(threshold, int) or threshold < 0:
 				# 参数非法，直接判定未命中
-				return None
+				return CustomRecognition.AnalyzeResult(
+					box=None,
+					detail={"error": "threshold error"}
+				)
 
 			# 2. 执行 OCR 识别，roi 使用当前节点传入的 roi
 			reco_detail = context.run_recognition(
@@ -48,13 +51,20 @@ class dailyUniqueCompare(CustomRecognition):
 
 			# 3. 截取 "/" 后面的数字并做条件判断
 			if "/" not in text:
-				return None
+				return CustomRecognition.AnalyzeResult(
+					box=None,
+					detail={"error": "/ not in text"}
+				)
 
 			right_part = text.split("/", 1)[1].strip()
 			try:
 				value = int(right_part)
 			except ValueError:
-				return None
+				return CustomRecognition.AnalyzeResult(
+					box=None,
+					detail={"error": "ValueError"}
+				)
+
 
 			if value > threshold:
 				_daily_handling_count = abs(value - threshold) * 2
