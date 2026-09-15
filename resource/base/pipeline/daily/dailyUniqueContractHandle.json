@@ -1,198 +1,206 @@
 {
-	"dailyUniqueContract.detectUniqueAirport": { //在选择列表中检测特殊入港机场
-		"recognition": {
-			"type": "Or",
-			"param": {
-				"any_of": [
-					{
-						"recognition": {
-							"type": "NeuralNetworkDetect",
-							"param": {
-								"model": "WoA-card.onnx",
-								"expected": 2
-							}
-						}
-					},
-					"dailyUniqueContract.detectAitportListEnd"
-				]
-			}
-		},
-		"inverse": true,
-		"action": "Custom",
-		"custom_action": "swipe_inBoxByVector",
-		"custom_action_param": {
-			"node_name": "detectAitportList",
-			"vector": [
-				0,
-				"-40%"
-			],
-			"duration": 350,
-			"random_start": true,
-			"target_offset": [
-				20,
-				100,
-				-40,
-				-200
-			]
-		},
-		"post_wait_freezes": {
-			"method": 3,
-			"time": 300,
-			"target": "detectAitportList",
-			"target_offset": [
-				0,
-				10,
-				0,
-				0
-			]
-		},
-		"next": [
-			"dailyUniqueContract.detectUniqueAirport",
-			"dailyUniqueContract.selectUniqueAirport",
-			"dailyUniqueContract.detectAitportListEnd"
-		]
-	},
-	"dailyUniqueContract.selectUniqueAirport": { //检测特殊入港的机场
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA-card.onnx",
-				"expected": 2
-			}
-		},
-		"target_offset": [
-			10,
-			10,
-			-20,
-			-20
-		],
-		"action": "Click",
-		"post_wait_freezes": {
-			"method": 3,
-			"time": 500
-		},
-		"next": [
-			"detectAirport_info",
-			"finishNode"
-		],
-		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.recognition.Succeeded"
-		}
-	},
-	"dailyUniqueContract.detectAitportListEnd": { //当滑动机场选择列表出现最后一个机场的IATA时结束此任务（当前版本最后一个IATA为CNN）
-		"recognition": {
-			"type": "OCR",
-			"param": {
-				"expected": [
-					"CNN"
-				],
-				"roi": "detectAitportList",
-				"roi_offset": [
-					0,
-					5,
-					0,
-					0
-				]
-			}
-		},
-		"action": "StopTask",
-		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectAitportListEnd.focus.recognition.Succeeded"
-		}
-	},
-	"dailyUniqueContract.detectFilterUniqueBox": { //检测过滤器的特殊入港筛选按钮位置
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA-widget.onnx",
-				"expected": [
-					21,
-					22
-				]
-			}
-		}
-	},
-	"dailyUniqueContract.textBinarizationFilterUniqueBox": { //对FilterUniqueBox二值化
-		"recognition": {
-			"type": "ColorMatch",
-			"param": {
-				"method": 40,
-				"lower": [
-					93,
-					13,
-					222
-				],
-				"upper": [
-					115,
-					35,
-					244
-				],
-				"connected": true,
-				"roi": "dailyUniqueContract.detectFilterUniqueBox"
-			}
-		}
-	},
-	"dailyUniqueContract.checkRemainingUniqueContrtactsQuantity": { //OCR特殊入港的字符串，由dailyUniqueCompare.py引用
-		"recognition": {
-			"type": "OCR",
-			"param": {
-				"only_rec": true,
-				"expected": [
-					"^\\d+/\\d+$"
-				],
-				"replace": [
-					[
-						"\\|",
-						"/"
-					]
-				],
-				"roi": "dailyUniqueContract.textBinarizationFilterUniqueBox"
-			}
-		}
-	},
-	"dailyUniqueContract.entryHandleUnique": { //判断是否进入特殊入港处理的节点
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"dailyUniqueContract.detectFilterUniqueBox",
-					"dailyUniqueContract.textBinarizationFilterUniqueBox",
-					{
-						"recognition": {
-							"type": "Custom",
-							"param": {
-								"custom_recognition": "dailyUniqueCompare",
-								"custom_recognition_param": {
-									"threshold": 60 //通过interface option 阈值覆写
-								}
-							}
-						}
-					}
-				]
-			}
-		},
-		"next": [
-			"startLoopAction"
-		],
-		"focus": {
-			"Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.entryHandleUnique.focus.recognition.Succeeded"
-		}
-	},
-	"dailyUniqueContract.continueHandleUnique": { //判断是否继续特殊入港处理的节点//filterUniquePressed需要强化学习
-		"recognition": {
-			"type": "Custom",
-			"param": {
-				"custom_recognition": "dailyUniqueCompare",
-				"custom_recognition_param": {
-					"threshold": 10 //通过interface option 阈值覆写
-				}
-			}
-		},
-		"next": [
-			"compareCrewUsed",
-			"[JumpBack]actionRequiringSelectDeparture",
-			"[JumpBack]detectContractUpgradeCard",
-			"finishWithDelay"
-		]
-	}
+    "dailyUniqueContract.detectUniqueAirport": {
+        //在选择列表中检测特殊入港机场
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": 2,
+                                "model": "WoA-card.onnx"
+                            }
+                        }
+                    },
+                    "dailyUniqueContract.detectAitportListEnd"
+                ]
+            }
+        },
+        "inverse": true,
+        "action": "Custom",
+        "custom_action": "swipe_inBoxByVector",
+        "custom_action_param": {
+            "node_name": "detectAitportList",
+            "vector": [
+                0,
+                "-40%"
+            ],
+            "duration": 350,
+            "random_start": true,
+            "target_offset": [
+                20,
+                100,
+                -40,
+                -200
+            ]
+        },
+        "post_wait_freezes": {
+            "method": 3,
+            "time": 300,
+            "target": "detectAitportList",
+            "target_offset": [
+                0,
+                10,
+                0,
+                0
+            ]
+        },
+        "next": [
+            "dailyUniqueContract.detectUniqueAirport",
+            "dailyUniqueContract.selectUniqueAirport",
+            "dailyUniqueContract.detectAitportListEnd"
+        ]
+    },
+    "dailyUniqueContract.selectUniqueAirport": {
+        //检测特殊入港的机场
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 2,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
+        "post_wait_freezes": {
+            "method": 3,
+            "time": 500
+        },
+        "next": [
+            "detectAirport_info",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.recognition.Succeeded"
+        }
+    },
+    "dailyUniqueContract.detectAitportListEnd": {
+        //当滑动机场选择列表出现最后一个机场的IATA时结束此任务（当前版本最后一个IATA为CNN）
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "detectAitportList",
+                "roi_offset": [
+                    0,
+                    5,
+                    0,
+                    0
+                ],
+                "expected": [
+                    "CNN"
+                ]
+            }
+        },
+        "action": "StopTask",
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectAitportListEnd.focus.recognition.Succeeded"
+        }
+    },
+    "dailyUniqueContract.detectFilterUniqueBox": {
+        //检测过滤器的特殊入港筛选按钮位置
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    21,
+                    22
+                ],
+                "model": "WoA-widget.onnx"
+            }
+        }
+    },
+    "dailyUniqueContract.textBinarizationFilterUniqueBox": {
+        //对FilterUniqueBox二值化
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "dailyUniqueContract.detectFilterUniqueBox",
+                "method": 40,
+                "lower": [
+                    93,
+                    13,
+                    222
+                ],
+                "upper": [
+                    115,
+                    35,
+                    244
+                ],
+                "connected": true
+            }
+        }
+    },
+    "dailyUniqueContract.checkRemainingUniqueContrtactsQuantity": {
+        //OCR特殊入港的字符串，由dailyUniqueCompare.py引用
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "dailyUniqueContract.textBinarizationFilterUniqueBox",
+                "expected": [
+                    "^\\d+/\\d+$"
+                ],
+                "replace": [
+                    [
+                        "\\|",
+                        "/"
+                    ]
+                ],
+                "only_rec": true
+            }
+        }
+    },
+    "dailyUniqueContract.entryHandleUnique": {
+        //判断是否进入特殊入港处理的节点
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "dailyUniqueContract.detectFilterUniqueBox",
+                    "dailyUniqueContract.textBinarizationFilterUniqueBox",
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "dailyUniqueCompare",
+                                "custom_recognition_param": {
+                                    "threshold": 60 //通过interface option 阈值覆写
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "next": [
+            "startLoopAction"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.entryHandleUnique.focus.recognition.Succeeded"
+        }
+    },
+    "dailyUniqueContract.continueHandleUnique": {
+        //判断是否继续特殊入港处理的节点//filterUniquePressed需要强化学习
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "dailyUniqueCompare",
+                "custom_recognition_param": {
+                    "threshold": 10 //通过interface option 阈值覆写
+                }
+            }
+        },
+        "next": [
+            "compareCrewUsed",
+            "[JumpBack]actionRequiringSelectDeparture",
+            "[JumpBack]detectContractUpgradeCard",
+            "finishWithDelay"
+        ]
+    }
 }

@@ -1,65 +1,71 @@
 {
     "task": [
-		{ //日常特殊入港
-			"name": "dailyUniqueArrival",
-			"label": "$pi.task.dailyUniqueArrival.name",
-			"entry": "unattendedMode",
-			"default_check": true,
-			"description": "$pi.task.dailyUniqueArrival.description",
-			"option": [
-				//"enableTower",
-				"notSkipProcessUp",
-				"unknownPageWaitting",
-				"randomSelectStand",
-				"ONNX",
-				"acceptDailyUniqueContractsType",
-				"bribery"
-			],
-			"pipeline_override": {
-				"detectAirportSelectPage": { //更改只从列表选择
-					"next": [
-						"detectAitportList",
-						"finishNode"
-					]
-				},
-				"detectAitportList": { //只更改选择方式
-					"next": [
-						"[JumpBack]resetAirportList", //该节点不含next
-						"dailyUniqueContract.detectUniqueAirport",
-						"dailyUniqueContract.selectUniqueAirport",
-						"dailyUniqueContract.detectAitportListEnd",
-						"finishNode"
-					]
-				},
-				"detectAirport_info": { //检测机场信息面板不再OCR IATA而是直接进入
-					"next": [
-						"entryAirport",
-						"finishNode"
-					]
-				}
-			}
-		},
-		{ //挂机
-			"name": "unattendedMode",
-			"label": "$pi.task.unattendedMode.name",
-			"entry": "unattendedMode",
-			"default_check": true,
-			"description": "$pi.task.unattendedMode.description",
-			"option": [
-				//"enableTower",
-				"notSkipProcessUp",
-				"unknownPageWaitting",
-				"randomSelectStand",
-				"ONNX",
-				"entryAirportIATA",
-				"bribery"
-			]
-		},
-		{ //功能测试
-			"name": "test",
-			"label": "$pi.task.test.name",
-			"description": "$pi.task.test.description",
-			"entry": "test"
-		}
+        {
+            //日常特殊入港
+            "name": "dailyUniqueArrival",
+            "label": "$pi.task.dailyUniqueArrival.name",
+            "entry": "unattendedMode",
+            "default_check": true,
+            "description": "$pi.task.dailyUniqueArrival.description",
+            "option": [
+                //"enableTower",
+                "notSkipProcessUp",
+                "unknownPageWaitting",
+                "randomSelectStand",
+                "ONNX",
+                "acceptDailyUniqueContractsType",
+                "bribery"
+            ],
+            "pipeline_override": {
+                "detectAirportSelectPage": {
+                    //更改只从列表选择
+                    "next": [
+                        "detectAitportList",
+                        "finishNode"
+                    ]
+                },
+                "detectAitportList": {
+                    //只更改选择方式
+                    "next": [
+                        "[JumpBack]resetAirportList", //该节点不含next
+                        "dailyUniqueContract.detectUniqueAirport",
+                        "dailyUniqueContract.selectUniqueAirport",
+                        "dailyUniqueContract.detectAitportListEnd",
+                        "finishNode"
+                    ]
+                },
+                "detectAirport_info": {
+                    //检测机场信息面板不再OCR IATA而是直接进入
+                    "next": [
+                        "entryAirport",
+                        "finishNode"
+                    ]
+                }
+            }
+        },
+        {
+            //挂机
+            "name": "unattendedMode",
+            "label": "$pi.task.unattendedMode.name",
+            "entry": "unattendedMode",
+            "default_check": true,
+            "description": "$pi.task.unattendedMode.description",
+            "option": [
+                //"enableTower",
+                "notSkipProcessUp",
+                "unknownPageWaitting",
+                "randomSelectStand",
+                "ONNX",
+                "entryAirportIATA",
+                "bribery"
+            ]
+        },
+        {
+            //功能测试
+            "name": "test",
+            "label": "$pi.task.test.name",
+            "description": "$pi.task.test.description",
+            "entry": "test"
+        }
     ]
 }

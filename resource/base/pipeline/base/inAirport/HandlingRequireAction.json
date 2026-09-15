@@ -1,520 +1,533 @@
 {
-	"actionRequiringSelect": { //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
-		"recognition": {
-			"type": "Or",
-			"param": {
-				"any_of": [
-					{
-						"recognition": {
-							"type": "Custom",
-							"param": {
-								"custom_recognition": "airlineCardListColorMatch",
-								"custom_recognition_param": {
-									"lower": [
-										13,
-										244,
-										222
-									],
-									"upper": [
-										35,
-										255,
-										244
-									],
-									"count": 20
-								}
-							}
-						}
-					},
-					{
-						"recognition": {
-							"type": "NeuralNetworkDetect",
-							"param": {
-								"model": "WoA-widget.onnx",
-								"threshold": 0.708,
-								"expected": 23
-							}
-						}
-					}
-				]
-			}
-		},
-		"anchor": {
-			"afterClickFlight_infoYellowButton": "finishNode" //恢复默认
-		},
-		"post_wait_freezes": {
-			"time": 50,
-			"method": 3
-		},
-		"action": "Click",
-		"next": [
-			"detectAssignCrewCard", //尋找AssignCrew面板
-			"detetctStandSelectCard", //尋找standSelect面板
-			"universalAction_bribeFlight", //其它通用的actionRequire先检查有没有开关
-			"universalAction", //其它通用的actionRequire
-			"finishNode"
-			//"[JumpBack]isFreezeOrNot"
-		]
-	},
-	"detectAssignCrewCard": { //指派地勤節點鏈,檢測AssignCrew面板
-		"recognition": { //同时匹配滑块与开关
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					"__cacheAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					{ //寻找滑块特征
-						"recognition": {
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									62,
-									91,
-									229
-								],
-								"upper": [
-									84,
-									113,
-									251
-								],
-								"roi": "__cacheAssignCrewCard__",
-								"count": 400,
-								"order_by": "Vertical",
-								"connected": true
-							}
-						}
-					},
-					{
-						"recognition": { //寻找开关特征
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									94,
-									45,
-									154
-								],
-								"upper": [
-									116,
-									67,
-									176
-								],
-								"roi": "__cacheAssignCrewCardRampAgentSwitch__",
-								"count": 300,
-								"connected": true
-							}
-						}
-					}
-				],
-				"box_index": 2
-			}
-		},
-		"action": {
-			"type": "Swipe",
-			"param": {
-				"begin": true,
-				"begin_offset": [
-					2,
-					2,
-					-4,
-					-4
-				],
-				"end": "actionRequiringSelect", //选择的flight Card action requiring位置
-				"duration": 200
-			}
-		},
-		"next": [
-			"ClickRampAgentSwitch",
-			"finishNode"
-		]
-	},
-	"ClickRampAgentSwitch": { //指派地勤節點鏈,尋找並打開Ramp Agent
-		"recognition": {
-			"type": "Or",
-			"param": {
-				"any_of": [
-					"__cacheAssignCrewCardRampAgentSwitch__"
-				]
-			}
-		},
-		"action": "Click",
-		"target_offset": [
-			2,
-			2,
-			-4,
-			-4
-		],
-		"next": [
-			"checkHandlingPass",
-			"updateCrewUsedBefore",
-			"finishNode"
-		]
-	},
-	"checkHandlingPass": {
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					"__cacheAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					"__cacheAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					{
-						"recognition": {
-							"type": "Or",
-							"param": {
-								"any_of": [
-									{
-										"recognition": {
-											"type": "TemplateMatch",
-											"param": {
-												"method": 10001,
-												"threshold": 0.9,
-												"template": [
-													"timeLimited(Pass)_GreenMask.png"
-												],
-												"roi": "__cacheFlight_infoCard__",
-												"green_mask": true
-											}
-										}
-									},
-									{
-										"recognition": {
-											"type": "TemplateMatch",
-											"param": {
-												"method": 10001,
-												"threshold": 0.9,
-												"template": [
-													"加号（灰）.png"
-												],
-												"roi": "__cacheAssignCrewCard__",
-												"green_mask": true
-											}
-										}
-									}
-								]
-							}
-						}
-					},
-					{
-						"recognition": { //检查rampAgent是否启用
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									62,
-									133,
-									200
-								],
-								"upper": [
-									84,
-									155,
-									222
-								],
-								"count": 300,
-								"order_by": "Horizontal",
-								"connected": true,
-								"roi": "__cacheAssignCrewCardRampAgentSwitch__"
-							}
-						}
-					}
-				]
-			}
-		},
-		"next": [
-			"clickFlight_infoYellowButton",
-			"finishNode"
-		]
-	},
-	"__standSelectMatch__": {
-		"recognition": {
-			"type": "ColorMatch",
-			"param": {
-				"method": 40,
-				"lower": [
-					93,
-					19,
-					192
-				],
-				"upper": [
-					115,
-					41,
-					214
-				],
-				"count": 2000,
-				"order_by": "Random", //由base选项randomSelectStand覆写
-				"connected": true,
-				"roi": "__cacheStandSelectCard__"
-			}
-		}
-	},
-	"__plannerStandSelectMatch__": {
-		"recognition": {
-			"type": "ColorMatch",
-			"param": {
-				"method": 40,
-				"lower": [
-					84,
-					244,
-					244
-				],
-				"upper": [
-					106,
-					255,
-					255
-				],
-				"count": 400,
-				"order_by": "Horizontal",
-				"connected": true,
-				"roi": "__cacheStandSelectCard__"
-			}
-		}
-	},
-	"detetctStandSelectCard": { //机位分配的节点链，匹配stand select面板
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					"__standSelectMatch__"
-				],
-				"box_index": 1
-			}
-		},
-		"next": [
-			"plannerStandSelect", //规划器
-			"baseStandSelect", //基本
-			"finishNode"
-		]
-	},
-	"plannerStandSelect": {
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					"__plannerStandSelectMatch__"
-				],
-				"box_index": 1
-			}
-		},
-		"next": [
-			"clickFlight_infoYellowButton",
-			"finishNode"
-		]
-	},
-	"baseStandSelect": {
-		"target": "detetctStandSelectCard",
-		"target_offset": [
-			10,
-			10,
-			-20,
-			-20
-		],
-		"action": "Click",
-		"next": [
-			"clickFlight_infoYellowButton",
-			"finishNode"
-		]
-	},
-	"universalAction": { //指派地勤行動外的節點鏈
-		"anchor": {
-			"afterClickFlight_infoYellowButton": "detectContractUpgradeCard"
-		},
-		"next": [
-			"clickFlight_infoYellowButton",
-			"detectContractUpgradeCard",
-			"detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
-			"finishNode"
-		]
-	},
-	"universalAction_bribeFlight": { //检测是否存在开关例如需要贿赂的超时处理离场航班//enabled由bribery选项覆写
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					{
-						"recognition": {
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									94,
-									45,
-									154
-								],
-								"upper": [
-									116,
-									67,
-									176
-								],
-								"roi": "__cacheFlight_infoCard__",
-								"count": 555,
-								"order_by": "Vertical",
-								"index": -1,
-								"connected": true
-							}
-						}
-					}
-				],
-				"box_index": 1
-			}
-		},
-		"enabled": true,
-		"target_offset": [
-			2,
-			2,
-			-4,
-			-4
-		],
-		"action": "Click",
-		"next": [
-			"universalAction"
-		]
-	},
-	"clickFlight_infoYellowButton": { //click flight info card button
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					{
-						"recognition": {
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									13,
-									244,
-									222
-								],
-								"upper": [
-									35,
-									255,
-									244
-								],
-								"count": 2000,
-								"order_by": "Area",
-								"connected": true,
-								"roi": "__cacheFlight_infoCard__"
-							}
-						}
-					}
-				],
-				"box_index": 1
-			}
-		},
-		"target_offset": [
-			5,
-			5,
-			-10,
-			-10
-		],
-		"action": "Click",
-		"next": [
-			"[JumpBack]detectLoadingPage",
-			"[Anchor]afterClickFlight_infoYellowButton",
-			"finishNode"
-		]
-	},
-	"detectContractUpgradeCard": { //檢測是否是延續升級合同的卡片
-		"recognition": {
-			"type": "And",
-			"param": {
-				"all_of": [
-					"__cacheContractUpgradeCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-					{
-						"recognition": {
-							"type": "ColorMatch",
-							"param": {
-								"method": 40,
-								"lower": [
-									13,
-									244,
-									222
-								],
-								"upper": [
-									35,
-									255,
-									244
-								],
-								"count": 2000,
-								"order_by": "Area",
-								"connected": true,
-								"roi": "__cacheContractUpgradeCard__"
-							}
-						}
-					}
-				],
-				"box_index": 1
-			}
-		},
-		"anchor": {
-			"afterClickFlight_infoYellowButton": "finishNode" //在UniversalAction节点被分配的anchor被前置节点使用后立即清除
-		},
-		"target_offset": [
-			5,
-			5,
-			-10,
-			-10
-		],
-		"action": "Click",
-		"next": [
-			"[JumpBack]waitContractUpgradeCardDisappear",
-			"finishNode"
-		]
-	},
-	"waitContractUpgradeCardDisappear": {
-		"recognition": {
-			"type": "NeuralNetworkDetect",
-			"param": {
-				"model": "WoA-card.onnx",
-				"expected": 11
-			}
-		}
-	},
-	"actionRequiringSelectDeparture": { //选择departure//recognition由ONNX选项覆写
-		"recognition": {
-			"type": "Or",
-			"param": {
-				"any_of": [
-					{
-						"recognition": {
-							"type": "TemplateMatch",
-							"param": {
-								"method": 10001,
-								"threshold": 0.9,
-								"template": [
-									"离场航班.png",
-									"到达航班.png"
-								]
-							}
-						}
-					},
-					{
-						"recognition": {
-							"type": "NeuralNetworkDetect",
-							"param": {
-								"model": "WoA-widget.onnx",
-								"expected": [
-									24,
-									26
-								]
-							}
-						}
-					}
-				]
-			}
-		},
-		"post_wait_freezes": {
-			"time": 50,
-			"method": 3
-		},
-		"action": "Click",
-		"next": [
-			"detetctStandSelectCard",
-			"universalAction_bribeFlight",
-			"universalAction"
-		]
-	}
+    "actionRequiringSelect": {
+        //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "airlineCardListColorMatch",
+                                "custom_recognition_param": {
+                                    "lower": [
+                                        13,
+                                        244,
+                                        222
+                                    ],
+                                    "upper": [
+                                        35,
+                                        255,
+                                        244
+                                    ],
+                                    "count": 20
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": 23,
+                                "model": "WoA-widget.onnx",
+                                "threshold": 0.708
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "anchor": {
+            "afterClickFlight_infoYellowButton": "finishNode" //恢复默认
+        },
+        "post_wait_freezes": {
+            "time": 50,
+            "method": 3
+        },
+        "next": [
+            "detectAssignCrewCard", //尋找AssignCrew面板
+            "detetctStandSelectCard", //尋找standSelect面板
+            "universalAction_bribeFlight", //其它通用的actionRequire先检查有没有开关
+            "universalAction", //其它通用的actionRequire
+            "finishNode"
+            //"[JumpBack]isFreezeOrNot"
+        ]
+    },
+    "detectAssignCrewCard": {
+        //指派地勤節點鏈,檢測AssignCrew面板
+        "recognition": {
+            //同时匹配滑块与开关
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cacheAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    {
+                        //寻找滑块特征
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheAssignCrewCard__",
+                                "method": 40,
+                                "lower": [
+                                    62,
+                                    91,
+                                    229
+                                ],
+                                "upper": [
+                                    84,
+                                    113,
+                                    251
+                                ],
+                                "connected": true,
+                                "count": 400,
+                                "order_by": "Vertical"
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            //寻找开关特征
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheAssignCrewCardRampAgentSwitch__",
+                                "method": 40,
+                                "lower": [
+                                    94,
+                                    45,
+                                    154
+                                ],
+                                "upper": [
+                                    116,
+                                    67,
+                                    176
+                                ],
+                                "connected": true,
+                                "count": 300
+                            }
+                        }
+                    }
+                ],
+                "box_index": 2
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": true,
+                "begin_offset": [
+                    2,
+                    2,
+                    -4,
+                    -4
+                ],
+                "end": "actionRequiringSelect", //选择的flight Card action requiring位置
+                "duration": 200
+            }
+        },
+        "next": [
+            "ClickRampAgentSwitch",
+            "finishNode"
+        ]
+    },
+    "ClickRampAgentSwitch": {
+        //指派地勤節點鏈,尋找並打開Ramp Agent
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__cacheAssignCrewCardRampAgentSwitch__"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            2,
+            2,
+            -4,
+            -4
+        ],
+        "next": [
+            "checkHandlingPass",
+            "updateCrewUsedBefore",
+            "finishNode"
+        ]
+    },
+    "checkHandlingPass": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cacheAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cacheAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    {
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [
+                                    {
+                                        "recognition": {
+                                            "type": "TemplateMatch",
+                                            "param": {
+                                                "roi": "__cacheFlight_infoCard__",
+                                                "template": [
+                                                    "timeLimited(Pass)_GreenMask.png"
+                                                ],
+                                                "green_mask": true,
+                                                "method": 10001,
+                                                "threshold": 0.9
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "recognition": {
+                                            "type": "TemplateMatch",
+                                            "param": {
+                                                "roi": "__cacheAssignCrewCard__",
+                                                "template": [
+                                                    "加号（灰）.png"
+                                                ],
+                                                "green_mask": true,
+                                                "method": 10001,
+                                                "threshold": 0.9
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            //检查rampAgent是否启用
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheAssignCrewCardRampAgentSwitch__",
+                                "method": 40,
+                                "lower": [
+                                    62,
+                                    133,
+                                    200
+                                ],
+                                "upper": [
+                                    84,
+                                    155,
+                                    222
+                                ],
+                                "connected": true,
+                                "count": 300,
+                                "order_by": "Horizontal"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "next": [
+            "clickFlight_infoYellowButton",
+            "finishNode"
+        ]
+    },
+    "__standSelectMatch__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cacheStandSelectCard__",
+                "method": 40,
+                "lower": [
+                    93,
+                    19,
+                    192
+                ],
+                "upper": [
+                    115,
+                    41,
+                    214
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Random" //由base选项randomSelectStand覆写
+            }
+        }
+    },
+    "__plannerStandSelectMatch__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cacheStandSelectCard__",
+                "method": 40,
+                "lower": [
+                    84,
+                    244,
+                    244
+                ],
+                "upper": [
+                    106,
+                    255,
+                    255
+                ],
+                "connected": true,
+                "count": 400,
+                "order_by": "Horizontal"
+            }
+        }
+    },
+    "detetctStandSelectCard": {
+        //机位分配的节点链，匹配stand select面板
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__standSelectMatch__"
+                ],
+                "box_index": 1
+            }
+        },
+        "next": [
+            "plannerStandSelect", //规划器
+            "baseStandSelect", //基本
+            "finishNode"
+        ]
+    },
+    "plannerStandSelect": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__plannerStandSelectMatch__"
+                ],
+                "box_index": 1
+            }
+        },
+        "next": [
+            "clickFlight_infoYellowButton",
+            "finishNode"
+        ]
+    },
+    "baseStandSelect": {
+        "action": "Click",
+        "target": "detetctStandSelectCard",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
+        "next": [
+            "clickFlight_infoYellowButton",
+            "finishNode"
+        ]
+    },
+    "universalAction": {
+        //指派地勤行動外的節點鏈
+        "anchor": {
+            "afterClickFlight_infoYellowButton": "detectContractUpgradeCard"
+        },
+        "next": [
+            "clickFlight_infoYellowButton",
+            "detectContractUpgradeCard",
+            "detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
+            "finishNode"
+        ]
+    },
+    "universalAction_bribeFlight": {
+        "enabled": true,
+        //检测是否存在开关例如需要贿赂的超时处理离场航班//enabled由bribery选项覆写
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheFlight_infoCard__",
+                                "method": 40,
+                                "lower": [
+                                    94,
+                                    45,
+                                    154
+                                ],
+                                "upper": [
+                                    116,
+                                    67,
+                                    176
+                                ],
+                                "connected": true,
+                                "count": 555,
+                                "order_by": "Vertical",
+                                "index": -1
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            2,
+            2,
+            -4,
+            -4
+        ],
+        "next": [
+            "universalAction"
+        ]
+    },
+    "clickFlight_infoYellowButton": {
+        //click flight info card button
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheFlight_infoCard__",
+                                "method": 40,
+                                "lower": [
+                                    13,
+                                    244,
+                                    222
+                                ],
+                                "upper": [
+                                    35,
+                                    255,
+                                    244
+                                ],
+                                "connected": true,
+                                "count": 2000,
+                                "order_by": "Area"
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "next": [
+            "[JumpBack]detectLoadingPage",
+            "[Anchor]afterClickFlight_infoYellowButton",
+            "finishNode"
+        ]
+    },
+    "detectContractUpgradeCard": {
+        //檢測是否是延續升級合同的卡片
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheContractUpgradeCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheContractUpgradeCard__",
+                                "method": 40,
+                                "lower": [
+                                    13,
+                                    244,
+                                    222
+                                ],
+                                "upper": [
+                                    35,
+                                    255,
+                                    244
+                                ],
+                                "connected": true,
+                                "count": 2000,
+                                "order_by": "Area"
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "anchor": {
+            "afterClickFlight_infoYellowButton": "finishNode" //在UniversalAction节点被分配的anchor被前置节点使用后立即清除
+        },
+        "next": [
+            "[JumpBack]waitContractUpgradeCardDisappear",
+            "finishNode"
+        ]
+    },
+    "waitContractUpgradeCardDisappear": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 11,
+                "model": "WoA-card.onnx"
+            }
+        }
+    },
+    "actionRequiringSelectDeparture": {
+        //选择departure//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "TemplateMatch",
+                            "param": {
+                                "template": [
+                                    "离场航班.png",
+                                    "到达航班.png"
+                                ],
+                                "method": 10001,
+                                "threshold": 0.9
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": [
+                                    24,
+                                    26
+                                ],
+                                "model": "WoA-widget.onnx"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 50,
+            "method": 3
+        },
+        "next": [
+            "detetctStandSelectCard",
+            "universalAction_bribeFlight",
+            "universalAction"
+        ]
+    }
 }
