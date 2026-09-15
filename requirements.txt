@@ -1,2 +1,1 @@
-# Dependabot: use --universal when updating this file.
 maafw

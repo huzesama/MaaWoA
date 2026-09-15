@@ -10,3 +10,5 @@ debug/
 # END create-maa-project
 # OCR models are copied from the MaaCommonAssets submodule and must not be committed.
 resource/base/model/ocr/
+pi-profile.yaml
+agent-dist
