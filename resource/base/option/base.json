@@ -2,7 +2,7 @@
 	"option": {
 		"freezeCheck": {
 			"controller": [
-				"ADB"
+				"Adb"
 			],
 			"label": "$pi.task.option.freezeCheck.name",
 			"description": "$pi.task.option.freezeCheck.description",

@@ -76,7 +76,7 @@
         "displayName": "MaaWoA",
         "initialTemplate": "agent",
         "slug": "maawoa",
-        "version": "0.1.0"
+        "version": "0.0.3"
     },
     "python": {
         "devCommand": [
@@ -94,12 +94,6 @@
             "label": "$pi.resource.label.base.name",
             "path": "resource/base",
             "slug": "base"
-        },
-        {
-            "enabled": true,
-            "label": "Desktop",
-            "path": "resource/desktop",
-            "slug": "desktop"
         }
     ],
     "runtime": {
