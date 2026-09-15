@@ -1,14 +1,10 @@
-import sys
 import hashlib
-from typing import Optional
 
 from maa.agent.agent_server import AgentServer
-from maa.custom_recognition import CustomRecognition
 from maa.context import Context
-from maa.tasker import Tasker
+from maa.custom_recognition import CustomRecognition
 
-_last_hash: Optional[str] = None
-
+_last_hash: str | None = None
 
 @AgentServer.custom_recognition("freezeCheck")
 class freezeCheck(CustomRecognition):
@@ -36,21 +32,3 @@ class freezeCheck(CustomRecognition):
 			detail={"frozen": is_frozen, "hash": cur_hash},
 		)
 
-
-def main():
-	Tasker.set_log_dir("./debug")
-
-	if len(sys.argv) < 2:
-		print("Usage: python freezeCheck.py <socket_id>")
-		print("socket_id is provided by AgentIdentifier.")
-		exit(1)
-
-	socket_id = sys.argv[-1]
-
-	AgentServer.start_up(socket_id)
-	AgentServer.join()
-	AgentServer.shut_down()
-
-
-if __name__ == "__main__":
-	main()

@@ -1,17 +1,17 @@
-from typing import Optional, Any
 import json
+from typing import Any
 
 from maa.agent.agent_server import AgentServer
-from maa.custom_recognition import CustomRecognition
 from maa.context import Context
-from maa.pipeline import JRecognitionType, JColorMatch, JNeuralNetworkDetect
+from maa.custom_recognition import CustomRecognition
+from maa.pipeline import JColorMatch, JNeuralNetworkDetect, JRecognitionType
 
 @AgentServer.custom_recognition("airlineCardListColorMatch")
 class airlineCardListColorMatch(CustomRecognition):
 
 	def __init__(self):
 		super().__init__()
-		self._cached_rect: Optional[tuple] = None  # 缓存扩展后的矩形，供复用
+		self._cached_rect: tuple | None = None  # 缓存扩展后的矩形，供复用
 
 	def analyze(
 		self,

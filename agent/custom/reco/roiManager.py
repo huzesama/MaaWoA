@@ -1,9 +1,8 @@
 import json
-from typing import Optional
 
 from maa.agent.agent_server import AgentServer
-from maa.custom_recognition import CustomRecognition
 from maa.context import Context
+from maa.custom_recognition import CustomRecognition
 from maa.define import RectType
 
 

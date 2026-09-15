@@ -1,7 +1,8 @@
-from maa.agent.agent_server import AgentServer
-from maa.custom_recognition import CustomRecognition
-from maa.context import Context
 import json
+
+from maa.agent.agent_server import AgentServer
+from maa.context import Context
+from maa.custom_recognition import CustomRecognition
 
 # 模块级变量
 _last_ocr_crew_used: str = "???/???"
@@ -57,10 +58,8 @@ class crewUsedCompare(CustomRecognition):
 		if update_cache:
 			_skip_compare = False
 			if not current_ocr_crew_used:
-				print(f'[crewUsedCompared]: handling busy reco. Last cache Crew: {_last_ocr_crew_used}  update cache Crew: reco faild.')
 				_last_ocr_crew_used = "???/???"
 			else:
-				print(f'[crewUsedCompared]: handling busy reco. Last cache Crew: {_last_ocr_crew_used}  update cache Crew: {current_ocr_crew_used}')
 				_last_ocr_crew_used = current_ocr_crew_used
 
 		return CustomRecognition.AnalyzeResult(

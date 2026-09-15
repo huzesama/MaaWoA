@@ -1,6 +1,13 @@
 from importlib import import_module
 
-RECO_MODULES = ("general", "airlineCardListColorMatch", "crewUsedCompare", "dailyUniqueCompare", "freezeCheck", "roiManager", )
+RECO_MODULES = (
+    "general",
+    "airlineCardListColorMatch",
+    "crewUsedCompare",
+    "dailyUniqueCompare",
+    "freezeCheck",
+    "roiManager",
+)
 
 
 def register_all() -> None:
