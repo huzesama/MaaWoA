@@ -3,7 +3,7 @@
     "icon": "resource/base/logo.png",
     "name": "maawoa",
     "label": "MaaWoA",
-    "version": "v0.0.4",
+    "version": "v0.0.3",
     "description": "$pi.description",
     "contact": "$pi.contact",
     "license": "[GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)",
