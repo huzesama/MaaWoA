@@ -12,3 +12,7 @@ debug/
 resource/base/model/ocr/
 pi-profile.yaml
 agent-dist
+
+libs
+runtimes
+plugins

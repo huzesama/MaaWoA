@@ -57,7 +57,7 @@
     },
     "maafw": {
         "channel": "stable",
-        "version": "5.13.0"
+        "version": ""
     },
     "network": {
         "mode": "auto"
@@ -99,6 +99,11 @@
     ],
     "runtime": {
         "mfa": {
+            "channel": "stable",
+            "enabled": true,
+            "version": ""
+        },
+        "mxu": {
             "channel": "stable",
             "enabled": true,
             "version": ""
