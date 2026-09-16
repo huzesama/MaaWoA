@@ -119,7 +119,10 @@ jobs:
           fi
           for pkg_dir in "${package_dirs[@]}"; do
             gui=$(basename "$pkg_dir" | sed 's/^package-//')
-            archive="MaaWoA-${{ matrix.artifact_os }}-${{ matrix.arch }}-${GITHUB_REF_NAME}-${gui^^}.${{ matrix.ext }}"
+            # macOS runners resolve `shell: bash` to the system bash 3.2, which predates the
+            # parameter-expansion case modifiers, so uppercase through tr instead.
+            gui_upper="$(printf '%s' "$gui" | tr '[:lower:]' '[:upper:]')"
+            archive="MaaWoA-${{ matrix.artifact_os }}-${{ matrix.arch }}-${GITHUB_REF_NAME}-${gui_upper}.${{ matrix.ext }}"
             (
               cd "$pkg_dir"
               if [[ "${{ matrix.ext }}" == "zip" ]]; then
@@ -179,7 +182,13 @@ jobs:
             exit 1
           fi
           echo "[INFO] Generating release notes for $previous_stable_tag..$GITHUB_REF_NAME"
-          "$git_cliff" --config .github/cliff.toml "$previous_stable_tag..HEAD" --strip header --output CHANGES.md
+          # Remote metadata needs the GitHub API, and git-cliff exits 101 when it cannot read it;
+          # a repository with pull requests disabled answers 404 for the pull list. Notes are not
+          # worth failing a release over, so retry the same range without remote data.
+          if ! "$git_cliff" --config .github/cliff.toml "$previous_stable_tag..HEAD" --strip header --output CHANGES.md; then
+            echo "::warning::GitHub metadata is unavailable; generating release notes without pull request and contributor data."
+            "$git_cliff" --config .github/cliff.toml --offline "$previous_stable_tag..HEAD" --strip header --output CHANGES.md
+          fi
       - name: Upload release notes
         uses: actions/upload-artifact@v7
         with:
