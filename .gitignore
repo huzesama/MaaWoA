@@ -16,3 +16,16 @@ agent-dist
 libs
 runtimes
 plugins
+
+# MFAAvalonia：拷贝到项目根目录运行，除运行库外的其余文件均不入库
+MFAAvalonia
+MFAAvalonia.*
+libloader.dll
+appsettings.json
+logs/
+temp/
+backup/
+DependencySetup_*.sh
+# MFAAvalonia 运行时写入项目目录的界面布局与占位节点
+resource/mfa_layout.json
+resource/base/pipeline/sample.json
