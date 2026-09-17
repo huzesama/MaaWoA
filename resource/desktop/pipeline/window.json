@@ -1,5 +1,6 @@
 {
     "startApp": {
+        "action": "DoNothing",
         "anchor": {
             "afterStop": "finishNode"
         },
@@ -8,6 +9,7 @@
         ]
     },
     "stopApp": {
+        "action": "DoNothing",
         "next": [
             "[Anchor]afterStop"
         ]
