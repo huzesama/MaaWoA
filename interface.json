@@ -10,8 +10,8 @@
     "welcome": "$pi.welcome",
     "github": "https://github.com/huzesama/MaaWoA",
     "languages": {
-        "zh_hans": "resource/base/languages/zh_hans.json",
-        "zh_hant": "resource/base/languages/zh_hant.json",
+        "zh_cn": "resource/base/languages/zh_cn.json",
+        "zh_tw": "resource/base/languages/zh_tw.json",
         "en_us": "resource/base/languages/en_us.json"
     },
     "controller": [
@@ -37,13 +37,27 @@
             ]
         },
         {
-            "name": "macOS",
-            "label": "macOS app",
+            "name": "MacOS",
+            "label": "MacOS App",
             "type": "MacOS",
             "display_short_side": 720,
             "permission_required": true,
             "macos": {
-                "input": "PostToPid",
+                "input": "GlobalEvent",
+                "screencap": "ScreenCaptureKit"
+            },
+            "attach_resource_path": [
+                "./resource/desktop"
+            ]
+        },
+        {
+            "name": "MacOS_narrow",
+            "label": "MacOS App(Narrow window)",
+            "type": "MacOS",
+            "display_long_side": 1280,
+            "permission_required": true,
+            "macos": {
+                "input": "GlobalEvent",
                 "screencap": "ScreenCaptureKit"
             },
             "attach_resource_path": [
@@ -54,7 +68,10 @@
             "name": "PlayCover",
             "label": "PlayCover iOS app",
             "type": "PlayCover",
-            "display_short_side": 720
+            "display_short_side": 720,
+            "attach_resource_path": [
+                "./resource/desktop"
+            ]
         },
         {
             "name": "Gamepad",
@@ -66,11 +83,7 @@
             "name": "Linux",
             "label": "wlroots app (Linux)",
             "type": "Linux",
-            "display_short_side": 720,
-            "permission_required": true,
-            "attach_resource_path": [
-                "./resource/desktop"
-            ]
+            "display_short_side": 720
         }
     ],
     "resource": [
