@@ -26,18 +26,21 @@ class crewUsedCompare(CustomRecognition):
 		update_cache = param.get("update_cache", True)
 		_return_box_=(0, 0, 0, 0)
 		current_ocr_crew_used = ""
+		key_type = "text"
 
 		try:			
-			if not _skip_compare:
+			if not _skip_compare or update_cache:
 				reco_detail = context.run_recognition(
 					"__crewUsedCompareOCR__",
 					argv.image,
 					pipeline_override={
 						"__crewUsedCompareOCR__": {
 							"recognition":"OCR",
-							#"only_rec": True,
 							"roi": "cacheCrewUsedBox",
 							"replace": ["\\|","/"],
+							"color_filter": "textBinarization",
+							"order_by": "Vertical",
+							"index": -1
 						}
 					}
 				)
@@ -51,18 +54,21 @@ class crewUsedCompare(CustomRecognition):
 				else:
 					_skip_compare = True
 					_return_box_=reco_detail.box if reco_detail and reco_detail.hit else (0, 0, 0, 0)
+			else:
+				key_type = "reco"
+				current_ocr_crew_used = "skip"
+				_return_box_ = (0, 0, 0, 0)
+
 		except Exception as e:
 			print(f"[crewUsedCompared] analyze error: {e}")
 
-		# 仅当 update_cache 为 True 时才更新缓存
-		if update_cache:
-			_skip_compare = False
-			if not current_ocr_crew_used:
+		if update_cache: 
+			if current_ocr_crew_used == "":
 				_last_ocr_crew_used = "???/???"
 			else:
 				_last_ocr_crew_used = current_ocr_crew_used
 
 		return CustomRecognition.AnalyzeResult(
 			box=_return_box_,
-			detail={"text": current_ocr_crew_used, "cache_updated": update_cache},
+			detail={key_type: current_ocr_crew_used, "cache_updated": update_cache},
 		)
