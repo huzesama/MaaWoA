@@ -34,7 +34,8 @@
             "finishNode"
         ]
     },
-    "cacheCrewUsedBox": {//缓存地勤用量的box
+    "cacheCrewUsedBox": {
+        //缓存地勤用量的box
         "max_hit": 1,
         "recognition": {
             "type": "NeuralNetworkDetect",
