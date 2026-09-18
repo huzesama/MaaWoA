@@ -3,7 +3,7 @@
     "icon": "resource/base/logo.png",
     "name": "maawoa",
     "label": "MaaWoA",
-    "version": "v0.0.3",
+    "version": "v0.0.4",
     "description": "$pi.description",
     "contact": "$pi.contact",
     "license": "[GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)",
@@ -51,20 +51,6 @@
             ]
         },
         {
-            "name": "MacOS_narrow",
-            "label": "MacOS App(Narrow window)",
-            "type": "MacOS",
-            "display_long_side": 1280,
-            "permission_required": true,
-            "macos": {
-                "input": "GlobalEvent",
-                "screencap": "ScreenCaptureKit"
-            },
-            "attach_resource_path": [
-                "./resource/desktop"
-            ]
-        },
-        {
             "name": "PlayCover",
             "label": "PlayCover iOS app",
             "type": "PlayCover",
@@ -84,6 +70,20 @@
             "label": "wlroots app (Linux)",
             "type": "Linux",
             "display_short_side": 720
+        },
+        {
+            "name": "MacOS_narrow",
+            "label": "MacOS App(Narrow window)",
+            "type": "MacOS",
+            "display_long_side": 1280,
+            "permission_required": true,
+            "macos": {
+                "input": "GlobalEvent",
+                "screencap": "ScreenCaptureKit"
+            },
+            "attach_resource_path": [
+                "./resource/desktop"
+            ]
         }
     ],
     "resource": [
