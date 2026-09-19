@@ -50,19 +50,20 @@ class crewUsedCompare(CustomRecognition):
 
 				# 对比本次与上一次 OCR 内容
 				if current_ocr_crew_used == _last_ocr_crew_used:
-					_return_box_=None
+					_return_box_ = None
 				else:
 					_skip_compare = True
-					_return_box_=reco_detail.box if reco_detail and reco_detail.hit else (0, 0, 0, 0)
+					_return_box_=reco_detail.box if reco_detail and reco_detail.hit else (0, 0, 1, 1)
 			else:
 				key_type = "reco"
 				current_ocr_crew_used = "skip"
-				_return_box_ = (0, 0, 0, 0)
+				_return_box_ = (0, 0, 1, 1)
 
 		except Exception as e:
 			print(f"[crewUsedCompared] analyze error: {e}")
 
 		if update_cache: 
+			_skip_compare = False
 			if current_ocr_crew_used == "":
 				_last_ocr_crew_used = "???/???"
 			else:
