@@ -3,6 +3,8 @@ import json
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
+from utils import logger
+
 
 # 模块级变量
 _last_ocr_crew_used: str = "???/???"
@@ -59,15 +61,17 @@ class crewUsedCompare(CustomRecognition):
 				current_ocr_crew_used = "skip"
 				_return_box_ = (0, 0, 1, 1)
 
-		except Exception as e:
-			print(f"[crewUsedCompared] analyze error: {e}")
+		except Exception as error:
+			logger.error("[crewUsedCompared.py] analyze error: {}", error)
 
 		if update_cache: 
+
 			_skip_compare = False
 			if current_ocr_crew_used == "":
 				_last_ocr_crew_used = "???/???"
 			else:
 				_last_ocr_crew_used = current_ocr_crew_used
+				logger.info("update cache crew: {}", current_ocr_crew_used)
 
 		return CustomRecognition.AnalyzeResult(
 			box=_return_box_,

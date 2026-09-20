@@ -3,6 +3,7 @@ import hashlib
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
+from utils import logger
 
 _last_hash: str | None = None
 
@@ -23,6 +24,7 @@ class freezeCheck(CustomRecognition):
 		_last_hash = cur_hash
 
 		if is_frozen:
+			logger.info("woa seems to have frozen & restart woa")
 			context.override_next(argv.node_name, ["restartApp"])#画面冻结
 		else:
 			context.override_next(argv.node_name, [])#画面没有冻结

@@ -52,7 +52,6 @@ class swipe_inBoxByVector(CustomAction):
 		else:
 			box = argv.box
 
-		print(f"box:'{box}'")
 		if not box:
 			# 没有可用的 box，直接返回失败
 			return False

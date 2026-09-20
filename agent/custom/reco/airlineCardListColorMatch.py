@@ -5,6 +5,7 @@ from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.pipeline import JColorMatch, JNeuralNetworkDetect, JRecognitionType
+from utils import logger
 
 
 @AgentServer.custom_recognition("airlineCardListColorMatch")
@@ -23,8 +24,8 @@ class airlineCardListColorMatch(CustomRecognition):
 
 		# 1. 若已缓存则直接复用，避免重复跑神经网络检测
 		if self._cached_rect is None:
-			nn_param = JNeuralNetworkDetect(model="WoA-card.onnx",expected=[4,5,6,7])
 
+			nn_param = JNeuralNetworkDetect(model="WoA-card.onnx",expected=["airlineCard", "uniqueCard", "myFleetCard", "playersFleetCard"])
 			nn_detail = context.run_recognition_direct(
 				JRecognitionType.NeuralNetworkDetect, nn_param, argv.image
 			)
@@ -39,7 +40,8 @@ class airlineCardListColorMatch(CustomRecognition):
 			new_y = 0
 			new_h = img_h
 			self._cached_rect = (x, new_y, w, new_h)
-			print(f'[airlineCardList]: 缓存航班卡片列表box{self._cached_rect}')
+			logger.info("cache airline card list location{}", self._cached_rect)
+
 
 		x, y, w, h = self._cached_rect
 
