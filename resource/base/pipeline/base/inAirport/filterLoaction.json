@@ -4,7 +4,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 10,
+                "expected": "filter",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -27,7 +27,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 20,
+                "expected": "filterActionRequire",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -49,7 +49,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 11,
+                "expected": "filterArrivalPressed",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -67,7 +67,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 13,
+                "expected": "filterAirplaneOnAirportPressed",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -84,7 +84,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 15,
+                "expected": "filterDeparturePressed",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -100,7 +100,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 17,
+                "expected": "filterFavoritePressed",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -115,7 +115,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 21,
+                "expected": "filterUniquePressed",
                 "model": "WoA-widget.onnx"
             }
         },

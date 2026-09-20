@@ -4,7 +4,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 40,
+                "expected": "dockerTower",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -19,7 +19,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 14,
+                "expected": "tower_info",
                 "model": "WoA-card.onnx"
             }
         },
@@ -33,7 +33,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 42,
+                "expected": "towerControlEntry",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -50,7 +50,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "roi": "detectTowerControlEntry",
-                "expected": 16,
+                "expected": "towerControlCard",
                 "model": "WoA-card.onnx"
             }
         },
@@ -65,7 +65,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "roi": "detectTowerControlCard",
-                "expected": 4,
+                "expected": "confirmButton",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -81,7 +81,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 15,
+                "expected": "towerConfirmCard",
                 "model": "WoA-card.onnx"
             }
         },
@@ -96,7 +96,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "roi": "detectTowerControlConfirmCard",
-                "expected": 4,
+                "expected": "confirmButton",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -112,7 +112,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 5,
+                "expected": "back",
                 "model": "WoA-widget.onnx"
             }
         },

@@ -62,7 +62,7 @@
                                 "type": "NeuralNetworkDetect",
                                 "param": {
                                     "model": "WoA-widget.onnx",
-                                    "expected": 22
+                                    "expected": "filterUnique"
                                 }
                             }
                         }

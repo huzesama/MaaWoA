@@ -40,7 +40,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 8,
+                "expected": "crewUsed",
                 "model": "WoA-widget.onnx"
             }
         }

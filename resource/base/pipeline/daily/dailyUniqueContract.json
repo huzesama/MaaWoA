@@ -4,7 +4,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 41,
+                "expected": "dockerContractNotice",
                 "model": "WoA-widget.onnx"
             }
         },
@@ -27,7 +27,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 7,
+                "expected": "contractPage",
                 "model": "WoA-page.onnx"
             }
         },
@@ -41,7 +41,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 19,
+                "expected": "uniqueContractOffers",
                 "model": "WoA-card.onnx"
             }
         },
@@ -96,7 +96,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 17,
+                "expected": "contractAcceptConfirmCard",
                 "model": "WoA-card.onnx"
             }
         },
@@ -178,7 +178,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 5,
+                "expected": "entryAirportPage",
                 "model": "WoA-page.onnx"
             }
         },
@@ -220,7 +220,7 @@
                         "recognition": {
                             "type": "NeuralNetworkDetect",
                             "param": {
-                                "expected": 7,
+                                "expected": "menuButton",
                                 "model": "WoA-widget.onnx"
                             }
                         }
@@ -246,7 +246,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 13,
+                "expected": "menu",
                 "model": "WoA-card.onnx"
             }
         },

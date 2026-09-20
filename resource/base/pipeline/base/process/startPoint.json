@@ -18,7 +18,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 5,
+                "expected": "entryAirportPage",
                 "model": "WoA-page.onnx"
             }
         },
@@ -30,7 +30,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 4,
+                "expected": "airportSelectPage",
                 "model": "WoA-page.onnx"
             }
         },
@@ -46,7 +46,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 2,
+                "expected": "homePage",
                 "model": "WoA-page.onnx"
             }
         },
@@ -60,7 +60,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 0,
+                "expected": "loadingPage",
                 "model": "WoA-page.onnx"
             }
         },
@@ -74,14 +74,14 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 1,
+                "expected": "errorPage",
                 "model": "WoA-page.onnx"
             }
         },
         "action": "Click"
     },
     "unattendedMode": {
-        //开始无人值守吧！//被多个节点用于获取全屏实体矩形//由base选项notSkipProcessUp覆盖next
+        //开始无人值守吧！//由base选项notSkipProcessUp覆盖next
         "anchor": {
             "afterStart": "detectPage"
         },

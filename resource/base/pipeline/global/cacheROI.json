@@ -9,7 +9,7 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheFlight_infoCard__",
                     "model": "WoA-card.onnx",
-                    "expected": 8
+                    "expected": "flight_info"
                 }
             }
         }
@@ -24,7 +24,7 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheAssignCrewCard__",
                     "model": "WoA-card.onnx",
-                    "expected": 9
+                    "expected": "assignCrewCard"
                 }
             }
         }
@@ -39,7 +39,7 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheStandSelectCard__",
                     "model": "WoA-card.onnx",
-                    "expected": 10
+                    "expected": "standSelectCard"
                 }
             }
         }
@@ -54,7 +54,7 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheContractUpgradeCard__",
                     "model": "WoA-card.onnx",
-                    "expected": 11
+                    "expected": "contractUpgradeCard"
                 }
             }
         }
@@ -69,7 +69,7 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheAssignCrewCardRampAgentSwitch__",
                     "model": "WoA-widget.onnx",
-                    "expected": 1
+                    "expected": "switch"
                 }
             }
         }
@@ -84,7 +84,7 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheAirportSelectList__",
                     "model": "WoA-card.onnx",
-                    "expected": 1
+                    "expected": "airportList"
                 }
             }
         }

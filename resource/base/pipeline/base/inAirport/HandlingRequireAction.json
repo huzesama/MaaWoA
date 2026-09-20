@@ -30,7 +30,7 @@
                         "recognition": {
                             "type": "NeuralNetworkDetect",
                             "param": {
-                                "expected": 23,
+                                "expected": "actionRequire",
                                 "model": "WoA-widget.onnx",
                                 "threshold": 0.708
                             }
@@ -480,7 +480,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 11,
+                "expected": "contractUpgradeCard",
                 "model": "WoA-card.onnx"
             }
         }
@@ -509,8 +509,8 @@
                             "type": "NeuralNetworkDetect",
                             "param": {
                                 "expected": [
-                                    24,
-                                    26
+                                    "arrival",
+                                    "departure"
                                 ],
                                 "model": "WoA-widget.onnx"
                             }

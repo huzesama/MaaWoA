@@ -88,7 +88,7 @@
                                 "param": {
                                     "model": "WoA-widget.onnx",
                                     "threshold": 0.708,
-                                    "expected": 23
+                                    "expected": "actionRequire"
                                 }
                             }
                         },
@@ -99,8 +99,8 @@
                                 "param": {
                                     "model": "WoA-widget.onnx",
                                     "expected": [
-                                        24,
-                                        26
+                                        "arrival",
+                                        "departure"
                                     ]
                                 }
                             }
@@ -111,7 +111,7 @@
                                 "type": "NeuralNetworkDetect",
                                 "param": {
                                     "model": "WoA-widget.onnx",
-                                    "expected": 7
+                                    "expected": "menuButton"
                                 }
                             }
                         }
