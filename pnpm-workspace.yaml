@@ -1,0 +1,3 @@
+packages: []
+minimumReleaseAgeExclude:
+  - create-maa-project

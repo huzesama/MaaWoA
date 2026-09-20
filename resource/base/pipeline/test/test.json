@@ -1,0 +1,96 @@
+{
+    "test": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    614,
+                    502,
+                    55,
+                    33
+                ],
+                "method": 40,
+                "lower": [
+                    62,
+                    133,
+                    209
+                ],
+                "upper": [
+                    84,
+                    155,
+                    231
+                ],
+                "connected": false
+            }
+        }
+    },
+    "filterUnpress": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "筛选器（未按下）.png"
+                ],
+                "method": 10001,
+                "threshold": 0.9
+            }
+        }
+    },
+    "airportLock": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    10,
+                    228,
+                    328,
+                    465
+                ],
+                "template": [
+                    "锁.png"
+                ],
+                "method": 10001,
+                "threshold": 0.9
+            }
+        }
+    },
+    "dailyUniqueAirportTemplayeMatch": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    957,
+                    0,
+                    323,
+                    720
+                ],
+                "template": [
+                    "特殊入港.png"
+                ],
+                "method": 10001,
+                "threshold": 0.9
+            }
+        }
+    },
+    "universalButtonColorMatch": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        }
+    }
+}

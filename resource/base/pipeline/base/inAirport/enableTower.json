@@ -1,0 +1,121 @@
+{
+    "detectDockerTower": {
+        //点击docker栏的塔台入口
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 40,
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click",
+        "next": [
+            "detectTower_info",
+            "finishNode"
+        ]
+    },
+    "detectTower_info": {
+        //检测塔台页的延时卡片
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 14,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "next": [
+            "detectTowerControlEntry",
+            "finishNode"
+        ]
+    },
+    "detectTowerControlEntry": {
+        //在延时卡片中点击全部控制器的延时控制卡片
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 42,
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [
+            "[JumpBack]detectTowerControlCard",
+            "finishNode"
+        ]
+    },
+    "detectTowerControlCard": {
+        //检测延时控制卡片是否弹出
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "roi": "detectTowerControlEntry",
+                "expected": 16,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "next": [
+            "enableTower",
+            "finishNode"
+        ]
+    },
+    "enableTower": {
+        //启动塔台延时，暂不考虑速度和启动时长
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "roi": "detectTowerControlCard",
+                "expected": 4,
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click",
+        "post_delay": 800,
+        "next": [
+            "detectTowerControlConfirmCard",
+            "finishNode"
+        ]
+    },
+    "detectTowerControlConfirmCard": {
+        //检测塔台延时的二次确认卡片
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 15,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "next": [
+            "confirmEnableTower",
+            "finishNode"
+        ]
+    },
+    "confirmEnableTower": {
+        //点击塔台延时二次确认按钮
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "roi": "detectTowerControlConfirmCard",
+                "expected": 4,
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click",
+        "next": [
+            "[JumpBack]detectLoadingPage",
+            "exitTowerPage",
+            "finishNode"
+        ]
+    },
+    "exitTowerPage": {
+        //退出塔台页面
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 5,
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click"
+    }
+}

@@ -1,18 +1,30 @@
+import os
 import sys
-from maa.agent.agent_server import AgentServer
-from maa.tasker import Tasker
 
-import crewUsedCompare
-import dailyUniqueCompare
-import swipe_inBoxByVector
-import airlineCardListColorMatch
-import roiManager
+if sys.version_info < (3, 13) or sys.version_info >= (3, 14):
+    raise SystemExit("Python >=3.13,<3.14 is required, got " + sys.version.split()[0])
 
-def main():  
-    socket_id = sys.argv[-1]  
-    AgentServer.start_up(socket_id)  
-    AgentServer.join()  
-    AgentServer.shut_down()  
-  
-if __name__ == "__main__":  
-    main()
+try:
+    sys.stdout.reconfigure(encoding="utf-8")  # pyright: ignore[reportAttributeAccessIssue]
+except AttributeError:
+    pass
+
+current_file_path = os.path.abspath(__file__)
+agent_dir = os.path.dirname(current_file_path)
+project_root_dir = os.path.dirname(agent_dir)
+
+if os.getcwd() != project_root_dir:
+    os.chdir(project_root_dir)
+
+if agent_dir not in sys.path:
+    sys.path.insert(0, agent_dir)
+
+from agent_runtime import run_agent  # noqa: E402
+
+
+def main() -> int:
+    return run_agent(project_root_dir=project_root_dir)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

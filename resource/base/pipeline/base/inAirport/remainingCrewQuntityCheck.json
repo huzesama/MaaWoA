@@ -1,0 +1,69 @@
+{
+    "compareCrewUsed": {
+        //对比crew used，不相等时未命中
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "crewUsedCompare",
+                                "custom_recognition_param": {
+                                    "update_cache": false
+                                }
+                            }
+                        }
+                    },
+                    "actionRequiringSelect"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 50,
+            "method": 3
+        },
+        "next": [
+            "detectAssignCrewCard", //尋找AssignCrew面板
+            "detetctStandSelectCard", //尋找standSelect面板
+            "universalAction_bribeFlight", //其它通用的actionRequire先检查有没有开关
+            "universalAction", //其它通用的actionRequire
+            "finishNode"
+        ]
+    },
+    "cacheCrewUsedBox": {
+        //缓存地勤用量的box
+        "max_hit": 1,
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 8,
+                "model": "WoA-widget.onnx"
+            }
+        }
+    },
+    "updateCrewUsedBefore": {
+        "action": "Click",
+        //用于释放选择但未分配的地勤
+        "target": "actionRequiringSelect",
+        "next": [
+            "updateCrewUsed",
+            "finishNode"
+        ]
+    },
+    "updateCrewUsed": {
+        //使用and类型更新缓存记录
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "crewUsedCompare",
+                "custom_recognition_param": {
+                    "update_cache": true
+                }
+            }
+        }
+    }
+}

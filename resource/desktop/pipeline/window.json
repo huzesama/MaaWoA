@@ -1,0 +1,25 @@
+{
+    "startApp": {
+        "action": "DoNothing",
+        "anchor": {
+            "afterStop": "finishNode"
+        },
+        "next": [
+            "[Anchor]afterStart"
+        ]
+    },
+    "stopApp": {
+        "action": "DoNothing",
+        "next": [
+            "[Anchor]afterStop"
+        ]
+    },
+    "restartApp": {
+        "anchor": {
+            "afterStop": "startApp"
+        },
+        "next": [
+            "stopApp"
+        ]
+    }
+}

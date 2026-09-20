@@ -1,0 +1,288 @@
+{
+    "dailyUniqueContract.detectDockerContractNotice": {
+        //检测合同管理图标
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 41,
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
+        "next": [
+            "dailyUniqueContract.detectContractPage"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectDockerContractNotice.focus.recognition.Succeeded"
+        }
+    },
+    "dailyUniqueContract.detectContractPage": {
+        //检测合同管理页
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 7,
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": [
+            "[JumpBack]dailyUniqueContract.detectUniqueContractOffers",
+            "dailyUniqueContract.exitContractPage"
+        ]
+    },
+    "dailyUniqueContract.detectUniqueContractOffers": {
+        //检测特殊入港合同卡片
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 19,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "next": [
+            "dailyUniqueContract.acceptDailyUniqueContract",
+            "dailyUniqueContract.detectContractAcceptConfirmCard"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectUniqueContractOffers.focus.recognition.Succeeded"
+        }
+    },
+    "dailyUniqueContract.acceptDailyUniqueContract": {
+        //点击接受合同
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "dailyUniqueContract.detectUniqueContractOffers",
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_delay": 500,
+        "next": [
+            "dailyUniqueContract.detectContractAcceptConfirmCard",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Action.Starting": "$pipeline.dailyUniqueContract.acceptDailyUniqueContract.focus.action.Starting"
+        }
+    },
+    "dailyUniqueContract.detectContractAcceptConfirmCard": {
+        //检测合同确认卡片的box
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 17,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "next": [
+            "dailyUniqueContract.acceptDailyUniqueContractConfirm"
+        ]
+    },
+    "dailyUniqueContract.acceptDailyUniqueContractConfirm": {
+        //点击确认
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "dailyUniqueContract.detectContractAcceptConfirmCard",
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "next": [
+            "[JumpBack]detectLoadingPage",
+            "finishNode"
+        ]
+    },
+    "dailyUniqueContract.exitContractPage": {
+        //退出合同管理
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    94,
+                    145,
+                    51
+                ],
+                "upper": [
+                    116,
+                    167,
+                    73
+                ],
+                "connected": true,
+                "count": 1000,
+                "order_by": "Horizontal"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "next": [
+            "dailyUniqueContract.detectEntryAirportPage"
+        ],
+        "focus": {
+            "Node.Action.Starting": "$pipeline.dailyUniqueContract.exitContractPage.focus.action.Starting"
+        }
+    },
+    "dailyUniqueContract.detectEntryAirportPage": {
+        //检测entry airport page
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 5,
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": [
+            "dailyUniqueContract.detectMenuButton"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectEntryAirportPage.focus.recognition.Succeeded"
+        }
+    },
+    "dailyUniqueContract.detectMenuButton": {
+        //检测菜单按钮并点击//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "method": 40,
+                                "lower": [
+                                    94,
+                                    145,
+                                    51
+                                ],
+                                "upper": [
+                                    116,
+                                    167,
+                                    73
+                                ],
+                                "connected": true,
+                                "count": 1500,
+                                "order_by": "Horizontal"
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": 7,
+                                "model": "WoA-widget.onnx"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_delay": 500,
+        "next": [
+            "dailyUniqueContract.detectMenu",
+            "finishNode"
+        ]
+    },
+    "dailyUniqueContract.detectMenu": {
+        //检测菜单界面
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 13,
+                "model": "WoA-card.onnx"
+            }
+        },
+        "next": [
+            "dailyUniqueContract.exitEntryAirportPage"
+        ]
+    },
+    "dailyUniqueContract.exitEntryAirportPage": {
+        //更换机场，后续如果出现进入图鉴的情况需要优化训练，并增加通过roi_offset进行target检查
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "dailyUniqueContract.detectMenu",
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Vertical"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_delay": 500
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "detectPage": {
+        //检测当前所在页面//next列表由base选项unknownPageWaitting覆盖
+        "anchor": {
+            "afterStart": "finishNode"
+        },
+        "next": [
+            "[JumpBack]detectEntryAirportPage", //进入机场页
+            "[JumpBack]detectAirportSelectPage", //机场选择页
+            "[JumpBack]detectHomePage", //主页
+            "[JumpBack]detectLoadingPage", //加载页面
+            "[JumpBack]detectErrorPage", //错误页面
+            "restartApp"
+        ]
+    },
+    "detectEntryAirportPage": {
+        //检测进入机场后的页面
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 5,
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": [
+            "startLoopAction"
+        ]
+    },
+    "detectAirportSelectPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 4,
+                "model": "WoA-page.onnx"
+            }
+        },
+        //检测机场IATA选择页面
+        "pre_wait_freezes": 0,
+        "next": [
+            "detectAirport_info",
+            "detectAitportList"
+        ]
+    },
+    "detectHomePage": {
+        //检测主页
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 2,
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": [
+            "entryAirportSelectPage", //该节点不含next
+            "finishNode"
+        ]
+    },
+    "detectLoadingPage": {
+        //配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 0,
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": [
+            "detectLoadingPage", //该节点不含next
+            "finishNode"
+        ]
+    },
+    "detectErrorPage": {
+        //错误页
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": 1,
+                "model": "WoA-page.onnx"
+            }
+        },
+        "action": "Click"
+    },
+    "unattendedMode": {
+        //开始无人值守吧！//被多个节点用于获取全屏实体矩形//由base选项notSkipProcessUp覆盖next
+        "anchor": {
+            "afterStart": "detectPage"
+        },
+        "next": [
+            "startApp"
+        ]
+    }
+}

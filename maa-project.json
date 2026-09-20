@@ -1,0 +1,113 @@
+{
+    "addons": {
+        "autoFormat": {
+            "enabled": true
+        },
+        "community": {
+            "enabled": true
+        },
+        "dependabot": {
+            "enabled": true
+        },
+        "devTools": {
+            "enabled": true
+        },
+        "gitCliff": {
+            "enabled": true
+        },
+        "github": {
+            "enabled": true
+        },
+        "optimizeImages": {
+            "enabled": true
+        },
+        "schemaSync": {
+            "enabled": true
+        },
+        "vscode": {
+            "enabled": true
+        }
+    },
+    "controller": {
+        "kinds": [
+            "Adb",
+            "Win32",
+            "MacOS",
+            "PlayCover",
+            "Gamepad",
+            "Linux"
+        ]
+    },
+    "features": {
+        "ci": {
+            "enabled": true
+        },
+        "quality": {
+            "enabled": true
+        },
+        "release": {
+            "enabled": true
+        },
+        "vscode": {
+            "enabled": true
+        }
+    },
+    "license": {
+        "spdx": "AGPL-3.0-or-later"
+    },
+    "maafw": {
+        "channel": "stable",
+        "version": ""
+    },
+    "network": {
+        "mode": "auto"
+    },
+    "ocr": {
+        "files": {
+            "README.md": "ppocr_v6/small/README.md",
+            "det.onnx": "ppocr_v6/small/det.onnx",
+            "keys.txt": "ppocr_v6/small/keys.txt",
+            "rec.onnx": "ppocr_v6/small/rec.onnx"
+        },
+        "source": "submodule",
+        "submodulePath": "MaaCommonAssets/OCR"
+    },
+    "project": {
+        "displayName": "MaaWoA",
+        "github": "https://github.com/huzesama/MaaWoA",
+        "initialTemplate": "agent",
+        "slug": "maawoa",
+        "version": "0.0.4"
+    },
+    "python": {
+        "devCommand": [
+            "uv",
+            "run",
+            "python",
+            "agent/main.py"
+        ],
+        "recommendedPython": "3.13",
+        "requiresPython": ">=3.13,<3.14"
+    },
+    "resources": [
+        {
+            "enabled": true,
+            "label": "$pi.resource.label.base.name",
+            "path": "resource/base",
+            "slug": "base"
+        }
+    ],
+    "runtime": {
+        "mfa": {
+            "channel": "stable",
+            "enabled": true,
+            "version": ""
+        },
+        "mxu": {
+            "channel": "stable",
+            "enabled": true,
+            "version": ""
+        }
+    },
+    "schemaVersion": 2
+}

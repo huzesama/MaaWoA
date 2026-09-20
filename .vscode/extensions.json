@@ -1,7 +1,12 @@
 {
     "recommendations": [
-        "ms-python.black-formatter",
         "nekosu.maa-support",
-        "davidanson.vscode-markdownlint"
+        "windsland52.maa-log-analyzer",
+        "esbenp.prettier-vscode",
+        "DavidAnson.vscode-markdownlint",
+        "charliermarsh.ruff",
+        "ms-python.debugpy",
+        "ms-python.python",
+        "ms-python.vscode-pylance"
     ]
 }

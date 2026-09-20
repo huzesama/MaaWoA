@@ -1,7 +1,35 @@
 {
-  "devDependencies": {
-    "@nekosu/maa-tools": "1.0.23",
-    "@types/node": "^25.5.2",
-    "prettier-plugin-multiline-arrays": "^3.0.6"
-  }
+    "devDependencies": {
+        "@nekosu/maa-tools": "1.1.2",
+        "@nekosu/prettier-plugin-maafw-sort": "1.0.6",
+        "ajv": "8.20.0",
+        "ajv-formats": "3.0.1",
+        "jsonc-parser": "3.3.1",
+        "prettier": "3.9.6",
+        "prettier-plugin-multiline-arrays": "4.1.11"
+    },
+    "engines": {
+        "node": ">=22.13"
+    },
+    "license": "AGPL-3.0-or-later",
+    "name": "maawoa",
+    "packageManager": "pnpm@11.5.1",
+    "private": true,
+    "scripts": {
+        "check": "pnpm format:check && pnpm check:schema && pnpm check:maa",
+        "check:maa": "pnpm exec maa-tools check",
+        "check:py": "pnpm lint:py && pnpm typecheck:py",
+        "check:schema": "node tools/validate-schema.mjs",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "format:py": "uv run --frozen ruff format .",
+        "lint:py": "uv run --frozen ruff check .",
+        "optimize:images": "node tools/optimize-images.mjs",
+        "release:dry-run": "node tools/build-release.mjs --dry-run",
+        "sync:runtime": "node tools/sync-runtime.mjs",
+        "sync:schema": "node tools/sync-schema.mjs",
+        "typecheck:py": "uv run --frozen pyright"
+    },
+    "type": "module",
+    "version": "0.0.4"
 }
