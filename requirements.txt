@@ -4,7 +4,7 @@
 colorama==0.4.6 ; sys_platform == 'win32'
 loguru==0.7.3
 maaagentbinary==1.0.1
-maafw==5.13.0
+maafw==5.13.1
 numpy==2.5.3
 strenum==0.4.15
 win32-setctime==1.2.0 ; sys_platform == 'win32'
