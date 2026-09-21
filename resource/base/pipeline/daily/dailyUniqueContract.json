@@ -238,7 +238,7 @@
         "post_delay": 500,
         "next": [
             "dailyUniqueContract.detectMenu",
-            "finishNode"
+            "[JumpBack]detectContractUpgradeCard"
         ]
     },
     "dailyUniqueContract.detectMenu": {
