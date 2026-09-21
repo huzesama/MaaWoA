@@ -383,7 +383,6 @@
         ]
     },
     "clickFlight_infoYellowButton": {
-        //click flight info card button
         "recognition": {
             "type": "And",
             "param": {
@@ -422,6 +421,11 @@
             -10,
             -10
         ],
+        "post_wait_freezes": {
+            "time": 100,
+            "target_offset": [10,10,-20,-20],
+            "method": 3
+        },
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
