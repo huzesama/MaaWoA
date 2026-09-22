@@ -31,7 +31,7 @@
             "random_start": true,
             "target_offset": [
                 20,
-                100,
+                360,
                 -40,
                 -200
             ]
@@ -65,9 +65,9 @@
         "action": "Click",
         "target_offset": [
             10,
-            10,
+            20,
             -20,
-            -20
+            -40
         ],
         "post_wait_freezes": {
             "method": 3,
