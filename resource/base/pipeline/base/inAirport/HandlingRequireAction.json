@@ -422,9 +422,14 @@
             -10
         ],
         "post_wait_freezes": {
-            "time": 100,
-            "target_offset": [10,10,-20,-20],
-            "method": 3
+            "time": 50,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
         },
         "next": [
             "[JumpBack]detectLoadingPage",
