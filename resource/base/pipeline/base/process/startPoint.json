@@ -28,14 +28,36 @@
     },
     "detectAirportSelectPage": {
         "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "expected": "airportSelectPage",
-                "model": "WoA-page.onnx"
+            "type": "And",
+            "param":{
+                "all_of": [
+                    {
+                        "recognition":{
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": "airportSelectPage",
+                                "model": "WoA-page.onnx"
+                            }
+                        }
+                    },
+                    {
+                        "recognition":{
+                            "type": "custom",
+                            "param": {
+                                "custom_recognition":"roiManager",
+                                "custom_recognition_param":{
+                                    "roi_name": "__cacheAirportSelectList__",
+                                    "model": "WoA-card.onnx",
+                                    "expected": "airportList",
+                                    "override": true
+                                }
+                            }
+                        }
+                    }
+                ]
             }
         },
         //检测机场IATA选择页面
-        "pre_wait_freezes": 0,
         "next": [
             "detectAirport_info",
             "detectAitportList"
