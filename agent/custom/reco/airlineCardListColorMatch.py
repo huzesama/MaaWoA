@@ -40,7 +40,7 @@ class airlineCardListColorMatch(CustomRecognition):
 			new_y = 0
 			new_h = img_h
 			self._cached_rect = (x, new_y, w, new_h)
-			logger.info("cache airline card list location{}", self._cached_rect)
+			logger.info("cache airline card list at {}", self._cached_rect)
 
 
 		x, y, w, h = self._cached_rect
