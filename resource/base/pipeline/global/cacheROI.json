@@ -9,7 +9,8 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheFlight_infoCard__",
                     "model": "WoA-card.onnx",
-                    "expected": "flight_info"
+                    "expected": "flight_info",
+                    "threshold": 0.85
                 }
             }
         }
@@ -24,7 +25,8 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheAssignCrewCard__",
                     "model": "WoA-card.onnx",
-                    "expected": "assignCrewCard"
+                    "expected": "assignCrewCard",
+                    "threshold": 0.85
                 }
             }
         }
@@ -39,7 +41,8 @@
                 "custom_recognition_param": {
                     "roi_name": "__cacheStandSelectCard__",
                     "model": "WoA-card.onnx",
-                    "expected": "standSelectCard"
+                    "expected": "standSelectCard",
+                    "threshold": 0.85
                 }
             }
         }
