@@ -86,7 +86,7 @@
             "label": "$pi.task.option.randomSelectStand.name",
             "description": "$pi.task.option.randomSelectStand.description",
             "type": "switch",
-            "default_case": "Yes",
+            "default_case": "No",
             "cases": [
                 {
                     "name": "Yes"
@@ -150,13 +150,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)INN"
+                            "expected": [
+                                "(?i)inn",
+                                "(?i)innsbruck"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)INN"
+                            "expected": [
+                                "(?i)inn",
+                                "(?i)innsbruck"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)INN"
+                            "expected": [
+                                "(?i)inn",
+                                "(?i)innsbruck"
+                            ]
                         }
                     }
                 },
@@ -165,13 +174,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)BRI"
+                            "expected": [
+                                "(?i)bri",
+                                "(?i)bari"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)BRI"
+                            "expected": [
+                                "(?i)bri",
+                                "(?i)bari"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)BRI"
+                            "expected": [
+                                "(?i)bri",
+                                "(?i)bari"
+                            ]
                         }
                     }
                 },
@@ -180,13 +198,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)PRG"
+                            "expected": [
+                                "(?i)prg",
+                                "(?i)prague"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)PRG"
+                            "expected": [
+                                "(?i)prg",
+                                "(?i)prague"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)PRG"
+                            "expected": [
+                                "(?i)prg",
+                                "(?i)prague"
+                            ]
                         }
                     }
                 },
@@ -195,13 +222,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)IAD"
+                            "expected": [
+                                "(?i)iad",
+                                "(?i)washington"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)IAD"
+                            "expected": [
+                                "(?i)iad",
+                                "(?i)washington"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)IAD"
+                            "expected": [
+                                "(?i)iad",
+                                "(?i)washington"
+                            ]
                         }
                     }
                 },
@@ -210,13 +246,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)NGO"
+                            "expected": [
+                                "(?i)ngo",
+                                "(?i)nagoya"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)NGO"
+                            "expected": [
+                                "(?i)ngo",
+                                "(?i)nagoya"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)NGO"
+                            "expected": [
+                                "(?i)ngo",
+                                "(?i)nagoya"
+                            ]
                         }
                     }
                 },
@@ -225,13 +270,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)SAN"
+                            "expected": [
+                                "(?i)san",
+                                "(?i)san diego"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)SAN"
+                            "expected": [
+                                "(?i)san",
+                                "(?i)san diego"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)SAN"
+                            "expected": [
+                                "(?i)san",
+                                "(?i)san diego"
+                            ]
                         }
                     }
                 },
@@ -240,13 +294,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)MCT"
+                            "expected": [
+                                "(?i)mct",
+                                "(?i)muscat"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)MCT"
+                            "expected": [
+                                "(?i)mct",
+                                "(?i)muscat"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)MCT"
+                            "expected": [
+                                "(?i)mct",
+                                "(?i)muscat"
+                            ]
                         }
                     }
                 },
@@ -255,13 +318,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)LEJ"
+                            "expected": [
+                                "(?i)lej",
+                                "(?i)leipzig"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)LEJ"
+                            "expected": [
+                                "(?i)lej",
+                                "(?i)leipzig"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)LEJ"
+                            "expected": [
+                                "(?i)lej",
+                                "(?i)leipzig"
+                            ]
                         }
                     }
                 },
@@ -270,13 +342,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)SXM"
+                            "expected": [
+                                "(?i)sxm",
+                                "(?i)sint maarten"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)SXM"
+                            "expected": [
+                                "(?i)sxm",
+                                "(?i)sint maarten"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)SXM"
+                            "expected": [
+                                "(?i)sxm",
+                                "(?i)sint maarten"
+                            ]
                         }
                     }
                 },
@@ -285,13 +366,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)LHR"
+                            "expected": [
+                                "(?i)lhr",
+                                "(?i)heathrow"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)LHR"
+                            "expected": [
+                                "(?i)lhr",
+                                "(?i)heathrow"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)LHR"
+                            "expected": [
+                                "(?i)lhr",
+                                "(?i)heathrow"
+                            ]
                         }
                     }
                 },
@@ -300,13 +390,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)SYD"
+                            "expected": [
+                                "(?i)syd",
+                                "(?i)sydney"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)SYD"
+                            "expected": [
+                                "(?i)syd",
+                                "(?i)sydney"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)SYD"
+                            "expected": [
+                                "(?i)syd",
+                                "(?i)sydney"
+                            ]
                         }
                     }
                 },
@@ -315,13 +414,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)BKK"
+                            "expected": [
+                                "(?i)bkk",
+                                "(?i)bangkok"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)BKK"
+                            "expected": [
+                                "(?i)bkk",
+                                "(?i)bangkok"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)BKK"
+                            "expected": [
+                                "(?i)bkk",
+                                "(?i)bangkok"
+                            ]
                         }
                     }
                 },
@@ -330,13 +438,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)MSY"
+                            "expected": [
+                                "(?i)msy",
+                                "(?i)new orleans"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)MSY"
+                            "expected": [
+                                "(?i)msy",
+                                "(?i)new orleans"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)MSY"
+                            "expected": [
+                                "(?i)msy",
+                                "(?i)new orleans"
+                            ]
                         }
                     }
                 },
@@ -345,13 +462,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)GRU"
+                            "expected": [
+                                "(?i)gru",
+                                "(?i)sao paulo"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)GRU"
+                            "expected": [
+                                "(?i)gru",
+                                "(?i)sao paulo"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)GRU"
+                            "expected": [
+                                "(?i)gru",
+                                "(?i)sao paulo"
+                            ]
                         }
                     }
                 },
@@ -360,13 +486,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)SCL"
+                            "expected": [
+                                "(?i)scl",
+                                "(?i)santiago"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)SCL"
+                            "expected": [
+                                "(?i)scl",
+                                "(?i)santiago"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)SCL"
+                            "expected": [
+                                "(?i)scl",
+                                "(?i)santiago"
+                            ]
                         }
                     }
                 },
@@ -375,13 +510,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)HKG"
+                            "expected": [
+                                "(?i)hkg",
+                                "(?i)hong kong"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)HKG"
+                            "expected": [
+                                "(?i)hkg",
+                                "(?i)hong kong"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)HKG"
+                            "expected": [
+                                "(?i)hkg",
+                                "(?i)hong kong"
+                            ]
                         }
                     }
                 },
@@ -390,13 +534,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)ZRH"
+                            "expected": [
+                                "(?i)zrh",
+                                "(?i)zurich"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)ZRH"
+                            "expected": [
+                                "(?i)zrh",
+                                "(?i)zurich"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)ZRH"
+                            "expected": [
+                                "(?i)zrh",
+                                "(?i)zurich"
+                            ]
                         }
                     }
                 },
@@ -405,13 +558,22 @@
                     //"icon": "",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
-                            "expected": "(?i)CNN"
+                            "expected": [
+                                "(?i)cnn",
+                                "(?i)kannur"
+                            ]
                         },
                         "ocrAirportListIATA": {
-                            "expected": "(?i)CNN"
+                            "expected": [
+                                "(?i)cnn",
+                                "(?i)kannur"
+                            ]
                         },
                         "selectTargetIATA": {
-                            "expected": "(?i)CNN"
+                            "expected": [
+                                "(?i)cnn",
+                                "(?i)kannur"
+                            ]
                         }
                     }
                 }
