@@ -1,8 +1,8 @@
 {
     "pi.label": "机场世界小助手",
     "pi.description": "机场世界小助手。图像技术 + 模拟控制，解放双手！由 MaaFramework 强力驱动！",
-    "pi.contact": "QQ:1215186276 ",
-    "pi.welcome": "本软件的使用需遵守 AGPL-v3 许可证",
+    "pi.contact": "- 用户群: [1107704958](https://qm.qq.com/q/52s8ffWAfS)\n- Discord: [MaaWoA](https://discord.gg/RBakmMVQMf)\n- 开源代码: [GitHub](https://github.com/huzesama/MaaWoA)\n- 问题反馈: [GitHub Issue](https://github.com/huzesama/MaaWoA/issues)",
+    "pi.welcome": "https://raw.githubusercontent.com/huzesama/MaaWoA/refs/heads/feat/newFunction/anno_cn.md",
     "pi.resource.label.base.name": "通用资源",
     "pi.task.dailyUniqueArrival.name": "领取每日特殊入港合同",
     "pi.task.dailyUniqueArrival.description": "领取已解锁机场的所有每日特殊入港合同，需要保证有充足的合同卡槽位，以免领取失败。",

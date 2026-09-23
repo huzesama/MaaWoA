@@ -1,8 +1,8 @@
 {
     "pi.label": "Airport World Assistant",
     "pi.description": "Airport World Assistant. Image recognition + emulation control, hands-free! Powered by MaaFramework!",
-    "pi.contact": "QQ:1215186276 ",
-    "pi.welcome": "This software is licensed under AGPL-v3",
+    "pi.contact": "- User Group(QQ): [1107704958](https://qm.qq.com/q/52s8ffWAfS)\n- Discord: [MaaWoA](https://discord.gg/RBakmMVQMf)\n- Open source code: [GitHub](https://github.com/huzesama/MaaWoA)\n- Feedback: [GitHub Issue](https://github.com/huzesama/MaaWoA/issues)",
+    "pi.welcome": "https://raw.githubusercontent.com/huzesama/MaaWoA/refs/heads/feat/newFunction/anno_us.md",
     "pi.resource.label.base.name": "Universal Resources",
     "pi.task.dailyUniqueArrival.name": "Claim Daily Unique Arrival Contracts",
     "pi.task.dailyUniqueArrival.description": "Claim all daily unique arrival contracts for unlocked airports. Make sure you have enough contract slots to avoid claim failures.",
