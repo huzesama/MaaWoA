@@ -19,13 +19,13 @@
             "name": "Adb",
             "label": "Android / Emulator",
             "type": "Adb",
-            "display_short_side": 720
+            "display_expand": [1280, 720]
         },
         {
             "name": "Windows",
             "label": "Windows app",
             "type": "Win32",
-            "display_short_side": 720,
+            "display_expand": [1280, 720],
             "permission_required": true,
             "win32": {
                 "mouse": "Seize",
@@ -40,7 +40,7 @@
             "name": "MacOS",
             "label": "MacOS App",
             "type": "MacOS",
-            "display_short_side": 720,
+            "display_expand": [1280, 720],
             "permission_required": true,
             "macos": {
                 "input": "GlobalEvent",
@@ -54,7 +54,7 @@
             "name": "PlayCover",
             "label": "PlayCover iOS app",
             "type": "PlayCover",
-            "display_short_side": 720,
+            "display_expand": [1280, 720],
             "attach_resource_path": [
                 "./resource/desktop"
             ]
@@ -63,27 +63,13 @@
             "name": "Gamepad",
             "label": "Gamepad (Windows)",
             "type": "Gamepad",
-            "display_short_side": 720
+            "display_expand": [1280, 720]
         },
         {
             "name": "Linux",
             "label": "wlroots app (Linux)",
             "type": "Linux",
-            "display_short_side": 720
-        },
-        {
-            "name": "MacOS_narrow",
-            "label": "MacOS App(Narrow window)",
-            "type": "MacOS",
-            "display_long_side": 1280,
-            "permission_required": true,
-            "macos": {
-                "input": "GlobalEvent",
-                "screencap": "ScreenCaptureKit"
-            },
-            "attach_resource_path": [
-                "./resource/desktop"
-            ]
+            "display_expand": [1280, 720]
         }
     ],
     "resource": [
