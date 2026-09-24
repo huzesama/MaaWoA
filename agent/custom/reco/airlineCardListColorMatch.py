@@ -25,7 +25,15 @@ class airlineCardListColorMatch(CustomRecognition):
 		# 1. 若已缓存则直接复用，避免重复跑神经网络检测
 		if self._cached_rect is None:
 
-			nn_param = JNeuralNetworkDetect(model="WoA-card.onnx",expected=["airlineCard", "uniqueCard", "myFleetCard", "playersFleetCard"])
+			nn_param = JNeuralNetworkDetect(
+				model = "WoA-card.onnx",
+				expected = [
+					"airlineCard",
+					"uniqueCard",
+					"myFleetCard",
+					"playersFleetCard"
+				]
+			)
 			nn_detail = context.run_recognition_direct(
 				JRecognitionType.NeuralNetworkDetect, nn_param, argv.image
 			)

@@ -5,7 +5,6 @@ from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from utils import logger
 
-
 # 模块级变量
 _last_ocr_crew_used: str = "???/???"
 _skip_compare: bool = False
