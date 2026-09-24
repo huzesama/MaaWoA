@@ -283,42 +283,65 @@
             "param": {
                 "all_of": [
                     "__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-                    "__standSelectMatch__"
-                ],
-                "box_index": 1
-            }
-        },
-        "next": [
-            "plannerStandSelect", //规划器
-            "baseStandSelect", //基本
-            "finishNode"
-        ]
-    },
-    "plannerStandSelect": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-                    "__plannerStandSelectMatch__"
+                    {
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [
+                                    "__standSelectMatch__",
+                                    "__plannerStandSelectMatch__"
+                                ]
+                            }
+                        }
+                    }
                 ],
                 "box_index": 1
             }
         },
         "next": [
             "clickFlight_infoYellowButton",
+            "baseStandSelect", //基本
+            "otherStandSelect", //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
+            "finishNode"
+        ]
+    },
+    //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
+    "otherStandSelect": {
+        "action": "Custom",
+        "custom_action": "swipe_inBoxByVector",
+        "custom_action_param": {
+            "node_name": "detetctStandSelectCard",
+            "vector": [
+                "500%",
+                0
+            ]
+        },
+        "post_wait_freezes": {
+            "time": 50,
+            "target": "detetctStandSelectCard"
+        },
+        "next": [
+            "baseStandSelect",
             "finishNode"
         ]
     },
     "baseStandSelect": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__standSelectMatch__"
+                ]
+            }
+        },
         "action": "Click",
-        "target": "detetctStandSelectCard",
         "target_offset": [
             10,
             10,
             -20,
             -20
         ],
+        "post_wait_freezes": 50,
         "next": [
             "clickFlight_infoYellowButton",
             "finishNode"
