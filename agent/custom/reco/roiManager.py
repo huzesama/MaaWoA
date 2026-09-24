@@ -29,7 +29,7 @@ class RoiManager(CustomRecognition):
 			)
 		model: str = params["model"]
 		expected: int | str = params["expected"]
-		override: bool = params["override", False]
+		override: bool = params.get("override", False)
 
 		if not override:
 			#如果 roi_name 已缓存有效 box，直接返回
