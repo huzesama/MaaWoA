@@ -29,10 +29,10 @@
     "detectAirportSelectPage": {
         "recognition": {
             "type": "And",
-            "param":{
+            "param": {
                 "all_of": [
                     {
-                        "recognition":{
+                        "recognition": {
                             "type": "NeuralNetworkDetect",
                             "param": {
                                 "expected": "airportSelectPage",
@@ -41,11 +41,11 @@
                         }
                     },
                     {
-                        "recognition":{
+                        "recognition": {
                             "type": "custom",
                             "param": {
-                                "custom_recognition":"roiManager",
-                                "custom_recognition_param":{
+                                "custom_recognition": "roiManager",
+                                "custom_recognition_param": {
                                     "roi_name": "__cacheAirportSelectList__",
                                     "model": "WoA-card.onnx",
                                     "expected": "airportList",

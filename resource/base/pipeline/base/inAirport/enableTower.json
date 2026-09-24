@@ -1,14 +1,131 @@
 {
-    "detectDockerTower": {
-        //点击docker栏的塔台入口
+    "disappearingFlightCard_info": {
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": "dockerTower",
-                "model": "WoA-widget.onnx"
+                "expected": "flight_info",
+                "model": "WoA-card.onnx"
             }
         },
         "action": "Click",
+        "target": "__cacheCrewUsedBox__",
+        "target_offset": [
+            120,
+            160,
+            0,
+            0
+        ],
+        "post_delay": 200
+    },
+    "__matchActionRequireContractsNumColor__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    1,
+                    49,
+                    244
+                ],
+                "upper": [
+                    23,
+                    71,
+                    255
+                ],
+                "connected": true,
+                "count": 200,
+                "order_by": "Horizontal",
+                "index": -1
+            }
+        }
+    },
+    "__ocrActionRequireContractsNum__": {
+        "recognition": "OCR",
+        "roi": "__matchActionRequireContractsNumColor__",
+        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"],
+        "only_rec": true
+    },
+    "detectDockerTower": {
+        //点击docker栏的塔台入口
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "sub_name": "towerEntryButton",
+                        "recognition": {
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": "dockerTower",
+                                "model": "WoA-widget.onnx"
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "towerEntryButton",
+                                "method": 40,
+                                "lower": [
+                                    [
+                                        94,
+                                        57,
+                                        117
+                                    ],
+                                    [
+                                        169,
+                                        132,
+                                        241
+                                    ],
+                                    [
+                                        0,
+                                        132,
+                                        241
+                                    ]
+                                ],
+                                "upper": [
+                                    [
+                                        116,
+                                        79,
+                                        139
+                                    ],
+                                    [
+                                        179,
+                                        154,
+                                        255
+                                    ],
+                                    [
+                                        11,
+                                        154,
+                                        255
+                                    ]
+                                ],
+                                "connected": true,
+                                "count": 35
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "extendTower": {
+        //extend用jumpback属性启动分支,enabled通过选项enabledTower覆写
+        "enabled": false,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "detectDockerTower",
+                    "__matchActionRequireContractsNumColor__",
+                    "__ocrActionRequireContractsNum__"
+                ],
+                "box_index": 0
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": 100,
         "next": [
             "detectTower_info",
             "finishNode"
@@ -33,27 +150,13 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
+                "roi": "detectTower_info",
                 "expected": "towerControlEntry",
                 "model": "WoA-widget.onnx"
             }
         },
         "action": "Click",
-        "post_delay": 800,
-        "next": [
-            "[JumpBack]detectTowerControlCard",
-            "finishNode"
-        ]
-    },
-    "detectTowerControlCard": {
-        //检测延时控制卡片是否弹出
-        "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "roi": "detectTowerControlEntry",
-                "expected": "towerControlCard",
-                "model": "WoA-card.onnx"
-            }
-        },
+        "post_wait_freezes": 100,
         "next": [
             "enableTower",
             "finishNode"
@@ -62,29 +165,26 @@
     "enableTower": {
         //启动塔台延时，暂不考虑速度和启动时长
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "ColorMatch",
             "param": {
-                "roi": "detectTowerControlCard",
-                "expected": "confirmButton",
-                "model": "WoA-widget.onnx"
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
             }
         },
         "action": "Click",
-        "post_delay": 800,
-        "next": [
-            "detectTowerControlConfirmCard",
-            "finishNode"
-        ]
-    },
-    "detectTowerControlConfirmCard": {
-        //检测塔台延时的二次确认卡片
-        "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "expected": "towerConfirmCard",
-                "model": "WoA-card.onnx"
-            }
-        },
+        "post_wait_freezes": 200,
         "next": [
             "confirmEnableTower",
             "finishNode"
@@ -93,14 +193,26 @@
     "confirmEnableTower": {
         //点击塔台延时二次确认按钮
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "ColorMatch",
             "param": {
-                "roi": "detectTowerControlConfirmCard",
-                "expected": "confirmButton",
-                "model": "WoA-widget.onnx"
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
             }
         },
         "action": "Click",
+        "post_wait_freezes": 100,
         "next": [
             "[JumpBack]detectLoadingPage",
             "exitTowerPage",
@@ -116,6 +228,13 @@
                 "model": "WoA-widget.onnx"
             }
         },
-        "action": "Click"
+        "action": "Click",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
+        "post_wait_freezes": 100
     }
 }

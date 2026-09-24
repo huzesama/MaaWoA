@@ -27,6 +27,31 @@
                 }
             ]
         },
+        "enabledTower": {
+            //启用塔台
+            "label": "$pi.task.option.enabledTower.name",
+            "description": "$pi.task.option.enabledTower.description",
+            "type": "switch",
+            "default_case": "No",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "extendTower": {
+                            //主要更改enabled
+                            "enabled": true
+                        },
+                        "detectFilterAirplaneOnAirportButton": {
+                            //主要更改expected
+                            "expected": "filterAirplaneOnAirport"
+                        }
+                    }
+                },
+                {
+                    "name": "No"
+                }
+            ]
+        },
         "notSkipProcessUp": {
             //识别失败的页面不重启而是等待操作。
             "label": "$pi.task.option.notSkipProcessUp.name",

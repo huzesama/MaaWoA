@@ -1,4 +1,15 @@
 {
+    "__cacheCrewUsedBox__": {
+        //缓存地勤用量的box
+        "max_hit": 1,
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "crewUsed",
+                "model": "WoA-widget.onnx"
+            }
+        }
+    },
     "__cacheFlight_infoCard__": {
         "max_hit": 1,
         //缓存航班详细信息卡片
@@ -88,6 +99,21 @@
                     "roi_name": "__cacheAirportSelectList__",
                     "model": "WoA-card.onnx",
                     "expected": "airportList"
+                }
+            }
+        }
+    },
+    "__cacheDocker__": {
+        "max_hit": 1,
+        //缓存Docker
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__docker__",
+                    "model": "WoA-card.onnx",
+                    "expected": "docker"
                 }
             }
         }

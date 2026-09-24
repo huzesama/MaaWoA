@@ -2,9 +2,11 @@
     "startLoopAction": {
         //开始行动请求的处理循环
         "next": [
-            "[JumpBack]cacheCrewUsedBox", //max_hit=1
+            "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
             "[JumpBack]compareCrewUsed",
             "[JumpBack]detectFilter", //过滤器筛选的准备
+            "[JumpBack]disappearingFlightCard_info",
+            "[JumpBack]extendTower",
             "actionRequiringSelectDeparture",
             "finishWithDelay" //跳回detectPage节点
         ]

@@ -67,6 +67,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
+                //expected受选项enabledTower覆写
                 "expected": "filterAirplaneOnAirportPressed",
                 "model": "WoA-widget.onnx"
             }
