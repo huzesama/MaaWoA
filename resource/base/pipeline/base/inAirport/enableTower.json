@@ -46,7 +46,6 @@
         "only_rec": true
     },
     "detectDockerTower": {
-        //点击docker栏的塔台入口
         "recognition": {
             "type": "And",
             "param": {
@@ -125,6 +124,12 @@
             }
         },
         "action": "Click",
+        "target_offset": [
+            30,
+            20,
+            -60,
+            -40
+        ],
         "post_wait_freezes": 100,
         "next": [
             "detectTower_info",
@@ -156,6 +161,12 @@
             }
         },
         "action": "Click",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
         "post_wait_freezes": 100,
         "next": [
             "enableTower",

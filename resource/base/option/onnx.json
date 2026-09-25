@@ -43,13 +43,14 @@
                             "recognition": {
                                 "type": "TemplateMatch",
                                 "param": {
-                                    "method": 10001,
-                                    "threshold": 0.9,
                                     "template": [
                                         "航班类型-离场.png",
                                         "航班类型-到达.png",
                                         "航班类型-维修.png"
-                                    ]
+                                    ],
+                                    "green_mask": true,
+                                    "method": 10001,
+                                    "threshold": 0.9
                                 }
                             }
                         },
