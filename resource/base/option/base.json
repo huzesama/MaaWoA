@@ -172,7 +172,7 @@
             "cases": [
                 {
                     "name": "INN",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/at.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -196,7 +196,7 @@
                 },
                 {
                     "name": "BRI",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/it.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -220,7 +220,7 @@
                 },
                 {
                     "name": "PRG",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/cz.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -244,7 +244,7 @@
                 },
                 {
                     "name": "IAD",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/us.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -268,7 +268,7 @@
                 },
                 {
                     "name": "NGO",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/jp.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -292,7 +292,7 @@
                 },
                 {
                     "name": "SAN",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/us.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -316,7 +316,7 @@
                 },
                 {
                     "name": "MCT",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/om.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -340,7 +340,7 @@
                 },
                 {
                     "name": "LEJ",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/de.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -364,7 +364,7 @@
                 },
                 {
                     "name": "SXM",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/sx.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -388,7 +388,7 @@
                 },
                 {
                     "name": "LHR",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/gb.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -412,7 +412,7 @@
                 },
                 {
                     "name": "SYD",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/au.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -436,7 +436,7 @@
                 },
                 {
                     "name": "BKK",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/th.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -460,7 +460,7 @@
                 },
                 {
                     "name": "MSY",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/us.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -484,7 +484,7 @@
                 },
                 {
                     "name": "GRU",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/br.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -508,7 +508,7 @@
                 },
                 {
                     "name": "SCL",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/cl.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -532,7 +532,7 @@
                 },
                 {
                     "name": "HKG",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/hk.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -556,7 +556,7 @@
                 },
                 {
                     "name": "ZRH",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/ch.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
@@ -580,7 +580,7 @@
                 },
                 {
                     "name": "CNN",
-                    //"icon": "",
+                    "icon": "resource/base/image/IATA/in.png",
                     "pipeline_override": {
                         "ocrAirport_infoIATA": {
                             "expected": [
