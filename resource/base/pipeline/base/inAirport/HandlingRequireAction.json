@@ -179,7 +179,7 @@
                                                 ],
                                                 "green_mask": true,
                                                 "method": 10001,
-                                                "threshold": 0.9
+                                                "threshold": 0.8
                                             }
                                         }
                                     },
@@ -193,7 +193,7 @@
                                                 ],
                                                 "green_mask": true,
                                                 "method": 10001,
-                                                "threshold": 0.9
+                                                "threshold": 0.8
                                             }
                                         }
                                     }
@@ -401,7 +401,7 @@
                                                 "template": "航班信息-请求行动.png",
                                                 "green_mask": true,
                                                 "method": 10001,
-                                                "threshold": 0.9
+                                                "threshold": 0.8
                                             }
                                         }
                                     }
@@ -464,7 +464,7 @@
                                                                 "template": "航班信息-请求行动.png",
                                                                 "green_mask": true,
                                                                 "method": 10001,
-                                                                "threshold": 0.9
+                                                                "threshold": 0.8
                                                             }
                                                         }
                                                     }
@@ -659,7 +659,7 @@
                                 ],
                                 "green_mask": true,
                                 "method": 10001,
-                                "threshold": 0.9
+                                "threshold": 0.8
                             }
                         }
                     },
