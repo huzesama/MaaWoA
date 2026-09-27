@@ -27,7 +27,7 @@
                                     ]
                                 }
                             }
-                                            },
+                        },
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {
@@ -83,7 +83,7 @@
                                     ]
                                 }
                             }
-                                            },
+                        },
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {

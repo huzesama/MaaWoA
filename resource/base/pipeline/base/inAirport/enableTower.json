@@ -133,10 +133,10 @@
             }
         }
     },
-    "entryTowerControlCard":{
+    "entryTowerControlCard": {
         "recognition": {
             "type": "And",
-            "param":{
+            "param": {
                 "all_of": [
                     "detectTower_info",
                     "detectTowerControlEntry"
@@ -219,13 +219,21 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
+                "roi": "__cacheMenuButton__",
                 "method": 40,
-                "lower": [94, 145, 51],
-                "upper": [116, 167, 73],
+                "lower": [
+                    94,
+                    145,
+                    51
+                ],
+                "upper": [
+                    116,
+                    167,
+                    73
+                ],
                 "connected": true,
                 "count": 2000,
-                "order_by": "Vertical",
-                "roi": "__cacheMenuButton__"
+                "order_by": "Vertical"
             }
         },
         "action": "Click",

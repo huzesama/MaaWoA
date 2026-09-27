@@ -1,11 +1,11 @@
 {
-    "detectActionRequire":{
+    "detectActionRequire": {
         "recognition": {
             "type": "And",
             "param": {
-                "all_of":[
+                "all_of": [
                     {
-                        "sub_name":"colorROI",
+                        "sub_name": "colorROI",
                         "recognition": {
                             "type": "Custom",
                             "param": {
@@ -27,17 +27,17 @@
                         }
                     },
                     {
-                        "recognition":{
+                        "recognition": {
                             "type": "TemplateMatch",
                             "param": {
-                                "recognition": "TemplateMatch",
-                                "method": 10001,
-                                "threshold": 0.2,
-                                "green_mask": true,
+                                "roi": "colorROI",
                                 "template": [
                                     "航班类型-请求行动.png"
                                 ],
-                                "roi": "colorROI"
+                                "green_mask": true,
+                                "method": 10001,
+                                "threshold": 0.2,
+                                "recognition": "TemplateMatch"
                             }
                         }
                     }
@@ -45,7 +45,7 @@
             }
         }
     },
-    "detectActionRequireByONNX":{
+    "detectActionRequireByONNX": {
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
