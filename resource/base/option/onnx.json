@@ -20,24 +20,14 @@
                         "actionRequiringSelect": {
                             //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "Custom",
+                                "type": "Or",
                                 "param": {
-                                    "custom_recognition": "airlineCardListColorMatch",
-                                    "custom_recognition_param": {
-                                        "lower": [
-                                            13,
-                                            244,
-                                            222
-                                        ],
-                                        "upper": [
-                                            35,
-                                            255,
-                                            244
-                                        ]
-                                    }
+                                    "any_of": [
+                                        "detectActionRequire"
+                                    ]
                                 }
                             }
-                        },
+                                            },
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {
@@ -86,14 +76,14 @@
                         "actionRequiringSelect": {
                             //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "NeuralNetworkDetect",
+                                "type": "Or",
                                 "param": {
-                                    "model": "WoA-widget.onnx",
-                                    "threshold": 0.708,
-                                    "expected": "actionRequire"
+                                    "any_of": [
+                                        "detectActionRequireByONNX"
+                                    ]
                                 }
                             }
-                        },
+                                            },
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {
