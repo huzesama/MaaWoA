@@ -10,7 +10,7 @@
             "[JumpBack]detectHomePage", //主页
             "[JumpBack]detectLoadingPage", //加载页面
             "[JumpBack]detectErrorPage", //错误页面
-            "restartApp"
+            "checkAll"
         ]
     },
     "detectEntryAirportPage": {
