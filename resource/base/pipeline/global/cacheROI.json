@@ -111,10 +111,49 @@
             "param": {
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
-                    "roi_name": "__docker__",
+                    "roi_name": "__cacheDocker__",
                     "model": "WoA-card.onnx",
                     "expected": "docker"
                 }
+            }
+        }
+    },
+    "__cacheMenuButton__": {
+        "max_hit": 1,
+        //缓存菜单按钮
+        "recognition": {
+            "type": "And",
+            "param":{
+                "all_of": [
+                    {
+                        "sub_name": "menuButtonROI",
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "roiManager",
+                                "custom_recognition_param": {
+                                    "roi_name": "__cacheMenuButton__",
+                                    "model": "WoA-widget.onnx",
+                                    "expected": "menuButton"
+                                }
+                            }
+                        }                
+                    },
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "method": 40,
+                                "lower": [94, 145, 51],
+                                "upper": [116, 167, 73],
+                                "connected": true,
+                                "count": 2400,
+                                "roi": "menuButtonROI"
+                            }
+                        }                
+                    }
+                    
+                ]
             }
         }
     }

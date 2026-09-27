@@ -1,49 +1,13 @@
 {
-    "disappearingFlightCard_info": {
-        "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "expected": "flight_info",
-                "model": "WoA-card.onnx"
-            }
-        },
-        "action": "Click",
-        "target": "__cacheCrewUsedBox__",
-        "target_offset": [
-            120,
-            160,
+    "__ocrFilterNotZero__": {
+        "recognition": "OCR",
+        "roi": [
+            -70,
             0,
+            70,
             0
         ],
-        "post_delay": 200
-    },
-    "__matchActionRequireContractsNumColor__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "method": 40,
-                "lower": [
-                    1,
-                    49,
-                    244
-                ],
-                "upper": [
-                    23,
-                    71,
-                    255
-                ],
-                "connected": true,
-                "count": 200,
-                "order_by": "Horizontal",
-                "index": -1
-            }
-        }
-    },
-    "__ocrActionRequireContractsNum__": {
-        "recognition": "OCR",
-        "roi": "__matchActionRequireContractsNumColor__",
-        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"],
-        "only_rec": true
+        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"]
     },
     "detectDockerTower": {
         "recognition": {
@@ -117,8 +81,7 @@
             "param": {
                 "all_of": [
                     "detectDockerTower",
-                    "__matchActionRequireContractsNumColor__",
-                    "__ocrActionRequireContractsNum__"
+                    "__ocrFilterNotZero__"
                 ],
                 "box_index": 0
             }
@@ -130,9 +93,9 @@
             -60,
             -40
         ],
-        "post_wait_freezes": 100,
+        "post_wait_freezes": 200,
         "next": [
-            "detectTower_info",
+            "entryTowerControlCard",
             "finishNode"
         ]
     },
@@ -144,28 +107,49 @@
                 "expected": "tower_info",
                 "model": "WoA-card.onnx"
             }
-        },
-        "next": [
-            "detectTowerControlEntry",
-            "finishNode"
-        ]
+        }
     },
     "detectTowerControlEntry": {
         //在延时卡片中点击全部控制器的延时控制卡片
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "ColorMatch",
             "param": {
                 "roi": "detectTower_info",
-                "expected": "towerControlEntry",
-                "model": "WoA-widget.onnx"
+                "method": 40,
+                "lower": [
+                    93,
+                    19,
+                    192
+                ],
+                "upper": [
+                    115,
+                    41,
+                    214
+                ],
+                "connected": true,
+                "count": 800,
+                "order_by": "Vertical",
+                "index": -1
+            }
+        }
+    },
+    "entryTowerControlCard":{
+        "recognition": {
+            "type": "And",
+            "param":{
+                "all_of": [
+                    "detectTower_info",
+                    "detectTowerControlEntry"
+                ],
+                "box_index": 1
             }
         },
         "action": "Click",
         "target_offset": [
-            10,
-            10,
-            -20,
-            -20
+            6,
+            6,
+            -12,
+            -12
         ],
         "post_wait_freezes": 100,
         "next": [
@@ -233,10 +217,15 @@
     "exitTowerPage": {
         //退出塔台页面
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "ColorMatch",
             "param": {
-                "expected": "back",
-                "model": "WoA-widget.onnx"
+                "method": 40,
+                "lower": [94, 145, 51],
+                "upper": [116, 167, 73],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Vertical",
+                "roi": "__cacheMenuButton__"
             }
         },
         "action": "Click",

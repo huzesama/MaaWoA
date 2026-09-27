@@ -1,15 +1,36 @@
 {
+    "disappearingFlightCard_info": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "flight_info",
+                "model": "WoA-card.onnx"
+            }
+        },
+        "action": "Click",
+        "target": "__cacheCrewUsedBox__",
+        "target_offset": [
+            120,
+            160,
+            0,
+            0
+        ],
+        "post_delay": 200,
+        "next": [
+            "extendTower",
+            "finishNode"
+        ]
+    },
     "startLoopAction": {
         //开始行动请求的处理循环
         "next": [
             "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
+            "[JumpBack]__cacheMenuButton__", //max_hit=1
             "[JumpBack]compareCrewUsed",
             "[JumpBack]detectFilter", //过滤器筛选的准备
             "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
             "[JumpBack]disappearingFlightCard_info",
-            "[JumpBack]extendTower",
             "finishWithDelay" //跳回detectPage节点
         ]
     }
-    //"extandTower":{}
 }
