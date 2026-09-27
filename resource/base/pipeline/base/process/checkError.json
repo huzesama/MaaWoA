@@ -1,0 +1,28 @@
+{
+    "checkAll": {
+        "next": [
+            "checkBack",
+            "restartApp"
+        ]
+    },
+    "checkBack": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "back",
+                "model": "WoA-widget.onnx"
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            20,
+            20,
+            -40,
+            -40
+        ],
+        "post_wait_freezes": 200,
+        "next": [
+            "detectPage"
+        ]
+    }
+}

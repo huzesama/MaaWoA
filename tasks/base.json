@@ -54,18 +54,12 @@
                 //"enableTower",
                 "notSkipProcessUp",
                 "unknownPageWaitting",
+                "enabledTower",
                 "randomSelectStand",
                 "ONNX",
                 "entryAirportIATA",
                 "bribery"
             ]
-        },
-        {
-            //功能测试
-            "name": "test",
-            "label": "$pi.task.test.name",
-            "description": "$pi.task.test.description",
-            "entry": "test"
         }
     ]
 }

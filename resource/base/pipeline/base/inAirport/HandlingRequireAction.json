@@ -1,11 +1,11 @@
 {
-    "actionRequiringSelect": {
-        //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+    "detectActionRequire": {
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [
+                "all_of": [
                     {
+                        "sub_name": "colorROI",
                         "recognition": {
                             "type": "Custom",
                             "param": {
@@ -28,14 +28,41 @@
                     },
                     {
                         "recognition": {
-                            "type": "NeuralNetworkDetect",
+                            "type": "TemplateMatch",
                             "param": {
-                                "expected": 23,
-                                "model": "WoA-widget.onnx",
-                                "threshold": 0.708
+                                "roi": "colorROI",
+                                "template": [
+                                    "航班类型-请求行动.png"
+                                ],
+                                "green_mask": true,
+                                "method": 10001,
+                                "threshold": 0.2,
+                                "recognition": "TemplateMatch"
                             }
                         }
                     }
+                ]
+            }
+        }
+    },
+    "detectActionRequireByONNX": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "actionRequire",
+                "model": "WoA-widget.onnx",
+                "threshold": 0.708
+            }
+        }
+    },
+    "actionRequiringSelect": {
+        //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "detectActionRequire",
+                    "detectActionRequireByONNX"
                 ]
             }
         },
@@ -175,11 +202,11 @@
                                             "param": {
                                                 "roi": "__cacheFlight_infoCard__",
                                                 "template": [
-                                                    "timeLimited(Pass)_GreenMask.png"
+                                                    "航班信息-时限通过.png"
                                                 ],
                                                 "green_mask": true,
                                                 "method": 10001,
-                                                "threshold": 0.9
+                                                "threshold": 0.8
                                             }
                                         }
                                     },
@@ -193,7 +220,7 @@
                                                 ],
                                                 "green_mask": true,
                                                 "method": 10001,
-                                                "threshold": 0.9
+                                                "threshold": 0.8
                                             }
                                         }
                                     }
@@ -283,42 +310,100 @@
             "param": {
                 "all_of": [
                     "__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-                    "__standSelectMatch__"
-                ],
-                "box_index": 1
-            }
-        },
-        "next": [
-            "plannerStandSelect", //规划器
-            "baseStandSelect", //基本
-            "finishNode"
-        ]
-    },
-    "plannerStandSelect": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__cacheStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-                    "__plannerStandSelectMatch__"
+                    {
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [
+                                    "__standSelectMatch__",
+                                    "__plannerStandSelectMatch__"
+                                ]
+                            }
+                        }
+                    }
                 ],
                 "box_index": 1
             }
         },
         "next": [
             "clickFlight_infoYellowButton",
+            "baseStandSelect", //基本
+            "otherStandSelect", //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
+            "finishNode"
+        ]
+    },
+    //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
+    "otherStandSelect": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheStandSelectCard__",
+                    {
+                        "recognition": {
+                            "type": "ColorMatch",
+                            "param": {
+                                "roi": "__cacheStandSelectCard__",
+                                "method": 40,
+                                "lower": [
+                                    94,
+                                    45,
+                                    154
+                                ],
+                                "upper": [
+                                    116,
+                                    67,
+                                    176
+                                ],
+                                "connected": true,
+                                "count": 20,
+                                "order_by": "Vertical",
+                                "index": -1
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "end": [
+                    10,
+                    10,
+                    10,
+                    700
+                ],
+                "duration": 300
+            }
+        },
+        "post_wait_freezes": {
+            "time": 50,
+            "target": "detetctStandSelectCard"
+        },
+        "next": [
+            "baseStandSelect",
             "finishNode"
         ]
     },
     "baseStandSelect": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__standSelectMatch__"
+                ]
+            }
+        },
         "action": "Click",
-        "target": "detetctStandSelectCard",
         "target_offset": [
             10,
             10,
             -20,
             -20
         ],
+        "post_wait_freezes": 50,
         "next": [
             "clickFlight_infoYellowButton",
             "finishNode"
@@ -326,6 +411,50 @@
     },
     "universalAction": {
         //指派地勤行動外的節點鏈
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": {
+                            "type": "And",
+                            "param": {
+                                "all_of": [
+                                    "__cacheFlight_infoCard__",
+                                    {
+                                        "recognition": {
+                                            "type": "TemplateMatch",
+                                            "param": {
+                                                "template": "航班信息-请求行动.png",
+                                                "green_mask": true,
+                                                "method": 10001,
+                                                "threshold": 0.8
+                                            }
+                                        }
+                                    }
+                                ],
+                                "box_index": 0
+                            }
+                        }
+                    },
+                    {
+                        "recognition": {
+                            "type": "Custom",
+                            "param": {
+                                "custom_recognition": "roiManager",
+                                "custom_recognition_param": {
+                                    "roi_name": "__cacheFlight_infoCard__",
+                                    "model": "WoA-card.onnx",
+                                    "threshold": 0.95,
+                                    "expected": "flight_info",
+                                    "override": true
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
         "anchor": {
             "afterClickFlight_infoYellowButton": "detectContractUpgradeCard"
         },
@@ -343,12 +472,58 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    {
+                        "sub_name": "flight_info",
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [
+                                    {
+                                        "recognition": {
+                                            "type": "And",
+                                            "param": {
+                                                "all_of": [
+                                                    "__cacheFlight_infoCard__",
+                                                    {
+                                                        "recognition": {
+                                                            "type": "TemplateMatch",
+                                                            "param": {
+                                                                "template": "航班信息-请求行动.png",
+                                                                "green_mask": true,
+                                                                "method": 10001,
+                                                                "threshold": 0.8
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "box_index": 0
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "recognition": {
+                                            "type": "Custom",
+                                            "param": {
+                                                "custom_recognition": "roiManager",
+                                                "custom_recognition_param": {
+                                                    "roi_name": "__cacheFlight_infoCard__",
+                                                    "model": "WoA-card.onnx",
+                                                    "threshold": 0.95,
+                                                    "expected": "flight_info",
+                                                    "override": true
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
                     {
                         "recognition": {
                             "type": "ColorMatch",
                             "param": {
-                                "roi": "__cacheFlight_infoCard__",
+                                "roi": "flight_info",
                                 "method": 40,
                                 "lower": [
                                     94,
@@ -383,7 +558,6 @@
         ]
     },
     "clickFlight_infoYellowButton": {
-        //click flight info card button
         "recognition": {
             "type": "And",
             "param": {
@@ -422,6 +596,16 @@
             -10,
             -10
         ],
+        "post_wait_freezes": {
+            "time": 50,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
@@ -480,7 +664,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": 11,
+                "expected": "contractUpgradeCard",
                 "model": "WoA-card.onnx"
             }
         }
@@ -496,11 +680,13 @@
                             "type": "TemplateMatch",
                             "param": {
                                 "template": [
-                                    "离场航班.png",
-                                    "到达航班.png"
+                                    "航班类型-离场.png",
+                                    "航班类型-到达.png",
+                                    "航班类型-维修.png"
                                 ],
+                                "green_mask": true,
                                 "method": 10001,
-                                "threshold": 0.9
+                                "threshold": 0.8
                             }
                         }
                     },
@@ -509,8 +695,10 @@
                             "type": "NeuralNetworkDetect",
                             "param": {
                                 "expected": [
-                                    24,
-                                    26
+                                    "arrival",
+                                    "departure",
+                                    "repair",
+                                    "ice"
                                 ],
                                 "model": "WoA-widget.onnx"
                             }
@@ -527,7 +715,8 @@
         "next": [
             "detetctStandSelectCard",
             "universalAction_bribeFlight",
-            "universalAction"
+            "universalAction",
+            "finishNode"
         ]
     }
 }

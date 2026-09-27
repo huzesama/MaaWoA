@@ -20,21 +20,11 @@
                         "actionRequiringSelect": {
                             //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "Custom",
+                                "type": "Or",
                                 "param": {
-                                    "custom_recognition": "airlineCardListColorMatch",
-                                    "custom_recognition_param": {
-                                        "lower": [
-                                            13,
-                                            244,
-                                            222
-                                        ],
-                                        "upper": [
-                                            35,
-                                            255,
-                                            244
-                                        ]
-                                    }
+                                    "any_of": [
+                                        "detectActionRequire"
+                                    ]
                                 }
                             }
                         },
@@ -43,12 +33,14 @@
                             "recognition": {
                                 "type": "TemplateMatch",
                                 "param": {
-                                    "method": 10001,
-                                    "threshold": 0.9,
                                     "template": [
-                                        "离场航班.png",
-                                        "到达航班.png"
-                                    ]
+                                        "航班类型-离场.png",
+                                        "航班类型-到达.png",
+                                        "航班类型-维修.png"
+                                    ],
+                                    "green_mask": true,
+                                    "method": 10001,
+                                    "threshold": 0.8
                                 }
                             }
                         },
@@ -84,11 +76,11 @@
                         "actionRequiringSelect": {
                             //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "NeuralNetworkDetect",
+                                "type": "Or",
                                 "param": {
-                                    "model": "WoA-widget.onnx",
-                                    "threshold": 0.708,
-                                    "expected": 23
+                                    "any_of": [
+                                        "detectActionRequireByONNX"
+                                    ]
                                 }
                             }
                         },
@@ -99,8 +91,8 @@
                                 "param": {
                                     "model": "WoA-widget.onnx",
                                     "expected": [
-                                        24,
-                                        26
+                                        "arrival",
+                                        "departure"
                                     ]
                                 }
                             }
@@ -111,7 +103,7 @@
                                 "type": "NeuralNetworkDetect",
                                 "param": {
                                     "model": "WoA-widget.onnx",
-                                    "expected": 7
+                                    "expected": "menuButton"
                                 }
                             }
                         }

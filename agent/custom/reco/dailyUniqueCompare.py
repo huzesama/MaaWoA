@@ -3,6 +3,7 @@ import json
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
+from utils import logger
 
 _daily_handling_count:int = 0
 
@@ -47,13 +48,12 @@ class dailyUniqueCompare(CustomRecognition):
 				)
 
 			text = reco_detail.best_result.text  # 形如 "2/32"
-			print(f"unique contracts:{text}")
 
 			# 3. 截取 "/" 后面的数字并做条件判断
 			if "/" not in text:
 				return CustomRecognition.AnalyzeResult(
 					box=None,
-					detail={"error": "/ not in text"}
+					detail={"error": "'/' not in text"}
 				)
 
 			right_part = text.split("/", 1)[1].strip()
@@ -68,13 +68,13 @@ class dailyUniqueCompare(CustomRecognition):
 
 			if value > threshold:
 				_daily_handling_count = abs(value - threshold) * 2
-				# 命中：返回有效 box，节点会继续执行 action 并进入 next 列表
+				logger.info("dailyUnique: current[{}] threshold[{}] & handling process. ", value, threshold)
 				return CustomRecognition.AnalyzeResult(
 					box=reco_detail.best_result.box,
 					detail={"count": _daily_handling_count, "text": text, "value": value, "threshold": threshold}
 				)
 			else:
-				# 未命中：返回 None
+				logger.info("dailyUnique: check current[{}] threshold[{}] & switch airport. ", value, threshold)
 				return CustomRecognition.AnalyzeResult(
 					box=None,
 					detail={"text": text, "value": value, "threshold": threshold}

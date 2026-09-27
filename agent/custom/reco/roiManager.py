@@ -4,6 +4,7 @@ from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.define import RectType
+from utils import logger
 
 
 @AgentServer.custom_recognition("roiManager")
@@ -27,22 +28,23 @@ class RoiManager(CustomRecognition):
 				box=None, detail={"error": "roi_name empty"},
 			)
 		model: str = params["model"]
-		expected: int = params["expected"]
+		expected: int | str = params["expected"]
+		override: bool = params.get("override", False)
 
+		if not override:
+			#如果 roi_name 已缓存有效 box，直接返回
+			box = self._roi_boxes.get(roi_name)
+			if box:
+				return CustomRecognition.AnalyzeResult(
+					box=box, detail={"source": "cache", "roi_name": roi_name}
+				)
 
-		#如果 roi_name 已缓存有效 box，直接返回
-		box = self._roi_boxes.get(roi_name)
-		if box:
-			return CustomRecognition.AnalyzeResult(
-				box=box, detail={"source": "cache", "roi_name": roi_name}
-			)
-
-		#否则调用内置 NeuralNetworkDetect 进行识别
-		#如果没有传入模型路径或期望结果返回错误信息
-		if not model or not expected:
-			return CustomRecognition.AnalyzeResult(
-				box=None, detail={"error": "roi_name had not cache & model or expected exist empty"},
-			)
+			#否则调用内置 NeuralNetworkDetect 进行识别
+			#如果没有传入模型路径或期望结果返回错误信息
+			if not model or not expected:
+				return CustomRecognition.AnalyzeResult(
+					box=None, detail={"error": "roi_name had not cache & model or expected exist empty"},
+				)
 
 		reco_detail = context.run_recognition(
 			f"__roiManager_nn_{roi_name}",
@@ -59,6 +61,7 @@ class RoiManager(CustomRecognition):
 		if reco_detail and reco_detail.hit and reco_detail.best_result:
 			box = reco_detail.best_result.box
 			self._roi_boxes[roi_name] = box
+			logger.info("cache {} at {} override: {}", roi_name, box, override)
 			return CustomRecognition.AnalyzeResult(
 				box=box, detail={"source": "nn_detect", "roi_name": roi_name}
 			)
