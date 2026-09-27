@@ -1,4 +1,4 @@
-# 🥮Happy Mid-autumn Festival!🥮
+# News
 
 ## Foreground Controller Notes and FAQ
 
