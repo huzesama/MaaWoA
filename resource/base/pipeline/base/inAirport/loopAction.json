@@ -3,7 +3,10 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": "flight_info",
+                "expected": [
+                    "flight_info",
+                    "docker"
+                ],
                 "model": "WoA-card.onnx"
             }
         },

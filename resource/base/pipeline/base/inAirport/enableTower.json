@@ -1,75 +1,45 @@
 {
-    "__ocrFilterNotZero__": {
-        "recognition": "OCR",
-        "roi": [
-            -70,
-            0,
-            70,
-            0
-        ],
-        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"]
-    },
-    "detectDockerTower": {
+    "__locateDockerTowerLED__": {
         "recognition": {
-            "type": "And",
+            "type": "ColorMatch",
             "param": {
-                "all_of": [
-                    {
-                        "sub_name": "towerEntryButton",
-                        "recognition": {
-                            "type": "NeuralNetworkDetect",
-                            "param": {
-                                "expected": "dockerTower",
-                                "model": "WoA-widget.onnx"
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "ColorMatch",
-                            "param": {
-                                "roi": "towerEntryButton",
-                                "method": 40,
-                                "lower": [
-                                    [
-                                        94,
-                                        57,
-                                        117
-                                    ],
-                                    [
-                                        169,
-                                        132,
-                                        241
-                                    ],
-                                    [
-                                        0,
-                                        132,
-                                        241
-                                    ]
-                                ],
-                                "upper": [
-                                    [
-                                        116,
-                                        79,
-                                        139
-                                    ],
-                                    [
-                                        179,
-                                        154,
-                                        255
-                                    ],
-                                    [
-                                        11,
-                                        154,
-                                        255
-                                    ]
-                                ],
-                                "connected": true,
-                                "count": 35
-                            }
-                        }
-                    }
-                ]
+                "roi": "__cacheDockerTower__",
+                "method": 40,
+                "lower": [
+                    94,
+                    145,
+                    51
+                ],
+                "upper": [
+                    116,
+                    167,
+                    73
+                ],
+                "connected": true,
+                "count": 2100,
+                "order_by": "Horizontal",
+                "index": -1
+            }
+        }
+    },
+    "__matchDockerTowerLEDbeGREEN__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__locateDockerTowerLED__",
+                "method": 40,
+                "lower": [
+                    62,
+                    133,
+                    209
+                ],
+                "upper": [
+                    84,
+                    155,
+                    231
+                ],
+                "connected": true,
+                "count": 20
             }
         }
     },
@@ -80,10 +50,36 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "detectDockerTower",
+                    "__cacheDockerTower__",
+                    "__locateDockerTowerLED__",
+                    "__matchDockerTowerLEDbeGREEN__"
+                ]
+            }
+        },
+        "inverse": true,
+        "next": [
+            "extendTowerCondition",
+            "finishNode"
+        ]
+    },
+    "__ocrFilterNotZero__": {
+        "recognition": "OCR",
+        "roi": [
+            -70,
+            0,
+            70,
+            0
+        ],
+        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"]
+    },
+    "extendTowerCondition": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheDockerTower__",
                     "__ocrFilterNotZero__"
-                ],
-                "box_index": 0
+                ]
             }
         },
         "action": "Click",
