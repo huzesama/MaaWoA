@@ -161,36 +161,36 @@ function main() {
         }
 
         const releaseTargets = [
-        [
-            "win",
-            "x86_64",
-            "zip",
-        ],
-        [
-            "win",
-            "aarch64",
-            "zip",
-        ],
-        [
-            "linux",
-            "x86_64",
-            "tar.gz",
-        ],
-        [
-            "linux",
-            "aarch64",
-            "tar.gz",
-        ],
-        [
-            "macos",
-            "x86_64",
-            "tar.gz",
-        ],
-        [
-            "macos",
-            "aarch64",
-            "tar.gz",
-        ],
+            [
+                "win",
+                "x86_64",
+                "zip",
+            ],
+            [
+                "win",
+                "aarch64",
+                "zip",
+            ],
+            [
+                "linux",
+                "x86_64",
+                "tar.gz",
+            ],
+            [
+                "linux",
+                "aarch64",
+                "tar.gz",
+            ],
+            [
+                "macos",
+                "x86_64",
+                "tar.gz",
+            ],
+            [
+                "macos",
+                "aarch64",
+                "tar.gz",
+            ],
         ];
         for (const [
             os,
