@@ -23,7 +23,7 @@
                                 "type": "Or",
                                 "param": {
                                     "any_of": [
-                                        "detectActionRequire"
+                                        "__detectActionRequire__"
                                     ]
                                 }
                             }
@@ -31,16 +31,12 @@
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "TemplateMatch",
+                                "type": "And",
                                 "param": {
-                                    "template": [
-                                        "航班类型-离场.png",
-                                        "航班类型-到达.png",
-                                        "航班类型-维修.png"
-                                    ],
-                                    "green_mask": true,
-                                    "method": 10001,
-                                    "threshold": 0.8
+                                    "all_of": [
+                                        "__matchActionRequireList__",
+                                        "__matchActionRequireExcludeAssignCrew__"
+                                    ]
                                 }
                             }
                         },
@@ -79,7 +75,7 @@
                                 "type": "Or",
                                 "param": {
                                     "any_of": [
-                                        "detectActionRequireByONNX"
+                                        "__detectActionRequireByONNX__"
                                     ]
                                 }
                             }
@@ -87,12 +83,10 @@
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "NeuralNetworkDetect",
+                                "type": "Or",
                                 "param": {
-                                    "model": "WoA-widget.onnx",
-                                    "expected": [
-                                        "arrival",
-                                        "departure"
+                                    "any_of": [
+                                        "__matchActionRequireExcludeAssignCrewByONNX__"
                                     ]
                                 }
                             }
