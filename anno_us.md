@@ -1,5 +1,9 @@
 # News
 
+## What's been happening lately?
+
+🎉Today is the National Day holiday of the People's Republic of China. Even if you are not in China, I wish you a happy holiday!
+
 ## Foreground Controller Notes and FAQ
 
 1. The foreground controller completely occupies the foreground during operation. Manual operation at this time will interfere with the normal execution of the script, so it is not recommended to open other software at the same time.
