@@ -27,10 +27,10 @@
             "method": 3
         },
         "next": [
-            "detectAssignCrewCard", //尋找AssignCrew面板
-            "detetctStandSelectCard", //尋找standSelect面板
-            "universalAction_bribeFlight", //其它通用的actionRequire先检查有没有开关
-            "universalAction", //其它通用的actionRequire
+            "actionRequireAssignCrew", //尋找AssignCrew面板
+            "actionRequireStandSelect", //尋找standSelect面板
+            "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
+            "actionRequireUniversal", //其它通用的actionRequire
             "finishNode"
         ]
     },
