@@ -114,15 +114,15 @@
             "default_case": "No",
             "cases": [
                 {
-                    "name": "Yes"
-                },
-                {
-                    "name": "No",
+                    "name": "Yes",
                     "pipeline_override": {
                         "__standSelectMatch__": {
-                            "order_by": "Horizontal" //由base选项randomSelectStand覆写
+                            "order_by": "Random" //由base选项randomSelectStand覆写
                         }
                     }
+                },
+                {
+                    "name": "No"
                 }
             ]
         },
@@ -136,7 +136,7 @@
                 {
                     "name": "Yes",
                     "pipeline_override": {
-                        "universalAction_bribeFlight": {
+                        "actionRequireBribeFlight": {
                             "enabled": true
                         }
                     }
@@ -144,7 +144,7 @@
                 {
                     "name": "No",
                     "pipeline_override": {
-                        "universalAction_bribeFlight": {
+                        "actionRequireBribeFlight": {
                             "enabled": false
                         }
                     }
