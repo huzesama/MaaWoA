@@ -1,15 +1,41 @@
 {
+    "startLoopAction": {
+        //开始行动请求的处理循环
+        "next": [
+            "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
+            "[JumpBack]__cacheMenuButton__", //max_hit=1
+            "[JumpBack]compareCrewUsed",
+            "[JumpBack]detectFilter", //过滤器筛选的准备
+            "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
+            "[JumpBack]entryDocker",
+            "finishWithDelay" //跳回detectPage节点
+        ]
+    },
+    "entryDocker": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "entryAirportPage",
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": [
+            "disappearingFlightCard_info",
+            "dockerFunction",
+            "finishNode"
+        ]
+    },
     "disappearingFlightCard_info": {
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": [
-                    "flight_info",
                     "docker"
                 ],
                 "model": "WoA-card.onnx"
             }
         },
+        "inverse": true,
         "action": "Click",
         "target": "__cacheCrewUsedBox__",
         "target_offset": [
@@ -20,20 +46,14 @@
         ],
         "post_delay": 200,
         "next": [
-            "extendTower",
+            "dockerFunction",
             "finishNode"
         ]
     },
-    "startLoopAction": {
-        //开始行动请求的处理循环
+    "dockerFunction": {
         "next": [
-            "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
-            "[JumpBack]__cacheMenuButton__", //max_hit=1
-            "[JumpBack]compareCrewUsed",
-            "[JumpBack]detectFilter", //过滤器筛选的准备
-            "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
-            "[JumpBack]disappearingFlightCard_info",
-            "finishWithDelay" //跳回detectPage节点
+            "extendTower",
+            "finishNode"
         ]
     }
 }
