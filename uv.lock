@@ -34,7 +34,7 @@ wheels = [
 
 [[package]]
 name = "maafw"
-version = "5.14.0"
+version = "5.14.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "maaagentbinary" },
@@ -42,17 +42,17 @@ dependencies = [
     { name = "strenum" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2f/88/b5d75ce5172146f320730c61ca842aa706b7cb105f0394e28c0dc8742c6c/maafw-5.14.0-py3-none-macosx_13_0_arm64.whl", hash = "sha256:9395c0af08bbe9e551433beaacc2254348f2b2dd21a0fc8e4efdf22dc68eade1", size = 16598303, upload-time = "2026-09-25T02:29:57.808Z" },
-    { url = "https://files.pythonhosted.org/packages/6a/8d/488d15585895435e4afd735c59153671431fa577336056054b546443d79c/maafw-5.14.0-py3-none-macosx_13_0_x86_64.whl", hash = "sha256:71e470c519e202e5bc9a48c8cd2c8564176528e63b6b5a1c71856155b195aafb", size = 18245198, upload-time = "2026-09-25T02:30:00.031Z" },
-    { url = "https://files.pythonhosted.org/packages/ba/a1/154859d55e43c45570590d8a8e6e86246a6c006aa2390e05b8f3b0550b8a/maafw-5.14.0-py3-none-manylinux2014_aarch64.whl", hash = "sha256:65d64d84886b3dd57499d06dd073d90c2d2f4f75dd384ace3f8ccba36543070d", size = 16742661, upload-time = "2026-09-25T02:30:02.248Z" },
-    { url = "https://files.pythonhosted.org/packages/4d/40/622d6a3a4d7fcba0cbf08c3e34b0d48ee4ddb032135f02f96c6d41fe1603/maafw-5.14.0-py3-none-manylinux2014_x86_64.whl", hash = "sha256:d15671bd8d6328f45de986726017270a381157ae85b5d772cdd23618f50906a5", size = 18682031, upload-time = "2026-09-25T02:30:04.243Z" },
-    { url = "https://files.pythonhosted.org/packages/8b/20/53ce0222e1c7288eae25359d9274679aad10d41271053daadda60da56ccf/maafw-5.14.0-py3-none-win_amd64.whl", hash = "sha256:9260a01d17b780e605b04782a00abfa1ebe9d565a4444932ee8c7c928bcc259c", size = 24897065, upload-time = "2026-09-25T02:30:06.559Z" },
-    { url = "https://files.pythonhosted.org/packages/c1/0c/3a3e213f21303b411aa21f5ec4406c749b25649e650777ee1727f56e955a/maafw-5.14.0-py3-none-win_arm64.whl", hash = "sha256:c31d870861e58912120503c29dbbb2c058e13206077cc0a1a87e654612c1a219", size = 24047978, upload-time = "2026-09-25T02:30:09.159Z" },
+    { url = "https://files.pythonhosted.org/packages/42/17/f13b5c3ccd60cd3c8d79a24442f1960939e9b12570cacd0b60767d38413d/maafw-5.14.1-py3-none-macosx_13_0_arm64.whl", hash = "sha256:cc8d650820b4b49eecc2cb2e6e14cec6723bffd1e3cd5e66fc4effa095374c1b", size = 16598257, upload-time = "2026-09-28T14:06:32.741Z" },
+    { url = "https://files.pythonhosted.org/packages/fa/8b/6bd8879a9ca61609f78b1f9709260ef8aab92844eab1d9972bdf08667e40/maafw-5.14.1-py3-none-macosx_13_0_x86_64.whl", hash = "sha256:7ad912ab3a4901ca056f70f4738367cad9194cad4f7ed4813dedeb1c2c1b50c2", size = 18244886, upload-time = "2026-09-28T14:06:35.453Z" },
+    { url = "https://files.pythonhosted.org/packages/17/a0/84321957fb743ab31c45e5fcb7ab35d17b08f90ab1de93f612360773f6c2/maafw-5.14.1-py3-none-manylinux2014_aarch64.whl", hash = "sha256:fd343c1e1341f6756b9ca0e15d738d67a550744658cb4dc0ae90db7649b36153", size = 16741958, upload-time = "2026-09-28T14:06:38.172Z" },
+    { url = "https://files.pythonhosted.org/packages/20/89/3bc28ce040cab278510b0dd896ab3739031d91ac4c6baf65d32cba1208c1/maafw-5.14.1-py3-none-manylinux2014_x86_64.whl", hash = "sha256:521f47375a6efed5f26dd3904ace3d5955c15de27ce1660f10eae13c10da0f97", size = 18681625, upload-time = "2026-09-28T14:06:41Z" },
+    { url = "https://files.pythonhosted.org/packages/94/7a/1673a7d6ec01efb4437803300f2bbd7f5b9c01882dca04dac3109f16772e/maafw-5.14.1-py3-none-win_amd64.whl", hash = "sha256:0400cd00ddd63b04ea51ae22f45fdc6f2dfe6a021743dae563e447bf4bcf3217", size = 24897016, upload-time = "2026-09-28T14:06:43.816Z" },
+    { url = "https://files.pythonhosted.org/packages/75/26/1ca3c97bd7aba39830af58afd16c4f641b211433cf3bc2a9fb416be7cfe9/maafw-5.14.1-py3-none-win_arm64.whl", hash = "sha256:c8ef7a5f0e7916c1777c716a2236dc8ceca9f5bde62fbbd6b4bac4fa4e064e4e", size = 24047782, upload-time = "2026-09-28T14:06:46.843Z" },
 ]
 
 [[package]]
 name = "maawoa"
-version = "1.0.0b4"
+version = "1.0.0rc1"
 source = { editable = "." }
 dependencies = [
     { name = "loguru" },
