@@ -571,6 +571,7 @@
         },
         "next": [
             "clickFlight_infoYellowButton",
+            "detectContractUpgradeCard", //仍存在可能上一轮clickFlight_infoYellowButton没有检测到ContractUpgradeCard的情况
             "finishNode"
         ]
     },
@@ -648,7 +649,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishNode"
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ]
     },
     "__matchYellowButton_inUpgradeCard__": {
@@ -693,7 +694,7 @@
             -10
         ],
         "anchor": {
-            "afterClickFlight_infoYellowButton": "finishNode" //在UniversalAction节点被分配的anchor被前置节点使用后立即清除
+            "afterClickFlight_infoYellowButton": "finishNode" //被分配的anchor被前置节点使用后立即清除
         },
         "next": [
             "[JumpBack]waitContractUpgradeCardDisappear",
