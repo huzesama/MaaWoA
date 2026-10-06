@@ -9,7 +9,6 @@
             "description": "$pi.task.dailyUniqueArrival.description",
             "option": [
                 //"enableTower",
-                "notSkipProcessUp",
                 "unknownPageWaitting",
                 "randomSelectStand",
                 "ONNX",
@@ -52,7 +51,6 @@
             "description": "$pi.task.unattendedMode.description",
             "option": [
                 //"enableTower",
-                "notSkipProcessUp",
                 "unknownPageWaitting",
                 "enabledTower",
                 "randomSelectStand",

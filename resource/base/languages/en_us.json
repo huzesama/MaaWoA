@@ -8,8 +8,6 @@
     "pi.task.dailyUniqueArrival.description": "Claim all daily unique arrival contracts for unlocked airports. Make sure you have enough contract slots to avoid claim failures.",
     "pi.task.unattendedMode.name": "Unattended Mode",
     "pi.task.unattendedMode.description": "A rough auto-pilot mode for unattended operation. Currently only supports handling all action request events (all flight cards shown after filter).",
-    "pi.task.option.notSkipProcessUp.name": "Don't Skip Mounting",
-    "pi.task.option.notSkipProcessUp.description": "On Android, after opening MaaWoA for the first time, you need to mount the window to MaaWoA. After stopping the task, disable this option and start again to keep the mount without restarting. Other platforms keep the default.",
     "pi.task.option.enabledTower.name": "Tower",
     "pi.task.option.enabledTower.description": "Automatically start the Tower when flight events are not 0, and extend it each time it is about to end.",
     "pi.task.option.randomSelectStand.name": "Random Stand",

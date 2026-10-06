@@ -52,32 +52,6 @@
                 }
             ]
         },
-        "notSkipProcessUp": {
-            //识别失败的页面不重启而是等待操作。
-            "label": "$pi.task.option.notSkipProcessUp.name",
-            "description": "$pi.task.option.notSkipProcessUp.description",
-            "type": "switch",
-            "default_case": "Yes",
-            "cases": [
-                {
-                    "name": "Yes"
-                },
-                {
-                    "name": "No",
-                    "pipeline_override": {
-                        "unattendedMode": {
-                            //主要更改next
-                            "anchor": {
-                                "afterStart": ""
-                            },
-                            "next": [
-                                "detectPage"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
         "unknownPageWaitting": {
             //识别失败的页面不重启而是等待操作。
             "label": "$pi.task.option.unknownPageWaitting.name",

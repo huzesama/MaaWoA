@@ -103,7 +103,6 @@
         "action": "Click"
     },
     "unattendedMode": {
-        //开始无人值守吧！//由base选项notSkipProcessUp覆盖next
         "anchor": {
             "afterStart": "detectPage"
         },

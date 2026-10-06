@@ -8,8 +8,6 @@
     "pi.task.dailyUniqueArrival.description": "领取已解锁机场的所有每日特殊入港合同，需要保证有充足的合同卡槽位，以免领取失败。",
     "pi.task.unattendedMode.name": "无人值守模式",
     "pi.task.unattendedMode.description": "目前较为粗糙的无人挂机自动操作，仅支持接管处理所有行动请求事件（行动请求筛选器过滤后显示的所有航班卡片）。",
-    "pi.task.option.notSkipProcessUp.name": "不跳过挂载",
-    "pi.task.option.notSkipProcessUp.description": "安卓端打开MaaWoA后首次启动需要挂载窗口到MaaWoA。停止任务后关闭选项再次启动可保持挂载不重启。其它端保持默认",
     "pi.task.option.enabledTower.name": "塔台",
     "pi.task.option.enabledTower.description": "当航班事件不为0时自动启动塔台，每次快要结束的时候延续",
     "pi.task.option.randomSelectStand.name": "随机机位",
