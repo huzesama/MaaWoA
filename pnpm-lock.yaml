@@ -170,8 +170,8 @@ importers:
         specifier: 1.1.3
         version: 1.1.3
       '@nekosu/prettier-plugin-maafw-sort':
-        specifier: 1.0.6
-        version: 1.0.6
+        specifier: 1.1.0
+        version: 1.1.0
       ajv:
         specifier: 8.20.0
         version: 8.20.0
@@ -254,8 +254,8 @@ packages:
   '@nekosu/maa-version-manager@1.1.0':
     resolution: {integrity: sha512-WB2rHQYFUK+e49+dTd7KW0k17OWM3H89jkTgH092iOH/pmOqBIBAzanUSKw5yEwI1ikhY+IRa75b1zhKh+wjNA==}
 
-  '@nekosu/prettier-plugin-maafw-sort@1.0.6':
-    resolution: {integrity: sha512-KuWR3y4pyFx5/3tPryDWyLS9DWiplTZLOhOco/7qxjFWtfvg/eNFwMUr88nrqMfFK6GMh8aw34LDewhG9aGrkw==}
+  '@nekosu/prettier-plugin-maafw-sort@1.1.0':
+    resolution: {integrity: sha512-txHyLHjC7RcGPpvVIgugbaVx466jSTb9zl59BUGoK7/jHrkamHFsHAaUKotYvvHvcNe7Q9fxn9lEfDyHlKD09A==}
 
   '@nekosu/simple-parser@1.0.0':
     resolution: {integrity: sha512-Jf3tGs3/0D8XJtjRguInFh8ofGdCk6PcDK2V7HEZTXA4RN/9kk527I6pAX4zqPEUU8ISNu8dCR9F+KAn1U6tdg==}
@@ -850,7 +850,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nekosu/prettier-plugin-maafw-sort@1.0.6':
+  '@nekosu/prettier-plugin-maafw-sort@1.1.0':
     dependencies:
       '@babel/types': 7.29.8
 
