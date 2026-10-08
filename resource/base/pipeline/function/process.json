@@ -1,0 +1,114 @@
+{
+    // 页面过渡的流水线
+    // 由三段锚点控制走向
+    // page2page.FromPage 跳转前所处的页面
+    // page2page.ToPage 跳转后所处的页面
+    // page2page.EntryPageNode 完成页面过渡后进入的节点
+
+    "function.process.page2page": {
+        "next": [
+            "[Anchor]page2page.FromPage",
+            "[Anchor]page2page.ToPage"
+        ]
+    },
+    "function.disappearing.homePage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "homePage",
+                    "loadingPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.ToPage"]
+    },
+    "function.disappearing.airportSelecPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "airportSelecPage",
+                    "loadingPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.ToPage"]
+    },
+    "function.disappearing.entryAirportPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "entryAirportPage",
+                    "loadingPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.ToPage"]
+    },
+    "function.disappearing.towerPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "towerPage",
+                    "loadingPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.ToPage"]
+    },
+    "function.appearing.homePage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "homePage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.EntryPageNode"]
+    },
+    "function.appearing.airportSelecPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "airportSelecPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.EntryPageNode"]
+    },
+    "function.appearing.entryAirportPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "entryAirportPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.EntryPageNode"]
+    },
+    "function.appearing.towerPage": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "towerPage"
+                ],
+                "model": "WoA-page.onnx"
+            }
+        },
+        "next": ["[Anchor]page2page.EntryPageNode"]
+    }
+}
