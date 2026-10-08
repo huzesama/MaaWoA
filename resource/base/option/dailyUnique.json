@@ -1,11 +1,10 @@
 {
     "option": {
         "acceptDailyUniqueContractsType": {
+            "type": "select",
             //每日特殊入港的处理方式
             "label": "$pi.task.option.acceptDailyUniqueContractsType.name",
             "description": "$pi.task.option.acceptDailyUniqueContractsType.description",
-            "type": "select",
-            "default_case": "acceptOnly",
             "cases": [
                 {
                     "name": "acceptOnly",
@@ -61,19 +60,20 @@
                             "recognition": {
                                 "type": "NeuralNetworkDetect",
                                 "param": {
-                                    "model": "WoA-widget.onnx",
-                                    "expected": "filterUnique"
+                                    "expected": "filterUnique",
+                                    "model": "WoA-widget.onnx"
                                 }
                             }
                         }
                     }
                 }
-            ]
+            ],
+            "default_case": "acceptOnly"
         },
         "dailyUniqueContractsHandleThreshold": {
+            "type": "input",
             //每日特殊入港处理方式阈值选项下的输入
             "label": "$pi.task.option.acceptDailyUniqueContractsType.dailyUniqueContractsHandleThreshold.name",
-            "type": "input",
             "inputs": [
                 {
                     "name": "dailyUniqueContractsUpper",

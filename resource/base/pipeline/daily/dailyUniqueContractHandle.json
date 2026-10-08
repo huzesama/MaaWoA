@@ -37,7 +37,6 @@
             ]
         },
         "post_wait_freezes": {
-            "method": 3,
             "time": 300,
             "target": "detectAitportList",
             "target_offset": [
@@ -45,7 +44,8 @@
                 10,
                 0,
                 0
-            ]
+            ],
+            "method": 3
         },
         "next": [
             "dailyUniqueContract.detectUniqueAirport",
@@ -70,8 +70,8 @@
             -40
         ],
         "post_wait_freezes": {
-            "method": 3,
-            "time": 500
+            "time": 500,
+            "method": 3
         },
         "next": [
             "detectAirport_info",
