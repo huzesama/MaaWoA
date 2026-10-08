@@ -1,19 +1,19 @@
 {
     "interface_version": 2,
-    "icon": "resource/base/logo.png",
-    "name": "maawoa",
-    "label": "MaaWoA",
-    "version": "v1.0.0",
-    "description": "$pi.description",
-    "contact": "$pi.contact",
-    "license": "[GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)",
-    "welcome": "$pi.welcome",
-    "github": "https://github.com/huzesama/MaaWoA",
     "languages": {
         "zh_cn": "resource/base/languages/zh_cn.json",
         "zh_tw": "resource/base/languages/zh_tw.json",
         "en_us": "resource/base/languages/en_us.json"
     },
+    "name": "maawoa",
+    "label": "MaaWoA",
+    "icon": "resource/base/logo.png",
+    "github": "https://github.com/huzesama/MaaWoA",
+    "version": "v1.0.0",
+    "contact": "$pi.contact",
+    "license": "[GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)",
+    "welcome": "$pi.welcome",
+    "description": "$pi.description",
     "controller": [
         {
             "name": "Adb",
@@ -33,14 +33,14 @@
                 720
             ],
             "permission_required": true,
+            "attach_resource_path": [
+                "./resource/desktop"
+            ],
             "win32": {
                 "mouse": "Seize",
                 "keyboard": "Seize",
                 "screencap": "FramePool"
-            },
-            "attach_resource_path": [
-                "./resource/desktop"
-            ]
+            }
         },
         {
             "name": "MacOS",
@@ -51,13 +51,13 @@
                 720
             ],
             "permission_required": true,
+            "attach_resource_path": [
+                "./resource/desktop"
+            ],
             "macos": {
                 "input": "GlobalEvent",
                 "screencap": "ScreenCaptureKit"
-            },
-            "attach_resource_path": [
-                "./resource/desktop"
-            ]
+            }
         },
         {
             "name": "PlayCover",
@@ -99,12 +99,6 @@
             ]
         }
     ],
-    "import": [
-        "./tasks/base.json",
-        "./resource/base/option/dailyUnique.json",
-        "./resource/base/option/base.json",
-        "./resource/base/option/onnx.json"
-    ],
     "agent": [
         {
             "child_exec": "uv",
@@ -114,5 +108,11 @@
                 "agent/main.py"
             ]
         }
+    ],
+    "import": [
+        "./tasks/base.json",
+        "./resource/base/option/dailyUnique.json",
+        "./resource/base/option/base.json",
+        "./resource/base/option/onnx.json"
     ]
 }

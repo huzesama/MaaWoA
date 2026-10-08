@@ -126,8 +126,8 @@
             -10
         ],
         "post_wait_freezes": {
-            "method": 3,
-            "time": 200
+            "time": 200,
+            "method": 3
         },
         "next": [
             "[JumpBack]detectLoadingPage",
@@ -258,7 +258,6 @@
             ]
         },
         "post_wait_freezes": {
-            "method": 3,
             "time": 300,
             "target": "detectAitportList",
             "target_offset": [
@@ -266,7 +265,8 @@
                 10,
                 0,
                 0
-            ]
+            ],
+            "method": 3
         },
         "next": [
             "ocrAirportListIATA",

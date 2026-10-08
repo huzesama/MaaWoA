@@ -1,11 +1,10 @@
 {
     "option": {
         "ONNX": {
+            "type": "select",
             //减少使用ONNX
             "label": "$pi.task.option.ONNX.name",
             "description": "$pi.task.option.ONNX.description",
-            "type": "select",
-            "default_case": "default",
             "cases": [
                 {
                     "name": "default",
@@ -56,9 +55,9 @@
                                         167,
                                         73
                                     ],
+                                    "connected": true,
                                     "count": 1500,
-                                    "order_by": "Vertical",
-                                    "connected": true
+                                    "order_by": "Vertical"
                                 }
                             }
                         }
@@ -96,14 +95,15 @@
                             "recognition": {
                                 "type": "NeuralNetworkDetect",
                                 "param": {
-                                    "model": "WoA-widget.onnx",
-                                    "expected": "menuButton"
+                                    "expected": "menuButton",
+                                    "model": "WoA-widget.onnx"
                                 }
                             }
                         }
                     }
                 }
-            ]
+            ],
+            "default_case": "default"
         }
     }
 }

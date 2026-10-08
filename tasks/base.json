@@ -7,14 +7,6 @@
             "entry": "unattendedMode",
             "default_check": true,
             "description": "$pi.task.dailyUniqueArrival.description",
-            "option": [
-                //"enableTower",
-                "unknownPageWaitting",
-                "randomSelectStand",
-                "ONNX",
-                "acceptDailyUniqueContractsType",
-                "bribery"
-            ],
             "pipeline_override": {
                 "detectAirportSelectPage": {
                     //更改只从列表选择
@@ -40,7 +32,15 @@
                         "finishNode"
                     ]
                 }
-            }
+            },
+            "option": [
+                //"enableTower",
+                "unknownPageWaitting",
+                "randomSelectStand",
+                "ONNX",
+                "acceptDailyUniqueContractsType",
+                "bribery"
+            ]
         },
         {
             //挂机
