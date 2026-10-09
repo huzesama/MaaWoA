@@ -1,0 +1,43 @@
+name: mirrorchyan_release_note
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        default: ''
+        required: false
+  release:
+    types: [edited]
+
+jobs:
+  mirrorchyan:
+    if: ${{ github.repository_owner == 'huzesama' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: uploading
+        uses: MirrorChyan/release-note-action@v1
+        with:
+          mirrorchyan_rid: MaaWoA
+          version_name: ${{ inputs.tag }}
+
+          owner: huzesama
+          repo: MaaWoA
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_token: ${{ secrets.MirrorChyanUploadToken }}
+
+  mirrorchyan_exec:
+    if: ${{ github.repository_owner == 'huzesama' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: uploading
+        uses: MirrorChyan/release-note-action@v1
+        with:
+          mirrorchyan_rid: MaaWoA_exec
+          version_name: ${{ inputs.tag }}
+
+          owner: huzesama
+          repo: MaaWoA
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_token: ${{ secrets.MirrorChyanUploadToken }}

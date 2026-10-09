@@ -1,0 +1,59 @@
+name: mirrorchyan_release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        default: ''
+        required: false
+
+jobs:
+  mirrorchyan:
+    if: ${{ github.repository_owner == 'huzesama' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [win, macos, linux]
+        arch: [aarch64, x86_64]
+    steps:
+      - uses: MirrorChyan/uploading-action@v1
+        with:
+          filetype: latest-release
+          filename: ${{ format('MaaWoA-{0}-{1}-*-MFAA*', matrix.os, matrix.arch) }}
+          mirrorchyan_rid: MaaWoA
+          tag: ${{ inputs.tag }}
+
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+          owner: huzesama
+          repo: MaaWoA
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_token: ${{ secrets.MirrorChyanUploadToken }}
+
+  # MXU 包走独立资源 ID。linux-aarch64 没有 MXU 产物，与 M9A 相同跳过。
+  mirrorchyan_exec:
+    if: ${{ github.repository_owner == 'huzesama' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [win, macos, linux]
+        arch: [aarch64, x86_64]
+    steps:
+      - uses: MirrorChyan/uploading-action@v1
+        if: ${{ matrix.os != 'linux' || matrix.arch != 'aarch64' }}
+        with:
+          filetype: latest-release
+          filename: ${{ format('MaaWoA-{0}-{1}-*-MXU*', matrix.os, matrix.arch) }}
+          mirrorchyan_rid: MaaWoA_exec
+          tag: ${{ inputs.tag }}
+
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+          owner: huzesama
+          repo: MaaWoA
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_token: ${{ secrets.MirrorChyanUploadToken }}
