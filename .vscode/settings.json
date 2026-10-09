@@ -35,5 +35,6 @@
             ],
             "url": "./tools/schema/pipeline.schema.json"
         }
-    ]
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:venv"
 }
