@@ -89,10 +89,13 @@
             -60,
             -40
         ],
-        "post_wait_freezes": 200,
+        "anchor": {
+            "page2page.FromPage": "function.disappearing.entryAirportPage",
+            "page2page.ToPage": "function.appearing.towerPage",
+            "page2page.EntryPageNode": "entryTowerControlCard"
+        },
         "next": [
-            "entryTowerControlCard",
-            "finishNode"
+            "function.process.page2page"
         ]
     },
     "detectTower_info": {
