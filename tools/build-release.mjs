@@ -57,6 +57,7 @@ const GUI_TYPES = {
             const displayName =
                 typeof modified.label === "string" && modified.label.trim() ? modified.label.trim() : slug;
             modified.title = `${displayName} ${ver} | MXU`;
+            modified.mirrorchyan_rid = "MaaWoA_MXU";
             // Deliberately no agent override: prepareReleaseInterface already sets the
             // platform-correct command (the bundled interpreter running agent/main.py), and
             // MXU resolves relative child_exec paths against the project root on its own.
