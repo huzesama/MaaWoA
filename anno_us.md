@@ -1,8 +1,4 @@
-# News
-
-## What's been happening lately?
-
-🎉Today is the National Day holiday of the People's Republic of China. Even if you are not in China, I wish you a happy holiday!
+# 📰News
 
 ## Foreground Controller Notes and FAQ
 
