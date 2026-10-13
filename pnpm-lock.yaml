@@ -226,8 +226,8 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@date-vir/duration@9.3.0':
-    resolution: {integrity: sha512-KviJkVR2Pg+vLIGQq5Ax4m2JpmiWqZfQ/aBp7bCpD7mq+26XF6R11f3QpeLDOZrJQ6hrtGRcvY/BJd5tm7A0aw==}
+  '@date-vir/duration@9.4.0':
+    resolution: {integrity: sha512-W4fUt6tF5Z1CMecP6FTB72pv9zdzO2RB4A3jy5ciPjrAKaRwVqvu0djCxMZAGzZiKVBNAIkJDPaAmY+rCG5TRg==}
     engines: {node: '>=22'}
 
   '@gar/promise-retry@1.0.3':
@@ -485,8 +485,8 @@ packages:
     resolution: {integrity: sha512-IBTdIkzZNOpqm7q3dRqJvMaldXjDHWkEDfrwGEQTs5eaQMWV+djAhR+wahyNNMAa+qpbDUhBMVt4ZKNwpPm7xQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  ip-address@10.7.3:
-    resolution: {integrity: sha512-A1kdq/tSb5QjvKvAMgIoEvDBIgL7qaqVP/jkvSwYYRZ9iEzvPpopxp2wQfu3SuZRHtpHNxMn8Fs0bS+gf5Xmwg==}
+  ip-address@10.7.4:
+    resolution: {integrity: sha512-DWBMKyeM25D70nrIiTkgQth59/G+naKOTep6huF9j+GmeK3DMD60Zvxg5d5qQnz+38AHgou6ean2LECX+lrKDg==}
     engines: {node: '>= 12'}
 
   isexe@4.0.0:
@@ -609,8 +609,8 @@ packages:
     resolution: {integrity: sha512-TakBap6OM1w0H73VZVDf44iFXsOS3h+L4wVMXmbWOQroZgFhMch0juN6XSzBNlD965yIKvWg2dfu7NSiaYLxtw==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  p-map@7.0.8:
-    resolution: {integrity: sha512-MitaVsCuCFIvOLLPIU7NnfrZvS9H9h7kwMUkDo+T2pEISaJD48IV9S8iIdXB7PsvvdxyYcsSTTrr90XKsbulNw==}
+  p-map@7.1.1:
+    resolution: {integrity: sha512-6Lh3jQPLthYujSrlw6ccWXBGZTkoTCz27Hd92g79LH/kjAbgoEu0t442cCCNbegPSJsA0lwDX8z0bcKtkpA32g==}
     engines: {node: '>=18'}
 
   pacote@21.5.1:
@@ -772,7 +772,7 @@ snapshots:
   '@augment-vir/assert@32.5.0':
     dependencies:
       '@augment-vir/core': 32.5.0
-      '@date-vir/duration': 9.3.0
+      '@date-vir/duration': 9.4.0
       deep-eql: 5.0.2
       expect-type: 1.4.0
 
@@ -780,7 +780,7 @@ snapshots:
     dependencies:
       '@augment-vir/assert': 32.5.0
       '@augment-vir/core': 32.5.0
-      '@date-vir/duration': 9.3.0
+      '@date-vir/duration': 9.4.0
       '@paralleldrive/cuid2': 3.3.0
       ansi-styles: 7.0.0
       deepcopy-esm: 2.1.2
@@ -789,7 +789,7 @@ snapshots:
 
   '@augment-vir/core@32.5.0':
     dependencies:
-      '@date-vir/duration': 9.3.0
+      '@date-vir/duration': 9.4.0
       browser-or-node: 3.0.0
       diff: 9.0.0
       json5: 2.2.3
@@ -803,7 +803,7 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@date-vir/duration@9.3.0':
+  '@date-vir/duration@9.4.0':
     dependencies:
       '@augment-vir/assert': 32.5.0
       '@types/luxon': 3.7.6
@@ -998,7 +998,7 @@ snapshots:
       minipass-collect: 2.0.1
       minipass-flush: 1.0.7
       minipass-pipeline: 1.2.4
-      p-map: 7.0.8
+      p-map: 7.1.1
       ssri: 13.0.1
 
   chalk@5.6.2: {}
@@ -1080,7 +1080,7 @@ snapshots:
 
   ini@6.0.0: {}
 
-  ip-address@10.7.3: {}
+  ip-address@10.7.4: {}
 
   isexe@4.0.0: {}
 
@@ -1220,7 +1220,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  p-map@7.0.8: {}
+  p-map@7.1.1: {}
 
   pacote@21.5.1:
     dependencies:
@@ -1309,7 +1309,7 @@ snapshots:
 
   socks@2.8.10:
     dependencies:
-      ip-address: 10.7.3
+      ip-address: 10.7.4
       smart-buffer: 4.2.0
 
   spdx-exceptions@2.5.0: {}
