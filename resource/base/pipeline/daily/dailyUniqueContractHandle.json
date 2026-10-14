@@ -200,6 +200,7 @@
             "compareCrewUsed",
             "[JumpBack]actionRequiringSelectDeparture",
             "[JumpBack]detectContractUpgradeCard",
+            "[JumpBack]entryDocker",
             "finishWithDelay"
         ]
     }

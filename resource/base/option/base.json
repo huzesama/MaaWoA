@@ -27,11 +27,36 @@
             ],
             "default_case": "No"
         },
-        "enabledTower": {
+        "dockerExtra": {
+            "type": "switch",
+            "cases": [
+                {
+                    "name": "No",
+                    "pipeline_override": {
+                        "entryDocker": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "Yes",
+                    "option": [
+                        "enableTower"
+                    ],
+                    "pipeline_override": {
+                        "entryDocker": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ],
+            "default_case": "No"
+        },
+        "enableTower": {
             "type": "switch",
             //启用塔台
-            "label": "$pi.task.option.enabledTower.name",
-            "description": "$pi.task.option.enabledTower.description",
+            "label": "$pi.task.option.enableTower.name",
+            "description": "$pi.task.option.enableTower.description",
             "cases": [
                 {
                     "name": "Yes",
@@ -124,19 +149,6 @@
                 }
             ],
             "default_case": "Yes"
-        },
-        "enableTower": {
-            //处理合同开启塔台选项
-            "type": "switch",
-            "cases": [
-                {
-                    "name": "Yes"
-                },
-                {
-                    "name": "No"
-                }
-            ],
-            "default_case": "No"
         },
         "entryAirportIATA": {
             "type": "select",
