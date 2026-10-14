@@ -31,11 +31,14 @@
                         "entryAirport",
                         "finishNode"
                     ]
+                },
+                "entryDocker": {
+                    "enabled": true
                 }
             },
             "option": [
-                //"enableTower",
                 "unknownPageWaitting",
+                "enableTower",
                 "randomSelectStand",
                 "ONNX",
                 "acceptDailyUniqueContractsType",
@@ -50,9 +53,8 @@
             "default_check": true,
             "description": "$pi.task.unattendedMode.description",
             "option": [
-                //"enableTower",
                 "unknownPageWaitting",
-                "enabledTower",
+                "dockerExtra",
                 "randomSelectStand",
                 "ONNX",
                 "entryAirportIATA",
