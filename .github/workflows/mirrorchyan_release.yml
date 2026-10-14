@@ -57,3 +57,46 @@ jobs:
           repo: MaaWoA
           github_token: ${{ secrets.GITHUB_TOKEN }}
           upload_token: ${{ secrets.MirrorChyanUploadToken }}
+
+  # APK 走独立资源 ID。客户端按安装包 ABI 请求，arch 与桌面不一致：
+  #   universal          → os=android，不带 arch（单 ABI 缺失时会回退到这条）
+  #   arm64-v8a          → os=android arch=arm64
+  #   x86_64             → os=android arch=amd64
+  # android-build.yml 的产物名（前缀 = maa-project.json displayName = MaaWoA）：
+  #   MaaWoA-android-<tag>.apk
+  #   MaaWoA-android-arm64-v8a-<tag>.apk
+  #   MaaWoA-android-x86_64-<tag>.apk
+  # filename 先留空，等作者填 glob。留空时跳过上传，避免把发版 workflow 打失败。
+  # 不要用 MaaWoA-android-*.apk：会同时命中三包，action 只取第一个。
+  mirrorchyan_exec:
+    if: ${{ github.repository_owner == 'huzesama' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: android
+            arch: ""
+            filename: "MaaWoA-android-v*.apk" # 例: MaaWoA-android-v*.apk
+          - os: android
+            arch: arm64
+            filename: "MaaWoA-android-arm64-v8a-*.apk" # 例: MaaWoA-android-arm64-v8a-*.apk
+          - os: android
+            arch: amd64
+            filename: "MaaWoA-android-x86_64-*.apk" # 例: MaaWoA-android-x86_64-*.apk
+    steps:
+      - uses: MirrorChyan/uploading-action@v1
+        if: ${{ matrix.filename != '' }}
+        with:
+          filetype: latest-release
+          filename: ${{ matrix.filename }}
+          mirrorchyan_rid: MaaWoA_exec
+          tag: ${{ inputs.tag }}
+
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+          owner: huzesama
+          repo: MaaWoA
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_token: ${{ secrets.MirrorChyanUploadToken }}
