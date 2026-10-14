@@ -160,7 +160,10 @@
         "next": [
             "ClickRampAgentSwitch",
             "finishNode"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireAssignCrew.focus.Node.Recognition.Succeeded"
+        }
     },
     "ClickRampAgentSwitch": {
         //指派地勤節點鏈,尋找並打開Ramp Agent
@@ -336,7 +339,10 @@
             "baseStandSelect", //基本
             "otherStandSelect", //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
             "finishNode"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireStandSelect.focus.Node.Recognition.Succeeded"
+        }
     },
     "baseStandSelect": {
         "recognition": {
@@ -508,7 +514,10 @@
         ],
         "next": [
             "actionRequireUniversal"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireBribeFlight.focus.Node.Recognition.Succeeded"
+        }
     },
     "actionRequireUniversal": {
         //指派地勤行動外的節點鏈
@@ -536,7 +545,10 @@
             "clickFlight_infoYellowButton",
             "detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
             "finishNode"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireUniversal.focus.Node.Recognition.Succeeded"
+        }
     },
     "__matchFlight_infoContract_icon__": {
         "recognition": "TemplateMatch",
@@ -699,7 +711,10 @@
         "next": [
             "[JumpBack]waitContractUpgradeCardDisappear",
             "finishNode"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded"
+        }
     },
     "waitContractUpgradeCardDisappear": {
         "recognition": {

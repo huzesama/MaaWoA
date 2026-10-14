@@ -4,13 +4,16 @@
     // page2page.FromPage 跳转前所处的页面
     // page2page.ToPage 跳转后所处的页面
     // page2page.EntryPageNode 完成页面过渡后进入的节点
-
     "function.process.page2page": {
         "next": [
             "[Anchor]page2page.FromPage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"]
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.process.page2page.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.disappearing.homePage": {
         "recognition": {
@@ -24,7 +27,11 @@
             }
         },
         "next": ["[Anchor]page2page.ToPage"],
-        "on_error": ["detectPage"]
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.disappearing.homePage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.disappearing.airportSelecPage": {
         "recognition": {
@@ -38,7 +45,11 @@
             }
         },
         "next": ["[Anchor]page2page.ToPage"],
-        "on_error": ["detectPage"]
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.disappearing.airportSelecPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.disappearing.entryAirportPage": {
         "recognition": {
@@ -52,7 +63,11 @@
             }
         },
         "next": ["[Anchor]page2page.ToPage"],
-        "on_error": ["detectPage"]
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.disappearing.entryAirportPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.disappearing.towerPage": {
         "recognition": {
@@ -66,7 +81,11 @@
             }
         },
         "next": ["[Anchor]page2page.ToPage"],
-        "on_error": ["detectPage"]
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.disappearing.towerPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.appearing.homePage": {
         "recognition": {
@@ -78,7 +97,12 @@
                 "model": "WoA-page.onnx"
             }
         },
-        "next": ["[Anchor]page2page.EntryPageNode"]
+        "next": ["[Anchor]page2page.EntryPageNode"],
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.appearing.homePage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.appearing.airportSelecPage": {
         "recognition": {
@@ -90,7 +114,12 @@
                 "model": "WoA-page.onnx"
             }
         },
-        "next": ["[Anchor]page2page.EntryPageNode"]
+        "next": ["[Anchor]page2page.EntryPageNode"],
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.appearing.airportSelecPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.appearing.entryAirportPage": {
         "recognition": {
@@ -102,7 +131,12 @@
                 "model": "WoA-page.onnx"
             }
         },
-        "next": ["[Anchor]page2page.EntryPageNode"]
+        "next": ["[Anchor]page2page.EntryPageNode"],
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.appearing.entryAirportPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     },
     "function.appearing.towerPage": {
         "recognition": {
@@ -114,6 +148,11 @@
                 "model": "WoA-page.onnx"
             }
         },
-        "next": ["[Anchor]page2page.EntryPageNode"]
+        "next": ["[Anchor]page2page.EntryPageNode"],
+        "on_error": ["detectPage"],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.process.function.appearing.towerPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+        }
     }
 }

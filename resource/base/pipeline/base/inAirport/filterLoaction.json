@@ -19,7 +19,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Node.Action.Starting": "$pipeline.loopAction.detectFilter.focus.action.Starting"
+            "Node.Action.Starting": "$pipeline.loopAction.detectFilter.focus.action.Starting"
         }
     },
     "detectFilterActionRequiringButton": {
@@ -41,7 +41,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Node.Action.Starting": "$pipeline.loopAction.detectFilterActionRequiringButton.focus.action.Starting"
+            "Node.Action.Starting": "$pipeline.loopAction.detectFilterActionRequiringButton.focus.action.Starting"
         }
     },
     "detectFilterArrivalButton": {
@@ -67,7 +67,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                //expected受选项enabledTower覆写
+                //expected受选项enableTower覆写
                 "expected": "filterAirplaneOnAirportPressed",
                 "model": "WoA-widget.onnx"
             }

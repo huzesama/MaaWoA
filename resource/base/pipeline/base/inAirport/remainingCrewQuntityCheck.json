@@ -53,6 +53,9 @@
                     "update_cache": true
                 }
             }
+        },
+        "focus": {
+            "Node.Recognition.Starting": "$pipeline.remainingCrewQuntityCheck.updateCrewUsed.focus.Node.Recognition.Starting"
         }
     }
 }

@@ -3,7 +3,10 @@
         "next": [
             "checkBack",
             "restartApp"
-        ]
+        ],
+        "focus": {
+            "Node.NextList.Starting": "$pipeline.checkError.checkAll.focus.Node.NextList.Starting"
+        }
     },
     "checkBack": {
         "recognition": {
