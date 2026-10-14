@@ -16,7 +16,7 @@
                     73
                 ],
                 "connected": true,
-                "count": 2100,
+                "count": 2450,
                 "order_by": "Horizontal",
                 "index": -1
             }
@@ -27,6 +27,12 @@
             "type": "ColorMatch",
             "param": {
                 "roi": "__locateDockerTowerLED__",
+                "roi_offset": [
+                    8,
+                    8,
+                    -16,
+                    -16
+                ],
                 "method": 40,
                 "lower": [
                     [

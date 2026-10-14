@@ -50,6 +50,7 @@
                             //更改了next的顺序，并将loop action替换为continue Handle Unique
                             "next": [
                                 "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
+                                "[JumpBack]__cacheMenuButton__", //max_hit=1
                                 "[JumpBack]dailyUniqueContract.continueHandleUnique",
                                 "dailyUniqueContract.detectEntryAirportPage",
                                 "finishNode"
