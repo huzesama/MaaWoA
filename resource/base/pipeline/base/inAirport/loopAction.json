@@ -12,6 +12,7 @@
         ]
     },
     "entryDocker": {
+        "enabled": false, // 由base选项dockerExtra覆写
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
@@ -21,8 +22,7 @@
         },
         "next": [
             "disappearingFlightCard_info",
-            "dockerFunction",
-            "finishNode"
+            "dockerFunction"
         ]
     },
     "disappearingFlightCard_info": {
@@ -47,11 +47,11 @@
         "repeat": 2,
         "post_delay": 200,
         "next": [
-            "dockerFunction",
-            "finishNode"
+            "dockerFunction"
         ]
     },
     "dockerFunction": {
+        // next node的enabled应默认false
         "next": [
             "extendTower",
             "finishNode"
