@@ -65,5 +65,6 @@ display:
       height: 720
       dpi: 180
 
-# update:
-#   mirrorchyanRid: maawoa_exec
+# 压过 interface.json 的 mirrorchyan_rid（桌面是 MaaWoA）。不写的话 APK 会去拉桌面包。
+update:
+  mirrorchyanRid: MaaWoA_exec
