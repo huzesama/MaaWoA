@@ -23,6 +23,7 @@ from pathlib import Path
 import numpy as np
 from maa.agent.agent_server import AgentServer
 from maa.context import Context, ContextEventSink
+from maa.define import AlgorithmEnum
 from maa.event_sink import NotificationType
 from utils import runtime_paths
 
@@ -36,6 +37,12 @@ _MAX_SCREENSHOTS = 300
 # 3-3-2 是 256 色里对视觉最友好的均匀分配；升到 4-4-4 就得退回真彩色，
 # 体积翻三倍（实测 281 KB vs 117 KB），对"回看过程"没必要。
 _PALETTE_BITS = (3, 3, 2)
+
+# zlib 压缩级别。实测（1280x720，0.88 MB 调色板数据）：
+#   level 1 -> 171 KB /   8 ms      level 6 -> 125 KB /  30 ms
+#   level 3 -> 149 KB /  12 ms      level 9 -> 116 KB / 277 ms
+# level 9 只比 level 3 小 22%，却慢 23 倍，在移动端会直接拖垮识别流水线。
+_ZLIB_LEVEL = 3
 
 # 判重窗口：记住最近多少帧的指纹。本项目中一轮轮询通常只有几个节点，32 足够覆盖，超出数量可继续提升值
 # 又不会把很久之后真正重新出现的画面误判成重复。
@@ -135,7 +142,7 @@ def _save_png(img: np.ndarray, filepath: Path) -> bool:
         b"\x89PNG\r\n\x1a\n"
         + _png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 3, 0, 0, 0))
         + _png_chunk(b"PLTE", np.stack([red, green, blue], axis=1).tobytes())
-        + _png_chunk(b"IDAT", zlib.compress(raw.tobytes(), 9))
+        + _png_chunk(b"IDAT", zlib.compress(raw.tobytes(), _ZLIB_LEVEL))
         + _png_chunk(b"IEND", b"")
     )
     return True
@@ -160,6 +167,12 @@ class NodeScreenshotSink(ContextEventSink):
                     reco_id = node_detail.recognition.reco_id
                     reco_detail = context.tasker.get_recognition_detail(reco_id)
                     if reco_detail:
+                        # DirectHit 不参与截图轮询：need_screencap 为 false 时框架根本不调
+                        # screencap()，raw_image/draw_images 恒为空，控制器缓存里也没有对应帧。
+                        # 这里直接退出，避免后面 cached_image 拿到空图触发 Transceiver 告警。
+                        algo = getattr(reco_detail.algorithm, "value", reco_detail.algorithm)
+                        if algo == AlgorithmEnum.DirectHit:
+                            return
                         img = getattr(reco_detail, "raw_image", None)
                         if img is None or img.size == 0:
                             draw_imgs = getattr(reco_detail, "draw_images", None)
