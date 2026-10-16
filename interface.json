@@ -11,7 +11,7 @@
     "mirrorchyan_rid": "MaaWoA",
     "mirrorchyan_multiplatform": true,
     "github": "https://github.com/huzesama/MaaWoA",
-    "version": "v1.0.1-beta.2",
+    "version": "v1.0.1",
     "contact": "$pi.contact",
     "license": "[GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)",
     "welcome": "$pi.welcome",
@@ -116,5 +116,32 @@
         "./resource/base/option/dailyUnique.json",
         "./resource/base/option/base.json",
         "./resource/base/option/onnx.json"
+    ],
+    "preset": [
+        {
+            "name": "onlyDaily",
+            "label": "$pi.preset.onlyDaily.name",
+            "description": "$pi.preset.onlyDaily.description",
+            "task": [
+                {"name": "dailyUniqueArrival", "enabled": true}
+            ]
+        },
+        {
+            "name": "noDaily",
+            "label": "$pi.preset.noDaily.name",
+            "description": "$pi.preset.noDaily.description",
+            "task": [
+                {"name": "unattendedMode", "enabled": true}
+            ]
+        },
+        {
+            "name": "all",
+            "label": "$pi.preset.all.name",
+            "description": "$pi.preset.all.description",
+            "task": [
+                {"name": "dailyUniqueArrival", "enabled": true},
+                {"name": "dailyUniqueArrival", "enabled": true}
+            ]
+        }
     ]
 }
