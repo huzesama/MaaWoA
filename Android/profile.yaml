@@ -48,6 +48,7 @@ logs:
   include:
     - debug/**/*.log
     - debug/vision/*
+    - debug/screencap/*
 
 app:
   # 包段规则由外壳校验：小写字母 / 数字 / 下划线，每段以字母开头，拼成 com.aliothmoon.maafw.<id>；
