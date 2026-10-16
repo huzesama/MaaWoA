@@ -1,5 +1,6 @@
 """
 节点级截图 Sink，每个识别节点完成时自动截图保存。
+截图目的：分析日志BUG时更直观回看操作过程，总共只保存最近约5分钟(约每秒1张、速度由节点识别速率决定)的低通道位数截图。通常需要在发现BUG时及时停止任务防止问题vision被覆盖
 
 截图保存到: debug/vision/{年}.{月}.{日}-{时}.{分}.{秒}.{毫秒}_sink-{节点名}_{识别ID}.png
 最多保留 300 张，环形覆盖旧图。
@@ -36,16 +37,16 @@ _MAX_SCREENSHOTS = 300
 # 体积翻三倍（实测 281 KB vs 117 KB），对"回看过程"没必要。
 _PALETTE_BITS = (3, 3, 2)
 
-# 判重窗口：记住最近多少帧的指纹。一轮轮询通常几十个节点，128 足够覆盖，
+# 判重窗口：记住最近多少帧的指纹。本项目中一轮轮询通常只有几个节点，32 足够覆盖，超出数量可继续提升值
 # 又不会把很久之后真正重新出现的画面误判成重复。
-_DEDUP_WINDOW = 128
+_DEDUP_WINDOW = 32
 
 _recent_digests: deque[str] = deque(maxlen=_DEDUP_WINDOW)
 _recent_digest_set: set[str] = set()
 
 
 def _is_duplicate(img: np.ndarray) -> bool:
-    """内容判重：滑动窗口内出现过同样的帧就算重复，同时把本帧指纹记入窗口。"""
+    # 内容判重：滑动窗口内出现过同样的帧就算重复，同时把本帧指纹记入窗口。
     digest = hashlib.md5(np.ascontiguousarray(img).tobytes()).hexdigest()
     if digest in _recent_digest_set:
         return True
@@ -83,19 +84,17 @@ def _png_chunk(tag: bytes, data: bytes) -> bytes:
 
 
 def _palette_table(bits: tuple[int, int, int]) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """按位宽生成调色板，各通道均匀铺满 0..255。"""
+    # 按位宽生成调色板，各通道均匀铺满 0..255。
     red_bits, green_bits, blue_bits = bits
     index = np.arange(1 << (red_bits + green_bits + blue_bits), dtype=np.uint16)
     red = ((index >> (green_bits + blue_bits)) * 255 // ((1 << red_bits) - 1)).astype(np.uint8)
-    green = (((index >> blue_bits) & ((1 << green_bits) - 1)) * 255 // ((1 << green_bits) - 1)).astype(
-        np.uint8
-    )
+    green = (((index >> blue_bits) & ((1 << green_bits) - 1)) * 255 // ((1 << green_bits) - 1)).astype(np.uint8)
     blue = ((index & ((1 << blue_bits) - 1)) * 255 // ((1 << blue_bits) - 1)).astype(np.uint8)
     return red, green, blue
 
 
 def _to_palette_indices(rgb: np.ndarray, bits: tuple[int, int, int]) -> np.ndarray:
-    """把真彩色压成调色板索引：每通道直接取高位。"""
+    # 把真彩色压成调色板索引：每通道直接取高位。
     red_bits, green_bits, blue_bits = bits
     red = rgb[:, :, 0].astype(np.uint16) >> (8 - red_bits)
     green = rgb[:, :, 1].astype(np.uint16) >> (8 - green_bits)
