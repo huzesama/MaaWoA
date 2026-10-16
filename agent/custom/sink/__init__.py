@@ -1,6 +1,6 @@
 from importlib import import_module
 
-SINK_MODULES: tuple[str, ...] = ("visionCapture",)
+SINK_MODULES: tuple[str, ...] = ()
 
 
 def register_all() -> None:
