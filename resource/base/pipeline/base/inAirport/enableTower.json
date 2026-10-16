@@ -130,7 +130,7 @@
             "Node.Recognition.Succeeded": "$pipeline.enableTower.extendTowerCondition.focus.Node.Recognition.Succeeded"
         }
     },
-    "detectTower_info": {
+    "__detectTower_info__": {
         //检测塔台页的延时卡片
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -140,12 +140,12 @@
             }
         }
     },
-    "detectTowerControlEntry": {
+    "__detectTowerControlEntry__": {
         //在延时卡片中点击全部控制器的延时控制卡片
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "detectTower_info",
+                "roi": "__detectTower_info__",
                 "method": 40,
                 "lower": [
                     93,
@@ -169,8 +169,8 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "detectTower_info",
-                    "detectTowerControlEntry"
+                    "__detectTower_info__",
+                    "__detectTowerControlEntry__"
                 ],
                 "box_index": 1
             }
@@ -185,7 +185,7 @@
         "post_wait_freezes": 100,
         "next": [
             "enableTower",
-            "finishNode"
+            "finishWithCapture"
         ]
     },
     "enableTower": {
