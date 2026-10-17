@@ -44,6 +44,7 @@ body = """
     {%- if contributor.pr_number %} in #{{ contributor.pr_number }}{% endif %}
 {%- endfor -%}
 {%- endif %}
+[已有 Mirror酱 CDK？点击前往高速下载](https://mirrorchyan.com/zh/projects?rid=MaaWoA)
 """
 
 [git]
