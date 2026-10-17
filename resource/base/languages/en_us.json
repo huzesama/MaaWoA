@@ -8,6 +8,8 @@
     "pi.task.dailyUniqueArrival.description": "Claim all daily unique arrival contracts for unlocked airports. Make sure you have enough contract slots to avoid claim failures.",
     "pi.task.unattendedMode.name": "Unattended Mode",
     "pi.task.unattendedMode.description": "A rough auto-pilot mode for unattended operation. Currently only supports handling all action request events (all flight cards shown after filter).",
+    "pi.task.option.dockExtra.name": "Dock Feature",
+    "pi.task.option.dockExtra.description": "Master switch for Dock extension features.",
     "pi.task.option.enableTower.name": "Tower",
     "pi.task.option.enableTower.description": "Automatically start the Tower when arrival flight events are not 0, and extend it each time it is about to end.",
     "pi.task.option.randomSelectStand.name": "Random Stand",

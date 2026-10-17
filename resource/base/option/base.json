@@ -27,8 +27,10 @@
             ],
             "default_case": "No"
         },
-        "dockerExtra": {
+        "dockExtra": {
             "type": "switch",
+            "label": "$pi.task.option.dockExtra.name",
+            "description": "$pi.task.option.dockExtra.description",
             "cases": [
                 {
                     "name": "No",

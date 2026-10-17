@@ -12,7 +12,7 @@
         ]
     },
     "entryDocker": {
-        "enabled": false, // 由base选项dockerExtra覆写
+        "enabled": false, // 由base选项dockExtra覆写
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {

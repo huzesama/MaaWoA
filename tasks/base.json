@@ -54,7 +54,7 @@
             "description": "$pi.task.unattendedMode.description",
             "option": [
                 "unknownPageWaitting",
-                "dockerExtra",
+                "dockExtra",
                 "randomSelectStand",
                 "ONNX",
                 "entryAirportIATA",
