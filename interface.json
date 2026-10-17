@@ -140,7 +140,7 @@
             "description": "$pi.preset.all.description",
             "task": [
                 {"name": "dailyUniqueArrival", "enabled": true},
-                {"name": "dailyUniqueArrival", "enabled": true}
+                {"name": "unattendedMode", "enabled": true}
             ]
         }
     ]
