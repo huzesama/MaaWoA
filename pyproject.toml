@@ -5,7 +5,7 @@ description = "MaaWoA MaaFW Agent project"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "loguru",
-    "maafw",
+    "maafw==5.15.0-beta.1",
 ]
 
 [dependency-groups]
@@ -24,7 +24,8 @@ packages = ["agent"]
 [tool.ruff]
 target-version = "py313"
 line-length = 120
-extend-exclude=["Android/MaaFwApp"]
+# Android/MaaFwApp 是 vendored 的外壳 submodule（Aliothmoon/MaaFwApp），父项目不 lint 第三方脚本。
+extend-exclude = ["Android/MaaFwApp"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
