@@ -1,5 +1,7 @@
 # 📰News
 
+If you purchased this program by paying, please request a refund immediately and report it. This project is free and open source.
+
 ## Foreground Controller Notes and FAQ
 
 1. The foreground controller completely occupies the foreground during operation. Manual operation at this time will interfere with the normal execution of the script, so it is not recommended to open other software at the same time.
