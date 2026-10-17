@@ -80,7 +80,7 @@
         "github": "https://github.com/huzesama/MaaWoA",
         "initialTemplate": "agent",
         "slug": "maawoa",
-        "version": "1.0.2"
+        "version": "1.0.3"
     },
     "python": {
         "devCommand": [
