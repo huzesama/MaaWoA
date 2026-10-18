@@ -80,7 +80,6 @@
             "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
             "actionRequireUniversal", //其它通用的actionRequire
             "finishNode"
-            //"[JumpBack]isFreezeOrNot"
         ]
     },
     "__matchAssignCrewCardSlideBlock__": {
@@ -264,7 +263,7 @@
             }
         },
         "next": [
-            "clickFlight_infoYellowButton",
+            "clickFlight_infoYellowButtonWithFallback",
             "finishNode"
         ]
     },
@@ -362,7 +361,7 @@
         ],
         "post_wait_freezes": 50,
         "next": [
-            "clickFlight_infoYellowButton",
+            "clickFlight_infoYellowButtonWithFallback",
             "finishNode"
         ]
     },
@@ -542,7 +541,7 @@
         },
         "next": [
             "upgradeContract",
-            "clickFlight_infoYellowButton",
+            "clickFlight_infoYellowButtonWithFallback",
             "detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
             "finishNode"
         ],
@@ -582,7 +581,7 @@
             "afterClickFlight_infoYellowButton": "detectContractUpgradeCard"
         },
         "next": [
-            "clickFlight_infoYellowButton",
+            "clickFlight_infoYellowButtonWithFallback",
             "detectContractUpgradeCard", //仍存在可能上一轮clickFlight_infoYellowButton没有检测到ContractUpgradeCard的情况
             "finishNode"
         ]
@@ -611,33 +610,79 @@
     },
     "clickFlight_infoYellowButton": {
         "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__matchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
+        "next": [
+            "[JumpBack]detectLoadingPage",
+            "[Anchor]afterClickFlight_infoYellowButton",
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+        ]
+    },
+    "clickFlight_infoYellowButtonWithUpdateCache": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__updateFlight_infoCardCache__",
+                    "__matchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
+        "next": [
+            "[JumpBack]detectLoadingPage",
+            "[Anchor]afterClickFlight_infoYellowButton",
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+        ]
+    },
+    "clickFlight_infoYellowButtonWithFallback": {
+        "recognition": {
             "type": "Or",
             "param": {
                 "any_of": [
-                    {
-                        "recognition": {
-                            "type": "And",
-                            "param": {
-                                "all_of": [
-                                    "__cacheFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-                                    "__matchYellowButton_inFlight_info__"
-                                ],
-                                "box_index": 1
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "And",
-                            "param": {
-                                "all_of": [
-                                    "__updateFlight_infoCardCache__",
-                                    "__matchYellowButton_inFlight_info__"
-                                ],
-                                "box_index": 1
-                            }
-                        }
-                    }
+                    "clickFlight_infoYellowButton",
+                    "clickFlight_infoYellowButtonWithUpdateCache"
                 ]
             }
         },
