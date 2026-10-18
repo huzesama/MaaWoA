@@ -639,8 +639,12 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
-        ]
+            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.NextList.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded"
+        }
     },
     "clickFlight_infoYellowButtonWithUpdateCache": {
         "recognition": {
@@ -673,8 +677,12 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
-        ]
+            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.NextList.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded"
+        }
     },
     "clickFlight_infoYellowButtonWithFallback": {
         "recognition": {
@@ -706,8 +714,12 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
-        ]
+            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.NextList.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded"
+        }
     },
     "__matchYellowButton_inUpgradeCard__": {
         "recognition": {
