@@ -639,7 +639,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
@@ -677,7 +677,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
@@ -714,7 +714,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
