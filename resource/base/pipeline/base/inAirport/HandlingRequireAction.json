@@ -79,8 +79,20 @@
             "actionRequireStandSelect", //尋找standSelect面板
             "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
             "actionRequireUniversal", //其它通用的actionRequire
+            "[JumpBack]updateAllExtraActionCard",
             "finishNode"
         ]
+    },
+    "updateAllExtraActionCard": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__updateActionAssignCrew__",
+                    "__updateStandSelectCard__"
+                ]
+            }
+        }
     },
     "__matchAssignCrewCardSlideBlock__": {
         //寻找滑块特征
@@ -421,21 +433,6 @@
             "finishNode"
         ]
     },
-    "__updateFlight_infoCardCache__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__cacheFlight_infoCard__",
-                    "model": "WoA-card.onnx",
-                    "threshold": 0.95,
-                    "expected": "flight_info",
-                    "override": true
-                }
-            }
-        }
-    },
     "__matchFlight_infoActionRequire__": {
         "recognition": {
             "type": "TemplateMatch",
@@ -540,8 +537,8 @@
             }
         },
         "next": [
-            "clickFlight_infoYellowButtonWithFallback",
             "upgradeContract",
+            "clickFlight_infoYellowButtonWithFallback",
             "detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
             "finishNode"
         ],
@@ -639,7 +636,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
@@ -677,7 +674,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
@@ -714,7 +711,7 @@
         "next": [
             "[JumpBack]detectLoadingPage",
             "[Anchor]afterClickFlight_infoYellowButton",
-            "finishWithCapture" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
+            "finishNode" //考虑去除，但需要同时考虑检测合同升级可能会出现的网络异常Page跳转问题，当前的检测将会一直等待卡片
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",

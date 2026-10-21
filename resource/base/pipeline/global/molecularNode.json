@@ -1,0 +1,16 @@
+{
+    //存放复合或custom识别类型的节点
+    //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
+    //命名规则: __组合原子节点的功能名称__
+    "__updateActionAssignCrew__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__updateAssignCrewCard__",
+                    "__updateAssignCrewCardRampAgentSwitch__"
+                ]
+            }
+        }
+    }
+}

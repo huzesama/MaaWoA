@@ -1,7 +1,10 @@
 {
+    //存放内置原始识别类型的识别节点
+    //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
+    //命名规则: __识别种类[cmatch|tmatch|detect|ocr|classify|...]目标__
     "__cacheCrewUsedBox__": {
         //缓存地勤用量的box
-        "max_hit": 1,
+        "max_hit": 1, //没有使用roi缓存管理，设置max_hit限制最大执行次数
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
@@ -11,7 +14,6 @@
         }
     },
     "__cacheFlight_infoCard__": {
-        "max_hit": 1,
         //缓存航班详细信息卡片
         "recognition": {
             "type": "Custom",
@@ -26,8 +28,23 @@
             }
         }
     },
+    "__updateFlight_infoCardCache__": {
+        //更新缓存航班详细信息卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__cacheFlight_infoCard__",
+                    "model": "WoA-card.onnx",
+                    "threshold": 0.85,
+                    "expected": "flight_info",
+                    "override": true
+                }
+            }
+        }
+    },
     "__cacheAssignCrewCard__": {
-        "max_hit": 1,
         //缓存分配地勤卡片
         "recognition": {
             "type": "Custom",
@@ -38,6 +55,22 @@
                     "model": "WoA-card.onnx",
                     "expected": "assignCrewCard",
                     "threshold": 0.85
+                }
+            }
+        }
+    },
+    "__updateAssignCrewCard__": {
+        //更新缓存分配地勤卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__cacheAssignCrewCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "assignCrewCard",
+                    "threshold": 0.85,
+                    "override": true
                 }
             }
         }
@@ -58,8 +91,23 @@
             }
         }
     },
+    "__updateStandSelectCard__": {
+        //更新缓存机位选择卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__cacheStandSelectCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "standSelectCard",
+                    "threshold": 0.85,
+                    "override": true
+                }
+            }
+        }
+    },
     "__cacheContractUpgradeCard__": {
-        "max_hit": 1,
         //缓存合同延续升级卡片
         "recognition": {
             "type": "Custom",
@@ -69,6 +117,21 @@
                     "roi_name": "__cacheContractUpgradeCard__",
                     "model": "WoA-card.onnx",
                     "expected": "contractUpgradeCard"
+                }
+            }
+        }
+    },
+    "__updateContractUpgradeCard__": {
+        //更新缓存合同延续升级卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__cacheContractUpgradeCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "contractUpgradeCard",
+                    "override": true
                 }
             }
         }
@@ -84,6 +147,22 @@
                     "roi_name": "__cacheAssignCrewCardRampAgentSwitch__",
                     "model": "WoA-widget.onnx",
                     "expected": "switch"
+                }
+            }
+        }
+    },
+    "__updateAssignCrewCardRampAgentSwitch__": {
+        "max_hit": 1,
+        //更新缓存分配地勤卡片上的ramp agent开关
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__cacheAssignCrewCardRampAgentSwitch__",
+                    "model": "WoA-widget.onnx",
+                    "expected": "switch",
+                    "override": true
                 }
             }
         }
