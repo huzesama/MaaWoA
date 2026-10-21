@@ -79,8 +79,20 @@
             "actionRequireStandSelect", //尋找standSelect面板
             "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
             "actionRequireUniversal", //其它通用的actionRequire
+            "[JumpBack]updateAllExtraActionCard",
             "finishNode"
         ]
+    },
+    "updateAllExtraActionCard": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__updateActionAssignCrew__",
+                    "__updateStandSelectCard__"
+                ]
+            }
+        }
     },
     "__matchAssignCrewCardSlideBlock__": {
         //寻找滑块特征
@@ -420,21 +432,6 @@
             "baseStandSelect",
             "finishNode"
         ]
-    },
-    "__updateFlight_infoCardCache__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__cacheFlight_infoCard__",
-                    "model": "WoA-card.onnx",
-                    "threshold": 0.95,
-                    "expected": "flight_info",
-                    "override": true
-                }
-            }
-        }
     },
     "__matchFlight_infoActionRequire__": {
         "recognition": {
