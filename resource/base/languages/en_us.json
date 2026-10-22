@@ -11,7 +11,7 @@
     "pi.task.option.dockExtra.name": "Dock Feature",
     "pi.task.option.dockExtra.description": "Master switch for Dock extension features.",
     "pi.task.option.enableTower.name": "Tower",
-    "pi.task.option.enableTower.description": "Automatically start the Tower when arrival flight events are not 0, and extend it each time it is about to end.",
+    "pi.task.option.enableTower.description": "Automatically start the Tower when the number of flight events is not 0, and extend it each time it is about to end.",
     "pi.task.option.randomSelectStand.name": "Random Stand",
     "pi.task.option.randomSelectStand.description": "Randomly select a stand for arriving flights. Even stands that are not unlocked will be included as random targets. If disabled, only the first stand will be selected.",
     "pi.task.option.unknownPageWaitting.name": "Page Waiting",
@@ -74,6 +74,6 @@
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed": "ℹ️No available button was recognized on the flight card in this round. Waiting for the next round of processing.",
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded": "✅This round of processing is complete. Waiting for the next round of processing.",
     "pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded": "📈Available contract upgrade (or extension) -> Upgrade (or extend) contract",
-    "pipeline.enableTower.extendTowerCondition.focus.Node.Recognition.Succeeded": "📡Tower is closed or about to close, and arrival events are not 0, meeting the conditions to use (extend) the Tower",
+    "pipeline.enableTower.extendTowerCondition.focus.Node.Recognition.Succeeded": "📡The Tower is closed or about to close, and the number of flight events is not 0, meeting the conditions to use (extend) the Tower.",
     "pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded": "📡Tower extension completed"
 }
