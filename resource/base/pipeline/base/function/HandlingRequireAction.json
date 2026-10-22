@@ -556,21 +556,11 @@
     },
     "upgradeContract": {
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [
-                    {
-                        "recognition": {
-                            "type": "And",
-                            "param": {
-                                "all_of": [
-                                    "__cacheFlight_infoCard__",
-                                    "__matchFlight_infoContract_icon__"
-                                ]
-                            }
-                        }
-                    },
-                    "__updateFlight_infoCardCache__"
+                "all_of": [
+                    "__cacheFlight_infoCard__",
+                    "__matchFlight_infoContract_icon__"
                 ]
             }
         },
