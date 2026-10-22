@@ -18,3 +18,5 @@ runtimes
 plugins
 # Agent runtimes for the Android package are built from requirements.txt and must not be committed.
 Android/agent-dist/
+.dsh
+test
