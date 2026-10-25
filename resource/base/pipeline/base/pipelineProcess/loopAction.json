@@ -2,8 +2,8 @@
     "startLoopAction": {
         //开始行动请求的处理循环
         "next": [
-            "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
-            "[JumpBack]__cacheMenuButton__", //max_hit=1
+            "[JumpBack]cacheCrewUsedBox", //max_hit=1
+            "[JumpBack]cacheMenuButton", //max_hit=1
             "[JumpBack]compareCrewUsed",
             "[JumpBack]detectFilter", //过滤器筛选的准备
             "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
@@ -14,15 +14,26 @@
     "entryDocker": {
         "enabled": false, // 由base选项dockExtra覆写
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "entryAirportPage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "next": [
             "disappearingFlightCard_info",
-            "dockerFunction"
+            "dockerFunction",
+            "finishWithDelay"
         ]
     },
     "disappearingFlightCard_info": {
@@ -37,7 +48,7 @@
         },
         "inverse": true,
         "action": "Click",
-        "target": "__cacheCrewUsedBox__",
+        "target": "cacheCrewUsedBox",
         "target_offset": [
             120,
             160,
@@ -45,7 +56,7 @@
             0
         ],
         "repeat": 2,
-        "post_delay": 200,
+        "repeat_delay": 200,
         "next": [
             "dockerFunction"
         ]
@@ -54,7 +65,7 @@
         // next node的enabled应默认false
         "next": [
             "extendTower",
-            "finishNode"
+            "finishWithDelay"
         ]
     }
 }

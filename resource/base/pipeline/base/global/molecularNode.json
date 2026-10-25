@@ -1,0 +1,85 @@
+{
+    //存放复合(And|Or)识别类型的节点
+    //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
+    //命名规则: __组合原子节点的功能名称__
+    "__findActionRequire__": {
+        //只用ONNX缓存
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstmatchActionRequireList__",
+                    "__tmatchActionRequireByLowThr__"
+                ]
+            }
+        }
+    },
+    "__conditionAssignCrewPass__": {
+        //前置ROI：__cstGetFlight_infoCard__、__cstGetAssignCrewCard__
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__tmatchFlight_infoTimeLimitPass",
+                    "__tmatchAssignCrewCardPlusButtonBeGray__"
+                ]
+            }
+        }
+    },
+    "__updateActionAssignCrew__": {
+        //更新分配地勤卡片的ROI缓存
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstUpdateAssignCrewCard__",
+                    "__cstUpdateAssignCrewCardRampAgentSwitch__"
+                ]
+            }
+        }
+    },
+    "__findFlight_infoActionRequireWithCache__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__tmatchFlight_infoActionRequire__"
+                ]
+            }
+        }
+    },
+    "__findFlight_infoActionRequireWithDetect__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstUpdateFlight_infoCard__",
+                    "__tmatchFlight_infoActionRequireWithUpdate__"
+                ]
+            }
+        }
+    },
+    "__conditionFlight_infoActionRequire__": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__findFlight_infoActionRequireWithCache__",
+                    "__findFlight_infoActionRequireWithDetect__"
+                ]
+            }
+        }
+    },
+    "__findActionRequireExcludeAssignCrew__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstmatchActionRequireList__",
+                    "__tmatchActionRequireExcludeAssignCrew__"
+                ]
+            }
+        }
+    }
+}

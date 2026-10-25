@@ -1,0 +1,738 @@
+{
+    //存放内置原始单识别类型的识别节点
+    //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
+    //命名规则: __识别种类[cmatch|tmatch|detect|ocr|classify|cst(custom)...]目标__
+    //
+    //------------------ROI缓存·BEGIN------------------
+    "__cstGetFlight_infoCard__": {
+        //缓存航班详细信息卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__Flight_infoCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "flight_info",
+                    "threshold": 0.85
+                }
+            }
+        }
+    },
+    "__cstUpdateFlight_infoCard__": {
+        //更新缓存航班详细信息卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__Flight_infoCard__",
+                    "model": "WoA-card.onnx",
+                    "threshold": 0.85,
+                    "expected": "flight_info",
+                    "override": true
+                }
+            }
+        }
+    },
+    "__cstGetAssignCrewCard__": {
+        //缓存分配地勤卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__AssignCrewCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "assignCrewCard",
+                    "threshold": 0.85
+                }
+            }
+        }
+    },
+    "__cstUpdateAssignCrewCard__": {
+        //更新缓存分配地勤卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__AssignCrewCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "assignCrewCard",
+                    "threshold": 0.85,
+                    "override": true
+                }
+            }
+        }
+    },
+    "__cstGetStandSelectCard__": {
+        //缓存机位选择卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__StandSelectCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "standSelectCard",
+                    "threshold": 0.85
+                }
+            }
+        }
+    },
+    "__cstUpdateStandSelectCard__": {
+        //更新缓存机位选择卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__StandSelectCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "standSelectCard",
+                    "threshold": 0.85,
+                    "override": true
+                }
+            }
+        }
+    },
+    "__cstGetContractUpgradeCard__": {
+        //缓存合同延续升级卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__ContractUpgradeCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "contractUpgradeCard"
+                }
+            }
+        }
+    },
+    "__cstUpdateContractUpgradeCard__": {
+        //更新缓存合同延续升级卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__ContractUpgradeCard__",
+                    "model": "WoA-card.onnx",
+                    "expected": "contractUpgradeCard",
+                    "override": true
+                }
+            }
+        }
+    },
+    "__cstGetAssignCrewCardRampAgentSwitch__": {
+        "max_hit": 1,
+        //缓存分配地勤卡片上的ramp agent开关
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__AssignCrewCardRampAgentSwitch__",
+                    "model": "WoA-widget.onnx",
+                    "expected": "switch"
+                }
+            }
+        }
+    },
+    "__cstUpdateAssignCrewCardRampAgentSwitch__": {
+        "max_hit": 1,
+        //更新缓存分配地勤卡片上的ramp agent开关
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__AssignCrewCardRampAgentSwitch__",
+                    "model": "WoA-widget.onnx",
+                    "expected": "switch",
+                    "override": true
+                }
+            }
+        }
+    },
+    "__cstGetAirportSelectList__": {
+        "max_hit": 1,
+        //缓存机场选择列表
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__AirportSelectList__",
+                    "model": "WoA-card.onnx",
+                    "expected": "airportList"
+                }
+            }
+        }
+    },
+    "__cstGetDocker__": {
+        //缓存Docker
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__Docker__",
+                    "model": "WoA-card.onnx",
+                    "expected": "docker"
+                }
+            }
+        }
+    },
+    "__cstGetDockerTower__": {
+        "max_hit": 1,
+        //缓存Docker
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__DockerTower__",
+                    "model": "WoA-widget.onnx",
+                    "expected": "dockerTower"
+                }
+            }
+        }
+    },
+    //------------------ROI缓存·END------------------
+    //
+    //------------------HandlingActionRequiring·BEGIN------------------
+    //
+    ////------------------HandlingActionRequiring·ActionRequiringList·BEGIN------------------
+    "__cstmatchActionRequireList__": {
+        //通过ONNX缓存高度为分辨率宽度的ROI
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "airlineCardListColorMatch",
+                "custom_recognition_param": {
+                    "lower": [
+                        13,
+                        244,
+                        222
+                    ],
+                    "upper": [
+                        35,
+                        255,
+                        244
+                    ],
+                    "count": 20
+                }
+            }
+        }
+    },
+    "__tmatchActionRequireByLowThr__": {
+        //低阈值模糊匹配
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cstmatchActionRequireList__",
+                "template": [
+                    "航班类型-请求行动.png"
+                ],
+                "green_mask": true,
+                "method": 10001,
+                "threshold": 0.2
+            }
+        }
+    },
+    "__detectActionRequire__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "actionRequire",
+                "model": "WoA-widget.onnx",
+                "threshold": 0.708
+            }
+        }
+    },
+    "__tmatchFlight_infoActionRequire__": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cstGetFlight_infoCard__",
+                "template": "航班信息-请求行动.png",
+                "green_mask": true,
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "__tmatchFlight_infoActionRequireWithUpdate__": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cstUpdateFlight_infoCard__",
+                "template": "航班信息-请求行动.png",
+                "green_mask": true,
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "__tmatchActionRequireExcludeAssignCrew__": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cstmatchActionRequireList__",
+                "roi_offset": [
+                    -5,
+                    0,
+                    10,
+                    0
+                ],
+                "template": [
+                    "航班类型-离场.png",
+                    "航班类型-到达.png",
+                    "航班类型-维修.png"
+                ],
+                "green_mask": true,
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "__detectActionRequireExcludeAssignCrew__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "arrival",
+                    "departure",
+                    "repair",
+                    "ice"
+                ],
+                "model": "WoA-widget.onnx"
+            }
+        }
+    },
+    ////------------------HandlingActionRequiring·ActionRequiringList·END------------------
+    //
+    ////------------------HandlingActionRequiring·FlightInfoCard·BEGIN------------------
+    "__tmatchFlight_infoTimeLimitPass": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cstGetFlight_infoCard__",
+                "template": [
+                    "航班信息-时限通过.png"
+                ],
+                "green_mask": true,
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "__cmatchmatchFlight_infoBriberySwitchOff__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__conditionFlight_infoActionRequire__",
+                "method": 40,
+                "lower": [
+                    94,
+                    45,
+                    154
+                ],
+                "upper": [
+                    116,
+                    67,
+                    176
+                ],
+                "connected": true,
+                "count": 555,
+                "order_by": "Vertical",
+                "index": -1
+            }
+        }
+    },
+    "__tmatchFlight_infoContract_icon__": {
+        //放宽匹配阈值，拦住大部分不符，由OCR把控入口
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cmatchYellowButton_inFlight_info__",
+                "roi_offset": [
+                    0,
+                    0,
+                    0,
+                    -110
+                ],
+                "template": ["合同管理.png"],
+                "method": 10001,
+                "threshold": 0.6,
+                "order_by": "Score"
+            }
+        }
+    },
+    "__ocrFlight_infoContractFinish__": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "__cmatchYellowButton_inFlight_info__",
+                "roi_offset": [
+                    0,
+                    0,
+                    0,
+                    -110
+                ],
+                "expected": [
+                    "(?<!\\d)([1-9])\\s*[|/1]\\s*\\1(?!\\d)",
+                    "(?<!\\d)10\\s*[|/1]\\s*10(?!\\d)"
+                ]
+            }
+        }
+    },
+    "__cmatchYellowButton_inFlight_info__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetFlight_infoCard__",
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        }
+    },
+    ////------------------HandlingActionRequiring·FlightInfoCard·END------------------
+    //
+    ////------------------HandlingActionRequiring·AssignCrewCard·BEGIN------------------
+    "__cmatchAssignCrewCardSlideBlock__": {
+        //寻找滑块特征
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetAssignCrewCard__",
+                "method": 40,
+                "lower": [
+                    62,
+                    91,
+                    229
+                ],
+                "upper": [
+                    84,
+                    113,
+                    251
+                ],
+                "connected": true,
+                "count": 400,
+                "order_by": "Vertical"
+            }
+        }
+    },
+    "__cmatchAssignCrewCardRampAgentSwitchBackground__": {
+        "recognition": {
+            //寻找开关特征1
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetAssignCrewCardRampAgentSwitch__",
+                "method": 40,
+                "lower": [
+                    94,
+                    45,
+                    154
+                ],
+                "upper": [
+                    116,
+                    67,
+                    176
+                ],
+                "connected": true,
+                "count": 600
+            }
+        }
+    },
+    "__cmatchAssignCrewCardRampAgentSwitchForeground__": {
+        "recognition": {
+            //寻找开关特征2
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cmatchAssignCrewCardRampAgentSwitchBackground__",
+                "method": 40,
+                "lower": [
+                    0,
+                    0,
+                    245
+                ],
+                "upper": [
+                    10,
+                    10,
+                    255
+                ],
+                "connected": true,
+                "count": 230
+            }
+        }
+    },
+    "__tmatchAssignCrewCardPlusButtonBeGray__": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cstGetAssignCrewCard__",
+                "template": [
+                    "加号（灰）.png"
+                ],
+                "green_mask": true,
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "__cmatchAssignCrewCardRampAgentOn__": {
+        "recognition": {
+            //检查rampAgent是否启用
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetAssignCrewCardRampAgentSwitch__",
+                "method": 40,
+                "lower": [
+                    62,
+                    133,
+                    200
+                ],
+                "upper": [
+                    84,
+                    155,
+                    222
+                ],
+                "connected": true,
+                "count": 300,
+                "order_by": "Horizontal"
+            }
+        }
+    },
+
+    ////------------------HandlingActionRequiring·AssignCrewCard·END------------------
+    //
+    ////------------------HandlingActionRequiring·StandSelectCard·BEGIN------------------
+    "__cmtachStandSelectOption__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetStandSelectCard__",
+                "method": 40,
+                "lower": [
+                    93,
+                    19,
+                    192
+                ],
+                "upper": [
+                    115,
+                    41,
+                    214
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Horizontal" //由base选项randomSelectStand覆写
+            }
+        }
+    },
+    "__cmatchStandSelectPlannerOption__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetStandSelectCard__",
+                "method": 40,
+                "lower": [
+                    84,
+                    244,
+                    244
+                ],
+                "upper": [
+                    106,
+                    255,
+                    255
+                ],
+                "connected": true,
+                "count": 400,
+                "order_by": "Horizontal"
+            }
+        }
+    },
+    "__cmatchStandSelectOptionListSlider__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetStandSelectCard__",
+                "method": 40,
+                "lower": [
+                    94,
+                    45,
+                    154
+                ],
+                "upper": [
+                    116,
+                    67,
+                    176
+                ],
+                "connected": true,
+                "count": 15,
+                "order_by": "Vertical",
+                "index": -1
+            }
+        }
+    },
+    ////------------------HandlingActionRequiring·StandSelectCard·END------------------
+    //
+    "__cmatchYellowButton_inUpgradeCard__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetContractUpgradeCard__",
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        }
+    },
+    //------------------HandlingActionRequiring·END------------------
+    //------------------Tower·BEGIN------------------
+    "__locateDockerTowerLED__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetDockerTower__",
+                "method": 40,
+                "lower": [
+                    94,
+                    145,
+                    51
+                ],
+                "upper": [
+                    116,
+                    167,
+                    73
+                ],
+                "connected": true,
+                "count": 2450,
+                "order_by": "Horizontal",
+                "index": -1
+            }
+        }
+    },
+    "__matchDockerTowerLEDbeRED__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__locateDockerTowerLED__",
+                "roi_offset": [
+                    8,
+                    8,
+                    -16,
+                    -16
+                ],
+                "method": 40,
+                "lower": [
+                    [
+                        169,
+                        134,
+                        244
+                    ],
+                    [
+                        0,
+                        69,
+                        176
+                    ],
+                    [
+                        104,
+                        67,
+                        127
+                    ]
+                ],
+                "upper": [
+                    [
+                        179,
+                        156,
+                        255
+                    ],
+                    [
+                        25,
+                        156,
+                        255
+                    ],
+                    [
+                        106,
+                        69,
+                        129
+                    ]
+                ],
+                "connected": true,
+                "count": 20
+            }
+        }
+    },
+    "__ocrFilterNotZero__": {
+        "recognition": "OCR",
+        "roi": [
+            -70,
+            0,
+            70,
+            0
+        ],
+        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"]
+    },
+    "__detectTower_info__": {
+        //检测塔台页的延时卡片
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "tower_info",
+                "model": "WoA-card.onnx"
+            }
+        }
+    },
+    "__detectTowerControlEntry__": {
+        //在延时卡片中点击全部控制器的延时控制卡片
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__detectTower_info__",
+                "method": 40,
+                "lower": [
+                    93,
+                    19,
+                    192
+                ],
+                "upper": [
+                    115,
+                    41,
+                    214
+                ],
+                "connected": true,
+                "count": 800,
+                "order_by": "Vertical",
+                "index": -1
+            }
+        }
+    }
+    //------------------Tower·END------------------
+}

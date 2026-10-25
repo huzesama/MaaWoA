@@ -11,7 +11,7 @@
     "pi.task.option.dockExtra.name": "Dock 欄功能",
     "pi.task.option.dockExtra.description": "Dock 欄擴充功能的總開關",
     "pi.task.option.enableTower.name": "塔台",
-    "pi.task.option.enableTower.description": "當到達航班事件不為 0 時自動啟動塔台，每次快要結束的時候延續",
+    "pi.task.option.enableTower.description": "當航班事件數量不為 0 時自動啟動塔台，每次快要結束的時候延續",
     "pi.task.option.randomSelectStand.name": "隨機機位",
     "pi.task.option.randomSelectStand.description": "為降落的航班隨機選擇機位，即使沒有解鎖的機位也會成為隨機選擇的目標。關閉選項則只選擇第一個機位。",
     "pi.task.option.unknownPageWaitting.name": "頁面等待",
@@ -74,6 +74,6 @@
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed": "ℹ️本輪處理未辨識到航班卡片上的可用按鈕，等待進入下一輪處理。",
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded": "✅本輪處理完成，等待進入下一輪處理。",
     "pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded": "📈可用的合約升級（或延續） -> 升級（或延續）合約",
-    "pipeline.enableTower.extendTowerCondition.focus.Node.Recognition.Succeeded": "📡塔台處於關閉或即將關閉狀態、且到達事件不為 0，符合使用（延續）塔台條件",
+    "pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded": "📡塔台處於關閉或即將關閉狀態、且航班事件數量不為 0，符合使用（延續）塔台條件",
     "pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded": "📡塔台延續完成"
 }

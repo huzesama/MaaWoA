@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = "==3.13.*"
 
 [[package]]
@@ -52,7 +52,7 @@ wheels = [
 
 [[package]]
 name = "maawoa"
-version = "1.0.4"
+version = "1.0.5b1"
 source = { editable = "." }
 dependencies = [
     { name = "loguru" },

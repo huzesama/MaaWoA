@@ -10,19 +10,11 @@
             "cases": [
                 {
                     "name": "Yes",
-                    "pipeline_override": {
-                        "isFreezeOrNot": {
-                            "enabled": true
-                        }
-                    }
+                    "pipeline_override": {}
                 },
                 {
                     "name": "No",
-                    "pipeline_override": {
-                        "isFreezeOrNot": {
-                            "enabled": false
-                        }
-                    }
+                    "pipeline_override": {}
                 }
             ],
             "default_case": "No"
@@ -116,7 +108,7 @@
                 {
                     "name": "Yes",
                     "pipeline_override": {
-                        "__standSelectMatch__": {
+                        "__cmtachStandSelectOption__": {
                             "order_by": "Random" //由base选项randomSelectStand覆写
                         }
                     }
