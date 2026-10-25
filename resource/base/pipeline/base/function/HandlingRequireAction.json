@@ -165,13 +165,20 @@
         "action": {
             "type": "Swipe",
             "param": {
+                "begin_offset": [
+                    4,
+                    1,
+                    -8,
+                    -2
+                ],
                 "end": [
                     10,
-                    240,
+                    490,
                     10,
-                    240
+                    230
                 ],
-                "duration": 300
+                "end_hold": 200,
+                "duration": 200
             }
         },
         "post_wait_freezes": {
