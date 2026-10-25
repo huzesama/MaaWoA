@@ -2,8 +2,8 @@
     "startLoopAction": {
         //开始行动请求的处理循环
         "next": [
-            "[JumpBack]__cacheCrewUsedBox__", //max_hit=1
-            "[JumpBack]__cacheMenuButton__", //max_hit=1
+            "[JumpBack]cacheCrewUsedBox", //max_hit=1
+            "[JumpBack]cacheMenuButton", //max_hit=1
             "[JumpBack]compareCrewUsed",
             "[JumpBack]detectFilter", //过滤器筛选的准备
             "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
@@ -22,7 +22,8 @@
         },
         "next": [
             "disappearingFlightCard_info",
-            "dockerFunction"
+            "dockerFunction",
+            "finishWithDelay"
         ]
     },
     "disappearingFlightCard_info": {
@@ -37,7 +38,7 @@
         },
         "inverse": true,
         "action": "Click",
-        "target": "__cacheCrewUsedBox__",
+        "target": "cacheCrewUsedBox",
         "target_offset": [
             120,
             160,
@@ -45,7 +46,7 @@
             0
         ],
         "repeat": 2,
-        "post_delay": 400,
+        "repeat_delay": 200,
         "next": [
             "dockerFunction"
         ]
@@ -54,7 +55,7 @@
         // next node的enabled应默认false
         "next": [
             "extendTower",
-            "finishNode"
+            "finishWithDelay"
         ]
     }
 }

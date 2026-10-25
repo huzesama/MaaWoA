@@ -108,7 +108,7 @@
                 {
                     "name": "Yes",
                     "pipeline_override": {
-                        "__standSelectMatch__": {
+                        "__cmtachStandSelectOption__": {
                             "order_by": "Random" //由base选项randomSelectStand覆写
                         }
                     }

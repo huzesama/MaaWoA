@@ -74,6 +74,6 @@
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed": "ℹ️本轮处理未识别航班卡片上的可用按钮，等待进入下一轮处理。",
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded": "✅本轮处理完成，等待进入下一轮处理。",
     "pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded": "📈可用的合同升级(或延续) -> 升级(或延续)合同",
-    "pipeline.enableTower.extendTowerCondition.focus.Node.Recognition.Succeeded": "📡塔台处于关闭或即将关闭状态、且航班事件数量不为0，符合使用(延续)塔台条件",
+    "pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded": "📡塔台处于关闭或即将关闭状态、且航班事件数量不为0，符合使用(延续)塔台条件",
     "pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded": "📡塔台延续完成"
 }

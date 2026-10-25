@@ -1,78 +1,4 @@
 {
-    "__locateDockerTowerLED__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__cacheDockerTower__",
-                "method": 40,
-                "lower": [
-                    94,
-                    145,
-                    51
-                ],
-                "upper": [
-                    116,
-                    167,
-                    73
-                ],
-                "connected": true,
-                "count": 2450,
-                "order_by": "Horizontal",
-                "index": -1
-            }
-        }
-    },
-    "__matchDockerTowerLEDbeRED__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__locateDockerTowerLED__",
-                "roi_offset": [
-                    8,
-                    8,
-                    -16,
-                    -16
-                ],
-                "method": 40,
-                "lower": [
-                    [
-                        169,
-                        134,
-                        244
-                    ],
-                    [
-                        0,
-                        69,
-                        176
-                    ],
-                    [
-                        104,
-                        67,
-                        127
-                    ]
-                ],
-                "upper": [
-                    [
-                        179,
-                        156,
-                        255
-                    ],
-                    [
-                        25,
-                        156,
-                        255
-                    ],
-                    [
-                        106,
-                        69,
-                        129
-                    ]
-                ],
-                "connected": true,
-                "count": 20
-            }
-        }
-    },
     "extendTower": {
         //extend用jumpback属性启动分支,enabled通过选项enableTower覆写
         "enabled": false,
@@ -80,33 +6,9 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cacheDockerTower__",
+                    "__cstGetDockerTower__",
                     "__locateDockerTowerLED__",
-                    "__matchDockerTowerLEDbeRED__"
-                ]
-            }
-        },
-        "next": [
-            "extendTowerCondition",
-            "finishNode"
-        ]
-    },
-    "__ocrFilterNotZero__": {
-        "recognition": "OCR",
-        "roi": [
-            -70,
-            0,
-            70,
-            0
-        ],
-        "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"]
-    },
-    "extendTowerCondition": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__cacheDockerTower__",
+                    "__matchDockerTowerLEDbeRED__",
                     "__ocrFilterNotZero__"
                 ]
             }
@@ -127,41 +29,7 @@
             "function.process.page2page"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.enableTower.extendTowerCondition.focus.Node.Recognition.Succeeded"
-        }
-    },
-    "__detectTower_info__": {
-        //检测塔台页的延时卡片
-        "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "expected": "tower_info",
-                "model": "WoA-card.onnx"
-            }
-        }
-    },
-    "__detectTowerControlEntry__": {
-        //在延时卡片中点击全部控制器的延时控制卡片
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__detectTower_info__",
-                "method": 40,
-                "lower": [
-                    93,
-                    19,
-                    192
-                ],
-                "upper": [
-                    115,
-                    41,
-                    214
-                ],
-                "connected": true,
-                "count": 800,
-                "order_by": "Vertical",
-                "index": -1
-            }
+            "Node.Recognition.Succeeded": "$pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded"
         }
     },
     "entryTowerControlCard": {
@@ -250,7 +118,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cacheMenuButton__",
+                "roi": "cacheMenuButton",
                 "method": 40,
                 "lower": [
                     94,

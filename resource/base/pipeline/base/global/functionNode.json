@@ -1,10 +1,64 @@
 {
+    "textBinarization": {
+        //全局适用，CUSTOM AGENT引用：crewUsedCompare
+        //顶栏图标背景色
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    81,
+                    38,
+                    25
+                ],
+                "upper": [
+                    129,
+                    180,
+                    177
+                ]
+            }
+        }
+    },
+    "cacheCrewUsedBox": {
+        //缓存地勤用量的box
+        "max_hit": 1, //没有使用roi缓存管理，设置max_hit限制最大执行次数
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "crewUsed",
+                "model": "WoA-widget.onnx"
+            }
+        }
+    },
+    "cacheMenuButton": {
+        //count: 2400
+        //缓存菜单按钮
+        "max_hit": 1,
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "menuButton",
+                "model": "WoA-widget.onnx"
+            }
+        }
+    },
+    "updateAllExtraActionCard": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__updateActionAssignCrew__",
+                    "__cstUpdateStandSelectCard__"
+                ]
+            }
+        }
+    },
     "finishNode": {
         //用于跳回JumpBack的父节点、结束节点链等功能
     },
     "finishWithDelay": {
         //用于跳回JumpBack的父节点、结束节点链等功能并延时1s
-        "pre_delay": 1000
+        "pre_delay": 2000
     },
     "finishWithCapture": {
         //用于跳回JumpBack的父节点、结束节点链等功能并截图到日志

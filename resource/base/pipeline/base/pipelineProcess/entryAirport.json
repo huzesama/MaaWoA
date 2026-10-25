@@ -140,7 +140,7 @@
             "type": "Or",
             "param": {
                 "any_of": [
-                    "__cacheAirportSelectList__"
+                    "__cstGetAirportSelectList__"
                 ]
             }
         },

@@ -46,7 +46,7 @@
                             "param": {
                                 "custom_recognition": "roiManager",
                                 "custom_recognition_param": {
-                                    "roi_name": "__cacheAirportSelectList__",
+                                    "roi_name": "__AirportSelectList__",
                                     "model": "WoA-card.onnx",
                                     "expected": "airportList",
                                     "override": true

@@ -22,7 +22,7 @@
                                 "type": "Or",
                                 "param": {
                                     "any_of": [
-                                        "__detectActionRequire__"
+                                        "__findActionRequire__"
                                     ]
                                 }
                             }
@@ -33,8 +33,8 @@
                                 "type": "And",
                                 "param": {
                                     "all_of": [
-                                        "__matchActionRequireList__",
-                                        "__matchActionRequireExcludeAssignCrew__"
+                                        "__cstmatchActionRequireList__",
+                                        "__tmatchActionRequireExcludeAssignCrew__"
                                     ]
                                 }
                             }
@@ -74,7 +74,7 @@
                                 "type": "Or",
                                 "param": {
                                     "any_of": [
-                                        "__detectActionRequireByONNX__"
+                                        "__detectActionRequire__"
                                     ]
                                 }
                             }
@@ -85,7 +85,7 @@
                                 "type": "Or",
                                 "param": {
                                     "any_of": [
-                                        "__matchActionRequireExcludeAssignCrewByONNX__"
+                                        "__detectActionRequireExcludeAssignCrew__"
                                     ]
                                 }
                             }
