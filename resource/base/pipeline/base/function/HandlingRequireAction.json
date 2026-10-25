@@ -281,6 +281,10 @@
             ],
             "method": 5
         },
+        "next": [
+            "[JumpBack]detectLoadingPageShortOnce",
+            "finishNode"
+        ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
             "Node.NextList.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded"
@@ -314,6 +318,10 @@
             ],
             "method": 5
         },
+        "next": [
+            "[JumpBack]detectLoadingPageShortOnce",
+            "finishNode"
+        ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
             "Node.NextList.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded"
@@ -346,6 +354,10 @@
             ],
             "method": 5
         },
+        "next": [
+            "[JumpBack]detectLoadingPageShortOnce",
+            "finishNode"
+        ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
             "Node.NextList.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded"

@@ -130,7 +130,7 @@
             "method": 3
         },
         "next": [
-            "[JumpBack]detectLoadingPage",
+            "detectLoadingPage",
             "finishNode"
         ]
     },
