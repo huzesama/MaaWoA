@@ -53,6 +53,51 @@
             }
         }
     },
+    "detectLoadingPage": {
+        //next列表有其它支链可配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
+        "recognition": {
+            "type": "NeuralNetworkClassify",
+            "param": {
+                "expected": "loadingPage",
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
+            }
+        },
+        "pre_delay": 1500,
+        "next": [
+            "detectLoadingPage",
+            "finishNode"
+        ]
+    },
+    "detectLoadingPageShortOnce": {
+        //快速判断loadingpage一次
+        "recognition": {
+            "type": "NeuralNetworkClassify",
+            "param": {
+                "expected": "loadingPage",
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
+            }
+        }
+    },
     "finishNode": {
         //用于跳回JumpBack的父节点、结束节点链等功能
     },

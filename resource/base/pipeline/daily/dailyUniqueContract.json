@@ -25,10 +25,20 @@
     "dailyUniqueContract.detectContractPage": {
         //检测合同管理页
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "contractPage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "next": [
@@ -134,7 +144,7 @@
             -10
         ],
         "next": [
-            "[JumpBack]detectLoadingPage",
+            "[JumpBack]detectLoadingPageShortOnce",
             "finishNode"
         ]
     },
@@ -176,10 +186,20 @@
     "dailyUniqueContract.detectEntryAirportPage": {
         //检测entry airport page
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "entryAirportPage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "next": [
@@ -250,9 +270,11 @@
                 "model": "WoA-card.onnx"
             }
         },
+        "timeout": 8000,
         "next": [
             "dailyUniqueContract.exitEntryAirportPage"
-        ]
+        ],
+        "on_error": ["detectPage"]
     },
     "dailyUniqueContract.exitEntryAirportPage": {
         //更换机场，后续如果出现进入图鉴的情况需要优化训练，并增加通过roi_offset进行target检查

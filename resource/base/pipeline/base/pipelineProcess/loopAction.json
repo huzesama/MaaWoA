@@ -14,10 +14,20 @@
     "entryDocker": {
         "enabled": false, // 由base选项dockExtra覆写
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "entryAirportPage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "next": [

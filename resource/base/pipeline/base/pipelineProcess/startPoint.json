@@ -16,10 +16,20 @@
     "detectEntryAirportPage": {
         //检测进入机场后的页面
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "entryAirportPage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "next": [
@@ -28,32 +38,19 @@
     },
     "detectAirportSelectPage": {
         "recognition": {
-            "type": "And",
+            "type": "NeuralNetworkClassify",
             "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "NeuralNetworkDetect",
-                            "param": {
-                                "expected": "airportSelectPage",
-                                "model": "WoA-page.onnx"
-                            }
-                        }
-                    },
-                    {
-                        "recognition": {
-                            "type": "custom",
-                            "param": {
-                                "custom_recognition": "roiManager",
-                                "custom_recognition_param": {
-                                    "roi_name": "__AirportSelectList__",
-                                    "model": "WoA-card.onnx",
-                                    "expected": "airportList",
-                                    "override": true
-                                }
-                            }
-                        }
-                    }
+                "expected": "airportSelectPage",
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
                 ]
             }
         },
@@ -66,10 +63,20 @@
     "detectHomePage": {
         //检测主页
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "homePage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "next": [
@@ -77,27 +84,23 @@
             "finishNode"
         ]
     },
-    "detectLoadingPage": {
-        //配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
-        "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "expected": "loadingPage",
-                "model": "WoA-page.onnx"
-            }
-        },
-        "next": [
-            "detectLoadingPage", //该节点不含next
-            "finishNode"
-        ]
-    },
     "detectErrorPage": {
         //错误页
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "errorPage",
-                "model": "WoA-page.onnx"
+                "model": "WoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "loadingPage",
+                    "setPage",
+                    "towerPage"
+                ]
             }
         },
         "action": "Click"
