@@ -72,7 +72,7 @@
     "pipeline.HandlingRequireAction.actionRequireBribeFlight.focus.Node.Recognition.Succeeded": "Currently processing. Type: 💸 Bribe Contract",
     "pipeline.HandlingRequireAction.actionRequireUniversal.focus.Node.Recognition.Succeeded": "Currently processing. Type: 🖼️ Flight card general processing event",
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed": "ℹ️No available button was recognized on the flight card in this round. Waiting for the next round of processing.",
-    "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.NextList.Succeeded": "✅This round of processing is complete. Waiting for the next round of processing.",
+    "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded": "✅This round of processing is complete. Waiting for the next round of processing.",
     "pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded": "📈Available contract upgrade (or extension) -> Upgrade (or extend) contract",
     "pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded": "📡The Tower is closed or about to close, and the number of flight events is not 0, meeting the conditions to use (extend) the Tower.",
     "pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded": "📡Tower extension completed"
