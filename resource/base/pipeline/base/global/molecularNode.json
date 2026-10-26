@@ -1,5 +1,5 @@
 {
-    //存放复合(And|Or)识别类型的节点
+    //存放复合识别类型的节点
     //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
     //命名规则: __组合原子节点的功能名称__
     "__conditionEntryAirportPageLoading__": {
@@ -64,23 +64,27 @@
         }
     },
     "__findFlight_infoActionRequireWithCache__": {
+        //通过缓存寻找航班详情的请求事件
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
                     "__cstGetFlight_infoCard__",
-                    "__tmatchFlight_infoActionRequire__"
+                    "__cmatchFlight_infoTitleWithCache__",
+                    "__cmatchFlight_infoActionRequireInTitleWithCache__"
                 ]
             }
         }
     },
     "__findFlight_infoActionRequireWithDetect__": {
+        //通过刷新缓存寻找航班详情的请求事件
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
                     "__cstUpdateFlight_infoCard__",
-                    "__tmatchFlight_infoActionRequireWithUpdate__"
+                    "__cmatchFlight_infoTitleWithUpdate__",
+                    "__cmatchFlight_infoActionRequireInTitleWithUpdate__"
                 ]
             }
         }

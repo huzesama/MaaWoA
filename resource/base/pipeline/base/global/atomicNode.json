@@ -453,27 +453,93 @@
             }
         }
     },
-    "__tmatchFlight_infoActionRequire__": {
+    "__cmatchFlight_infoTitleWithCache__": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "ColorMatch",
             "param": {
                 "roi": "__cstGetFlight_infoCard__",
-                "template": "航班信息-请求行动.png",
-                "green_mask": true,
-                "method": 10001,
-                "threshold": 0.8
+                "method": 40,
+                "lower": [
+                    103,
+                    157,
+                    33
+                ],
+                "upper": [
+                    105,
+                    159,
+                    35
+                ],
+                "connected": true,
+                "count": 14700,
+                "order_by": "Vertical"
             }
         }
     },
-    "__tmatchFlight_infoActionRequireWithUpdate__": {
+    "__cmatchFlight_infoTitleWithUpdate__": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "ColorMatch",
             "param": {
                 "roi": "__cstUpdateFlight_infoCard__",
-                "template": "航班信息-请求行动.png",
-                "green_mask": true,
-                "method": 10001,
-                "threshold": 0.8
+                "method": 40,
+                "lower": [
+                    103,
+                    157,
+                    33
+                ],
+                "upper": [
+                    105,
+                    159,
+                    35
+                ],
+                "connected": true,
+                "count": 14700,
+                "order_by": "Vertical"
+            }
+        }
+    },
+    "__cmatchFlight_infoActionRequireInTitleWithCache__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cmatchFlight_infoTitleWithCache__",
+                "method": 40,
+                "lower": [
+                    23,
+                    254,
+                    232
+                ],
+                "upper": [
+                    25,
+                    255,
+                    234
+                ],
+                "connected": true,
+                "count": 300,
+                "order_by": "Horizontal",
+                "index": -1
+            }
+        }
+    },
+    "__cmatchFlight_infoActionRequireInTitleWithUpdate__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cmatchFlight_infoTitleWithUpdate__",
+                "method": 40,
+                "lower": [
+                    23,
+                    254,
+                    232
+                ],
+                "upper": [
+                    25,
+                    255,
+                    234
+                ],
+                "connected": true,
+                "count": 300,
+                "order_by": "Horizontal",
+                "index": -1
             }
         }
     },
@@ -567,7 +633,7 @@
                 ],
                 "template": ["合同管理.png"],
                 "method": 10001,
-                "threshold": 0.6,
+                "threshold": 0.3,
                 "order_by": "Score"
             }
         }
@@ -998,6 +1064,27 @@
                 ],
                 "connected": true,
                 "count": 140
+            }
+        }
+    },
+    "__cmatchErrorPageUniversalConfirm__": {
+        //通用的错误页识别点击
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    18,
+                    205,
+                    232
+                ],
+                "upper": [
+                    25,
+                    255,
+                    255
+                ],
+                "connected": true,
+                "count": 600
             }
         }
     }
