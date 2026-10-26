@@ -110,48 +110,41 @@
             "param": {
                 "all_of": [
                     "__cstGetStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
-                    {
-                        "recognition": {
-                            "type": "Or",
-                            "param": {
-                                "any_of": [
-                                    "__cmtachStandSelectOption__",
-                                    "__cmatchStandSelectPlannerOption__"
-                                ]
-                            }
-                        }
-                    }
+                    "__conditionStandSelectOptionExist__"
                 ],
                 "box_index": 1
             }
         },
         "next": [
             "clickFlight_infoYellowButton",
-            "baseStandSelect", //基本
-            "otherStandSelect", //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
-            "finishNode"
+            "conditionExistNotPurchasedStand",
+            "baseStandSelect",
+            "resetStandSelectList",
+            "finishWithCapture"
         ],
         "focus": {
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireStandSelect.focus.Node.Recognition.Succeeded"
         }
     },
-    "baseStandSelect": {
-        "action": "Click",
-        "target": "actionRequireStandSelect",
-        "target_offset": [
-            10,
-            10,
-            -20,
-            -20
-        ],
-        "post_wait_freezes": 50,
+    "conditionExistNotPurchasedStand": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmtachStandSelectOption__",
+                    "__cmatchWollarInStandSelectOption__"
+                ],
+                "box_index": 1
+            }
+        },
         "next": [
-            "clickFlight_infoYellowButtonWithFallback",
-            "finishNode"
+            "resetStandSelectList",
+            "baseStandSelect"
         ]
     },
-    //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
-    "otherStandSelect": {
+    "resetStandSelectList": {
+        //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
         "recognition": {
             "type": "And",
             "param": {
@@ -187,6 +180,30 @@
         },
         "next": [
             "baseStandSelect",
+            "finishNode"
+        ]
+    },
+    "baseStandSelect": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmtachStandSelectOption__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
+        "post_wait_freezes": 50,
+        "next": [
+            "clickFlight_infoYellowButtonWithFallback",
             "finishNode"
         ]
     },
@@ -254,7 +271,8 @@
         "anchor": {
             "page2page.FromPage": "function.disappearing.entryAirportPage",
             "page2page.ToPage": "function.appearing.entryAirportPage",
-            "page2page.EntryPageNode": "detectContractUpgradeCard"
+            "page2page.EntryPageNode": "detectContractUpgradeCard",
+            "page2page.whenError": "finishWithDelay"
         },
         "next": [
             "function.process.page2page"
