@@ -59,7 +59,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "loadingPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -84,7 +84,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "loadingPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",

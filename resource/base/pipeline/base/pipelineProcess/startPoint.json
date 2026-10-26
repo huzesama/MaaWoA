@@ -21,7 +21,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "entryAirportPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -43,7 +43,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "airportSelectPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -68,7 +68,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "homePage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -92,7 +92,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "errorPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",

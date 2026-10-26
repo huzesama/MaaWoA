@@ -23,7 +23,7 @@
                 "expected": [
                     "loadingPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -50,7 +50,7 @@
                 "expected": [
                     "homePage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -80,7 +80,7 @@
                 "expected": [
                     "airportSelecPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -110,7 +110,7 @@
                 "expected": [
                     "entryAirportPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -140,7 +140,7 @@
                 "expected": [
                     "towerPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -170,7 +170,7 @@
                 "expected": [
                     "homePage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -197,7 +197,7 @@
                 "expected": [
                     "airportSelecPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -224,7 +224,7 @@
                 "expected": [
                     "entryAirportPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -251,7 +251,7 @@
                 "expected": [
                     "towerPage"
                 ],
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",

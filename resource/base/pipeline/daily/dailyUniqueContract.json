@@ -28,7 +28,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "contractPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
@@ -189,7 +189,7 @@
             "type": "NeuralNetworkClassify",
             "param": {
                 "expected": "entryAirportPage",
-                "model": "WoA-page-cls.onnx",
+                "model": "MaaWoA-page-cls.onnx",
                 "labels": [
                     "airportSelectPage",
                     "contractPage",
