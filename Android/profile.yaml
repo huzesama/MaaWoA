@@ -61,8 +61,16 @@ app:
 display:
   foreground: true
   presets:
-    - label: 720P
+    - label: 720P(16:9)
       width: 1280
+      height: 720
+      dpi: 180
+    - label: 720P(4:3)
+      width: 960
+      height: 720
+      dpi: 180
+    - label: 720P(18:9)
+      width: 1440
       height: 720
       dpi: 180
 
