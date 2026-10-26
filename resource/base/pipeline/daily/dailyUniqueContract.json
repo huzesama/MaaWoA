@@ -25,19 +25,10 @@
     "dailyUniqueContract.detectContractPage": {
         //检测合同管理页
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "contractPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyContractPage__"
                 ]
             }
         },
@@ -186,19 +177,10 @@
     "dailyUniqueContract.detectEntryAirportPage": {
         //检测entry airport page
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "entryAirportPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyEntryAirportPage__"
                 ]
             }
         },
