@@ -13,24 +13,17 @@
             "[JumpBack]detectLoadingPage", //加载页面
             "[JumpBack]detectErrorPage" //错误页面
         ],
-        "on_error": ["checkAll"]
+        "on_error": [
+            "checkAll"
+        ]
     },
     "detectEntryAirportPage": {
         //检测进入机场后的页面
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "entryAirportPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyEntryAirportPage__"
                 ]
             }
         },
@@ -40,68 +33,45 @@
     },
     "detectAirportSelectPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "airportSelectPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyAirportSelectPage__"
                 ]
             }
         },
+        "timeout": 8,
         //检测机场IATA选择页面
         "next": [
             "detectAirport_info",
             "detectAitportList"
+        ],
+        "on_error": [
+            "finishWithDelay"
         ]
     },
     "detectHomePage": {
         //检测主页
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "homePage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyHomePage__"
                 ]
             }
         },
         "next": [
             "entryAirportSelectPage", //该节点不含next
-            "finishNode"
+            "finishWithDelay"
         ]
     },
     "detectErrorPage": {
         //错误页
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "errorPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyErrorPage__"
                 ]
             }
         },

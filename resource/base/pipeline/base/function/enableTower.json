@@ -23,7 +23,8 @@
         "anchor": {
             "page2page.FromPage": "function.disappearing.entryAirportPage",
             "page2page.ToPage": "function.appearing.towerPage",
-            "page2page.EntryPageNode": "entryTowerControlCard"
+            "page2page.EntryPageNode": "entryTowerControlCard",
+            "page2page.whenError": "finishWithDelay"
         },
         "next": [
             "function.process.page2page"

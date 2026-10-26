@@ -2,6 +2,19 @@
     //存放复合(And|Or)识别类型的节点
     //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
     //命名规则: __组合原子节点的功能名称__
+    "__conditionEntryAirportPageLoading__": {
+        //识别错误率较高的机场页加载
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__classifyEntryAirportPage__",
+                    "__cmatchLoadingPageMenu__",
+                    "__cmatchLoadingPageCircle__"
+                ]
+            }
+        }
+    },
     "__findActionRequire__": {
         //只用ONNX缓存
         "recognition": {
@@ -22,6 +35,18 @@
                 "any_of": [
                     "__tmatchFlight_infoTimeLimitPass",
                     "__tmatchAssignCrewCardPlusButtonBeGray__"
+                ]
+            }
+        }
+    },
+    "__conditionStandSelectOptionExist__": {
+        //前置ROI：__cstGetStandSelectCard__
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__cmatchStandSelectPlannerOption__",
+                    "__cmtachStandSelectOption__"
                 ]
             }
         }

@@ -31,13 +31,16 @@
         }
     },
     "cacheMenuButton": {
-        //count: 2400
+        //count: 2400\2100
         //缓存菜单按钮
         "max_hit": 1,
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": "menuButton",
+                "expected": [
+                    "menuButton",
+                    "back"
+                ],
                 "model": "WoA-widget.onnx"
             }
         }
@@ -56,19 +59,10 @@
     "detectLoadingPage": {
         //next列表有其它支链可配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "loadingPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyLoadingPage__"
                 ]
             }
         },
@@ -81,19 +75,11 @@
     "detectLoadingPageShortOnce": {
         //快速判断loadingpage一次
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": "loadingPage",
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyLoadingPage__",
+                    "__conditionEntryAirportPageLoading__"
                 ]
             }
         }

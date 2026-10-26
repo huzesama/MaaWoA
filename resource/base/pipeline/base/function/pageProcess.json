@@ -5,12 +5,15 @@
         // page2page.FromPage 跳转前所处的页面
         // page2page.ToPage 跳转后所处的页面
         // page2page.EntryPageNode 完成页面过渡后进入的节点
+        // page2page.whenError 控制过渡页面走on_error的节点
         "next": [
             "[Anchor]page2page.FromPage",
             "function.process.middlePage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.process.page2page.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -18,21 +21,10 @@
     },
     "function.process.middlePage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "loadingPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyLoadingPage__"
                 ]
             }
         },
@@ -41,25 +33,16 @@
             "function.process.middlePage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"]
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ]
     },
     "function.disappearing.homePage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "homePage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyHomePage__"
                 ]
             }
         },
@@ -67,7 +50,9 @@
             "function.process.middlePage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.disappearing.homePage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -75,21 +60,10 @@
     },
     "function.disappearing.airportSelecPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "airportSelecPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyAirportSelectPage__"
                 ]
             }
         },
@@ -97,7 +71,9 @@
             "function.process.middlePage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.disappearing.airportSelecPage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -105,21 +81,10 @@
     },
     "function.disappearing.entryAirportPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "entryAirportPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyEntryAirportPage__"
                 ]
             }
         },
@@ -127,7 +92,9 @@
             "function.process.middlePage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.disappearing.entryAirportPage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -135,21 +102,10 @@
     },
     "function.disappearing.towerPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "towerPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyTowerPage__"
                 ]
             }
         },
@@ -157,7 +113,9 @@
             "function.process.middlePage",
             "[Anchor]page2page.ToPage"
         ],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.disappearing.towerPage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -165,26 +123,17 @@
     },
     "function.appearing.homePage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "homePage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyHomePage__"
                 ]
             }
         },
         "next": ["[Anchor]page2page.EntryPageNode"],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.appearing.homePage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -192,26 +141,17 @@
     },
     "function.appearing.airportSelecPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "airportSelecPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyAirportSelectPage__"
                 ]
             }
         },
         "next": ["[Anchor]page2page.EntryPageNode"],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.appearing.airportSelecPage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -219,26 +159,17 @@
     },
     "function.appearing.entryAirportPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "entryAirportPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyEntryAirportPage__"
                 ]
             }
         },
         "next": ["[Anchor]page2page.EntryPageNode"],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.appearing.entryAirportPage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
@@ -246,26 +177,17 @@
     },
     "function.appearing.towerPage": {
         "recognition": {
-            "type": "NeuralNetworkClassify",
+            "type": "Or",
             "param": {
-                "expected": [
-                    "towerPage"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage"
+                "any_of": [
+                    "__classifyTowerPage__"
                 ]
             }
         },
         "next": ["[Anchor]page2page.EntryPageNode"],
-        "on_error": ["detectPage"],
+        "on_error": [
+            "[Anchor]page2page.whenError"
+        ],
         "focus": {
             "Node.NextList.Starting": "$pipeline.process.function.appearing.towerPage.focus.Node.NextList.Starting",
             "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
