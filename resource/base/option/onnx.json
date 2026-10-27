@@ -19,22 +19,23 @@
                         "actionRequiringSelect": {
                             //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "Or",
+                                "type": "And",
                                 "param": {
-                                    "any_of": [
+                                    "all_of": [
+                                        "__cstCompareCrewUsed__",
                                         "__findActionRequire__"
-                                    ]
+                                    ],
+                                    "box_index": 1
                                 }
                             }
                         },
                         "actionRequiringSelectDeparture": {
                             //选择departure//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "And",
+                                "type": "Or",
                                 "param": {
-                                    "all_of": [
-                                        "__cstmatchActionRequireList__",
-                                        "__tmatchActionRequireExcludeAssignCrew__"
+                                    "any_of": [
+                                        "__findActionRequireExcludeAssignCrew__"
                                     ]
                                 }
                             }
@@ -71,11 +72,13 @@
                         "actionRequiringSelect": {
                             //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
                             "recognition": {
-                                "type": "Or",
+                                "type": "And",
                                 "param": {
-                                    "any_of": [
+                                    "all_of": [
+                                        "__cstCompareCrewUsed__",
                                         "__detectActionRequire__"
-                                    ]
+                                    ],
+                                    "box_index": 1
                                 }
                             }
                         },

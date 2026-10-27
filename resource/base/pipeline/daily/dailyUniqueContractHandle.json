@@ -197,7 +197,7 @@
             }
         },
         "next": [
-            "compareCrewUsed",
+            "actionRequiringSelect",
             "[JumpBack]actionRequiringSelectDeparture",
             "[JumpBack]detectContractUpgradeCard",
             "[JumpBack]entryDocker",

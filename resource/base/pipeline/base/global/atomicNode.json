@@ -1025,6 +1025,18 @@
     },
     //------------------Tower·END------------------
     //------------------OTHER·BEGIN------------------
+    "__cstCompareCrewUsed__": {
+        //对比crew used，不相等时未命中
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "crewUsedCompare",
+                "custom_recognition_param": {
+                    "update_cache": false
+                }
+            }
+        }
+    },
     "__cmatchLoadingPageMenu__": {
         //操作加载时的全屏遮罩菜单或返回按钮，辅助识别
         "recognition": {

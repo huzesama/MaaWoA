@@ -2,12 +2,23 @@
     "actionRequiringSelect": {
         //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [
-                    "__findActionRequire__",
-                    "__detectActionRequire__"
-                ]
+                "all_of": [
+                    "__cstCompareCrewUsed__",
+                    {
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [
+                                    "__findActionRequire__",
+                                    "__detectActionRequire__"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
             }
         },
         "action": "Click",
@@ -84,6 +95,29 @@
             "updateCrewUsedBefore",
             "finishNode"
         ]
+    },
+    "updateCrewUsedBefore": {
+        "action": "Click",
+        //用于释放选择但未分配的地勤
+        "target": "actionRequiringSelect",
+        "next": [
+            "updateCrewUsed",
+            "finishNode"
+        ]
+    },
+    "updateCrewUsed": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "crewUsedCompare",
+                "custom_recognition_param": {
+                    "update_cache": true
+                }
+            }
+        },
+        "focus": {
+            "Node.Recognition.Starting": "$pipeline.remainingCrewQuntityCheck.updateCrewUsed.focus.Node.Recognition.Starting"
+        }
     },
     "handlingAssignCrew": {
         "recognition": {
