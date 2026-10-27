@@ -332,16 +332,6 @@
             -10,
             -10
         ],
-        "post_wait_freezes": {
-            "time": 200,
-            "target_offset": [
-                10,
-                10,
-                -20,
-                -20
-            ],
-            "method": 5
-        },
         "next": [
             "[JumpBack]detectLoadingPageShortOnce",
             "finishNode"
@@ -404,16 +394,6 @@
             -10,
             -10
         ],
-        "post_wait_freezes": {
-            "time": 200,
-            "target_offset": [
-                10,
-                10,
-                -20,
-                -20
-            ],
-            "method": 5
-        },
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
