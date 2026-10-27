@@ -247,7 +247,6 @@
         "next": [
             "upgradeContract",
             "clickFlight_infoYellowButtonWithFallback",
-            "detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
             "finishNode"
         ],
         "focus": {
