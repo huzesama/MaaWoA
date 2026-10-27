@@ -980,6 +980,7 @@
     },
     "__ocrFilterNotZero__": {
         "recognition": "OCR",
+        //ROI固定截图右边起始70px宽度的识别区域
         "roi": [
             -70,
             0,
