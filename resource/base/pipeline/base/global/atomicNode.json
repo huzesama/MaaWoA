@@ -470,7 +470,7 @@
                     35
                 ],
                 "connected": true,
-                "count": 14700,
+                "count": 10000,
                 "order_by": "Vertical"
             }
         }
@@ -492,7 +492,7 @@
                     35
                 ],
                 "connected": true,
-                "count": 14700,
+                "count": 10000,
                 "order_by": "Vertical"
             }
         }
@@ -514,7 +514,7 @@
                     234
                 ],
                 "connected": true,
-                "count": 300,
+                "count": 200,
                 "order_by": "Horizontal",
                 "index": -1
             }
@@ -537,7 +537,7 @@
                     234
                 ],
                 "connected": true,
-                "count": 300,
+                "count": 200,
                 "order_by": "Horizontal",
                 "index": -1
             }
@@ -1063,7 +1063,7 @@
                     220
                 ],
                 "connected": true,
-                "count": 140
+                "count": 130
             }
         }
     },
