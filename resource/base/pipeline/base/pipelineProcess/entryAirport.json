@@ -16,7 +16,7 @@
                     244
                 ],
                 "connected": true,
-                "count": 2000,
+                "count": 2600,
                 "order_by": "Area"
             }
         },
@@ -51,12 +51,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": [
-                    8,
-                    261,
-                    402,
-                    427
-                ],
+                "roi": "detectAirport_info",
                 "method": 40,
                 "lower": [
                     93,
@@ -114,7 +109,7 @@
                     244
                 ],
                 "connected": true,
-                "count": 5000,
+                "count": 4000,
                 "order_by": "Area"
             }
         },
@@ -159,9 +154,9 @@
                 "roi": "detectAitportList",
                 "roi_offset": [
                     0,
-                    5,
                     0,
-                    0
+                    0,
+                    -480
                 ],
                 "expected": [
                     "(?i)INN"
