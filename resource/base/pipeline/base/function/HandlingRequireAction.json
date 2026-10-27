@@ -310,7 +310,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            //缓存ROI的识别失败没有回调消息
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
