@@ -99,7 +99,7 @@
             }
         },
         "next": [
-            "clickFlight_infoYellowButtonWithFallback",
+            "clickFlight_infoYellowButtonWithFallbackNoLoading",
             "finishNode"
         ]
     },
@@ -116,7 +116,7 @@
             }
         },
         "next": [
-            "clickFlight_infoYellowButton",
+            "clickFlight_infoYellowButtonWithCache",
             "conditionExistNotPurchasedStand",
             "baseStandSelect",
             "resetStandSelectList",
@@ -246,8 +246,7 @@
         },
         "next": [
             "upgradeContract",
-            "clickFlight_infoYellowButtonWithFallback",
-            "detectFilterActionRequiringButton", //遇到不可点击的flight card检测是否过滤请求行动筛选
+            "clickFlight_infoYellowButtonWithFallbackNoLoading",
             "finishNode"
         ],
         "focus": {
@@ -278,7 +277,7 @@
             "function.process.page2page"
         ]
     },
-    "clickFlight_infoYellowButton": {
+    "clickFlight_infoYellowButtonWithCache": {
         "recognition": {
             "type": "And",
             "param": {
@@ -311,11 +310,11 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            //缓存ROI的识别失败没有回调消息
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
-    "clickFlight_infoYellowButtonWithUpdateCache": {
+    "clickFlight_infoYellowButtonWithUpdate": {
         "recognition": {
             "type": "And",
             "param": {
@@ -357,8 +356,8 @@
             "type": "Or",
             "param": {
                 "any_of": [
-                    "clickFlight_infoYellowButton",
-                    "clickFlight_infoYellowButtonWithUpdateCache"
+                    "clickFlight_infoYellowButtonWithCache",
+                    "clickFlight_infoYellowButtonWithUpdate"
                 ]
             }
         },
@@ -383,6 +382,38 @@
             "[JumpBack]detectLoadingPageShortOnce",
             "finishNode"
         ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "clickFlight_infoYellowButtonWithFallbackNoLoading": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "clickFlight_infoYellowButtonWithCache",
+                    "clickFlight_infoYellowButtonWithUpdate"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"

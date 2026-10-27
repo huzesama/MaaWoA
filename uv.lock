@@ -52,7 +52,7 @@ wheels = [
 
 [[package]]
 name = "maawoa"
-version = "1.0.5b3"
+version = "1.0.5rc1"
 source = { editable = "." }
 dependencies = [
     { name = "loguru" },
