@@ -2,35 +2,16 @@
     "compareCrewUsed": {
         //对比crew used，不相等时未命中
         "recognition": {
-            "type": "And",
+            "type": "Custom",
             "param": {
-                "all_of": [
-                    {
-                        "recognition": {
-                            "type": "Custom",
-                            "param": {
-                                "custom_recognition": "crewUsedCompare",
-                                "custom_recognition_param": {
-                                    "update_cache": false
-                                }
-                            }
-                        }
-                    },
-                    "actionRequiringSelect"
-                ],
-                "box_index": 1
+                "custom_recognition": "crewUsedCompare",
+                "custom_recognition_param": {
+                    "update_cache": false
+                }
             }
         },
-        "action": "Click",
-        "post_wait_freezes": {
-            "time": 50,
-            "method": 3
-        },
         "next": [
-            "actionRequireAssignCrew", //尋找AssignCrew面板
-            "actionRequireStandSelect", //尋找standSelect面板
-            "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
-            "actionRequireUniversal", //其它通用的actionRequire
+            "actionRequiringSelect",
             "finishNode"
         ]
     },
