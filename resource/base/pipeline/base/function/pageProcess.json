@@ -180,7 +180,8 @@
             "type": "Or",
             "param": {
                 "any_of": [
-                    "__classifyTowerPage__"
+                    "__classifyTowerPage__",
+                    "__detectTower_info__"
                 ]
             }
         },
