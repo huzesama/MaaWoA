@@ -619,40 +619,71 @@
             }
         }
     },
-    "__tmatchFlight_infoContract_icon__": {
-        //放宽匹配阈值，拦住大部分不符，由OCR把控入口
+    "__cmatchFlight_infoContractFinishGreen__": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "ColorMatch",
             "param": {
                 "roi": "__cmatchYellowButton_inFlight_info__",
                 "roi_offset": [
                     0,
+                    -55,
                     0,
-                    0,
-                    -110
+                    0
                 ],
-                "template": ["合同管理.png"],
-                "method": 10001,
-                "threshold": 0.3,
-                "order_by": "Score"
+                "method": 40,
+                "lower": [
+                    72,
+                    143,
+                    219
+                ],
+                "upper": [
+                    74,
+                    145,
+                    221
+                ],
+                "connected": true,
+                "count": 50
             }
         }
     },
-    "__ocrFlight_infoContractFinish__": {
+    "__cmatchFlight_infoContractFinishRed__": {
         "recognition": {
-            "type": "OCR",
+            "type": "ColorMatch",
             "param": {
-                "roi": "__tmatchFlight_infoContract_icon__",
+                "roi": "__cmatchYellowButton_inFlight_info__",
                 "roi_offset": [
                     0,
+                    -55,
                     0,
-                    60,
-                    20
+                    0
                 ],
-                "expected": [
-                    "(?<!\\d)([1-9])\\s*[|/1]\\s*\\1(?!\\d)",
-                    "(?<!\\d)10\\s*[|/1]\\s*10(?!\\d)"
-                ]
+                "method": 40,
+                "lower": [
+                    [
+                        179,
+                        144,
+                        254
+                    ],
+                    [
+                        0,
+                        144,
+                        254
+                    ]
+                ],
+                "upper": [
+                    [
+                        179,
+                        146,
+                        255
+                    ],
+                    [
+                        1,
+                        146,
+                        255
+                    ]
+                ],
+                "connected": true,
+                "count": 50
             }
         }
     },

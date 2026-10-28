@@ -294,8 +294,8 @@
                 "all_of": [
                     "__cstGetFlight_infoCard__",
                     "__cmatchYellowButton_inFlight_info__",
-                    "__tmatchFlight_infoContract_icon__",
-                    "__ocrFlight_infoContractFinish__"
+                    "__cmatchFlight_infoContractFinishRed__",
+                    "__cmatchFlight_infoContractFinishGreen__"
                 ],
                 "box_index": 1
             }
