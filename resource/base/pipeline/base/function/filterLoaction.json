@@ -5,7 +5,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "filter",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -28,7 +28,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "filterActionRequire",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -50,7 +50,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "filterArrivalPressed",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -69,7 +69,7 @@
             "param": {
                 //expected受选项enableTower覆写
                 "expected": "filterAirplaneOnAirportPressed",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -86,7 +86,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "filterDeparturePressed",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -102,7 +102,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "filterFavoritePressed",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -117,7 +117,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "filterUniquePressed",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",

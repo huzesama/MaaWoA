@@ -5,7 +5,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "dockerContractNotice",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         },
         "action": "Click",
@@ -43,7 +43,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "uniqueContractOffers",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         },
         "next": [
@@ -98,7 +98,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "contractAcceptConfirmCard",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         },
         "next": [
@@ -223,7 +223,7 @@
                             "type": "NeuralNetworkDetect",
                             "param": {
                                 "expected": "menuButton",
-                                "model": "WoA-widget.onnx"
+                                "model": "MaaWoA-widget.onnx"
                             }
                         }
                     }
@@ -249,7 +249,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "menu",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         },
         "timeout": 8000,

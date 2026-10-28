@@ -26,7 +26,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "crewUsed",
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },
@@ -41,7 +41,7 @@
                     "menuButton",
                     "back"
                 ],
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },

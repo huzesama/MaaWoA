@@ -38,7 +38,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "airport_info",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         },
         "next": [

@@ -32,7 +32,7 @@
                 "expected": [
                     "docker"
                 ],
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         },
         "inverse": true,

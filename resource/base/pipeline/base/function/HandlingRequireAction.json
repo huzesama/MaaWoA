@@ -249,7 +249,7 @@
             "param": {
                 "all_of": [
                     "__conditionFlight_infoActionRequire__",
-                    "__cmatchmatchFlight_infoBriberySwitchOff__"
+                    "__cmatchFlight_infoBriberySwitchOff__"
                 ],
                 "box_index": 1
             }
@@ -465,7 +465,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "contractUpgradeCard",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         }
     },

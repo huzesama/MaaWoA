@@ -212,7 +212,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__Flight_infoCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "flight_info",
                     "threshold": 0.85
                 }
@@ -227,7 +227,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__Flight_infoCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "threshold": 0.85,
                     "expected": "flight_info",
                     "override": true
@@ -243,7 +243,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__AssignCrewCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "assignCrewCard",
                     "threshold": 0.85
                 }
@@ -258,7 +258,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__AssignCrewCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "assignCrewCard",
                     "threshold": 0.85,
                     "override": true
@@ -274,7 +274,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__StandSelectCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "standSelectCard",
                     "threshold": 0.85
                 }
@@ -289,7 +289,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__StandSelectCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "standSelectCard",
                     "threshold": 0.85,
                     "override": true
@@ -305,7 +305,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__ContractUpgradeCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "contractUpgradeCard"
                 }
             }
@@ -319,7 +319,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__ContractUpgradeCard__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "contractUpgradeCard",
                     "override": true
                 }
@@ -335,7 +335,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__AssignCrewCardRampAgentSwitch__",
-                    "model": "WoA-widget.onnx",
+                    "model": "MaaWoA-widget.onnx",
                     "expected": "switch"
                 }
             }
@@ -350,7 +350,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__AssignCrewCardRampAgentSwitch__",
-                    "model": "WoA-widget.onnx",
+                    "model": "MaaWoA-widget.onnx",
                     "expected": "switch",
                     "override": true
                 }
@@ -366,7 +366,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__AirportSelectList__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "airportList"
                 }
             }
@@ -380,7 +380,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__Docker__",
-                    "model": "WoA-card.onnx",
+                    "model": "MaaWoA-card.onnx",
                     "expected": "docker"
                 }
             }
@@ -395,7 +395,7 @@
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
                     "roi_name": "__DockerTower__",
-                    "model": "WoA-widget.onnx",
+                    "model": "MaaWoA-widget.onnx",
                     "expected": "dockerTower"
                 }
             }
@@ -448,7 +448,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "actionRequire",
-                "model": "WoA-widget.onnx",
+                "model": "MaaWoA-widget.onnx",
                 "threshold": 0.708
             }
         }
@@ -575,7 +575,7 @@
                     "repair",
                     "ice"
                 ],
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },
@@ -596,7 +596,7 @@
             }
         }
     },
-    "__cmatchmatchFlight_infoBriberySwitchOff__": {
+    "__cmatchFlight_infoBriberySwitchOff__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -995,7 +995,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "tower_info",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         }
     },

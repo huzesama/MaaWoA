@@ -10,7 +10,7 @@
                             "type": "NeuralNetworkDetect",
                             "param": {
                                 "expected": "dailyAirportCard",
-                                "model": "WoA-card.onnx"
+                                "model": "MaaWoA-card.onnx"
                             }
                         }
                     },
@@ -59,7 +59,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "dailyAirportCard",
-                "model": "WoA-card.onnx"
+                "model": "MaaWoA-card.onnx"
             }
         },
         "action": "Click",
@@ -112,7 +112,7 @@
                     "filterUnique",
                     "filterUniquePressed"
                 ],
-                "model": "WoA-widget.onnx"
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },
