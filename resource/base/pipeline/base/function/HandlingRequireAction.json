@@ -274,7 +274,9 @@
             "type": "Or",
             "param": {
                 "any_of": [
-                    "__conditionFlight_infoActionRequire__"
+                    "__cstGetFlight_infoCard__",
+                    "__conditionFlight_infoActionRequire__",
+                    "__cmatchYellowButton_inFlight_info__"
                 ]
             }
         },
