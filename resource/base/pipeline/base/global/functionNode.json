@@ -39,6 +39,21 @@
             }
         }
     },
+    "detectErrorPage": {
+        //错误页
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__classifyErrorPage__",
+                    "__cmatchErrorUniversalConfirm__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_delay": 1500
+    },
     "textBinarization": {
         //全局适用，CUSTOM AGENT引用：crewUsedCompare
         //顶栏图标背景色
@@ -89,7 +104,7 @@
         //用于跳回JumpBack的父节点、结束节点链等功能
     },
     "finishWithDelay": {
-        //用于跳回JumpBack的父节点、结束节点链等功能并延时1s
+        //用于跳回JumpBack的父节点、结束节点链等功能并延时2s
         "pre_delay": 2000
     },
     "finishWithCapture": {

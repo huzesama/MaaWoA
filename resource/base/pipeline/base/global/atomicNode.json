@@ -1156,7 +1156,7 @@
             }
         }
     },
-    "__cmatchErrorPageUniversalConfirm__": {
+    "__cmatchErrorUniversalConfirm__": {
         //通用的错误页识别点击：全屏网络错误与错误卡片
         "recognition": {
             "type": "ColorMatch",

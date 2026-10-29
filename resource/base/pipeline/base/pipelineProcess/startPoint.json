@@ -67,20 +67,6 @@
             "finishWithDelay"
         ]
     },
-    "detectErrorPage": {
-        //错误页
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__classifyErrorPage__",
-                    "__cmatchErrorPageUniversalConfirm__"
-                ],
-                "box_index": 1
-            }
-        },
-        "action": "Click"
-    },
     "unattendedMode": {
         "anchor": {
             "afterStart": "detectPage"
