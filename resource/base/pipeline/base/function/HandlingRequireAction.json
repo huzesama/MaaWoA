@@ -302,13 +302,25 @@
         },
         "action": "Click",
         "next": [
-            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
             "[JumpBack]detectLoadingShortOnce",
+            "[JumpBack]Flight_infoNotCovered",
             "detectContractUpgradeCard",
             "finishWithCapture"
         ]
     },
-    "waitYellowButton_inFlight_infoDisappearing": {
+    "Flight_infoNotCovered": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchFlight_infoTitleWithCache__"
+                ]
+            }
+        }
+    },
+    "YellowButton_inFlight_infoNoDisappearing": {
         "recognition": {
             "type": "And",
             "param": {
@@ -350,7 +362,7 @@
             "method": 5
         },
         "next": [
-            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
             "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ],
@@ -378,7 +390,7 @@
             -10
         ],
         "next": [
-            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
             "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ],
@@ -415,7 +427,7 @@
             "method": 5
         },
         "next": [
-            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
             "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ],
@@ -440,10 +452,6 @@
             5,
             -10,
             -10
-        ],
-        "next": [
-            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
-            "finishNode"
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
