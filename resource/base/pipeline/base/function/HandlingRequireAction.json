@@ -262,7 +262,8 @@
             -4
         ],
         "next": [
-            "actionRequireUniversal"
+            "clickFlight_infoYellowButtonWithFallbackNoLoading",
+            "finishWithDelay"
         ],
         "focus": {
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireBribeFlight.focus.Node.Recognition.Succeeded"
