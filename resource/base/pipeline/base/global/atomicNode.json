@@ -18,10 +18,11 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
                 ]
             }
         }
@@ -40,10 +41,11 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
                 ]
             }
         }
@@ -62,10 +64,11 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
                 ]
             }
         }
@@ -84,10 +87,11 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
                 ]
             }
         }
@@ -106,10 +110,34 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
+                ]
+            }
+        }
+    },
+    "__classifyInboxPage__": {
+        "recognition": {
+            "type": "NeuralNetworkClassify",
+            "param": {
+                "expected": [
+                    "inboxPage"
+                ],
+                "model": "MaaWoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "inboxPage",
+                    "loadingPage",
+                    "otherPage",
+                    "setPage",
+                    "towerPage"
                 ]
             }
         }
@@ -128,10 +156,34 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
+                ]
+            }
+        }
+    },
+    "__classifyOtherPage__": {
+        "recognition": {
+            "type": "NeuralNetworkClassify",
+            "param": {
+                "expected": [
+                    "otherPage"
+                ],
+                "model": "MaaWoA-page-cls.onnx",
+                "labels": [
+                    "airportSelectPage",
+                    "contractPage",
+                    "entryAirportPage",
+                    "errorPage",
+                    "homePage",
+                    "inboxPage",
+                    "loadingPage",
+                    "otherPage",
+                    "setPage",
+                    "towerPage"
                 ]
             }
         }
@@ -150,10 +202,11 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
                 ]
             }
         }
@@ -172,32 +225,11 @@
                     "entryAirportPage",
                     "errorPage",
                     "homePage",
+                    "inboxPage",
                     "loadingPage",
+                    "otherPage",
                     "setPage",
-                    "towerPage",
-                    "unknow"
-                ]
-            }
-        }
-    },
-    "__classifyUnknow__": {
-        "recognition": {
-            "type": "NeuralNetworkClassify",
-            "param": {
-                "expected": [
-                    "unknow"
-                ],
-                "model": "MaaWoA-page-cls.onnx",
-                "labels": [
-                    "airportSelectPage",
-                    "contractPage",
-                    "entryAirportPage",
-                    "errorPage",
-                    "homePage",
-                    "loadingPage",
-                    "setPage",
-                    "towerPage",
-                    "unknow"
+                    "towerPage"
                 ]
             }
         }
