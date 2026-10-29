@@ -1,9 +1,65 @@
 {
     //存放内置原始单识别类型的识别节点
+    //以OR或AND类型引用
     //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
     //命名规则: __识别种类[cmatch|tmatch|detect|ocr|classify|cst(custom)...]目标__
     //
-    //------------------页面分类·BEGIN------------------
+    //------------------GLOBAL·BEGIN------------------
+    ////------------------GLOBAL·LOADING·BEGIN------------------
+    "__cmatchLoadingPageMenu__": {
+        //操作加载时的全屏遮罩菜单或返回按钮，辅助识别
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "cacheMenuButton",
+                "method": 40,
+                "lower": [
+                    104,
+                    155,
+                    43
+                ],
+                "upper": [
+                    106,
+                    157,
+                    45
+                ],
+                "connected": true,
+                "count": 2100
+            }
+        }
+    },
+    "__cmatchLoadingPageCircle__": {
+        //操作加载时的白色圈，全屏有黑色遮罩，高亮白色仅加载圈count分别为飞机150，尾拖210，辅助识别
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    6,
+                    0,
+                    198
+                ],
+                "upper": [
+                    28,
+                    20,
+                    220
+                ],
+                "connected": true,
+                "count": 130
+            }
+        }
+    },
+    "__detectLoading__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "loading",
+                "model": "MaaWoA-card.onnx"
+            }
+        }
+    },
+    ////------------------GLOBAL·LOADING·END------------------
+    ////------------------GLOBAL·页面分类·BEGIN------------------
     "__classifyAirportSelectPage__": {
         "recognition": {
             "type": "NeuralNetworkClassify",
@@ -234,7 +290,8 @@
             }
         }
     },
-    //------------------页面分类·END------------------
+    ////------------------GLOBAL·页面分类·END------------------
+    //------------------GLOBAL·END------------------
     //------------------ROI缓存·BEGIN------------------
     "__cstGetFlight_infoCard__": {
         //缓存航班详细信息卡片
@@ -480,8 +537,7 @@
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "actionRequire",
-                "model": "MaaWoA-widget.onnx",
-                "threshold": 0.708
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },
@@ -1100,51 +1156,8 @@
             }
         }
     },
-    "__cmatchLoadingPageMenu__": {
-        //操作加载时的全屏遮罩菜单或返回按钮，辅助识别
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "cacheMenuButton",
-                "method": 40,
-                "lower": [
-                    104,
-                    155,
-                    43
-                ],
-                "upper": [
-                    106,
-                    157,
-                    45
-                ],
-                "connected": true,
-                "count": 2100
-            }
-        }
-    },
-    "__cmatchLoadingPageCircle__": {
-        //操作加载时的白色圈，全屏有黑色遮罩，高亮白色仅加载圈count分别为飞机150，尾拖210，辅助识别
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "method": 40,
-                "lower": [
-                    6,
-                    0,
-                    198
-                ],
-                "upper": [
-                    28,
-                    20,
-                    220
-                ],
-                "connected": true,
-                "count": 130
-            }
-        }
-    },
     "__cmatchErrorPageUniversalConfirm__": {
-        //通用的错误页识别点击
+        //通用的错误页识别点击：全屏网络错误与错误卡片
         "recognition": {
             "type": "ColorMatch",
             "param": {

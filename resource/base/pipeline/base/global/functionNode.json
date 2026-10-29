@@ -1,4 +1,44 @@
 {
+    //存放功能型节点，直接加入next列表或其他引用方式
+    "updateAllExtraActionCard": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__updateActionAssignCrew__",
+                    "__cstUpdateStandSelectCard__"
+                ]
+            }
+        }
+    },
+    "detectLoadingPage": {
+        //next列表有其它支链可配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__classifyLoadingPage__"
+                ]
+            }
+        },
+        "pre_delay": 1500,
+        "next": [
+            "detectLoadingPage",
+            "finishNode"
+        ]
+    },
+    "detectLoadingShortOnce": {
+        //快速判断loading一次，回退
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__conditionLoading__",
+                    "__detectLoading__"
+                ]
+            }
+        }
+    },
     "textBinarization": {
         //全局适用，CUSTOM AGENT引用：crewUsedCompare
         //顶栏图标背景色
@@ -42,45 +82,6 @@
                     "back"
                 ],
                 "model": "MaaWoA-widget.onnx"
-            }
-        }
-    },
-    "updateAllExtraActionCard": {
-        "recognition": {
-            "type": "Or",
-            "param": {
-                "any_of": [
-                    "__updateActionAssignCrew__",
-                    "__cstUpdateStandSelectCard__"
-                ]
-            }
-        }
-    },
-    "detectLoadingPage": {
-        //next列表有其它支链可配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
-        "recognition": {
-            "type": "Or",
-            "param": {
-                "any_of": [
-                    "__classifyLoadingPage__"
-                ]
-            }
-        },
-        "pre_delay": 1500,
-        "next": [
-            "detectLoadingPage",
-            "finishNode"
-        ]
-    },
-    "detectLoadingPageShortOnce": {
-        //快速判断loadingpage一次
-        "recognition": {
-            "type": "Or",
-            "param": {
-                "any_of": [
-                    "__classifyLoadingPage__",
-                    "__conditionEntryAirportPageLoading__"
-                ]
             }
         }
     },

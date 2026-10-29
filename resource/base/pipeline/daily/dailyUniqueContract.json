@@ -135,7 +135,7 @@
             -10
         ],
         "next": [
-            "[JumpBack]detectLoadingPageShortOnce",
+            "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ]
     },

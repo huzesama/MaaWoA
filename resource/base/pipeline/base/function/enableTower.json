@@ -24,7 +24,7 @@
             "page2page.FromPage": "function.disappearing.entryAirportPage",
             "page2page.ToPage": "function.appearing.towerPage",
             "page2page.EntryPageNode": "entryTowerControlCard",
-            "page2page.whenError": "finishWithDelay"
+            "page2page.whenError": "entryTowerControlCard"
         },
         "next": [
             "function.process.page2page"
@@ -109,7 +109,7 @@
         "action": "Click",
         "post_wait_freezes": 100,
         "next": [
-            "[JumpBack]detectLoadingPageShortOnce",
+            "[JumpBack]detectLoadingShortOnce",
             "exitTowerPage",
             "finishNode"
         ]

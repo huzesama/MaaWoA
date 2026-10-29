@@ -1,14 +1,15 @@
 {
-    //存放复合识别类型的节点
+    //存放复合识别类型的节点，例如复合Match实现与原子节点中单个神经网络模型节点相似的效果
     //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
     //命名规则: __组合原子节点的功能名称__
-    "__conditionEntryAirportPageLoading__": {
+    //
+    //------------------MATCH·BEGIN------------------
+    "__conditionLoading__": {
         //识别错误率较高的机场页加载
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
-                    "__classifyEntryAirportPage__",
                     "__cmatchLoadingPageMenu__",
                     "__cmatchLoadingPageCircle__"
                 ]
@@ -27,6 +28,7 @@
             }
         }
     },
+    //------------------MATCH·END------------------
     "__conditionAssignCrewPass__": {
         //前置ROI：__cstGetFlight_infoCard__、__cstGetAssignCrewCard__
         "recognition": {

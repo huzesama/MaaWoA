@@ -301,15 +301,25 @@
             }
         },
         "action": "Click",
-        "anchor": {
-            "page2page.FromPage": "function.disappearing.entryAirportPage",
-            "page2page.ToPage": "function.appearing.entryAirportPage",
-            "page2page.EntryPageNode": "detectContractUpgradeCard",
-            "page2page.whenError": "finishWithDelay"
-        },
         "next": [
-            "function.process.page2page"
+            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "detectContractUpgradeCard",
+            "finishWithCapture"
         ]
+    },
+    "waitYellowButton_inFlight_infoDisappearing": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click"
     },
     "clickFlight_infoYellowButtonWithCache": {
         "recognition": {
@@ -340,7 +350,8 @@
             "method": 5
         },
         "next": [
-            "[JumpBack]detectLoadingPageShortOnce",
+            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ],
         "focus": {
@@ -367,7 +378,8 @@
             -10
         ],
         "next": [
-            "[JumpBack]detectLoadingPageShortOnce",
+            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ],
         "focus": {
@@ -403,7 +415,8 @@
             "method": 5
         },
         "next": [
-            "[JumpBack]detectLoadingPageShortOnce",
+            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
             "finishNode"
         ],
         "focus": {
@@ -427,6 +440,10 @@
             5,
             -10,
             -10
+        ],
+        "next": [
+            "[JumpBack]waitYellowButton_inFlight_infoDisappearing",
+            "finishNode"
         ],
         "focus": {
             "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
