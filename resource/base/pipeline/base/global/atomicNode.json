@@ -701,7 +701,7 @@
                     176
                 ],
                 "connected": true,
-                "count": 555,
+                "count": 410,
                 "order_by": "Vertical",
                 "index": -1
             }
@@ -818,7 +818,7 @@
                     251
                 ],
                 "connected": true,
-                "count": 400,
+                "count": 470,
                 "order_by": "Vertical"
             }
         }
@@ -863,7 +863,7 @@
                     255
                 ],
                 "connected": true,
-                "count": 230
+                "count": 160
             }
         }
     },
