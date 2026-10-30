@@ -32,7 +32,8 @@
             "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
             "actionRequireUniversal", //其它通用的actionRequire
             "[JumpBack]updateAllExtraActionCard",
-            "finishNode"
+            "handlingContractUpgradeCard",
+            "finishWithDelay"
         ]
     },
     "actionRequireAssignCrew": {
@@ -285,7 +286,7 @@
             }
         },
         "next": [
-            "upgradeContract",
+            "actionRequireUpgradeContract",
             "clickFlight_infoYellowButtonWithFallbackNoLoading",
             "finishNode"
         ],
@@ -293,7 +294,7 @@
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireUniversal.focus.Node.Recognition.Succeeded"
         }
     },
-    "upgradeContract": {
+    "actionRequireUpgradeContract": {
         "recognition": {
             "type": "And",
             "param": {
@@ -311,7 +312,7 @@
             "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
             "[JumpBack]detectLoadingShortOnce",
             "[JumpBack]Flight_infoNotCovered",
-            "detectContractUpgradeCard",
+            "handlingContractUpgradeCard",
             "finishWithCapture"
         ]
     },
@@ -464,7 +465,7 @@
             "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
-    "detectContractUpgradeCard": {
+    "handlingContractUpgradeCard": {
         //檢測是否是延續升級合同的卡片
         "recognition": {
             "type": "And",
@@ -488,7 +489,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded"
         }
     },
     "waitContractUpgradeCardDisappear": {
@@ -520,7 +521,8 @@
             "actionRequireStandSelect",
             "actionRequireBribeFlight",
             "actionRequireUniversal",
-            "finishNode"
+            "handlingContractUpgradeCard",
+            "finishWithDelay"
         ]
     }
 }

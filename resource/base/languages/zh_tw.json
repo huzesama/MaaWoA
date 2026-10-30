@@ -73,7 +73,7 @@
     "pipeline.HandlingRequireAction.actionRequireUniversal.focus.Node.Recognition.Succeeded": "目前處理。類型：🖼️ 航班卡片通用處理事件",
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed": "ℹ️本輪處理未辨識到航班卡片上的可用按鈕，等待進入下一輪處理。",
     "pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded": "✅本輪處理完成，等待進入下一輪處理。",
-    "pipeline.HandlingRequireAction.detectContractUpgradeCard.focus.Node.Recognition.Succeeded": "📈可用的合約升級（或延續） -> 升級（或延續）合約",
+    "pipeline.HandlingRequireAction.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded": "📈可用的合約升級（或延續） -> 升級（或延續）合約",
     "pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded": "📡塔台處於關閉或即將關閉狀態、且航班事件數量不為 0，符合使用（延續）塔台條件",
     "pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded": "📡塔台延續完成"
 }
