@@ -19,3 +19,7 @@
 ## ⚖️ 授权
 
 - 本软件的使用需遵守 [GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)
+
+## ☕ 请我们喝咖啡
+
+如果 MaaWoA 帮你省下了不少时间，不妨[请开发者喝杯咖啡](https://ifdian.net/a/venmzvi)？你的支持是我们持续更新的最大动力！💖

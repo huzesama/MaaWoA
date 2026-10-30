@@ -19,3 +19,7 @@ If you purchased this program by paying, please request a refund immediately and
 ## ⚖️ License
 
 - This software is under [GNU Affero General Public License v3.0 (AGPL-3.0)](https://github.com/huzesama/MaaWoA/blob/main/LICENSE)
+
+## ☕ Buy Us a Coffee
+
+If MaaWoA has saved you a lot of time, why not [buy the developer a coffee](https://ifdian.net/a/venmzvi)? Your support is our greatest motivation to keep updating! 💖
