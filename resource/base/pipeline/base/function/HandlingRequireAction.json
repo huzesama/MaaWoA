@@ -36,6 +36,7 @@
         ]
     },
     "actionRequireAssignCrew": {
+        //recognition由ONNX选项覆写
         //指派地勤節點鏈,檢測AssignCrew面板
         "recognition": {
             //同时匹配滑块与开关
@@ -62,6 +63,7 @@
                     -4
                 ],
                 "end": "actionRequiringSelect", //选择的flight Card action requiring位置
+                "end_hold": 50,
                 "duration": 200
             }
         },
@@ -74,6 +76,7 @@
         }
     },
     "ClickRampAgentSwitch": {
+        //recognition由ONNX选项覆写
         //指派地勤節點鏈,尋找並打開Ramp Agent
         "recognition": {
             "type": "Or",

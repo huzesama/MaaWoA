@@ -5,7 +5,7 @@
             "type": "Or",
             "param": {
                 "any_of": [
-                    "__updateActionAssignCrew__",
+                    "__updateActionAssignCrewCardAndWidget__",
                     "__cstUpdateStandSelectCard__"
                 ]
             }

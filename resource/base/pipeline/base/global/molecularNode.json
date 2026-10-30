@@ -53,7 +53,7 @@
             }
         }
     },
-    "__updateActionAssignCrew__": {
+    "__updateActionAssignCrewCardAndWidget__": {
         //更新分配地勤卡片的ROI缓存
         "recognition": {
             "type": "And",
@@ -67,6 +67,7 @@
     },
     "__findFlight_infoActionRequireWithCache__": {
         //通过缓存寻找航班详情的请求事件
+        //无前置ROI
         "recognition": {
             "type": "And",
             "param": {
@@ -80,6 +81,7 @@
     },
     "__findFlight_infoActionRequireWithDetect__": {
         //通过刷新缓存寻找航班详情的请求事件
+        //无前置ROI
         "recognition": {
             "type": "And",
             "param": {
@@ -92,6 +94,8 @@
         }
     },
     "__conditionFlight_infoActionRequire__": {
+        //组合识别寻找航班详情的请求事件
+        //无前置ROI
         "recognition": {
             "type": "Or",
             "param": {

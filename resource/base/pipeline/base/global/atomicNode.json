@@ -823,6 +823,15 @@
             }
         }
     },
+    "__detectSlideBlock__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "slideBlock",
+                "model": "MaaWoA-widget.onnx"
+            }
+        }
+    },
     "__cmatchAssignCrewCardRampAgentSwitchBackground__": {
         "recognition": {
             //寻找开关特征1
@@ -864,6 +873,15 @@
                 ],
                 "connected": true,
                 "count": 160
+            }
+        }
+    },
+    "__detectSwitchOff__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "slideBlock",
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },
@@ -949,6 +967,15 @@
                 "connected": true,
                 "count": 700,
                 "order_by": "Horizontal"
+            }
+        }
+    },
+    "__detectStandSelectOption__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "standAvailable",
+                "model": "MaaWoA-widget.onnx"
             }
         }
     },

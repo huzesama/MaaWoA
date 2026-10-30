@@ -7,6 +7,7 @@
             "description": "$pi.task.option.ONNX.description",
             "cases": [
                 {
+                    //自动回退为直接对pipeline改动无需pipeline_override
                     "name": "default",
                     "label": "$pi.task.option.ONNX.default.name",
                     "description": "$pi.task.option.ONNX.default.description"
@@ -17,7 +18,7 @@
                     "description": "$pi.task.option.ONNX.reduceONNX.description",
                     "pipeline_override": {
                         "actionRequiringSelect": {
-                            //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+                            //REDUCE ONNX OPTION
                             "recognition": {
                                 "type": "And",
                                 "param": {
@@ -30,7 +31,7 @@
                             }
                         },
                         "actionRequiringSelectDeparture": {
-                            //选择departure//recognition由ONNX选项覆写
+                            //REDUCE ONNX OPTION
                             "recognition": {
                                 "type": "Or",
                                 "param": {
@@ -41,7 +42,7 @@
                             }
                         },
                         "dailyUniqueContract.detectMenuButton": {
-                            //检测菜单按钮并点击//recognition由ONNX选项覆写
+                            //REDUCE ONNX OPTION
                             "recognition": {
                                 "type": "ColorMatch",
                                 "param": {
@@ -64,13 +65,14 @@
                         }
                     }
                 },
+                //----------------------------------ONNX----------------------------------
                 {
                     "name": "preferONNX",
                     "label": "$pi.task.option.ONNX.preferONNX.name",
                     "description": "$pi.task.option.ONNX.preferONNX.description",
                     "pipeline_override": {
                         "actionRequiringSelect": {
-                            //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+                            //PREFER ONNX OPTION
                             "recognition": {
                                 "type": "And",
                                 "param": {
@@ -82,8 +84,45 @@
                                 }
                             }
                         },
+                        "actionRequireAssignCrew": {
+                            //PREFER ONNX OPTION
+                            "recognition": {
+                                "type": "And",
+                                "param": {
+                                    "all_of": [
+                                        "__cstUpdateAssignCrewCard__",
+                                        "__detectSlideBlock__"
+                                    ],
+                                    "box_index": 1
+                                }
+                            }
+                        },
+                        "ClickRampAgentSwitch": {
+                            //PREFER ONNX OPTION
+                            "recognition": {
+                                "type": "Or",
+                                "param": {
+                                    "any_of": [
+                                        "__detectSwitchOff__"
+                                    ]
+                                }
+                            }
+                        },
+                        "actionRequireStandSelect": {
+                            //PREFER ONNX OPTION
+                            "recognition": {
+                                "type": "And",
+                                "param": {
+                                    "all_of": [
+                                        "__cstUpdateStandSelectCard__",
+                                        "__detectStandSelectOption__"
+                                    ],
+                                    "box_index": 1
+                                }
+                            }
+                        },
                         "actionRequiringSelectDeparture": {
-                            //选择departure//recognition由ONNX选项覆写
+                            //PREFER ONNX OPTION
                             "recognition": {
                                 "type": "Or",
                                 "param": {
@@ -94,7 +133,7 @@
                             }
                         },
                         "dailyUniqueContract.detectMenuButton": {
-                            //检测菜单按钮并点击//recognition由ONNX选项覆写
+                            //PREFER ONNX OPTION
                             "recognition": {
                                 "type": "NeuralNetworkDetect",
                                 "param": {
