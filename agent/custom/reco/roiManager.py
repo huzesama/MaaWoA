@@ -1,10 +1,9 @@
-import json
-
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.define import RectType
 from utils import logger
+from utils.params import parse_params
 
 
 @AgentServer.custom_recognition("roiManager")
@@ -18,9 +17,10 @@ class RoiManager(CustomRecognition):
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
         try:
-            params = json.loads(argv.custom_recognition_param or "{}")
-        except json.JSONDecodeError:
-            params = {}
+            params = parse_params(argv.custom_recognition_param, "roi_name", "model", "expected")
+        except ValueError as error:
+            logger.error("roiManager: {}", error)
+            return CustomRecognition.AnalyzeResult(box=None, detail={"error": str(error)})
 
         roi_name: str = params["roi_name"]
         if not roi_name:
