@@ -1,9 +1,8 @@
-import json
-
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from utils import logger
+from utils.params import parse_params
 
 # 模块级变量
 _last_ocr_crew_used: str = "???/???"
@@ -20,10 +19,9 @@ class crewUsedCompare(CustomRecognition):
         global _last_ocr_crew_used, _skip_compare
 
         try:
-            param = json.loads(argv.custom_recognition_param) if argv.custom_recognition_param else {}
-        except json.JSONDecodeError:
-            param = {}
-        if not isinstance(param, dict):
+            param = parse_params(argv.custom_recognition_param)
+        except ValueError as error:
+            logger.error("crewUsedCompare: {}", error)
             param = {}
         update_cache = param.get("update_cache", True)
         _return_box_ = (0, 0, 0, 0)

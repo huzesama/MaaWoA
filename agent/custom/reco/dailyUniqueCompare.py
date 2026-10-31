@@ -1,9 +1,8 @@
-import json
-
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from utils import logger
+from utils.params import parse_params
 
 _daily_handling_count: int = 0
 
@@ -20,8 +19,9 @@ class dailyUniqueCompare(CustomRecognition):
         if _daily_handling_count <= 0:
             # 1. 解析参数 threshold
             try:
-                param = json.loads(argv.custom_recognition_param or "{}")
-            except json.JSONDecodeError:
+                param = parse_params(argv.custom_recognition_param)
+            except ValueError as error:
+                logger.error("dailyUniqueCompare: {}", error)
                 param = {}
 
             threshold = param.get("threshold", 0)

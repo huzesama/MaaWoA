@@ -20,7 +20,7 @@
         },
         "inverse": true,
         "action": "Custom",
-        "custom_action": "swipe_inBoxByVector",
+        "custom_action": "swipe_by_vector",
         "custom_action_param": {
             "node_name": "detectAitportList",
             "vector": [
