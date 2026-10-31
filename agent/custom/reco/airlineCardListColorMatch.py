@@ -1,11 +1,9 @@
-import json
-from typing import Any
-
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.pipeline import JColorMatch, JNeuralNetworkDetect, JRecognitionType
 from utils import logger
+from utils.params import parse_params
 
 
 @AgentServer.custom_recognition("airlineCardListColorMatch")
@@ -19,7 +17,11 @@ class airlineCardListColorMatch(CustomRecognition):
         context: Context,
         argv: CustomRecognition.AnalyzeArg,
     ) -> CustomRecognition.AnalyzeResult:
-        param: dict[str, Any] = json.loads(argv.custom_recognition_param or "{}")
+        try:
+            param = parse_params(argv.custom_recognition_param)
+        except ValueError as error:
+            logger.error("airlineCardListColorMatch: {}", error)
+            param = {}
 
         # 1. 若已缓存则直接复用，避免重复跑神经网络检测
         if self._cached_rect is None:

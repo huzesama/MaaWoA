@@ -2,7 +2,7 @@ from importlib import import_module
 
 ACTION_MODULES = (
     "general",
-    "swipe_inBoxByVector",
+    "swipe_by_vector",
 )
 
 

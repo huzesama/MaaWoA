@@ -446,21 +446,6 @@
             }
         }
     },
-    "__cstGetAirportSelectList__": {
-        "max_hit": 1,
-        //缓存机场选择列表
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__AirportSelectList__",
-                    "model": "MaaWoA-card.onnx",
-                    "expected": "airportList"
-                }
-            }
-        }
-    },
     "__cstGetDocker__": {
         //缓存Docker
         "recognition": {
@@ -1171,6 +1156,61 @@
     },
     //------------------Tower·END------------------
     //------------------OTHER·BEGIN------------------
+    "__cmatchAirportCard__": {
+        //match机场卡片
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    93,
+                    107,
+                    40
+                ],
+                "upper": [
+                    115,
+                    161,
+                    70
+                ],
+                "connected": true,
+                "count": 14400,
+                "order_by": "Area",
+                "index": 2
+            }
+        }
+    },
+    "__cstGetAirportSelectList__": {
+        //延伸机场卡片输出整个选择列表
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "extend2boundary",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchAirportCard__",
+                    "horizontal": false,
+                    "use_latest": true
+                }
+            }
+        }
+    },
+    "__cstScaleAirportSelectList__": {
+        //收窄列表
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cstGetAirportSelectList__",
+                    "offset": [
+                        0,
+                        0,
+                        "-w*0.4",
+                        0
+                    ]
+                }
+            }
+        }
+    },
     "__cstCompareCrewUsed__": {
         //对比crew used，不相等时未命中
         "recognition": {
@@ -1200,7 +1240,7 @@
                     255
                 ],
                 "connected": true,
-                "count": 600
+                "count": 400
             }
         }
     }

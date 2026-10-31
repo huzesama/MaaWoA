@@ -1,9 +1,10 @@
-import json
 import random
 
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_action import CustomAction
+from utils import logger
+from utils.params import parse_params
 
 
 def resolve_vector_component(value: int | str, length: int) -> int:
@@ -16,8 +17,8 @@ def resolve_vector_component(value: int | str, length: int) -> int:
     return int(value)
 
 
-@AgentServer.custom_action("swipe_inBoxByVector")
-class swipe_inBoxByVector(CustomAction):
+@AgentServer.custom_action("swipe_by_vector")
+class swipe_by_vector(CustomAction):
     # 自定义动作：根据指定节点命中的 box 坐标为起点（或 box 内随机一点），
     # 按传入的向量 (dx, dy) 进行滑动。向量支持固定像素或百分比（相对 box 宽高）。
 
@@ -28,8 +29,9 @@ class swipe_inBoxByVector(CustomAction):
     ) -> bool:
         # 解析 pipeline 里传入的 custom_action_params（JSON 字符串）
         try:
-            params = json.loads(argv.custom_action_param or "{}")
-        except json.JSONDecodeError:
+            params = parse_params(argv.custom_action_param)
+        except ValueError as error:
+            logger.error("swipe_by_vector: {}", error)
             params = {}
 
         # 要取哪个节点命中的 box；不传则使用当前动作节点自身的识别结果
