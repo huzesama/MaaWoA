@@ -52,12 +52,12 @@ from utils import logger
 
 `logger` 是一个**已经初始化好的** loguru logger（没装 loguru 时自动回退到标准 logging）。
 
-| 项 | 值 |
-|---|---|
+| 项         | 值                                                    |
+| ---------- | ----------------------------------------------------- |
 | 控制台等级 | `INFO`（可用 `change_console_level("DEBUG")` 动态改） |
-| 文件 sink | `debug/custom/YYYY-MM-DD.log`，**固定 DEBUG 级** |
-| 文件保留 | 2 周，每晚 00:00 轮转，自动 zip 压缩 |
-| 占位符风格 | **`{}`**（loguru 风格），不是 f-string、不是 `%s` |
+| 文件 sink  | `debug/custom/YYYY-MM-DD.log`，**固定 DEBUG 级**      |
+| 文件保留   | 2 周，每晚 00:00 轮转，自动 zip 压缩                  |
+| 占位符风格 | **`{}`**（loguru 风格），不是 f-string、不是 `%s`     |
 
 ```python
 logger.info("cache {} at {} override: {}", roi_name, box, override)   # ✅
@@ -67,11 +67,11 @@ logger.info("cache %s", roi_name)                                      # ❌ 不
 
 **客户端差异会被自动处理**，你不需要关心：
 
-| 客户端 | 控制台渲染 |
-|---|---|
-| MFAAvalonia | 每行自动加 `info:` / `err:` 前缀（它逐行解析，无前缀的行会被丢弃） |
-| MXU | 每行包成 `<span style="color:...">`，HTML 转义后只还原 `<font color="#RRGGBB">` 白名单标记 |
-| 其它 | ANSI 颜色 |
+| 客户端      | 控制台渲染                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------ |
+| MFAAvalonia | 每行自动加 `info:` / `err:` 前缀（它逐行解析，无前缀的行会被丢弃）                         |
+| MXU         | 每行包成 `<span style="color:...">`，HTML 转义后只还原 `<font color="#RRGGBB">` 白名单标记 |
+| 其它        | ANSI 颜色                                                                                  |
 
 **多行日志**（`\n`）会被逐行处理，不用手动拆。
 
@@ -97,24 +97,24 @@ except ValueError as error:
 roi_name = params["roi_name"]
 ```
 
-| 输入 | 行为 |
-|---|---|
+| 输入                            | 行为                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------ |
 | `None` / `""` / 字符串 `"null"` | 返回 `{}`（MaaFW 在节点省略 `custom_*_param` 时传的就是字面量 `"null"`） |
-| 非法 JSON | 抛 `ValueError` |
-| 不是对象 | 抛 `ValueError` |
-| 缺 `required_keys` | 抛 `ValueError` |
+| 非法 JSON                       | 抛 `ValueError`                                                          |
+| 不是对象                        | 抛 `ValueError`                                                          |
+| 缺 `required_keys`              | 抛 `ValueError`                                                          |
 
 #### `coerce_like(value, default, key) -> Any`
 
 把 JSON 反序列化出来的值**收敛成默认值的形状**，用于参数覆盖。
 
-| `default` 类型 | 接受的 `value` | 说明 |
-|---|---|---|
+| `default` 类型   | 接受的 `value`                             | 说明                                       |
+| ---------------- | ------------------------------------------ | ------------------------------------------ |
 | `tuple` / `list` | list / tuple，长度必须一致、元素必须是数字 | 返回和 default 相同类型（ROI 必须是 4 个） |
-| `bool` | 只接受 `bool` | 先于 int 判断（`bool` 是 `int` 子类） |
-| `int` / `float` | 数字（排除 bool） | 转成对应类型 |
-| `str` | 只接受 `str` | |
-| 其它 | 要求类型完全一致 | |
+| `bool`           | 只接受 `bool`                              | 先于 int 判断（`bool` 是 `int` 子类）      |
+| `int` / `float`  | 数字（排除 bool）                          | 转成对应类型                               |
+| `str`            | 只接受 `str`                               |                                            |
+| 其它             | 要求类型完全一致                           |                                            |
 
 形状或类型不符时抛 `ValueError`。
 
@@ -155,21 +155,21 @@ class MyReco(ParamOverrideMixin, CustomRecognition):
 
 MaaFW 的 `RecognitionDetail` 字段都是可选的，裸用要写一堆 `if detail and detail.hit and detail.box`。本模块用 `TypeGuard` 把这些检查收窄。
 
-| 函数 | 返回 | 说明 |
-|---|---|---|
-| `is_hit(detail)` | `TypeGuard` | 有 hit 且有 box 时 True（收窄成 `HitRecognitionDetail`） |
-| `require_hit(detail)` | `HitRecognitionDetail` | 不满足时抛 `ValueError` |
-| `best_result_as(detail, T)` | `T` 或 `None` | 最佳结果且类型匹配 |
-| `results_as(detail, T)` | `list[T]` | `filtered_results` 里类型匹配的 |
-| `all_results_as(detail, T)` | `list[T]` | `all_results` 里类型匹配的 |
-| `ocr_result(detail)` | `OCRResult` 或 `None` | `best_result_as(detail, OCRResult)` |
-| `require_ocr_result(detail)` | `OCRResult` | 没有 OCR 结果时抛 `ValueError` |
-| `ocr_text(detail, default="")` | `str` | 最佳 OCR 的文本 |
-| `ocr_results(detail)` | `list[OCRResult]` | 全部 OCR 结果 |
-| `recognition_results(detail)` | `list[RecognitionResult]` | 命中时的 `filtered_results` |
-| `has_box_result(result)` | `TypeGuard` | 是否带 box |
-| `boxed_results(detail)` | `list[BoxedRecognitionResult]` | 过滤出带 box 的结果 |
-| `best_box(detail)` | `Rect` 或 `None` | 最佳结果的 box |
+| 函数                           | 返回                           | 说明                                                     |
+| ------------------------------ | ------------------------------ | -------------------------------------------------------- |
+| `is_hit(detail)`               | `TypeGuard`                    | 有 hit 且有 box 时 True（收窄成 `HitRecognitionDetail`） |
+| `require_hit(detail)`          | `HitRecognitionDetail`         | 不满足时抛 `ValueError`                                  |
+| `best_result_as(detail, T)`    | `T` 或 `None`                  | 最佳结果且类型匹配                                       |
+| `results_as(detail, T)`        | `list[T]`                      | `filtered_results` 里类型匹配的                          |
+| `all_results_as(detail, T)`    | `list[T]`                      | `all_results` 里类型匹配的                               |
+| `ocr_result(detail)`           | `OCRResult` 或 `None`          | `best_result_as(detail, OCRResult)`                      |
+| `require_ocr_result(detail)`   | `OCRResult`                    | 没有 OCR 结果时抛 `ValueError`                           |
+| `ocr_text(detail, default="")` | `str`                          | 最佳 OCR 的文本                                          |
+| `ocr_results(detail)`          | `list[OCRResult]`              | 全部 OCR 结果                                            |
+| `recognition_results(detail)`  | `list[RecognitionResult]`      | 命中时的 `filtered_results`                              |
+| `has_box_result(result)`       | `TypeGuard`                    | 是否带 box                                               |
+| `boxed_results(detail)`        | `list[BoxedRecognitionResult]` | 过滤出带 box 的结果                                      |
+| `best_box(detail)`             | `Rect` 或 `None`               | 最佳结果的 box                                           |
 
 ```python
 from utils.maa_types import is_hit, ocr_text
@@ -187,20 +187,20 @@ box = detail.box            # 已被收窄，类型检查器知道它非 None
 
 读取客户端注入的 `PI_*` 环境变量。**懒初始化**：第一次访问时才读，之后缓存；`init(force=True)` 可强制重读。
 
-| 函数 | 返回 | 对应环境变量 |
-|---|---|---|
-| `interface_version()` | `str` | `PI_INTERFACE_VERSION` |
-| `client_name()` | `str` | `PI_CLIENT_NAME` |
-| `client_version()` | `str` | `PI_CLIENT_VERSION` |
-| `client_language()` | `str` | `PI_CLIENT_LANGUAGE` |
-| `client_maafw_version()` | `str` | `PI_CLIENT_MAAFW_VERSION` |
-| `project_version()` | `str` | `PI_VERSION` |
-| `controller()` | `Controller` 或 `None` | `PI_CONTROLLER`（JSON） |
-| `resource()` | `Resource` 或 `None` | `PI_RESOURCE`（JSON） |
-| `controller_type()` | `str` | 如 `"Adb"` / `"Win32"` |
-| `controller_name()` | `str` | |
-| `resource_name()` / `resource_label()` | `str` | |
-| `resource_paths()` | `list[str]` | 当前资源的 path 列表 |
+| 函数                                   | 返回                   | 对应环境变量              |
+| -------------------------------------- | ---------------------- | ------------------------- |
+| `interface_version()`                  | `str`                  | `PI_INTERFACE_VERSION`    |
+| `client_name()`                        | `str`                  | `PI_CLIENT_NAME`          |
+| `client_version()`                     | `str`                  | `PI_CLIENT_VERSION`       |
+| `client_language()`                    | `str`                  | `PI_CLIENT_LANGUAGE`      |
+| `client_maafw_version()`               | `str`                  | `PI_CLIENT_MAAFW_VERSION` |
+| `project_version()`                    | `str`                  | `PI_VERSION`              |
+| `controller()`                         | `Controller` 或 `None` | `PI_CONTROLLER`（JSON）   |
+| `resource()`                           | `Resource` 或 `None`   | `PI_RESOURCE`（JSON）     |
+| `controller_type()`                    | `str`                  | 如 `"Adb"` / `"Win32"`    |
+| `controller_name()`                    | `str`                  |                           |
+| `resource_name()` / `resource_label()` | `str`                  |                           |
+| `resource_paths()`                     | `list[str]`            | 当前资源的 path 列表      |
 
 `Controller` / `Resource` 是冻结 dataclass，结构对应 interface.json 的 `controller[]` / `resource[]`。
 
@@ -244,44 +244,40 @@ paths.interface_file # <project_root>/interface.json
 
 三个注册表，**模块名必须登记，否则不会加载**：
 
-| 目录 | 注册表文件 | 装饰器 |
-|---|---|---|
-| `custom/reco/` | `custom/reco/__init__.py` → `RECO_MODULES` | `@AgentServer.custom_recognition("名字")` |
-| `custom/action/` | `custom/action/__init__.py` → `ACTION_MODULES` | `@AgentServer.custom_action("名字")` |
-| `custom/sink/` | `custom/sink/__init__.py` → `SINK_MODULES`（当前为空） | sink 装饰器 |
+| 目录             | 注册表文件                                             | 装饰器                                    |
+| ---------------- | ------------------------------------------------------ | ----------------------------------------- |
+| `custom/reco/`   | `custom/reco/__init__.py` → `RECO_MODULES`             | `@AgentServer.custom_recognition("名字")` |
+| `custom/action/` | `custom/action/__init__.py` → `ACTION_MODULES`         | `@AgentServer.custom_action("名字")`      |
+| `custom/sink/`   | `custom/sink/__init__.py` → `SINK_MODULES`（当前为空） | sink 装饰器                               |
 
 ```python
 # custom/reco/__init__.py
 RECO_MODULES = (
     "general",
-    "airlineCardListColorMatch",
-    "crewUsedCompare",
-    "dailyUniqueCompare",
-    "freezeCheck",
-    "roiManager",
-    "myNewReco",        # ← 新增文件后必须加进来
+    ...
+    "NewReco",        # ← 新增文件后必须加进来
 )
 ```
 
 ### 4.2 命名规范
 
-| 对象 | 规范 | 例 |
-|---|---|---|
-| 文件名 | `snake_case.py` | `crewUsedCompare.py` |
-| 类名 | `PascalCase` | `CrewUsedCompare` |
-| 注册名 | 与文件名一致（推荐） | `"crewUsedCompare"` |
+| 对象   | 规范                 | 例                   |
+| ------ | -------------------- | -------------------- |
+| 文件名 | `snake_case.py`      | `crewUsedCompare.py` |
+| 类名   | `PascalCase`         | `CrewUsedCompare`    |
+| 注册名 | 与文件名一致（推荐） | `"crewUsedCompare"`  |
 
 现有代码里两种注册名风格都存在（`"roiManager"` 与 `"ExampleRecognition"`），**建议统一成与文件名一致**，方便从 pipeline 反查文件。
 
 ### 4.3 回调规范（重要）
 
-| 规则 | 原因 |
-|---|---|
-| **不要抛异常** | 异常会打断整条流水线；统一 `return None`（识别）/ `RunResult(success=False)`（动作） |
-| **参数解析必须 try/except `ValueError`** | `parse_params` 会抛 |
-| **日志用 `{}` 占位** | loguru 风格 |
-| **失败要打日志** | `logger.error("节点名: 原因")`，否则排查时完全没有线索 |
-| **返回 box 用 `RectType`** | `CustomRecognition.AnalyzeResult(box=(x, y, w, h))` |
+| 规则                                     | 原因                                                                                 |
+| ---------------------------------------- | ------------------------------------------------------------------------------------ |
+| **不要抛异常**                           | 异常会打断整条流水线；统一 `return None`（识别）/ `RunResult(success=False)`（动作） |
+| **参数解析必须 try/except `ValueError`** | `parse_params` 会抛                                                                  |
+| **日志用 `{}` 占位**                     | loguru 风格                                                                          |
+| **失败要打日志**                         | `logger.error("节点名: 原因")`，否则排查时完全没有线索                               |
+| **返回 box 用 `RectType`**               | `CustomRecognition.AnalyzeResult(box=(x, y, w, h))`                                  |
 
 标准骨架：
 
@@ -312,19 +308,19 @@ class MyReco(CustomRecognition):
 
 ### 4.4 `general.py` 的定位
 
-| 文件 | 内容 | 建议 |
-|---|---|---|
-| `custom/reco/general.py` | 只有一个 `ExampleRecognition` **模板** | 当前未在 pipeline 使用；可作为写法参考，不需要可删（记得同步删 `RECO_MODULES` 里的 `"general"`） |
-| `custom/action/general.py` | **4 个通用工具动作** | **建议保留** —— 见下表 |
+| 文件                       | 内容                                   | 建议                                                                                             |
+| -------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `custom/reco/general.py`   | 只有一个 `ExampleRecognition` **模板** | 当前未在 pipeline 使用；可作为写法参考，不需要可删（记得同步删 `RECO_MODULES` 里的 `"general"`） |
+| `custom/action/general.py` | **4 个通用工具动作**                   | **建议保留** —— 见下表                                                                           |
 
 `custom/action/general.py` 的内置动作：
 
-| 注册名 | 作用 | `custom_action_param` |
-|---|---|---|
-| `DisableNode` | 运行时禁用一个节点 | `{"node_name": "NodeName"}` |
-| `NodeOverride` | 把整个 override 对象透传给 `context.override_pipeline()` | `{"NodeName": {"enabled": false}}` |
-| `ResetCount` | 清空一个或多个节点的命中计数 | `{"nodes": ["A","B"], "strict": false}` |
-| `SubTask` | 从动作节点里按顺序跑子任务 | `{"sub": ["TaskA","TaskB"], "continue": false, "strict": true}` |
+| 注册名         | 作用                                                     | `custom_action_param`                                           |
+| -------------- | -------------------------------------------------------- | --------------------------------------------------------------- |
+| `DisableNode`  | 运行时禁用一个节点                                       | `{"node_name": "NodeName"}`                                     |
+| `NodeOverride` | 把整个 override 对象透传给 `context.override_pipeline()` | `{"NodeName": {"enabled": false}}`                              |
+| `ResetCount`   | 清空一个或多个节点的命中计数                             | `{"nodes": ["A","B"], "strict": false}`                         |
+| `SubTask`      | 从动作节点里按顺序跑子任务                               | `{"sub": ["TaskA","TaskB"], "continue": false, "strict": true}` |
 
 这些都是**通用工具**，虽然当前 pipeline 没有引用，但随时可以在 JSON 里用：
 
@@ -370,16 +366,16 @@ node tools/validate-schema.mjs
 
 ## 六、常见陷阱
 
-| 陷阱 | 说明 |
-|---|---|
-| 忘了登记 `RECO_MODULES` | 文件写了但 MaaFW 找不到该识别名，pipeline 直接不命中，**没有任何报错** |
-| 在 `import maa` 之后再设 `MAAFW_BINARY_PATH` | 无效，库目录已定死 |
-| 用 f-string 打日志 | loguru 下能跑，但丢失结构化字段；统一 `{}` |
-| 省略 `custom_*_param` 后直接 `json.loads` | MaaFW 传的是字面量 `"null"`，`json.loads("null")` 返回 `None`，后续取键会 `TypeError`。用 `parse_params` |
-| 在回调里抛异常 | 打断流水线；请 `return None` / `success=False` |
-| 以为 `debug(...)` 会出现在 GUI | 不会。控制台是 INFO 级，`debug` 只进 `debug/custom/*.log` |
-| `pienv` 拿不到值 | 环境变量是客户端注入的；从 IDE 直接跑 `main.py` 时不存在，判空即可 |
-| `configure_runtime_paths` 被重复调用 | 会覆盖全局路径；除了启动阶段，业务代码不要调 |
+| 陷阱                                         | 说明                                                                                                     |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| 忘了登记 `RECO_MODULES`                      | 文件写了但 MaaFW 找不到该识别名，pipeline 直接不命中，**没有任何报错**                                   |
+| 在 `import maa` 之后再设 `MAAFW_BINARY_PATH` | 无效，库目录已定死                                                                                       |
+| 用 f-string 打日志                           | loguru 下能跑，但丢失结构化字段；统一 `{}`                                                               |
+| 省略 `custom_*_param` 后直接 `json.loads`    | MaaFW 传的是字面量 `"null"`，`json.loads("null")` 返回 `None`，后续取键会 `TypeError`。用 `parse_params` |
+| 在回调里抛异常                               | 打断流水线；请 `return None` / `success=False`                                                           |
+| 以为 `debug(...)` 会出现在 GUI               | 不会。控制台是 INFO 级，`debug` 只进 `debug/custom/*.log`                                                |
+| `pienv` 拿不到值                             | 环境变量是客户端注入的；从 IDE 直接跑 `main.py` 时不存在，判空即可                                       |
+| `configure_runtime_paths` 被重复调用         | 会覆盖全局路径；除了启动阶段，业务代码不要调                                                             |
 
 ---
 
