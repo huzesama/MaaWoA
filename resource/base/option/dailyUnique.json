@@ -13,6 +13,7 @@
                         "detectEntryAirportPage": {
                             //从筛选器准备改为点击合同管理
                             "next": [
+                                "[JumpBack]detectLoadingShortOnce",
                                 "dailyUniqueContract.detectDockerContractNotice",
                                 "dailyUniqueContract.detectEntryAirportPage",
                                 "finishNode"
@@ -39,6 +40,7 @@
                         "detectEntryAirportPage": {
                             //从筛选器准备改为点击合同管理，检测特殊入港合同数量阈值
                             "next": [
+                                "[JumpBack]detectLoadingShortOnce",
                                 "dailyUniqueContract.detectDockerContractNotice",
                                 "[JumpBack]detectFilter",
                                 "dailyUniqueContract.entryHandleUnique",

@@ -21,7 +21,7 @@
                 ]
             }
         },
-        "pre_delay": 1500,
+        "pre_delay": 3000,
         "next": [
             "detectLoadingPage",
             "finishNode"
