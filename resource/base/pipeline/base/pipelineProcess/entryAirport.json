@@ -132,11 +132,14 @@
     "detectAitportList": {
         //检测机场选择列表
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [
-                    "__cstGetAirportSelectList__"
-                ]
+                "all_of": [
+                    "__cmatchAirportCard__",
+                    "__cstGetAirportSelectList__",
+                    "__cstScaleAirportSelectList__"
+                ],
+                "box_index": 2
             }
         },
         "next": [
