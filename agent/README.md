@@ -60,9 +60,9 @@ from utils import logger
 | 占位符风格 | **`{}`**（loguru 风格），不是 f-string、不是 `%s`     |
 
 ```python
-logger.info("cache {} at {} override: {}", roi_name, box, override)   # ✅
-logger.info(f"cache {roi_name}")                                       # ❌ 不要用 f-string
-logger.info("cache %s", roi_name)                                      # ❌ 不要用 % 风格
+logger.info("cache {} at {} override: {}", roi_name, box, override)  # ✅
+logger.info(f"cache {roi_name}")  # ❌ 不要用 f-string
+logger.info("cache %s", roi_name)  # ❌ 不要用 % 风格
 ```
 
 **客户端差异会被自动处理**，你不需要关心：
@@ -125,17 +125,18 @@ roi_name = params["roi_name"]
 ```python
 from utils.params import ParamOverrideMixin, parse_params
 
+
 class MyReco(ParamOverrideMixin, CustomRecognition):
-    SAT_MIN = 100               # 类常量 = 默认值
+    SAT_MIN = 100  # 类常量 = 默认值
     SAT_MAX = 255
-    OVERRIDABLE = frozenset()   # 允许被覆盖的常量名（大写）
+    OVERRIDABLE = frozenset()  # 允许被覆盖的常量名（大写）
 
     def __init__(self) -> None:
         self.OVERRIDABLE = frozenset({"SAT_MIN", "SAT_MAX"})
 
     def analyze(self, context, argv):
         params = parse_params(argv.custom_recognition_param)
-        self.apply_param_overrides(params)   # 每次进入先清空旧覆盖，再套新参数
+        self.apply_param_overrides(params)  # 每次进入先清空旧覆盖，再套新参数
 ```
 
 规则：
@@ -178,7 +179,7 @@ detail = context.run_recognition("__crewUsedCompareOCR__", image, pipeline_overr
 if not is_hit(detail):
     return None
 text = ocr_text(detail, "?/?")
-box = detail.box            # 已被收窄，类型检查器知道它非 None
+box = detail.box  # 已被收窄，类型检查器知道它非 None
 ```
 
 ---
@@ -223,13 +224,13 @@ JSON 解析失败只打 warning 并返回 `None`，不会抛异常 —— 所以
 from utils.runtime_paths import get_runtime_paths
 
 paths = get_runtime_paths()
-paths.project_root   # 项目根（默认 agent/ 的上两级）
-paths.agent_dir      # <root>/agent
-paths.work_root      # 实际工作目录（= 客户端 cwd，可能不是 project_root）
-paths.config_dir     # <work_root>/config
-paths.resource_dir   # <work_root>/resource
-paths.debug_dir      # <work_root>/debug
-paths.interface_file # <project_root>/interface.json
+paths.project_root  # 项目根（默认 agent/ 的上两级）
+paths.agent_dir  # <root>/agent
+paths.work_root  # 实际工作目录（= 客户端 cwd，可能不是 project_root）
+paths.config_dir  # <work_root>/config
+paths.resource_dir  # <work_root>/resource
+paths.debug_dir  # <work_root>/debug
+paths.interface_file  # <project_root>/interface.json
 ```
 
 `agent_runtime.py` 启动时已经调用过 `configure_runtime_paths(project_root=..., work_root=os.getcwd())`，所以 **custom 代码里直接用 `get_runtime_paths()` 即可**，不要再算路径。
@@ -301,7 +302,7 @@ class MyReco(CustomRecognition):
         try:
             # ... 实际逻辑 ...
             return CustomRecognition.AnalyzeResult(box=(0, 0, 10, 10), detail={"ok": True})
-        except Exception as error:          # 兜底：绝不让异常穿出去
+        except Exception as error:  # 兜底：绝不让异常穿出去
             logger.error("myReco: unexpected {}", error)
             return None
 ```
