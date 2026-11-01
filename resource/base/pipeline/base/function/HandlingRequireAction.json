@@ -276,9 +276,9 @@
     "actionRequireUniversal": {
         //指派地勤行動外的節點鏈
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [
+                "all_of": [
                     "__cstGetFlight_infoCard__",
                     "__conditionFlight_infoActionRequire__",
                     "__cmatchYellowButton_inFlight_info__"
@@ -301,6 +301,7 @@
                 "all_of": [
                     "__cstGetFlight_infoCard__",
                     "__cmatchYellowButton_inFlight_info__",
+                    "__cstOffsetYellowButton2ClaimContractInFlightInfoCard__",
                     "__cmatchFlight_infoContractFinishRed__",
                     "__cmatchFlight_infoContractFinishGreen__"
                 ],
@@ -499,7 +500,8 @@
                 "expected": "contractUpgradeCard",
                 "model": "MaaWoA-card.onnx"
             }
-        }
+        },
+        "pre_delay": 500
     },
     "actionRequiringSelectDeparture": {
         //选择departure//recognition由ONNX选项覆写

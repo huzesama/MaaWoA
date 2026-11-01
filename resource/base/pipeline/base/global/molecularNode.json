@@ -79,7 +79,7 @@
             }
         }
     },
-    "__findFlight_infoActionRequireWithDetect__": {
+    "__findFlight_infoActionRequireWithUpdate__": {
         //通过刷新缓存寻找航班详情的请求事件
         //无前置ROI
         "recognition": {
@@ -101,7 +101,7 @@
             "param": {
                 "any_of": [
                     "__findFlight_infoActionRequireWithCache__",
-                    "__findFlight_infoActionRequireWithDetect__"
+                    "__findFlight_infoActionRequireWithUpdate__"
                 ]
             }
         }

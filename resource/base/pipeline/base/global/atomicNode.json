@@ -587,7 +587,7 @@
                     234
                 ],
                 "connected": true,
-                "count": 200,
+                "count": 144,
                 "order_by": "Horizontal",
                 "index": -1
             }
@@ -610,7 +610,7 @@
                     234
                 ],
                 "connected": true,
-                "count": 200,
+                "count": 144,
                 "order_by": "Horizontal",
                 "index": -1
             }
@@ -692,17 +692,28 @@
             }
         }
     },
+    "__cstOffsetYellowButton2ClaimContractInFlightInfoCard__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchYellowButton_inFlight_info__",
+                    "offset": [
+                        0,
+                        "-h*1.1",
+                        0,
+                        0
+                    ]
+                }
+            }
+        }
+    },
     "__cmatchFlight_infoContractFinishGreen__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cmatchYellowButton_inFlight_info__",
-                "roi_offset": [
-                    0,
-                    -55,
-                    0,
-                    0
-                ],
+                "roi": "__cstOffsetYellowButton2ClaimContractInFlightInfoCard__",
                 "method": 40,
                 "lower": [
                     72,
@@ -715,7 +726,7 @@
                     221
                 ],
                 "connected": true,
-                "count": 50
+                "count": 30
             }
         }
     },
@@ -723,13 +734,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cmatchYellowButton_inFlight_info__",
-                "roi_offset": [
-                    0,
-                    -55,
-                    0,
-                    0
-                ],
+                "roi": "__cstOffsetYellowButton2ClaimContractInFlightInfoCard__",
                 "method": 40,
                 "lower": [
                     [
@@ -756,7 +761,7 @@
                     ]
                 ],
                 "connected": true,
-                "count": 50
+                "count": 30
             }
         }
     },
