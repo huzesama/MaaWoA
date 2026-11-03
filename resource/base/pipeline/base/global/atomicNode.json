@@ -1238,11 +1238,15 @@
         "recognition": {
             "type": "Custom",
             "param": {
-                "custom_recognition": "extend2boundary",
+                "custom_recognition": "rectOffset",
                 "custom_recognition_param": {
                     "node_name": "__cmatchAirportCard__",
-                    "horizontal": false,
-                    "use_latest": true
+                    "offset": [
+                        0,
+                        "-y",
+                        0,
+                        "-h+H"
+                    ]
                 }
             }
         }
