@@ -701,11 +701,28 @@
             }
         }
     },
+    "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchYellowButton_inFlight_info__",
+                    "offset": [
+                        "-w/50",
+                        "-h*7/4",
+                        "w/25",
+                        "h/2"
+                    ]
+                }
+            }
+        }
+    },
     "__cmatchFlight_infoBriberySwitchOff__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__conditionFlight_infoActionRequire__",
+                "roi": "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__",
                 "method": 40,
                 "lower": [
                     94,

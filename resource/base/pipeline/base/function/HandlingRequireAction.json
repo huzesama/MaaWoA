@@ -252,7 +252,9 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__conditionFlight_infoActionRequire__",
+                    "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inFlight_info__",
+                    "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__",
                     "__cmatchFlight_infoBriberySwitchOff__"
                 ],
                 "box_index": 1
