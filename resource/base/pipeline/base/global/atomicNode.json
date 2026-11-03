@@ -5,6 +5,38 @@
     //命名规则: __识别种类[cmatch|tmatch|detect|ocr|classify|cst(custom)...]目标__
     //
     //------------------GLOBAL·BEGIN------------------
+    ////------------------GLOBAL·ERROR·BEGIN------------------
+    "__detectErrorCard__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "errorCard",
+                "model": "MaaWoA-card.onnx"
+            }
+        }
+    },
+    "__cmatchErrorUniversalConfirm__": {
+        //通用的错误页识别点击：全屏网络错误与错误卡片
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    18,
+                    205,
+                    232
+                ],
+                "upper": [
+                    25,
+                    255,
+                    255
+                ],
+                "connected": true,
+                "count": 400
+            }
+        }
+    },
+    ////------------------GLOBAL·ERROR·END------------------
     ////------------------GLOBAL·LOADING·BEGIN------------------
     "__cmatchLoadingPageMenu__": {
         //操作加载时的全屏遮罩菜单或返回按钮，辅助识别
@@ -1225,27 +1257,6 @@
                 "custom_recognition_param": {
                     "update_cache": false
                 }
-            }
-        }
-    },
-    "__cmatchErrorUniversalConfirm__": {
-        //通用的错误页识别点击：全屏网络错误与错误卡片
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "method": 40,
-                "lower": [
-                    18,
-                    205,
-                    232
-                ],
-                "upper": [
-                    25,
-                    255,
-                    255
-                ],
-                "connected": true,
-                "count": 400
             }
         }
     }
