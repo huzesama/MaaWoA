@@ -1233,8 +1233,8 @@
             }
         }
     },
-    "__cstGetAirportSelectList__": {
-        //延伸机场卡片输出整个选择列表
+    "__cstGetNScaleAirportSelectList__": {
+        //延伸机场卡片输出整个选择列表并收窄
         "recognition": {
             "type": "Custom",
             "param": {
@@ -1244,26 +1244,8 @@
                     "offset": [
                         0,
                         "-y",
-                        0,
-                        "-h+H"
-                    ]
-                }
-            }
-        }
-    },
-    "__cstScaleAirportSelectList__": {
-        //收窄列表
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "rectOffset",
-                "custom_recognition_param": {
-                    "node_name": "__cstGetAirportSelectList__",
-                    "offset": [
-                        0,
-                        0,
                         "-w*0.4",
-                        0
+                        "-h+H"
                     ]
                 }
             }
