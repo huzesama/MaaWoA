@@ -36,7 +36,7 @@
                     "name": "Yes",
                     "option": [
                         "enableTower",
-                        "enableContractsManagerClaim"
+                        "enableContractsManagerOffersAccept"
                     ],
                     "pipeline_override": {
                         "entryDocker": {
@@ -72,9 +72,11 @@
             ],
             "default_case": "No"
         },
-        "enableContractsManagerClaim": {
+        "enableContractsManagerOffersAccept": {
             "type": "switch",
             //启用合同管理领取
+            "label": "$pi.task.option.enableContractsManagerOffersAccept.name",
+            "description": "$pi.task.option.enableContractsManagerOffersAccept.description",
             "cases": [
                 {
                     "name": "Yes",

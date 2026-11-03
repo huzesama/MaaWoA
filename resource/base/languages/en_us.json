@@ -12,6 +12,8 @@
     "pi.task.option.dockExtra.description": "Master switch for Dock extension features.",
     "pi.task.option.enableTower.name": "Tower",
     "pi.task.option.enableTower.description": "Automatically start the Tower when the number of flight events is not 0, and extend it each time it is about to end.",
+    "pi.task.option.enableContractsManagerOffersAccept.name": "Automatic Contract Acceptance",
+    "pi.task.option.enableContractsManagerOffersAccept.description": "Automatically accept contract invitations from other players at the current airport.\n⚠ This feature will claim special arrival contracts to clear the notification on the contract management entry.",
     "pi.task.option.randomSelectStand.name": "Random Stand",
     "pi.task.option.randomSelectStand.description": "Randomly select a stand for arriving flights. Even stands that are not unlocked will be included as random targets. If disabled, only the first stand will be selected.",
     "pi.task.option.unknownPageWaitting.name": "Page Waiting",
