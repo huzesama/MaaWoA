@@ -35,7 +35,8 @@
                 {
                     "name": "Yes",
                     "option": [
-                        "enableTower"
+                        "enableTower",
+                        "enableContractsManagerClaim"
                     ],
                     "pipeline_override": {
                         "entryDocker": {
@@ -62,6 +63,25 @@
                         "detectFilterAirplaneOnAirportButton": {
                             //主要更改expected
                             "expected": "filterAirplaneOnAirport"
+                        }
+                    }
+                },
+                {
+                    "name": "No"
+                }
+            ],
+            "default_case": "No"
+        },
+        "enableContractsManagerClaim": {
+            "type": "switch",
+            //启用合同管理领取
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "check&entryContractManagerRedPoint": {
+                            //主要更改enabled
+                            "enabled": true
                         }
                     }
                 },

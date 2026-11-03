@@ -54,6 +54,7 @@
         // next node的enabled应默认false
         "next": [
             "extendTower",
+            "check&entryContractManagerRedPoint",
             "finishWithDelay"
         ]
     }
