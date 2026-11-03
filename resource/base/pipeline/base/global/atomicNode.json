@@ -5,6 +5,38 @@
     //命名规则: __识别种类[cmatch|tmatch|detect|ocr|classify|cst(custom)...]目标__
     //
     //------------------GLOBAL·BEGIN------------------
+    ////------------------GLOBAL·ERROR·BEGIN------------------
+    "__detectErrorCard__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "errorCard",
+                "model": "MaaWoA-card.onnx"
+            }
+        }
+    },
+    "__cmatchErrorUniversalConfirm__": {
+        //通用的错误页识别点击：全屏网络错误与错误卡片
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    18,
+                    205,
+                    232
+                ],
+                "upper": [
+                    25,
+                    255,
+                    255
+                ],
+                "connected": true,
+                "count": 400
+            }
+        }
+    },
+    ////------------------GLOBAL·ERROR·END------------------
     ////------------------GLOBAL·LOADING·BEGIN------------------
     "__cmatchLoadingPageMenu__": {
         //操作加载时的全屏遮罩菜单或返回按钮，辅助识别
@@ -669,11 +701,28 @@
             }
         }
     },
+    "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchYellowButton_inFlight_info__",
+                    "offset": [
+                        "-w/50",
+                        "-h*7/4",
+                        "w/25",
+                        "h/2"
+                    ]
+                }
+            }
+        }
+    },
     "__cmatchFlight_infoBriberySwitchOff__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__conditionFlight_infoActionRequire__",
+                "roi": "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__",
                 "method": 40,
                 "lower": [
                     94,
@@ -1184,33 +1233,19 @@
             }
         }
     },
-    "__cstGetAirportSelectList__": {
-        //延伸机场卡片输出整个选择列表
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "extend2boundary",
-                "custom_recognition_param": {
-                    "node_name": "__cmatchAirportCard__",
-                    "horizontal": false,
-                    "use_latest": true
-                }
-            }
-        }
-    },
-    "__cstScaleAirportSelectList__": {
-        //收窄列表
+    "__cstGetNScaleAirportSelectList__": {
+        //延伸机场卡片输出整个选择列表并收窄
         "recognition": {
             "type": "Custom",
             "param": {
                 "custom_recognition": "rectOffset",
                 "custom_recognition_param": {
-                    "node_name": "__cstGetAirportSelectList__",
+                    "node_name": "__cmatchAirportCard__",
                     "offset": [
                         0,
-                        0,
+                        "-y",
                         "-w*0.4",
-                        0
+                        "-h+H"
                     ]
                 }
             }
@@ -1225,27 +1260,6 @@
                 "custom_recognition_param": {
                     "update_cache": false
                 }
-            }
-        }
-    },
-    "__cmatchErrorUniversalConfirm__": {
-        //通用的错误页识别点击：全屏网络错误与错误卡片
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "method": 40,
-                "lower": [
-                    18,
-                    205,
-                    232
-                ],
-                "upper": [
-                    25,
-                    255,
-                    255
-                ],
-                "connected": true,
-                "count": 400
             }
         }
     }

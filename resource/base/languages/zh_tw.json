@@ -12,6 +12,8 @@
     "pi.task.option.dockExtra.description": "Dock 欄擴充功能的總開關",
     "pi.task.option.enableTower.name": "塔台",
     "pi.task.option.enableTower.description": "當航班事件數量不為 0 時自動啟動塔台，每次快要結束的時候延續",
+    "pi.task.option.enableContractsManagerOffersAccept.name": "自動合約接收",
+    "pi.task.option.enableContractsManagerOffersAccept.description": "在目前機場自動接收來自其他玩家的合約邀請\n⚠此功能會領取特殊入港合約以消除合約管理入口的訊息提示",
     "pi.task.option.randomSelectStand.name": "隨機機位",
     "pi.task.option.randomSelectStand.description": "為降落的航班隨機選擇機位，即使沒有解鎖的機位也會成為隨機選擇的目標。關閉選項則只選擇第一個機位。",
     "pi.task.option.unknownPageWaitting.name": "頁面等待",

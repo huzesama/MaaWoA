@@ -7,7 +7,6 @@ RECO_MODULES = (
     "dailyUniqueCompare",
     "freezeCheck",
     "roiManager",
-    "extend2boundary",
     "rectOffset",
 )
 

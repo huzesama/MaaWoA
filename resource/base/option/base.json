@@ -35,7 +35,8 @@
                 {
                     "name": "Yes",
                     "option": [
-                        "enableTower"
+                        "enableTower",
+                        "enableContractsManagerOffersAccept"
                     ],
                     "pipeline_override": {
                         "entryDocker": {
@@ -62,6 +63,27 @@
                         "detectFilterAirplaneOnAirportButton": {
                             //主要更改expected
                             "expected": "filterAirplaneOnAirport"
+                        }
+                    }
+                },
+                {
+                    "name": "No"
+                }
+            ],
+            "default_case": "No"
+        },
+        "enableContractsManagerOffersAccept": {
+            "type": "switch",
+            //启用合同管理领取
+            "label": "$pi.task.option.enableContractsManagerOffersAccept.name",
+            "description": "$pi.task.option.enableContractsManagerOffersAccept.description",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "check&entryContractManagerRedPoint": {
+                            //主要更改enabled
+                            "enabled": true
                         }
                     }
                 },

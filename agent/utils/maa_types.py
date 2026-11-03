@@ -207,18 +207,20 @@ def boxed_results(detail: RecognitionDetail | None) -> list[BoxedRecognitionResu
 
 
 def best_box(detail: RecognitionDetail | None) -> Rect | None:
-    """Return the box from the best boxed result.
+    """Return the recognition box of a hit detail.
+
+    直接取 detail.box，不依赖 best_result 的具体类型。
+
+    早期实现只接受 BoxAndScoreResult / BoxAndCountResult / CustomRecognitionResult
+    三种 best_result，导致 And / Or 组合识别、OCR、NeuralNetworkDetect 等结果
+    被误判为"没有 box"——这些结果明明带 box，只是不在那三种类型里。
 
     Args:
         detail: Recognition detail returned by MaaFramework.
 
     Returns:
-        The best result's box, or None when the detail is absent, missed, or
-        the best result does not carry a box.
+        The recognition box, or None when the detail is absent or missed.
     """
     if detail is None or not detail.hit:
         return None
-    result = detail.best_result
-    if not has_box_result(result):
-        return None
-    return result.box
+    return detail.box

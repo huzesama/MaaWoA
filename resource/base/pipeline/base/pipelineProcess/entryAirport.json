@@ -136,10 +136,9 @@
             "param": {
                 "all_of": [
                     "__cmatchAirportCard__",
-                    "__cstGetAirportSelectList__",
-                    "__cstScaleAirportSelectList__"
+                    "__cstGetNScaleAirportSelectList__"
                 ],
-                "box_index": 2
+                "box_index": 1
             }
         },
         "next": [
