@@ -60,7 +60,7 @@
             }
         }
     },
-    "__cmatchLoadingPageCircle__": {
+    "__cmatchLoadingCircle__": {
         //操作加载时的白色圈，全屏有黑色遮罩，高亮白色仅加载圈count分别为飞机150，尾拖210，辅助识别
         "recognition": {
             "type": "ColorMatch",
@@ -78,6 +78,16 @@
                 ],
                 "connected": true,
                 "count": 130
+            }
+        }
+    },
+    "__fmatchLoadingCircle__": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "template": "loading.png",
+                "detector": "SIFT",
+                "count": 10
             }
         }
     },
@@ -494,7 +504,7 @@
     },
     "__cstGetDockerTower__": {
         "max_hit": 1,
-        //缓存Docker
+        //缓存DockerTower
         "recognition": {
             "type": "Custom",
             "param": {
@@ -1089,7 +1099,7 @@
     },
     //------------------HandlingActionRequiring·END------------------
     //------------------Tower·BEGIN------------------
-    "__locateDockerTowerLED__": {
+    "__cmatchDockerTowerLEDLocation__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -1112,11 +1122,11 @@
             }
         }
     },
-    "__matchDockerTowerLEDbeRED__": {
+    "__cmatchDockerTowerLEDbeRED__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__locateDockerTowerLED__",
+                "roi": "__cmatchDockerTowerLEDLocation__",
                 "roi_offset": [
                     8,
                     8,
