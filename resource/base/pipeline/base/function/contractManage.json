@@ -1,5 +1,76 @@
 {
     ///atomic
+    "__cstGetContractsManager__": {
+        "max_hit": 1,
+        //缓存Docker
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__ContractsManager__",
+                    "model": "MaaWoA-widget.onnx",
+                    "expected": "dockerContractNotice"
+                }
+            }
+        }
+    },
+    "__cmatchContractsManagerLocation__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetContractsManager__",
+                "method": 40,
+                "lower": [
+                    94,
+                    145,
+                    51
+                ],
+                "upper": [
+                    116,
+                    167,
+                    73
+                ],
+                "connected": true,
+                "count": 1430
+            }
+        }
+    },
+    "__cmatchContractsManagerRedPoint__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cmatchContractsManagerLocation__",
+                "method": 40,
+                "lower": [
+                    [
+                        179,
+                        180,
+                        219
+                    ],
+                    [
+                        0,
+                        180,
+                        219
+                    ]
+                ],
+                "upper": [
+                    [
+                        179,
+                        182,
+                        221
+                    ],
+                    [
+                        1,
+                        182,
+                        221
+                    ]
+                ],
+                "connected": true,
+                "count": 29
+            }
+        }
+    },
     "__tmachUniversalBackButtonDarkBackground__": {
         "recognition": {
             "type": "ColorMatch",
@@ -255,10 +326,14 @@
         //流水线的任务链分支，通过jumpback进入
         "enabled": false,
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "And",
             "param": {
-                "expected": "dockerContractNotice",
-                "model": "MaaWoA-widget.onnx"
+                "all_of": [
+                    "__cstGetContractsManager__",
+                    "__cmatchContractsManagerLocation__",
+                    "__cmatchContractsManagerRedPoint__"
+                ],
+                "box_index": 1
             }
         },
         "action": "Click",
@@ -266,9 +341,11 @@
             "__anchor.YellowButtonByROI__": "__detectUPContracts__"
         },
         "next": [
-            "selectSubmenuRedPoint",
+            "selectSubmenuRedPoint"
+        ],
+        "on_error": [
             "exitContractsManager",
-            "finishWithCapture"
+            "detectPage"
         ]
     },
     "selectSubmenuRedPoint": {
