@@ -300,6 +300,11 @@
                 "box_index": 1
             }
         },
+        "post_wait_freezes": {
+            "time": 500,
+            "method": 3,
+            "timeout": 5000
+        },
         "next": [
             "[JumpBack]claimContractsRewardInContractsManager",
             "exitContractsManager"
@@ -317,6 +322,11 @@
             }
         },
         "action": "Click",
+        "post_wait_freezes": {
+            "time": 500,
+            "method": 3,
+            "timeout": 5000
+        },
         "next": [
             "[JumpBack]claimContractsRewardInContractsManager",
             "exitContractsManager"
@@ -332,7 +342,16 @@
             }
         },
         "action": "Click",
-        "next": ["handlingContractUpgradeCard"]
+        "post_wait_freezes": {
+            "time": 500,
+            "method": 3,
+            "timeout": 5000
+        },
+        "next": [
+            "[JumpBack]detectLoadingShortOnce",
+            "handlingContractUpgradeCard",
+            "finishNode" //合同管理界面的领取并升级合同概率为只领取奖励不升级，此轮操作结束会出现仅升级合同按钮不会弹出合同升级卡片
+        ]
     },
     //---------------------------------------------------------
     //------------------CLAIM ONE OFFER·BEGIN------------------
