@@ -256,7 +256,9 @@
         "next": [
             "dailyUniqueContract.exitEntryAirportPage"
         ],
-        "on_error": ["detectPage"]
+        "on_error": [
+            "detectPage"
+        ]
     },
     "dailyUniqueContract.exitEntryAirportPage": {
         //更换机场，后续如果出现进入图鉴的情况需要优化训练，并增加通过roi_offset进行target检查
