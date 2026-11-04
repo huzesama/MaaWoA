@@ -504,7 +504,7 @@
     },
     "__cstGetDockerTower__": {
         "max_hit": 1,
-        //缓存Docker
+        //缓存DockerTower
         "recognition": {
             "type": "Custom",
             "param": {

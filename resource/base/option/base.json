@@ -55,6 +55,9 @@
             "cases": [
                 {
                     "name": "Yes",
+                    "option": [
+                        "towerSpeedUpControl"
+                    ],
                     "pipeline_override": {
                         "extendTower": {
                             //主要更改enabled
@@ -71,6 +74,60 @@
                 }
             ],
             "default_case": "No"
+        },
+        "towerSpeedUpControl": {
+            "type": "select",
+            "cases": [
+                {
+                    "name": "Default",
+                    "pipeline_override": {
+                        "entryTowerControlCard": {
+                            "next": [
+                                "enableTower",
+                                "finishWithCapture"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Mild",
+                    "pipeline_override": {
+                        "resetTowerSpeedUpOption": {
+                            "next": [
+                                "enableTower",
+                                "finishWithCapture"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Medium"
+                },
+                {
+                    "name": "High",
+                    "pipeline_override": {
+                        "setTowerSpeedUpOption": {
+                            "action": {
+                                "type": "Custom",
+                                "param": {
+                                    "custom_action": "swipe_by_vector",
+                                    "custom_action_param": {
+                                        "vector": [
+                                            "1200%",
+                                            0
+                                        ],
+                                        "duration": 300,
+                                        "random_start": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            //"label": "",
+            //"description": "",
+            "default_case": "Default"
         },
         "enableContractsManagerOffersAccept": {
             "type": "switch",
