@@ -1099,7 +1099,7 @@
     },
     //------------------HandlingActionRequiring·END------------------
     //------------------Tower·BEGIN------------------
-    "__locateDockerTowerLED__": {
+    "__cmatchDockerTowerLEDLocation__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -1126,7 +1126,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__locateDockerTowerLED__",
+                "roi": "__cmatchDockerTowerLEDLocation__",
                 "roi_offset": [
                     8,
                     8,

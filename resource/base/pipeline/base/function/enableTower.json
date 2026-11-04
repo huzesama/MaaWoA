@@ -7,7 +7,7 @@
             "param": {
                 "all_of": [
                     "__cstGetDockerTower__",
-                    "__locateDockerTowerLED__",
+                    "__cmatchDockerTowerLEDLocation__",
                     "__matchDockerTowerLEDbeRED__",
                     "__ocrFilterNotZero__"
                 ]
