@@ -4,6 +4,18 @@
     //命名规则: __组合原子节点的功能名称__
     //
     //------------------MATCH·BEGIN------------------
+
+    "__combinationMatchLoading__": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__cmatchLoadingCircle__",
+                    "__fmatchLoadingCircle__"
+                ]
+            }
+        }
+    },
     "__conditionLoading__": {
         //识别错误率较高的机场页加载
         "recognition": {
@@ -11,7 +23,7 @@
             "param": {
                 "all_of": [
                     "__cmatchLoadingPageMenu__",
-                    "__cmatchLoadingPageCircle__"
+                    "__combinationMatchLoading__"
                 ]
             }
         }
