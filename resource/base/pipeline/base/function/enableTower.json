@@ -8,7 +8,7 @@
                 "all_of": [
                     "__cstGetDockerTower__",
                     "__cmatchDockerTowerLEDLocation__",
-                    "__matchDockerTowerLEDbeRED__",
+                    "__cmatchDockerTowerLEDbeRED__",
                     "__ocrFilterNotZero__"
                 ]
             }
