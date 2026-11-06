@@ -929,7 +929,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                "expected": "slideBlock",
+                "expected": "switch",
                 "model": "MaaWoA-widget.onnx"
             }
         }
