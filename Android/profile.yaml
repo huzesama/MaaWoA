@@ -73,6 +73,14 @@ display:
       width: 1440
       height: 720
       dpi: 180
+    - label: 480P(省电/实验性)
+      width: 640
+      height: 480
+      dpi: 98
+    - label: 360P(省电/实验性)
+      width: 480
+      height: 360
+      dpi: 74
 
 # 压过 interface.json 的 mirrorchyan_rid（桌面是 MaaWoA）。不写的话 APK 会去拉桌面包。
 update:
