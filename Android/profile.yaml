@@ -58,6 +58,7 @@ app:
   icon: ../resource/base/logo.png
 
 # 前台模式跑在手机主屏上；比例对不上资源时改用后台虚拟屏并自带分辨率预设：
+# dpi: 120~640
 display:
   foreground: true
   presets:
@@ -76,11 +77,11 @@ display:
     - label: 480P(省电/实验性)
       width: 640
       height: 480
-      dpi: 98
+      dpi: 120
     - label: 360P(省电/实验性)
       width: 480
       height: 360
-      dpi: 74
+      dpi: 120
 
 # 压过 interface.json 的 mirrorchyan_rid（桌面是 MaaWoA）。不写的话 APK 会去拉桌面包。
 update:
