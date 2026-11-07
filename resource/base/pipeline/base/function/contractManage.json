@@ -340,6 +340,7 @@
         "anchor": {
             "__anchor.YellowButtonByROI__": "__detectUPContracts__"
         },
+        "post_wait_freezes": 200,
         "next": [
             "selectSubmenuRedPoint"
         ],
