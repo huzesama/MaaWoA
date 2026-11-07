@@ -32,7 +32,7 @@
             "type": "Win32",
             "display_expand": [
                 1280,
-                720
+                750
             ],
             "permission_required": true,
             "attach_resource_path": [
@@ -90,6 +90,24 @@
                 1280,
                 720
             ]
+        },
+        {
+            "name": "WindowsBackground",
+            "label": "Windows app(Background)",
+            "type": "Win32",
+            "display_expand": [
+                1280,
+                750
+            ],
+            "permission_required": true,
+            "attach_resource_path": [
+                "./resource/desktop"
+            ],
+            "win32": {
+                "mouse": "PostMessage",
+                "keyboard": "PostMessage",
+                "screencap": "FramePool"
+            }
         }
     ],
     "resource": [
