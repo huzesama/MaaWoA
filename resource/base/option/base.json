@@ -76,10 +76,15 @@
             "default_case": "No"
         },
         "towerSpeedUpControl": {
+            //塔台控制速度
             "type": "select",
+            "label": "$pi.task.option.towerSpeedUpControl.name",
+            "description": "$pi.task.option.towerSpeedUpControl.description",
             "cases": [
                 {
                     "name": "Default",
+                    "label": "$pi.task.option.towerSpeedUpControl.Default.name",
+                    "description": "$pi.task.option.towerSpeedUpControl.Default.description",
                     "pipeline_override": {
                         "entryTowerControlCard": {
                             "next": [
@@ -91,6 +96,7 @@
                 },
                 {
                     "name": "Mild",
+                    "label": "1",
                     "pipeline_override": {
                         "resetTowerSpeedUpOption": {
                             "next": [
@@ -101,10 +107,12 @@
                     }
                 },
                 {
-                    "name": "Medium"
+                    "name": "Medium",
+                    "label": "2"
                 },
                 {
                     "name": "High",
+                    "label": "3",
                     "pipeline_override": {
                         "setTowerSpeedUpOption": {
                             "action": {
