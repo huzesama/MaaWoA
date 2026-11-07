@@ -54,6 +54,7 @@ class RoiManager(CustomRecognition):
                     "recognition": "NeuralNetworkDetect",
                     "model": model,
                     "expected": expected,
+                    "threshold": 0.75,
                 }
             },
         )
