@@ -58,78 +58,6 @@
             "finishWithCapture"
         ]
     },
-    ////////////////////////----------------------NEW atomic
-    "__cstGetTowerControlCard__": {
-        //缓存Docker
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__TowerControlCard__",
-                    "model": "MaaWoA-card.onnx",
-                    "expected": "towerControlCard"
-                }
-            }
-        }
-    },
-    "__cstOffsetTowerControlCard2SpeedUpSlide__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "rectOffset",
-                "custom_recognition_param": {
-                    "node_name": "__cstGetTowerControlCard__",
-                    "offset": [
-                        0,
-                        "h/4",
-                        0,
-                        "-h/4*3"
-                    ]
-                }
-            }
-        }
-    },
-    "__cmatchSlideBlock__": {
-        //寻找滑块特征
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__cstOffsetTowerControlCard2SpeedUpSlide__",
-                "method": 40,
-                "lower": [
-                    62,
-                    92,
-                    220
-                ],
-                "upper": [
-                    84,
-                    114,
-                    242
-                ],
-                "connected": true,
-                "count": 445,
-                "order_by": "Vertical"
-            }
-        }
-    },
-    "__cstOffsetSlideBlock2Block__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "rectOffset",
-                "custom_recognition_param": {
-                    "node_name": "__cmatchSlideBlock__",
-                    "offset": [
-                        "+w-h",
-                        0,
-                        "-w+h",
-                        0
-                    ]
-                }
-            }
-        }
-    },
     "resetTowerSpeedUpOption": {
         "recognition": {
             "type": "And",
@@ -185,7 +113,6 @@
             "finishWithCapture"
         ]
     },
-    ////////////////////////----------------------NEW
     "enableTower": {
         //启动塔台延时，暂不考虑速度和启动时长
         "recognition": {

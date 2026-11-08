@@ -40,6 +40,17 @@
             }
         }
     },
+    "__getContractManagerSubMenu__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cmatchSubMenuSelected__",
+                    "__cstReverseSubMenu__" //反算二级菜单ROI
+                ]
+            }
+        }
+    },
     //------------------MATCH·END------------------
     "__conditionAssignCrewPass__": {
         //前置ROI：__cstGetFlight_infoCard__、__cstGetAssignCrewCard__
