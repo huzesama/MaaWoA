@@ -5,7 +5,7 @@ description = "MaaWoA MaaFW Agent project"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "loguru",
-    "maafw==5.15.0",
+    "maafw==5.16.0-beta.2",
 ]
 
 [dependency-groups]
