@@ -1,6 +1,6 @@
 [project]
 name = "maawoa"
-version = "1.1.1-rc.1"
+version = "1.1.1"
 description = "MaaWoA MaaFW Agent project"
 requires-python = ">=3.13,<3.14"
 dependencies = [
