@@ -137,8 +137,11 @@
         "action": "Click",
         "post_wait_freezes": 200,
         "next": [
-            "confirmEnableTower",
-            "finishNode"
+            "confirmEnableTower"
+        ],
+        "on_error": [
+            "exitTowerPage",
+            "checkAll"
         ]
     },
     "confirmEnableTower": {
