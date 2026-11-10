@@ -27,6 +27,27 @@
             }
         }
     },
+    "__cmatchYellowButtonNoROI__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        }
+    },
     ////------------------GLOBAL·ERROR·BEGIN------------------
     "__detectErrorCard__": {
         "recognition": {
@@ -535,6 +556,34 @@
                     "roi_name": "__DockerTower__",
                     "model": "MaaWoA-widget.onnx",
                     "expected": "dockerTower"
+                }
+            }
+        }
+    },
+    "__cstGetTower_info__": {
+        //缓存塔台页的延时卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__TowerInfo__",
+                    "model": "MaaWoA-card.onnx",
+                    "expected": "tower_info"
+                }
+            }
+        }
+    },
+    "__cstGetTowerControlCard__": {
+        //缓存Docker
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__TowerControlCard__",
+                    "model": "MaaWoA-card.onnx",
+                    "expected": "towerControlCard"
                 }
             }
         }
@@ -1206,13 +1255,20 @@
         ],
         "expected": ["\\(?(\\d+\\/(?!0)\\d+)\\)?"]
     },
-    "__detectTower_info__": {
-        //检测塔台页的延时卡片
+    "__cstOffsetTowerInfo2SpeedUpSlide__": {
         "recognition": {
-            "type": "NeuralNetworkDetect",
+            "type": "Custom",
             "param": {
-                "expected": "tower_info",
-                "model": "MaaWoA-card.onnx"
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cstGetTower_info__",
+                    "offset": [
+                        "+w",
+                        "+5*h/11",
+                        "+2*w/3",
+                        "-9*h/11"
+                    ]
+                }
             }
         }
     },
@@ -1221,7 +1277,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__detectTower_info__",
+                "roi": "__cstGetTower_info__",
                 "method": 40,
                 "lower": [
                     93,
@@ -1420,27 +1476,6 @@
             }
         }
     },
-    "__cmatchYellowButtonNoROI__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "method": 40,
-                "lower": [
-                    13,
-                    244,
-                    222
-                ],
-                "upper": [
-                    35,
-                    255,
-                    244
-                ],
-                "connected": true,
-                "count": 2000,
-                "order_by": "Area"
-            }
-        }
-    },
     "__cmatchContractActionRequireForeground__": {
         "recognition": {
             "type": "ColorMatch",
@@ -1529,20 +1564,6 @@
     },
     //------------------CONTRACT MANAGER·END------------------
     //------------------OTHER·BEGIN------------------
-    "__cstGetTowerControlCard__": {
-        //缓存Docker
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__TowerControlCard__",
-                    "model": "MaaWoA-card.onnx",
-                    "expected": "towerControlCard"
-                }
-            }
-        }
-    },
     "__cstOffsetTowerControlCard2SpeedUpSlide__": {
         "recognition": {
             "type": "Custom",
@@ -1554,7 +1575,7 @@
                         0,
                         "h/4",
                         0,
-                        "-h/4*3"
+                        "-3*h/4"
                     ]
                 }
             }
@@ -1565,7 +1586,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cstOffsetTowerControlCard2SpeedUpSlide__",
+                "roi": "locateSpeedUpSlideBlock",
                 "method": 40,
                 "lower": [
                     62,

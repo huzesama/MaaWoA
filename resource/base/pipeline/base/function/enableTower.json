@@ -38,7 +38,7 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__detectTower_info__",
+                    "__cstGetTower_info__",
                     "__detectTowerControlEntry__"
                 ],
                 "box_index": 1
@@ -58,17 +58,26 @@
             "finishWithCapture"
         ]
     },
+    "locateSpeedUpSlideBlock": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__findTowerSpeedUpSlideByTowerInfo__",
+                    "__findTowerSpeedUpSlideByTowerControlCard__"
+                ]
+            }
+        }
+    },
     "resetTowerSpeedUpOption": {
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cstGetTowerControlCard__",
-                    "__cstOffsetTowerControlCard2SpeedUpSlide__",
                     "__cmatchSlideBlock__",
                     "__cstOffsetSlideBlock2Block__"
                 ],
-                "box_index": 3
+                "box_index": 1
             }
         },
         "action": {
@@ -86,12 +95,10 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cstGetTowerControlCard__",
-                    "__cstOffsetTowerControlCard2SpeedUpSlide__",
                     "__cmatchSlideBlock__",
                     "__cstOffsetSlideBlock2Block__"
                 ],
-                "box_index": 3
+                "box_index": 1
             }
         },
         "action": {
