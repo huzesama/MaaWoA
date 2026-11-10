@@ -53,12 +53,12 @@
         ],
         "post_wait_freezes": 100,
         "next": [
-            "resetTowerSpeedUpOption",
+            "locateSpeedUpSlide",
             "enableTower",
             "finishWithCapture"
         ]
     },
-    "locateSpeedUpSlideBlock": {
+    "locateSpeedUpSlide": {
         "recognition": {
             "type": "Or",
             "param": {
@@ -67,7 +67,14 @@
                     "__findTowerSpeedUpSlideByTowerControlCard__"
                 ]
             }
-        }
+        },
+        "timeout": 10000,
+        "next": [
+            "resetTowerSpeedUpOption"
+        ],
+        "on_error": [
+            "finishWithDelay"
+        ]
     },
     "resetTowerSpeedUpOption": {
         "recognition": {
@@ -88,7 +95,11 @@
                 "duration": 300
             }
         },
-        "next": ["setTowerSpeedUpOption"]
+        "timeout": 10000,
+        "next": ["setTowerSpeedUpOption"],
+        "on_error": [
+            "finishWithDelay"
+        ]
     },
     "setTowerSpeedUpOption": {
         "recognition": {
@@ -115,9 +126,12 @@
                 }
             }
         },
+        "timeout": 10000,
         "next": [
-            "enableTower",
-            "finishWithCapture"
+            "enableTower"
+        ],
+        "on_error": [
+            "finishWithDelay"
         ]
     },
     "enableTower": {

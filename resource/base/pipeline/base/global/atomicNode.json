@@ -1586,7 +1586,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "locateSpeedUpSlideBlock",
+                "roi": "locateSpeedUpSlide",
                 "method": 40,
                 "lower": [
                     62,
