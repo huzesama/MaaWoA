@@ -139,5 +139,29 @@
                 ]
             }
         }
+    },
+    "__findTowerSpeedUpSlideByTowerInfo__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetTower_info__",
+                    "__cstOffsetTowerInfo2SpeedUpSlide__"
+                ],
+                "box_index": 1
+            }
+        }
+    },
+    "__findTowerSpeedUpSlideByTowerControlCard__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetTowerControlCard__",
+                    "__cstOffsetTowerControlCard2SpeedUpSlide__"
+                ],
+                "box_index": 1
+            }
+        }
     }
 }

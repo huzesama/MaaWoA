@@ -108,6 +108,15 @@
                 "keyboard": "PostMessage",
                 "screencap": "FramePool"
             }
+        },
+        {
+            "name": "iOS",
+            "label": "IOS(xdb)",
+            "type": "IOS",
+            "display_expand": [
+                1280,
+                720
+            ]
         }
     ],
     "resource": [

@@ -181,7 +181,7 @@
             "param": {
                 "any_of": [
                     "__classifyTowerPage__",
-                    "__detectTower_info__"
+                    "__cstGetTower_info__"
                 ]
             }
         },

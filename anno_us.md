@@ -8,13 +8,22 @@ If you purchased this program by paying, please request a refund immediately and
 
 ## 📱 Android Background Mode Resolution
 
-- After stopping a task, switching the resolution and then starting the task may cause recognition failures due to leftover cache issues. The cache depends on the Agent service, and the Agent is only initialized when MaaWoA starts.
-- After switching the background mode resolution, close MaaWoA and its background processes first, then restart.
+1. After stopping a task, switching the resolution and then starting the task may cause recognition failures due to leftover cache issues. The cache depends on the Agent service, and the Agent is only initialized when MaaWoA starts.
+2. After switching the background mode resolution, close MaaWoA and its background processes first, then restart.
+
+## 🍎 iOS Controller (Experimental)
+
+- The built-in xdb client SDK is 1.6.1. iOS connection and Toolkit device discovery require xdb Server 1.6.0 or later. The client checks the running Server version when establishing a connection; older or unrecognized versions will prompt an upgrade.
+- On desktop, first follow the [XDeviceBridge installation instructions](https://github.com/scrctl/XDeviceBridge/blob/main/docs/INSTALL.md) to install the complete runtime package for your OS and architecture; it is available from [GitHub Releases](https://github.com/scrctl/XDeviceBridge/releases).
 
 ## 🖥 Desktop Foreground Controller Notes and FAQ
 
 1. The foreground controller completely occupies the foreground during operation. Manual operation at this time will interfere with the normal execution of the script, so it is not recommended to open other software at the same time.
 2. The screenshot function directly captures the current foreground window. Therefore, no obstructions may appear in the screenshot, such as frame rate displays, ad pop-ups, Windows activation watermarks, etc.; otherwise, recognition will be affected.
+
+## 🖥 Desktop Background Controller Notes and FAQ
+
+- The background controller can operate entirely in the background during execution and will not seize mouse control, but it requires support from the target program, and there is a possibility that its operations may be captured.
 
 ## ⚖️ License
 

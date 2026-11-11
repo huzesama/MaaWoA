@@ -85,6 +85,9 @@
         "next": [
             "[JumpBack]claimContractsRewardInContractsManager",
             "exitContractsManager"
+        ],
+        "on_error": [
+            "finishWithDelay"
         ]
     },
     "claimContractsRewardInContractsManager": {
