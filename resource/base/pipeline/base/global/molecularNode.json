@@ -47,7 +47,8 @@
                 "all_of": [
                     "__cmatchSubMenuSelected__",
                     "__cstReverseSubMenu__" //反算二级菜单ROI
-                ]
+                ],
+                "box_index": 1
             }
         }
     },
