@@ -1431,17 +1431,17 @@
             "param": {
                 "method": 40,
                 "lower": [
-                    23,
-                    254,
-                    232
+                    94,
+                    57,
+                    117
                 ],
                 "upper": [
-                    25,
-                    255,
-                    234
+                    116,
+                    79,
+                    139
                 ],
                 "connected": true,
-                "count": 80,
+                "count": 440,
                 "order_by": "Vertical",
                 "index": -1
             }
