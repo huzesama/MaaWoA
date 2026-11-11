@@ -38,7 +38,8 @@
             "MacOS",
             "PlayCover",
             "Gamepad",
-            "Linux"
+            "Linux",
+            "IOS"
         ]
     },
     "features": {
@@ -109,7 +110,7 @@
         "mxu": {
             "channel": "stable",
             "enabled": true,
-            "version": ""
+            "version": "2.9.0"
         }
     },
     "schemaVersion": 2
