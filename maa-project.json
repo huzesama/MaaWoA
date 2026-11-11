@@ -38,8 +38,7 @@
             "MacOS",
             "PlayCover",
             "Gamepad",
-            "Linux",
-            "IOS"
+            "Linux"
         ]
     },
     "features": {
