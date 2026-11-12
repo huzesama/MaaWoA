@@ -32,7 +32,7 @@
             "type": "Win32",
             "display_expand": [
                 1280,
-                750
+                720
             ],
             "permission_required": true,
             "attach_resource_path": [
@@ -97,7 +97,7 @@
             "type": "Win32",
             "display_expand": [
                 1280,
-                750
+                720
             ],
             "permission_required": true,
             "attach_resource_path": [
