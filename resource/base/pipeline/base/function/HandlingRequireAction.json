@@ -281,8 +281,8 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "__conditionFlight_infoActionRequire__", //回退会更新__cstGetFlight_infoCard__
                     "__cstGetFlight_infoCard__",
-                    "__conditionFlight_infoActionRequire__",
                     "__cmatchYellowButton_inFlight_info__"
                 ]
             }
