@@ -690,14 +690,14 @@
                 "roi": "__cmatchFlight_infoTitleWithCache__",
                 "method": 40,
                 "lower": [
-                    23,
-                    254,
-                    232
+                    13,
+                    244,
+                    222
                 ],
                 "upper": [
-                    25,
+                    35,
                     255,
-                    234
+                    244
                 ],
                 "connected": true,
                 "count": 144,
@@ -713,14 +713,14 @@
                 "roi": "__cmatchFlight_infoTitleWithUpdate__",
                 "method": 40,
                 "lower": [
-                    23,
-                    254,
-                    232
+                    13,
+                    244,
+                    222
                 ],
                 "upper": [
-                    25,
+                    35,
                     255,
-                    234
+                    244
                 ],
                 "connected": true,
                 "count": 144,
