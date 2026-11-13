@@ -121,7 +121,7 @@
                                     "custom_action": "swipe_by_vector",
                                     "custom_action_param": {
                                         "vector": [
-                                            "1200%",
+                                            "1400%",
                                             0
                                         ],
                                         "duration": 300,
