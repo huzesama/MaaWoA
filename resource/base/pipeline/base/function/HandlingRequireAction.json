@@ -196,12 +196,6 @@
         "action": {
             "type": "Swipe",
             "param": {
-                "begin_offset": [
-                    4,
-                    1,
-                    -8,
-                    -2
-                ],
                 "end": [
                     10,
                     490,
