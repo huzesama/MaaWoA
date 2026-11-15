@@ -8,6 +8,7 @@ RECO_MODULES = (
     "freezeCheck",
     "roiManager",
     "rectOffset",
+    "inverseDiff",
 )
 
 
