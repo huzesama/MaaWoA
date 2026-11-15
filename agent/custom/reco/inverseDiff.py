@@ -15,11 +15,19 @@ class InverseDiffRecognition(CustomRecognition):
 
     custom_recognition_param:
         {
-            "filter_node_name":  "NodeA",   // 提供候选框的节点（其 filtered 作为全集）
-            "exclude_node_name": "NodeB",   // 排除项节点（在每个候选框 ROI 内识别）
-            "full_reco":         true       // 可选，默认 true。
-                                            // true  : 遍历全部 filter 框，$filtered 为完整差集
-                                            // false : 早停——找到第一个 exclude 未命中的框即返回
+            "filter_node_name":     "NodeA",    // 提供候选框的节点（其 filtered 作为全集）
+            "exclude_node_name":    "NodeB",    // 排除项节点（在每个候选框 ROI 内识别）
+            "full_reco":            true,       // 可选，默认 true，适用于batch: false时。
+                                                // true  : 遍历全部 filter 框，$filtered 为完整差集
+                                                // false : 早停——找到第一个 exclude 未命中的框即返回
+            "batch":                false       // 可选，默认false
+                                                // true  : 一次全图识别 + 包含判定
+                                                // false : 逐 filter 框 ROI 识别
+            "exclude_roi_offset":   [0,0,0,0],  // 可选，默认[0,0,0,0]，适用于batch: true时
+            "contains":             true,       // 可选，默认true
+                                                // true  : 完全在扩展区域内（严格）
+                                                // false : 部分重叠甚至反向包含（宽松）
+
         }
 
     判定规则:
@@ -47,6 +55,7 @@ class InverseDiffRecognition(CustomRecognition):
         filter_node: str | None = param.get("filter_node_name")
         exclude_node: str | None = param.get("exclude_node_name")
         full_reco: bool = bool(param.get("full_reco", True))
+        batch: bool = bool(param.get("batch", False))
         if not filter_node or not exclude_node:
             return self._fail(
                 "param_missing",
@@ -85,37 +94,91 @@ class InverseDiffRecognition(CustomRecognition):
         # ---------- 2. 逐 filter 框跑 exclude_node_name ----------
         survived: list[RecognitionResult] = []
         excluded_count: int = 0
-        exclude_ran: bool = False
+        if batch:
+            # 方式 B：一次全图识别 + 包含判定
+            # offset 需要显式传入（Python 侧读不到节点的 roi_offset）
+            offset: list[int] = param.get("exclude_roi_offset", [0, 0, 0, 0])
 
-        for res in filter_results:
-            box: list[int] = [int(v) for v in res.box]
+            def expand(box: RectType) -> list[int]:
+                x, y, w, h = (int(v) for v in box)
+                return [x + offset[0], y + offset[1], w + offset[2], h + offset[3]]
+
+            # 1. 每个 filter 框独立加 offset，得到各自的"排除区域"
+            zones: list[list[int]] = [expand(r.box) for r in filter_results]
+
+            # 2. 对扩展后的区域求并集，作为一次识别的 ROI
+            union = [
+                min(z[0] for z in zones),
+                min(z[1] for z in zones),
+                max(z[0] + z[2] for z in zones),
+                max(z[1] + z[3] for z in zones),
+            ]
+            union[2] -= union[0]
+            union[3] -= union[1]
 
             ex_reco: RecognitionDetail | None = context.run_recognition(
                 exclude_node,
                 argv.image,
-                pipeline_override={exclude_node: {"roi": box}},
+                pipeline_override={exclude_node: {"roi": union}},
             )
-
             if ex_reco is None:
-                continue
-            exclude_ran = True
+                return self._fail(
+                    "exclude_node_failed",
+                    f"run_recognition({exclude_node}) returned None",
+                    node=exclude_node,
+                )
+            ex_boxes: list[RectType] = [r.box for r in (ex_reco.filtered_results or [])]
+            if ex_reco.hit and not ex_boxes and ex_reco.box is not None:
+                ex_boxes = [ex_reco.box]  # DirectHit 等无 filtered 的算法兜底
 
-            # exclude 命中即排除（hit 覆盖 DirectHit 等无 filtered 的算法）
-            if ex_reco.hit or ex_reco.filtered_results:
-                excluded_count += 1
-            else:
-                survived.append(res)
-                # ---------- 早停：第一个幸存框即命中 ----------
-                if not full_reco:
-                    break
+            def intersects_or_contains(outer: RectType, inner: RectType) -> bool:
+                contains: bool = bool(param.get("contains", True))
+                if contains:
+                    ox, oy, ow, oh = (int(v) for v in outer)
+                    ix, iy, iw, ih = (int(v) for v in inner)
+                    return ox <= ix and oy <= iy and ox + ow >= ix + iw and oy + oh >= iy + ih
+                else:
+                    ax, ay, aw, ah = (int(v) for v in outer)
+                    bx, by, bw, bh = (int(v) for v in inner)
+                    return ax < bx + bw and bx < ax + aw and ay < by + bh and by < ay + ah
 
-        if not exclude_ran:
-            return self._fail(
-                "exclude_node_failed",
-                f"run_recognition({exclude_node}) returned None for all ROIs",
-                node=exclude_node,
-                extra={"full_reco": full_reco},
-            )
+            for res, zone in zip(filter_results, zones, strict=False):
+                if any(intersects_or_contains(zone, eb) for eb in ex_boxes):
+                    excluded_count += 1
+                else:
+                    survived.append(res)
+        else:
+            # 方式 A：逐 filter 框 ROI 识别（原有逻辑，含 full_reco 早停）
+            exclude_ran: bool = False
+            for res in filter_results:
+                box: list[int] = [int(v) for v in res.box]
+
+                ex_reco: RecognitionDetail | None = context.run_recognition(
+                    exclude_node,
+                    argv.image,
+                    pipeline_override={exclude_node: {"roi": box}},
+                )
+
+                if ex_reco is None:
+                    continue
+                exclude_ran = True
+
+                # exclude 命中即排除（hit 覆盖 DirectHit 等无 filtered 的算法）
+                if ex_reco.hit or ex_reco.filtered_results:
+                    excluded_count += 1
+                else:
+                    survived.append(res)
+                    # ---------- 早停：第一个幸存框即命中 ----------
+                    if not full_reco:
+                        break
+
+            if not exclude_ran:
+                return self._fail(
+                    "exclude_node_failed",
+                    f"run_recognition({exclude_node}) returned None for all ROIs",
+                    node=exclude_node,
+                    extra={"full_reco": full_reco},
+                )
 
         # ---------- 3. 差集为空 -> 失败 ----------
         if not survived:
