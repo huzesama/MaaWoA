@@ -1644,7 +1644,7 @@
             }
         }
     },
-    "__cstGetNScaleAirportSelectList__": {
+    "__cstGetAirportSelectList__": {
         //延伸机场卡片输出整个选择列表并收窄
         "recognition": {
             "type": "Custom",
