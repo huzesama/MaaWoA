@@ -1,7 +1,7 @@
 {
     "check&entryContractManagerRedPoint": {
         //流水线的任务链分支，通过jumpback进入
-        "enabled": false,
+        "enabled": false, //enabled由base选项enableContractsManagerOffersAccept覆写
         "recognition": {
             "type": "And",
             "param": {
