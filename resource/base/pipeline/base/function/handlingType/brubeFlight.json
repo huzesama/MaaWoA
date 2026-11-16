@@ -1,0 +1,32 @@
+{
+    "actionRequireBribeFlight": {
+        "enabled": true,
+        //检测是否存在开关例如需要贿赂的超时处理离场航班//enabled由bribery选项覆写
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inFlight_info__",
+                    "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__",
+                    "__cmatchFlight_infoBriberySwitchOff__"
+                ],
+                "box_index": 3
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            2,
+            2,
+            -4,
+            -4
+        ],
+        "next": [
+            "clickFlight_infoYellowButtonWithFallbackNoLoading",
+            "finishWithDelay"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireBribeFlight.focus.Node.Recognition.Succeeded"
+        }
+    }
+}

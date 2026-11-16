@@ -1,0 +1,249 @@
+{
+    "Flight_infoNotCovered": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchFlight_infoTitleWithCache__"
+                ]
+            }
+        }
+    },
+    "clickFlight_infoYellowButtonWithFallbackNoLoading": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "clickFlight_infoYellowButtonWithCache",
+                    "clickFlight_infoYellowButtonWithUpdate"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "actionRequiringSelect": {
+        //所有行動中隨機選擇action require的flight card//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstCompareCrewUsed__",
+                    {
+                        "recognition": {
+                            "type": "Or",
+                            "param": {
+                                "any_of": [
+                                    "__findActionRequire__",
+                                    "__detectActionRequire__"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 50,
+            "method": 3
+        },
+        "next": [
+            "actionRequireAssignCrew", //分配地勤分支
+            "actionRequireStandSelect", //尋找standSelect面板
+            "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
+            "actionRequireUniversal", //其它通用的actionRequire
+            "[JumpBack]updateAllExtraActionCard",
+            "handlingContractUpgradeCard", //异常处理
+            "finishWithDelay"
+        ]
+    },
+    "actionRequiringSelectDeparture": {
+        //选择departure//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__findActionRequireExcludeAssignCrew__",
+                    "__detectActionRequireExcludeAssignCrew__"
+                ]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 50,
+            "method": 3
+        },
+        "next": [
+            "actionRequireStandSelect",
+            "actionRequireBribeFlight",
+            "actionRequireUniversal",
+            "handlingContractUpgradeCard",
+            "finishWithDelay"
+        ]
+    },
+    "clickFlight_infoYellowButtonWithCache": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "finishNode"
+        ],
+        "focus": {
+            //缓存ROI的识别失败没有回调消息
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "clickFlight_infoYellowButtonWithUpdate": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstUpdateFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "clickFlight_infoYellowButtonWithFallback": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "clickFlight_infoYellowButtonWithCache",
+                    "clickFlight_infoYellowButtonWithUpdate"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "handlingContractUpgradeCard": {
+        //檢測是否是延續升級合同的卡片
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetContractUpgradeCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inUpgradeCard__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "next": [
+            "[JumpBack]waitContractUpgradeCardDisappear",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "waitContractUpgradeCardDisappear": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "contractUpgradeCard",
+                "model": "MaaWoA-card.onnx"
+            }
+        },
+        "pre_delay": 500
+    },
+    "YellowButton_inFlight_infoNoDisappearing": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click"
+    }
+}
