@@ -30,7 +30,7 @@
             "function.process.page2page"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.extendTower.focus.Node.Recognition.Succeeded"
         }
     },
     "entryTowerControlCard": {
@@ -228,7 +228,7 @@
         ],
         "post_wait_freezes": 100,
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.exitTowerPage.focus.Node.Recognition.Succeeded"
         }
     }
 }

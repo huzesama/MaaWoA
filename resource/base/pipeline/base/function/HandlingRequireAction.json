@@ -36,6 +36,7 @@
             "finishWithDelay"
         ]
     },
+
     "actionRequireAssignCrew": {
         //recognition由ONNX选项覆写
         //指派地勤節點鏈,檢測AssignCrew面板
@@ -73,7 +74,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireAssignCrew.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireAssignCrew.focus.Node.Recognition.Succeeded"
         }
     },
     "ClickRampAgentSwitch": {
@@ -120,7 +121,7 @@
             }
         },
         "focus": {
-            "Node.Recognition.Starting": "$pipeline.remainingCrewQuntityCheck.updateCrewUsed.focus.Node.Recognition.Starting"
+            "Node.Recognition.Starting": "$pipeline.updateCrewUsed.focus.Node.Recognition.Starting"
         }
     },
     "handlingAssignCrew": {
@@ -161,7 +162,7 @@
             "finishWithCapture"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireStandSelect.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireStandSelect.focus.Node.Recognition.Succeeded"
         }
     },
     "conditionExistNotPurchasedStand": {
@@ -266,7 +267,7 @@
             "finishWithDelay"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireBribeFlight.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireBribeFlight.focus.Node.Recognition.Succeeded"
         }
     },
     "actionRequireUniversal": {
@@ -287,7 +288,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.actionRequireUniversal.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireUniversal.focus.Node.Recognition.Succeeded"
         }
     },
     "actionRequireUpgradeContract": {
@@ -372,7 +373,7 @@
         ],
         "focus": {
             //缓存ROI的识别失败没有回调消息
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
     "clickFlight_infoYellowButtonWithUpdate": {
@@ -399,8 +400,8 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
     "clickFlight_infoYellowButtonWithFallback": {
@@ -436,8 +437,8 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
     "clickFlight_infoYellowButtonWithFallbackNoLoading": {
@@ -458,8 +459,8 @@
             -10
         ],
         "focus": {
-            "Node.Recognition.Failed": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
         }
     },
     "handlingContractUpgradeCard": {
@@ -486,7 +487,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.HandlingRequireAction.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded"
         }
     },
     "waitContractUpgradeCardDisappear": {

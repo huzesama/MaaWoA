@@ -6,7 +6,7 @@
             "restartApp"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.checkError.checkAll.focus.Node.NextList.Starting"
+            "Node.NextList.Starting": "$pipeline.checkAll.focus.Node.NextList.Starting"
         }
     },
     "checkBack": {
