@@ -37,7 +37,7 @@
         },
         "inverse": true,
         "action": "Click",
-        "target": "cacheCrewUsedBox",
+        "target": "locateCrewUsedBox",
         "target_offset": [
             120,
             160,

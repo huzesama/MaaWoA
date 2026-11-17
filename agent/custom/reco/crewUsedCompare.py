@@ -36,7 +36,7 @@ class crewUsedCompare(CustomRecognition):
                     pipeline_override={
                         "__crewUsedCompareOCR__": {
                             "recognition": "OCR",
-                            "roi": "cacheCrewUsedBox",
+                            "roi": "locateCrewUsedBox",
                             "replace": ["\\|", "/"],
                             "color_filter": "textBinarization",
                             "order_by": "Vertical",

@@ -86,7 +86,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "cacheMenuButton",
+                "roi": "locateMenuButton",
                 "method": 40,
                 "lower": [
                     104,
@@ -593,25 +593,25 @@
     //------------------HandlingActionRequiring·BEGIN------------------
     //
     ////------------------HandlingActionRequiring·ActionRequiringList·BEGIN------------------
-    "__cstmatchActionRequireList__": {
-        //通过ONNX缓存高度为分辨率宽度的ROI
+    "__cmatchActionRequireLocationInAirlineCardList__": {
+        // 从航班卡片列表识别请求行动事件
         "recognition": {
-            "type": "Custom",
+            "type": "ColorMatch",
             "param": {
-                "custom_recognition": "airlineCardListColorMatch",
-                "custom_recognition_param": {
-                    "lower": [
-                        13,
-                        244,
-                        222
-                    ],
-                    "upper": [
-                        35,
-                        255,
-                        244
-                    ],
-                    "count": 20
-                }
+                "roi": "locateAirlineCardList",
+                "method": 40,
+                "lower": [
+                    11,
+                    169,
+                    114
+                ],
+                "upper": [
+                    39,
+                    255,
+                    255
+                ],
+                "connected": true,
+                "count": 90
             }
         }
     },
@@ -620,7 +620,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "roi": "__cstmatchActionRequireList__",
+                "roi": "locateAirlineCardList",
                 "template": [
                     "航班类型-请求行动.png"
                 ],
@@ -630,12 +630,164 @@
             }
         }
     },
+    "__cstGetActionRequireTypeDiffSetFromExcludeTypeByActionRequireLocation__": {
+        // 从请求行动事件与默认过滤类型求差集
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "__tmatchActionRequireByLowThr__",
+                    "exclude_node_name": "__tmatchExcludeActionRequireType__",
+                    "batch": true,
+                    "exclude_roi_offset": [
+                        -5,
+                        -5,
+                        10,
+                        35
+                    ],
+                    "contains": false
+                }
+            }
+        }
+    },
+    "__tmatchExcludeActionRequireType__": {
+        //默认类型的排除命中走差集识别器
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "航班类型-正在安排.png",
+                    "航班类型-分配航线.png"
+                ],
+                "method": 10001,
+                "threshold": [
+                    0.85,
+                    0.7
+                ]
+            }
+        }
+    },
+    "__detectExcludeActionRequireType__": {
+        //默认类型的排除命中走差集识别器
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "assignCrewCard"
+                ],
+                "model": "MaaWoA-widget.onnx",
+                "threshold": [
+                    0.8
+                ]
+            }
+        }
+    },
     "__detectActionRequire__": {
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
                 "expected": "actionRequire",
                 "model": "MaaWoA-widget.onnx"
+            }
+        }
+    },
+    "__cstGetActionRequireTypeDiffSetFromExcludeTypeByActionRequireLocationByONNX__": {
+        // 通过神经网络获取请求行动事件与默认排除类型求差集
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "__detectActionRequire__",
+                    "exclude_node_name": "__detectExcludeActionRequireType__",
+                    "batch": true,
+                    "exclude_roi_offset": [
+                        0,
+                        0,
+                        0,
+                        30
+                    ],
+                    "contains": false
+                }
+            }
+        }
+    },
+    "__tmatchExcludeActionRequireTypeIncludeAssignCrew__": {
+        // 排除包含分配地勤类型的命中走差集识别器
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "航班类型-正在安排.png",
+                    "航班类型-分配航线.png",
+                    "航班类型-在场.png"
+                ],
+                "method": 10001,
+                "threshold": [
+                    0.85,
+                    0.8,
+                    0.8
+                ]
+            }
+        }
+    },
+    "__detectExcludeActionRequireTypeIncludeAssignCrew__": {
+        // 排除包含分配地勤的命中走差集识别器
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "assignCrewCard",
+                    "airplaneOnAirport"
+                ],
+                "model": "MaaWoA-widget.onnx",
+                "threshold": [
+                    0.8,
+                    0.8
+                ]
+            }
+        }
+    },
+    "__cstGetActionRequireTypeDiffSetFromExcludeTypeIncludeAssignCrewByActionRequireLocation__": {
+        // 从请求行动事件与包含分配地勤的过滤类型求差集
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "__tmatchActionRequireByLowThr__",
+                    "exclude_node_name": "__tmatchExcludeActionRequireTypeIncludeAssignCrew__",
+                    "batch": true,
+                    "exclude_roi_offset": [
+                        0,
+                        27,
+                        0,
+                        0
+                    ],
+                    "contains": false
+                }
+            }
+        }
+    },
+    "__cstGetActionRequireTypeDiffSetFromExcludeTypeIncludeAssignCrewByActionRequireLocationByONNX__": {
+        // 通过神经网络从请求行动事件与包含分配地勤的过滤类型求差集
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "__detectActionRequire__",
+                    "exclude_node_name": "__detectExcludeActionRequireTypeIncludeAssignCrew__",
+                    "batch": true,
+                    "exclude_roi_offset": [
+                        0,
+                        27,
+                        0,
+                        0
+                    ],
+                    "contains": false
+                }
             }
         }
     },
@@ -726,42 +878,6 @@
                 "count": 144,
                 "order_by": "Horizontal",
                 "index": -1
-            }
-        }
-    },
-    "__tmatchActionRequireExcludeAssignCrew__": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": "__cstmatchActionRequireList__",
-                "roi_offset": [
-                    -5,
-                    0,
-                    10,
-                    0
-                ],
-                "template": [
-                    "航班类型-离场.png",
-                    "航班类型-到达.png",
-                    "航班类型-维修.png"
-                ],
-                "green_mask": true,
-                "method": 10001,
-                "threshold": 0.8
-            }
-        }
-    },
-    "__detectActionRequireExcludeAssignCrew__": {
-        "recognition": {
-            "type": "NeuralNetworkDetect",
-            "param": {
-                "expected": [
-                    "arrival",
-                    "departure",
-                    "repair",
-                    "ice"
-                ],
-                "model": "MaaWoA-widget.onnx"
             }
         }
     },
@@ -1373,7 +1489,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                //"roi": "cacheMenuButton",
+                //"roi": "locateMenuButton",
                 "method": 40,
                 "lower": [
                     94,
@@ -1564,6 +1680,38 @@
     },
     //------------------CONTRACT MANAGER·END------------------
     //------------------OTHER·BEGIN------------------
+    "__detectAnyRandomAirlineCard__": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": [
+                    "airlineCard",
+                    "uniqueCard",
+                    "myFleetCard",
+                    "playersFleetCard"
+                ],
+                "model": "MaaWoA-card.onnx",
+                "order_by": "Score"
+            }
+        }
+    },
+    "__cstGetAirlineCardList__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__detectAnyRandomAirlineCard__",
+                    "offset": [
+                        0,
+                        "-y",
+                        0,
+                        "-h+H"
+                    ]
+                }
+            }
+        }
+    },
     "__cstOffsetTowerControlCard2SpeedUpSlide__": {
         "recognition": {
             "type": "Custom",

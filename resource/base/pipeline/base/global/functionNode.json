@@ -12,7 +12,7 @@
         }
     },
     "detectLoadingPage": {
-        //next列表有其它支链可配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
+        // next列表有其它支链可配合jumpback。检测当前所在页面是否为LoadingPage，自身循环，退出LoadingPage时后续为完成状态，处于LoadingPage则一直等待。
         "recognition": {
             "type": "Or",
             "param": {
@@ -28,7 +28,7 @@
         ]
     },
     "detectLoadingShortOnce": {
-        //快速判断loading一次，回退
+        // 快速判断loading一次，回退
         "recognition": {
             "type": "Or",
             "param": {
@@ -40,7 +40,7 @@
         }
     },
     "detectErrorPage": {
-        //错误页
+        // 错误页
         "recognition": {
             "type": "And",
             "param": {
@@ -55,7 +55,7 @@
         "post_delay": 1500
     },
     "popErrorCard": {
-        //错误页
+        // 错误页
         "recognition": {
             "type": "And",
             "param": {
@@ -88,8 +88,8 @@
         "post_delay": 1500
     },
     "textBinarization": {
-        //全局适用，CUSTOM AGENT引用：crewUsedCompare
-        //顶栏图标背景色
+        // 全局适用，CUSTOM AGENT引用：crewUsedCompare
+        // 顶栏图标背景色
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -107,8 +107,8 @@
             }
         }
     },
-    "cacheCrewUsedBox": {
-        //缓存地勤用量的box
+    "locateCrewUsedBox": {
+        // 缓存地勤用量的box
         "max_hit": 1, //没有使用roi缓存管理，设置max_hit限制最大执行次数
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -118,9 +118,9 @@
             }
         }
     },
-    "cacheMenuButton": {
-        //count: 2400\2100
-        //缓存菜单按钮
+    "locateMenuButton": {
+        // count: 2400\2100
+        // 缓存菜单按钮
         "max_hit": 1,
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -130,6 +130,20 @@
                     "back"
                 ],
                 "model": "MaaWoA-widget.onnx"
+            }
+        }
+    },
+    "locateAirlineCardList": {
+        // 缓存航班卡片列表
+        "max_hit": 1,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__detectAnyRandomAirlineCard__",
+                    "__cstGetAirlineCardList__"
+                ],
+                "box_index": 1
             }
         }
     },
