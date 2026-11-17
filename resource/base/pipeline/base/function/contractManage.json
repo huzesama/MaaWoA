@@ -31,7 +31,7 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__getContractManagerSubMenu__",
+                    "__cmatchSubMenuSelected__",
                     "__cmatchSubMenuRedPoint__"
                 ],
                 "box_index": 1

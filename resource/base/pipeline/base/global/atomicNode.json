@@ -1511,7 +1511,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cstReverseSubMenu__",
+                "roi": "__cmatchSubMenuSelected__",
                 "method": 40,
                 "lower": [
                     [
@@ -1545,38 +1545,13 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "method": 40,
-                "lower": [
-                    94,
-                    57,
-                    117
-                ],
-                "upper": [
-                    116,
-                    79,
-                    139
-                ],
+                "method": 6,
+                "lower": [28],
+                "upper": [35],
                 "connected": true,
-                "count": 440,
+                "count": 80000,
                 "order_by": "Vertical",
                 "index": -1
-            }
-        }
-    },
-    "__cstReverseSubMenu__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "rectOffset",
-                "custom_recognition_param": {
-                    "node_name": "__cmatchSubMenuSelected__",
-                    "offset": [
-                        "-x",
-                        0,
-                        "-w+W",
-                        "-y+H"
-                    ]
-                }
             }
         }
     },
