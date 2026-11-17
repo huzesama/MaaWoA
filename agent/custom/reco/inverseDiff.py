@@ -7,6 +7,7 @@ from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.define import RecognitionDetail, RecognitionResult, RectType
+from utils import logger
 
 
 @AgentServer.custom_recognition("inverseDiff")
@@ -94,14 +95,15 @@ class InverseDiffRecognition(CustomRecognition):
         # ---------- 2. 逐 filter 框跑 exclude_node_name ----------
         survived: list[RecognitionResult] = []
         excluded_count: int = 0
+        # offset 需要显式传入（Python 侧读不到节点的 roi_offset）
+        offset: list[int] = param.get("exclude_roi_offset", [0, 0, 0, 0])
+
+        def expand(box: RectType) -> list[int]:
+            x, y, w, h = (int(v) for v in box)
+            return [x + offset[0], y + offset[1], w + offset[2], h + offset[3]]
+
         if batch:
             # 方式 B：一次全图识别 + 包含判定
-            # offset 需要显式传入（Python 侧读不到节点的 roi_offset）
-            offset: list[int] = param.get("exclude_roi_offset", [0, 0, 0, 0])
-
-            def expand(box: RectType) -> list[int]:
-                x, y, w, h = (int(v) for v in box)
-                return [x + offset[0], y + offset[1], w + offset[2], h + offset[3]]
 
             # 1. 每个 filter 框独立加 offset，得到各自的"排除区域"
             zones: list[list[int]] = [expand(r.box) for r in filter_results]
@@ -115,6 +117,7 @@ class InverseDiffRecognition(CustomRecognition):
             ]
             union[2] -= union[0]
             union[3] -= union[1]
+            # logger.info("batch roi {}", union)
 
             ex_reco: RecognitionDetail | None = context.run_recognition(
                 exclude_node,
@@ -152,11 +155,12 @@ class InverseDiffRecognition(CustomRecognition):
             exclude_ran: bool = False
             for res in filter_results:
                 box: list[int] = [int(v) for v in res.box]
+                # logger.info("roi {}", box)
 
                 ex_reco: RecognitionDetail | None = context.run_recognition(
                     exclude_node,
                     argv.image,
-                    pipeline_override={exclude_node: {"roi": box}},
+                    pipeline_override={exclude_node: {"roi": box, "roi_offset": offset}},
                 )
 
                 if ex_reco is None:
