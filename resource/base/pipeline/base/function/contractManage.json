@@ -102,6 +102,12 @@
         "action": "Click",
         "post_wait_freezes": {
             "time": 500,
+            "target": [
+                0,
+                0,
+                0,
+                0
+            ],
             "method": 3,
             "timeout": 5000
         },

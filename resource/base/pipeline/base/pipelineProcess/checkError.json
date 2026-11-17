@@ -2,6 +2,7 @@
     "checkAll": {
         "action": "Screencap",
         "next": [
+            "checkUpgradeCard",
             "checkBack",
             "restartApp"
         ],
@@ -24,6 +25,31 @@
             -40,
             -40
         ],
+        "post_wait_freezes": 200,
+        "next": [
+            "detectPage"
+        ]
+    },
+    "checkUpgradeCard": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": {
+                            "type": "NeuralNetworkDetect",
+                            "param": {
+                                "expected": "contractUpgradeCard",
+                                "model": "MaaWoA-card.onnx"
+                            }
+                        }
+                    },
+                    "__cmatchYellowButtonNoROI__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
         "post_wait_freezes": 200,
         "next": [
             "detectPage"

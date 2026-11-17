@@ -215,9 +215,12 @@
             -10,
             -10
         ],
+        "timeout": 8000,
         "next": [
-            "[JumpBack]waitContractUpgradeCardDisappear",
-            "finishNode"
+            "waitContractUpgradeCardDisappear"
+        ],
+        "on_error": [
+            "checkAll"
         ],
         "focus": {
             "Node.Recognition.Succeeded": "$pipeline.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded"
@@ -231,6 +234,7 @@
                 "model": "MaaWoA-card.onnx"
             }
         },
+        "inverse": true,
         "pre_delay": 500
     },
     "YellowButton_inFlight_infoNoDisappearing": {
