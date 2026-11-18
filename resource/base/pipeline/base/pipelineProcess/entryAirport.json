@@ -136,7 +136,7 @@
             "param": {
                 "all_of": [
                     "__cmatchAirportCard__",
-                    "__cstGetNScaleAirportSelectList__"
+                    "__cstGetAirportSelectList__"
                 ],
                 "box_index": 1
             }

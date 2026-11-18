@@ -19,7 +19,7 @@
             "dailyUniqueContract.detectContractPage"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectDockerContractNotice.focus.recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.detectDockerContractNotice.focus.recognition.Succeeded"
         }
     },
     "dailyUniqueContract.detectContractPage": {
@@ -51,7 +51,7 @@
             "dailyUniqueContract.detectContractAcceptConfirmCard"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectUniqueContractOffers.focus.recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.detectUniqueContractOffers.focus.recognition.Succeeded"
         }
     },
     "dailyUniqueContract.acceptDailyUniqueContract": {
@@ -89,7 +89,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Action.Starting": "$pipeline.dailyUniqueContract.acceptDailyUniqueContract.focus.action.Starting"
+            "Node.Action.Starting": "$pipeline.acceptDailyUniqueContract.focus.action.Starting"
         }
     },
     "dailyUniqueContract.detectContractAcceptConfirmCard": {
@@ -171,7 +171,7 @@
             "dailyUniqueContract.detectEntryAirportPage"
         ],
         "focus": {
-            "Node.Action.Starting": "$pipeline.dailyUniqueContract.exitContractPage.focus.action.Starting"
+            "Node.Action.Starting": "$pipeline.exitContractPage.focus.action.Starting"
         }
     },
     "dailyUniqueContract.detectEntryAirportPage": {
@@ -188,7 +188,7 @@
             "dailyUniqueContract.detectMenuButton"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectEntryAirportPage.focus.recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.detectEntryAirportPage.focus.recognition.Succeeded"
         }
     },
     "dailyUniqueContract.detectMenuButton": {

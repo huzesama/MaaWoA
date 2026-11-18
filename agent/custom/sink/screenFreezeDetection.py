@@ -5,7 +5,8 @@ import numpy as np
 from maa.agent.agent_server import AgentServer
 from maa.context import Context, ContextEventSink
 from maa.event_sink import NotificationType
-from utils import logger, runtime_paths
+from utils import runtime_paths
+from utils.logger import logger
 
 # 每隔多少秒做一次对比
 _CHECK_INTERVAL = 3.0

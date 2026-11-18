@@ -1,7 +1,7 @@
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
-from utils import logger
+from utils.logger import logger
 from utils.params import parse_params
 
 _daily_handling_count: int = 0
@@ -57,13 +57,13 @@ class dailyUniqueCompare(CustomRecognition):
 
             if value > threshold:
                 _daily_handling_count = abs(value - threshold) * 2
-                logger.info("dailyUnique: current[{}] threshold[{}] & handling process. ", value, threshold)
+                logger.info("✨📃 🏃‍➡️[{}] 🎯[{}] 💪", value, threshold)
                 return CustomRecognition.AnalyzeResult(
                     box=reco_detail.best_result.box,
                     detail={"count": _daily_handling_count, "text": text, "value": value, "threshold": threshold},
                 )
             else:
-                logger.info("dailyUnique: check current[{}] threshold[{}] & switch airport. ", value, threshold)
+                logger.info("✨📃 🏃‍➡️[{}] 🏁[{}] 🔁🗺️", value, threshold)
                 return CustomRecognition.AnalyzeResult(
                     box=None, detail={"text": text, "value": value, "threshold": threshold}
                 )
