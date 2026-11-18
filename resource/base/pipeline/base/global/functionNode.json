@@ -55,7 +55,7 @@
         "post_delay": 1500
     },
     "popErrorCard": {
-        // 错误页
+        // 错误弹窗
         "recognition": {
             "type": "And",
             "param": {
@@ -70,12 +70,12 @@
         "post_delay": 1500
     },
     "popErrorCardAgain": {
-        //错误页
+        // 再次错误弹窗
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
-                    "__classifyErrorPage__",
+                    "__detectErrorCard__",
                     "__cmatchErrorUniversalConfirm__"
                 ],
                 "box_index": 1
