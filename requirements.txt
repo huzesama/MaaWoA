@@ -2,7 +2,7 @@
 #    uv export --format requirements-txt --no-hashes --no-emit-project --no-group dev --no-annotate --output-file requirements.txt
 # Dependabot: use --universal when updating this file.
 colorama==0.4.6 ; sys_platform == 'win32'
-loguru==0.7.3
+loguru==0.8.0
 maaagentbinary==1.0.1
 maafw==6.0.0b3
 numpy==2.5.3
