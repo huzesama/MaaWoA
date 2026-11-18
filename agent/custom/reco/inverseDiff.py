@@ -7,7 +7,7 @@ from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
 from maa.define import RecognitionDetail, RecognitionResult, RectType
-from utils import logger  # type: ignore  # noqa: F401
+from utils.logger import logger  # type: ignore  # noqa: F401
 
 
 @AgentServer.custom_recognition("inverseDiff")

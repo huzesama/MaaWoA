@@ -47,7 +47,7 @@ agent/
 ### 3.1 `utils/logger.py` —— 日志
 
 ```python
-from utils import logger
+from utils.logger import logger
 ```
 
 `logger` 是一个**已经初始化好的** loguru logger（没装 loguru 时自动回退到标准 logging）。
@@ -286,7 +286,7 @@ RECO_MODULES = (
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
-from utils import logger
+from utils.logger import logger
 from utils.params import parse_params
 
 
