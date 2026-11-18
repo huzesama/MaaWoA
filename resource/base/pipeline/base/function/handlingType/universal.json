@@ -1,0 +1,46 @@
+{
+    "actionRequireUniversal": {
+        //指派地勤行動外的節點鏈
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__conditionFlight_infoActionRequire__", //回退会更新__cstGetFlight_infoCard__
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__"
+                ]
+            }
+        },
+        "next": [
+            "actionRequireUpgradeContract",
+            "clickFlight_infoYellowButtonWithFallbackNoLoading",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireUniversal.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "actionRequireUpgradeContract": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__",
+                    "__cstOffsetYellowButton2ClaimContractInFlightInfoCard__",
+                    "__cmatchFlight_infoContractFinishRed__",
+                    "__cmatchFlight_infoContractFinishGreen__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "[JumpBack]Flight_infoNotCovered",
+            "handlingContractUpgradeCard",
+            "finishWithCapture"
+        ]
+    }
+}

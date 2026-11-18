@@ -3,7 +3,7 @@ import hashlib
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
-from utils import logger
+from utils.logger import logger
 
 _last_hash: str | None = None
 

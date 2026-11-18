@@ -29,24 +29,24 @@
         }
     },
     "__findActionRequire__": {
-        //只用ONNX缓存
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cstmatchActionRequireList__",
-                    "__tmatchActionRequireByLowThr__"
-                ]
+                    "__cmatchActionRequireLocationInAirlineCardList__",
+                    "__cstGetActionRequireTypeDiffSetFromExcludeTypeByActionRequireLocation__"
+                ],
+                "box_index": 1
             }
         }
     },
-    "__getContractManagerSubMenu__": {
+    "__findActionRequireExcludeAssignCrew__": {
         "recognition": {
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cmatchSubMenuSelected__",
-                    "__cstReverseSubMenu__" //反算二级菜单ROI
+                    "__cmatchActionRequireLocationInAirlineCardList__",
+                    "__cstGetActionRequireTypeDiffSetFromExcludeTypeIncludeAssignCrewByActionRequireLocation__"
                 ],
                 "box_index": 1
             }
@@ -126,17 +126,6 @@
                 "any_of": [
                     "__findFlight_infoActionRequireWithCache__",
                     "__findFlight_infoActionRequireWithUpdate__"
-                ]
-            }
-        }
-    },
-    "__findActionRequireExcludeAssignCrew__": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__cstmatchActionRequireList__",
-                    "__tmatchActionRequireExcludeAssignCrew__"
                 ]
             }
         }

@@ -1,0 +1,100 @@
+{
+    "actionRequireStandSelect": {
+        //机位分配的节点链，匹配stand select面板
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__conditionStandSelectOptionExist__"
+                ],
+                "box_index": 1
+            }
+        },
+        "next": [
+            "clickFlight_infoYellowButtonWithCache",
+            "conditionExistNotPurchasedStand",
+            "baseStandSelect",
+            "resetStandSelectList",
+            "finishWithCapture"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireStandSelect.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "conditionExistNotPurchasedStand": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmtachStandSelectOption__",
+                    "__cmatchWollarInStandSelectOption__"
+                ],
+                "box_index": 1
+            }
+        },
+        "next": [
+            "resetStandSelectList",
+            "baseStandSelect"
+        ]
+    },
+    "resetStandSelectList": {
+        //当前界面既不满足规划器预选也不满足存在可选机位的兜底选择
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetStandSelectCard__",
+                    "__cmatchStandSelectOptionListSlider__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "end": [
+                    10,
+                    490,
+                    10,
+                    230
+                ],
+                "end_hold": 200,
+                "duration": 200
+            }
+        },
+        "post_wait_freezes": {
+            "time": 50,
+            "target": "actionRequireStandSelect"
+        },
+        "next": [
+            "baseStandSelect",
+            "finishNode"
+        ]
+    },
+    "baseStandSelect": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetStandSelectCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmtachStandSelectOption__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            10,
+            10,
+            -20,
+            -20
+        ],
+        "post_wait_freezes": 50,
+        "next": [
+            "clickFlight_infoYellowButtonWithFallback",
+            "finishNode"
+        ]
+    }
+}

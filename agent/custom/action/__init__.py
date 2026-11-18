@@ -1,9 +1,6 @@
 from importlib import import_module
 
-ACTION_MODULES = (
-    "general",
-    "swipe_by_vector",
-)
+ACTION_MODULES = ("swipe_by_vector",)
 
 
 def register_all() -> None:

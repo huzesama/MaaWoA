@@ -15,8 +15,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.process.page2page.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.process.page2page.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.process.middlePage": {
@@ -54,8 +54,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.disappearing.homePage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.disappearing.homePage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.disappearing.airportSelecPage": {
@@ -75,8 +75,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.disappearing.airportSelecPage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.disappearing.airportSelecPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.disappearing.entryAirportPage": {
@@ -96,8 +96,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.disappearing.entryAirportPage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.disappearing.entryAirportPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.disappearing.towerPage": {
@@ -117,8 +117,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.disappearing.towerPage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.disappearing.towerPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.appearing.homePage": {
@@ -135,8 +135,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.appearing.homePage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.appearing.homePage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.appearing.airportSelecPage": {
@@ -153,8 +153,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.appearing.airportSelecPage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.appearing.airportSelecPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.appearing.entryAirportPage": {
@@ -171,8 +171,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.appearing.entryAirportPage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.appearing.entryAirportPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     },
     "function.appearing.towerPage": {
@@ -190,8 +190,8 @@
             "[Anchor]page2page.whenError"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.process.function.appearing.towerPage.focus.Node.NextList.Starting",
-            "Node.NextList.Failed": "$pipeline.process.function.process.page2page.focus.Node.NextList.Failed"
+            "Node.NextList.Starting": "$pipeline.function.appearing.towerPage.focus.Node.NextList.Starting",
+            "Node.NextList.Failed": "$pipeline.function.process.page2page.focus.Node.NextList.Failed"
         }
     }
 }

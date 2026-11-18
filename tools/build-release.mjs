@@ -163,42 +163,45 @@ function main() {
         }
 
         const releaseTargets = [
-            [
-                "win",
-                "x86_64",
-                "zip",
-            ],
-            [
-                "win",
-                "aarch64",
-                "zip",
-            ],
-            [
-                "linux",
-                "x86_64",
-                "tar.gz",
-            ],
-            [
-                "linux",
-                "aarch64",
-                "tar.gz",
-            ],
-            [
-                "macos",
-                "x86_64",
-                "tar.gz",
-            ],
-            [
-                "macos",
-                "aarch64",
-                "tar.gz",
-            ],
+        [
+            "win",
+            "x86_64",
+            "zip",
+        ],
+        [
+            "win",
+            "aarch64",
+            "zip",
+        ],
+        [
+            "linux",
+            "x86_64",
+            "tar.gz",
+        ],
+        [
+            "linux",
+            "aarch64",
+            "tar.gz",
+        ],
+        [
+            "macos",
+            "x86_64",
+            "tar.gz",
+        ],
+        [
+            "macos",
+            "aarch64",
+            "tar.gz",
+        ],
         ];
         for (const [
             os,
             arch,
-            ext,
+            targetExt,
         ] of releaseTargets) {
+            // The extension must match what release.yml actually publishes: macOS MXU ships as a
+            // dmg produced by tools/macos-app-bundle.mjs; every other target stays an archive.
+            const ext = os === "macos" && guiKey === "mxu" ? "dmg" : targetExt;
             artifacts.push(`${releaseArtifactName}-${os}-${arch}-${version}-${gui.suffix}.${ext}`);
         }
     }
@@ -214,7 +217,7 @@ function main() {
                     escapeRegExp(releaseArtifactName) +
                     "-(win|linux|macos)-(x86_64|aarch64)-v.+-(" +
                     suffixPattern +
-                    ")\\.(zip|tar\\.gz)$",
+                    ")\\.(zip|tar\\.gz|dmg)$",
             ).test(artifact)
         ) {
             throw new Error(`invalid artifact name: ${artifact}`);
@@ -679,12 +682,23 @@ function guiEntrypointName(runtimePlatform) {
     return runtimePlatform.startsWith("win-") ? `${projectSlug}.exe` : projectSlug;
 }
 
+// MXU 2.10 moved the macOS build into mxu.app/Contents/MacOS/mxu. The release package keeps the
+// flat portable layout (a bare executable outside a bundle is still a supported MXU deployment),
+// so the binary is lifted out of the bundle and the bundle itself stays out of the package.
 function renameGuiEntrypoint(gui, root, runtimePlatform) {
     const target = join(root, guiEntrypointName(runtimePlatform));
     for (const candidate of gui.entrypointCandidates(runtimePlatform)) {
         const source = join(root, candidate);
         if (existsSync(source)) {
             renameSync(source, target);
+            return;
+        }
+        if (!runtimePlatform.startsWith("osx-")) continue;
+        const bundleDir = join(root, `${candidate}.app`);
+        const bundled = join(bundleDir, "Contents", "MacOS", candidate);
+        if (existsSync(bundled)) {
+            renameSync(bundled, target);
+            rmSync(bundleDir, {recursive: true, force: true});
             return;
         }
     }

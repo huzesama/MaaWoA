@@ -5,6 +5,7 @@
             "[JumpBack]actionRequiringSelect",
             "[JumpBack]detectFilter", //过滤器筛选的准备
             "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
+            "[JumpBack]conditionNoneDeparture",
             "[JumpBack]entryDocker",
             "finishWithDelay" //跳回detectPage节点
         ]
@@ -37,7 +38,7 @@
         },
         "inverse": true,
         "action": "Click",
-        "target": "cacheCrewUsedBox",
+        "target": "locateCrewUsedBox",
         "target_offset": [
             120,
             160,
