@@ -57,13 +57,13 @@ class dailyUniqueCompare(CustomRecognition):
 
             if value > threshold:
                 _daily_handling_count = abs(value - threshold) * 2
-                logger.info("dailyUnique: current[{}] threshold[{}] & handling process. ", value, threshold)
+                logger.info("✨📃 🏃‍➡️[{}] 🎯[{}] 💪", value, threshold)
                 return CustomRecognition.AnalyzeResult(
                     box=reco_detail.best_result.box,
                     detail={"count": _daily_handling_count, "text": text, "value": value, "threshold": threshold},
                 )
             else:
-                logger.info("dailyUnique: check current[{}] threshold[{}] & switch airport. ", value, threshold)
+                logger.info("✨📃 🏃‍➡️[{}] 🏁[{}] 🔁🗺️", value, threshold)
                 return CustomRecognition.AnalyzeResult(
                     box=None, detail={"text": text, "value": value, "threshold": threshold}
                 )

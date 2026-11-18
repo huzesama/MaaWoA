@@ -68,7 +68,7 @@ class crewUsedCompare(CustomRecognition):
                 _last_ocr_crew_used = "???/???"
             else:
                 _last_ocr_crew_used = current_ocr_crew_used
-                logger.info("update cache crew: {}", current_ocr_crew_used)
+                logger.info("🦺 {}", current_ocr_crew_used)
 
         return CustomRecognition.AnalyzeResult(
             box=_return_box_,
