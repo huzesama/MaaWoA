@@ -19,6 +19,54 @@
             ],
             "default_case": "No"
         },
+        "de-icingCompatible": {
+            "type": "switch",
+            "label": "",
+            "description": "",
+            "cases": [
+                {
+                    "name": "No"
+                },
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "conditionNoneDeparture": {
+                            "enable": true
+                        },
+                        "detectFilterDepartureButton": {
+                            "expected": "filterDeparture"
+                        },
+                        "__tmatchExcludeActionRequireType__": {
+                            "template": [
+                                "航班类型-正在安排.png",
+                                "航班类型-分配航线.png",
+                                "航班类型-离场.png"
+                            ],
+                            "threshold": [
+                                0.85,
+                                0.7,
+                                0.8
+                            ]
+                        },
+                        "__tmatchExcludeActionRequireTypeIncludeAssignCrew__": {
+                            "template": [
+                                "航班类型-正在安排.png",
+                                "航班类型-分配航线.png",
+                                "航班类型-在场.png",
+                                "航班类型-离场.png"
+                            ],
+                            "threshold": [
+                                0.85,
+                                0.8,
+                                0.8,
+                                0.8
+                            ]
+                        }
+                    }
+                }
+            ],
+            "default_case": "No"
+        },
         "dockExtra": {
             "type": "switch",
             "label": "$pi.task.option.dockExtra.name",

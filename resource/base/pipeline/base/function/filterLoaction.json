@@ -67,7 +67,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
-                //expected受选项enableTower覆写
+                // expected受选项enableTower覆写
                 "expected": "filterAirplaneOnAirportPressed",
                 "model": "MaaWoA-widget.onnx"
             }
@@ -85,6 +85,7 @@
         "recognition": {
             "type": "NeuralNetworkDetect",
             "param": {
+                // expected受选项de-icingCompatible覆写
                 "expected": "filterDeparturePressed",
                 "model": "MaaWoA-widget.onnx"
             }

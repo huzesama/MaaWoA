@@ -17,30 +17,6 @@
                     "label": "$pi.task.option.ONNX.reduceONNX.name",
                     "description": "$pi.task.option.ONNX.reduceONNX.description",
                     "pipeline_override": {
-                        "actionRequiringSelect": {
-                            //REDUCE ONNX OPTION
-                            "recognition": {
-                                "type": "And",
-                                "param": {
-                                    "all_of": [
-                                        "__cstCompareCrewUsed__",
-                                        "__findActionRequire__"
-                                    ],
-                                    "box_index": 1
-                                }
-                            }
-                        },
-                        "actionRequiringSelectDeparture": {
-                            //REDUCE ONNX OPTION
-                            "recognition": {
-                                "type": "Or",
-                                "param": {
-                                    "any_of": [
-                                        "__findActionRequireExcludeAssignCrew__"
-                                    ]
-                                }
-                            }
-                        },
                         "dailyUniqueContract.detectMenuButton": {
                             //REDUCE ONNX OPTION
                             "recognition": {
@@ -71,19 +47,6 @@
                     "label": "$pi.task.option.ONNX.preferONNX.name",
                     "description": "$pi.task.option.ONNX.preferONNX.description",
                     "pipeline_override": {
-                        "actionRequiringSelect": {
-                            //PREFER ONNX OPTION
-                            "recognition": {
-                                "type": "And",
-                                "param": {
-                                    "all_of": [
-                                        "__cstCompareCrewUsed__",
-                                        "__cstGetActionRequireTypeDiffSetFromExcludeTypeByActionRequireLocationByONNX__"
-                                    ],
-                                    "box_index": 1
-                                }
-                            }
-                        },
                         "actionRequireAssignCrew": {
                             //PREFER ONNX OPTION
                             "recognition": {
@@ -118,17 +81,6 @@
                                         "__detectStandSelectOption__"
                                     ],
                                     "box_index": 1
-                                }
-                            }
-                        },
-                        "actionRequiringSelectDeparture": {
-                            //PREFER ONNX OPTION
-                            "recognition": {
-                                "type": "Or",
-                                "param": {
-                                    "any_of": [
-                                        "__cstGetActionRequireTypeDiffSetFromExcludeTypeIncludeAssignCrewByActionRequireLocationByONNX__"
-                                    ]
                                 }
                             }
                         },

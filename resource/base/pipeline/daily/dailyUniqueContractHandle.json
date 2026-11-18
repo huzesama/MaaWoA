@@ -199,6 +199,7 @@
         "next": [
             "actionRequiringSelect",
             "[JumpBack]actionRequiringSelectDeparture",
+            "[JumpBack]conditionNoneDeparture",
             "[JumpBack]handlingContractUpgradeCard",
             "[JumpBack]entryDocker",
             "finishWithDelay"
