@@ -21,8 +21,8 @@
         },
         "de-icingCompatible": {
             "type": "switch",
-            "label": "",
-            "description": "",
+            "label": "$pi.task.option.de-icingCompatible.name",
+            "description": "$pi.task.option.de-icingCompatible.description",
             "cases": [
                 {
                     "name": "No"
