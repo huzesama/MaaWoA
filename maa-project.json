@@ -109,7 +109,7 @@
         "mxu": {
             "channel": "stable",
             "enabled": true,
-            "version": "2.9.0"
+            "version": ""
         }
     },
     "schemaVersion": 2
