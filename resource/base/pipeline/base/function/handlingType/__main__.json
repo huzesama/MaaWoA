@@ -1,0 +1,431 @@
+{
+    "Flight_infoNotCovered": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchFlight_infoTitleWithCache__"
+                ]
+            }
+        }
+    },
+    "clickFlight_infoYellowButtonWithFallbackNoLoading": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "clickFlight_infoYellowButtonWithCache",
+                    "clickFlight_infoYellowButtonWithUpdate"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "actionRequiringSelect": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstCompareCrewUsed__",
+                    "__findActionRequire__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 100,
+            "method": 3
+        },
+        "next": [
+            "actionRequireAssignCrew", //分配地勤分支
+            "actionRequireStandSelect", //尋找standSelect面板
+            "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
+            "actionRequireUniversal", //其它通用的actionRequire
+            "handlingContractUpgradeCard", //异常处理
+            "updateAllExtraActionCard",
+            "finishNode"
+        ]
+    },
+    "actionRequiringSelectDeparture": {
+        //选择departure//recognition由ONNX选项覆写
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__findActionRequireExcludeAssignCrew__"
+                ]
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 100,
+            "method": 3
+        },
+        "next": [
+            "actionRequireAssignCrew",
+            "actionRequireStandSelect",
+            "actionRequireBribeFlight",
+            "actionRequireUniversal",
+            "handlingContractUpgradeCard",
+            "finishNode"
+        ]
+    },
+    "__cstGetFilterDepartureButtonBox__": {
+        //缓存航班详细信息卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__FilterDepartureButton__",
+                    "model": "MaaWoA-widget.onnx",
+                    "expected": [
+                        "filterDeparturePressed",
+                        "filterDeparture"
+                    ],
+                    "threshold": 0.8
+                }
+            }
+        }
+    },
+    "__cstUpdateFilterDepartureButtonBox__": {
+        //更新缓存分配地勤卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__FilterDepartureButton__",
+                    "model": "MaaWoA-widget.onnx",
+                    "expected": [
+                        "filterDeparturePressed",
+                        "filterDeparture"
+                    ],
+                    "threshold": 0.85,
+                    "override": true
+                }
+            }
+        }
+    },
+
+    "__cmatchFilterButtonBox__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetFilterDepartureButtonBox__",
+                "method": 40,
+                "lower": [
+                    [
+                        93,
+                        19,
+                        192
+                    ],
+                    [
+                        94,
+                        67,
+                        90
+                    ]
+                ],
+                "upper": [
+                    [
+                        115,
+                        41,
+                        214
+                    ],
+                    [
+                        116,
+                        89,
+                        112
+                    ]
+                ],
+                "connected": true,
+                "count": 445
+            }
+        }
+    },
+    "__cstRelocateFilterButtonBox__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchFilterButtonBox__",
+                    "offset": [
+                        "-w/4",
+                        "-h/4",
+                        "-3*w/4-x+W",
+                        "-h/2"
+                    ]
+                }
+            }
+        }
+    },
+    "__cmatchFilterButtonBox2__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstRelocateFilterButtonBox__",
+                "method": 40,
+                "lower": [[
+                        93,
+                        13,
+                        222
+                    ]],
+                "upper": [[
+                        115,
+                        35,
+                        244
+                    ]],
+                "connected": false,
+                "count": 298
+            }
+        }
+    },
+    "__ocrFilterNoneActionRequire__": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "__cmatchFilterButtonBox2__",
+                "expected": [
+                    "^0/\\d+$"
+                ],
+                "replace": [
+                    [
+                        "\\|",
+                        "/"
+                    ]
+                ],
+                "only_rec": true
+            }
+        }
+    },
+    "__tmatchActionRequireDepartureType__": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__tmatchActionRequireByLowThr__",
+                "roi_offset": [
+                    -5,
+                    -5,
+                    10,
+                    35
+                ],
+                "template": [
+                    "航班类型-离场.png"
+                ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    "__findDepartureType__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cmatchActionRequireLocationInAirlineCardList__",
+                    "__tmatchActionRequireByLowThr__",
+                    "__tmatchActionRequireDepartureType__"
+                ],
+                "box_index": 2
+            }
+        }
+    },
+    "conditionNoneDeparture": {
+        "enabled": false, // enabled由选项de-icingCompatible覆写
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFilterDepartureButtonBox__",
+                    "__cmatchFilterButtonBox__",
+                    "__cstRelocateFilterButtonBox__",
+                    "__cmatchFilterButtonBox2__",
+                    "__ocrFilterNoneActionRequire__",
+                    "__findDepartureType__"
+                ],
+                "box_index": 5
+            }
+        },
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 100,
+            "method": 3
+        },
+        "next": [
+            "actionRequireBribeFlight",
+            "actionRequireUpgradeContract",
+            "handlingContractUpgradeCard",
+            "finishNode"
+        ]
+    },
+    "clickFlight_infoYellowButtonWithCache": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "finishNode"
+        ],
+        "focus": {
+            //缓存ROI的识别失败没有回调消息
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "clickFlight_infoYellowButtonWithUpdate": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstUpdateFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "clickFlight_infoYellowButtonWithFallback": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "clickFlight_infoYellowButtonWithCache",
+                    "clickFlight_infoYellowButtonWithUpdate"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "post_wait_freezes": {
+            "time": 200,
+            "target_offset": [
+                10,
+                10,
+                -20,
+                -20
+            ],
+            "method": 5
+        },
+        "next": [
+            "[JumpBack]YellowButton_inFlight_infoNoDisappearing",
+            "[JumpBack]detectLoadingShortOnce",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Failed": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Failed",
+            "Node.Recognition.Succeeded": "$pipeline.clickFlight_infoYellowButtonX.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "handlingContractUpgradeCard": {
+        //檢測是否是延續升級合同的卡片
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetContractUpgradeCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inUpgradeCard__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            5,
+            5,
+            -10,
+            -10
+        ],
+        "timeout": 8000,
+        "next": [
+            "waitContractUpgradeCardDisappear"
+        ],
+        "on_error": [
+            "checkAll"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.handlingContractUpgradeCard.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "waitContractUpgradeCardDisappear": {
+        "recognition": {
+            "type": "NeuralNetworkDetect",
+            "param": {
+                "expected": "contractUpgradeCard",
+                "model": "MaaWoA-card.onnx"
+            }
+        },
+        "inverse": true,
+        "pre_delay": 500
+    },
+    "YellowButton_inFlight_infoNoDisappearing": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__",
+                    "__cmatchYellowButton_inFlight_info__"
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click"
+    }
+}

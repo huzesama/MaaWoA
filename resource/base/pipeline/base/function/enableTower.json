@@ -30,7 +30,7 @@
             "function.process.page2page"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.enableTower.extendTower.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.extendTower.focus.Node.Recognition.Succeeded"
         }
     },
     "entryTowerControlCard": {
@@ -118,7 +118,7 @@
                 "custom_action": "swipe_by_vector",
                 "custom_action_param": {
                     "vector": [
-                        "600%",
+                        "700%",
                         0
                     ],
                     "duration": 300,
@@ -188,10 +188,13 @@
         },
         "action": "Click",
         "post_wait_freezes": 100,
+        "timeout": 5000,
         "next": [
             "[JumpBack]detectLoadingShortOnce",
-            "exitTowerPage",
-            "finishNode"
+            "exitTowerPage"
+        ],
+        "on_error": [
+            "checkAll"
         ]
     },
     "exitTowerPage": {
@@ -199,7 +202,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "cacheMenuButton",
+                "roi": "locateMenuButton",
                 "method": 40,
                 "lower": [
                     94,
@@ -225,7 +228,7 @@
         ],
         "post_wait_freezes": 100,
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.enableTower.exitTowerPage.focus.Node.Recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.exitTowerPage.focus.Node.Recognition.Succeeded"
         }
     }
 }

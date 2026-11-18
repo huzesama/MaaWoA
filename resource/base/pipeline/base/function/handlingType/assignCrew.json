@@ -1,0 +1,107 @@
+{
+    "actionRequireAssignCrew": {
+        //recognition由ONNX选项覆写
+        //指派地勤節點鏈,檢測AssignCrew面板
+        "recognition": {
+            //同时匹配滑块与开关
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cstGetAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchAssignCrewCardSlideBlock__",
+                    "__cmatchAssignCrewCardRampAgentSwitchBackground__",
+                    "__cmatchAssignCrewCardRampAgentSwitchForeground__"
+                ],
+                "box_index": 2
+            }
+        },
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": true,
+                "begin_offset": [
+                    2,
+                    2,
+                    -4,
+                    -4
+                ],
+                "end": "actionRequiringSelect", //选择的flight Card action requiring位置
+                "end_hold": 50,
+                "duration": 200
+            }
+        },
+        "next": [
+            "ClickRampAgentSwitch",
+            "finishNode"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$pipeline.actionRequireAssignCrew.focus.Node.Recognition.Succeeded"
+        }
+    },
+    "ClickRampAgentSwitch": {
+        //recognition由ONNX选项覆写
+        //指派地勤節點鏈,尋找並打開Ramp Agent
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__cstGetAssignCrewCardRampAgentSwitch__"
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [
+            2,
+            2,
+            -4,
+            -4
+        ],
+        "next": [
+            "handlingAssignCrew",
+            "updateCrewUsedBefore",
+            "finishNode"
+        ]
+    },
+    "updateCrewUsedBefore": {
+        "action": "Click",
+        //用于释放选择但未分配的地勤
+        "target": "actionRequiringSelect",
+        "next": [
+            "updateCrewUsed",
+            "finishNode"
+        ]
+    },
+    "updateCrewUsed": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "crewUsedCompare",
+                "custom_recognition_param": {
+                    "update_cache": true
+                }
+            }
+        },
+        "focus": {
+            "Node.Recognition.Starting": "$pipeline.updateCrewUsed.focus.Node.Recognition.Starting"
+        }
+    },
+    "handlingAssignCrew": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cstGetAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cstGetAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__conditionAssignCrewPass__",
+                    "__cmatchAssignCrewCardRampAgentOn__"
+                ]
+            }
+        },
+        "next": [
+            "clickFlight_infoYellowButtonWithFallbackNoLoading",
+            "finishNode"
+        ]
+    }
+}

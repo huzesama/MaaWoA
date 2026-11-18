@@ -78,7 +78,7 @@
             "finishNode"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.selectUniqueAirport.focus.recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.selectUniqueAirport.focus.recognition.Succeeded"
         }
     },
     "dailyUniqueContract.detectAitportListEnd": {
@@ -100,7 +100,7 @@
         },
         "action": "StopTask",
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.detectAitportListEnd.focus.recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.detectAitportListEnd.focus.recognition.Succeeded"
         }
     },
     "dailyUniqueContract.detectFilterUniqueBox": {
@@ -182,7 +182,7 @@
             "startLoopAction"
         ],
         "focus": {
-            "Node.Recognition.Succeeded": "$pipeline.dailyUniqueContract.entryHandleUnique.focus.recognition.Succeeded"
+            "Node.Recognition.Succeeded": "$pipeline.entryHandleUnique.focus.recognition.Succeeded"
         }
     },
     "dailyUniqueContract.continueHandleUnique": {
@@ -199,6 +199,7 @@
         "next": [
             "actionRequiringSelect",
             "[JumpBack]actionRequiringSelectDeparture",
+            "[JumpBack]conditionNoneDeparture",
             "[JumpBack]handlingContractUpgradeCard",
             "[JumpBack]entryDocker",
             "finishWithDelay"

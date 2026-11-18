@@ -1,7 +1,7 @@
 {
     "check&entryContractManagerRedPoint": {
         //流水线的任务链分支，通过jumpback进入
-        "enabled": false,
+        "enabled": false, //enabled由base选项enableContractsManagerOffersAccept覆写
         "recognition": {
             "type": "And",
             "param": {
@@ -31,7 +31,7 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__getContractManagerSubMenu__",
+                    "__cmatchSubMenuSelected__",
                     "__cmatchSubMenuRedPoint__"
                 ],
                 "box_index": 1
@@ -102,6 +102,12 @@
         "action": "Click",
         "post_wait_freezes": {
             "time": 500,
+            "target": [
+                0,
+                0,
+                0,
+                0
+            ],
             "method": 3,
             "timeout": 5000
         },
