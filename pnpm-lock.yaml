@@ -167,8 +167,8 @@ importers:
   .:
     devDependencies:
       '@nekosu/maa-tools':
-        specifier: 1.3.0
-        version: 1.3.0
+        specifier: 1.3.1
+        version: 1.3.1
       '@nekosu/prettier-plugin-maafw-sort':
         specifier: 1.1.0
         version: 1.1.0
@@ -238,17 +238,17 @@ packages:
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
     engines: {node: '>=18.0.0'}
 
-  '@nekosu/maa-locale@1.2.0':
-    resolution: {integrity: sha512-fzuC4yeOhQAMJVMEC0SN6SePDvmtiKrsNIUubHrYfVJc9FHi/VooQy7Mx3y14+T7fX3thIo7cF3O1/2oV/yzKQ==}
+  '@nekosu/maa-locale@1.3.0':
+    resolution: {integrity: sha512-Y9KvXdPi9JyTlafg751++SftPyN0eYcsqg8E1OWmHLUE9HK3lX6UdDidO+Hu4idiCVK2BjYRsXHTfHbZ/qZgIg==}
 
-  '@nekosu/maa-pipeline-manager@1.1.0':
-    resolution: {integrity: sha512-JCB7gaHBnl2Iet5F9hb/ATiAukkyPIfSzlNmvc5O5j55qBZAxH6lqyK3rU0Etg/XMQVtCVnhGMFhPPxqrYAYXQ==}
+  '@nekosu/maa-pipeline-manager@1.2.0':
+    resolution: {integrity: sha512-kmzDA7tOh+Z9QDQ6CumSzMhkuMoGLtlV7yWf4QmI0jbkywEjfugcP+o4fyeubaZmeYDGfhu/ttRHBIrIKAcGdg==}
 
   '@nekosu/maa-tasker@1.0.0':
     resolution: {integrity: sha512-p5SaBJGvAMr5J2uk6imoiK7eIF7yA67HndWyfxddAHHdoyliai2dkHqBhTmDDuRmmAJ/ly4INg5Hnx8CI7Po3A==}
 
-  '@nekosu/maa-tools@1.3.0':
-    resolution: {integrity: sha512-EapP65M2jFh7i2LoJfuF0Pgm+vNTSl+C6RwlSseKsgVqA4Fc3vVoqcMSO8o2MfC8lNokTQ05wo5L0gZZoUESNA==}
+  '@nekosu/maa-tools@1.3.1':
+    resolution: {integrity: sha512-XOTLpJ1bnhN1qoZ9oOXXDtNpfpXMNPzZCR/Zxea1JrPfA2zptntdVHdNk3eUQ5Vuv9gKrkjmeyUKZ3gwbsdn0w==}
     hasBin: true
 
   '@nekosu/maa-version-manager@1.1.0':
@@ -816,11 +816,11 @@ snapshots:
     dependencies:
       minipass: 7.1.3
 
-  '@nekosu/maa-locale@1.2.0': {}
+  '@nekosu/maa-locale@1.3.0': {}
 
-  '@nekosu/maa-pipeline-manager@1.1.0':
+  '@nekosu/maa-pipeline-manager@1.2.0':
     dependencies:
-      '@nekosu/maa-locale': 1.2.0
+      '@nekosu/maa-locale': 1.3.0
       '@nekosu/maa-tasker': 1.0.0
       chokidar: 5.0.0
       jsonc-parser: 3.3.1
@@ -829,11 +829,11 @@ snapshots:
     dependencies:
       '@nekosu/simple-parser': 1.0.0
 
-  '@nekosu/maa-tools@1.3.0':
+  '@nekosu/maa-tools@1.3.1':
     dependencies:
       '@actions/core': 3.0.1
-      '@nekosu/maa-locale': 1.2.0
-      '@nekosu/maa-pipeline-manager': 1.1.0
+      '@nekosu/maa-locale': 1.3.0
+      '@nekosu/maa-pipeline-manager': 1.2.0
       '@nekosu/maa-version-manager': 1.1.0
       chalk: 5.6.2
       jiti: 2.7.0
