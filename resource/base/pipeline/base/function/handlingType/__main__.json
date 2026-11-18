@@ -64,8 +64,8 @@
             "actionRequireStandSelect", //尋找standSelect面板
             "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
             "actionRequireUniversal", //其它通用的actionRequire
-            "[JumpBack]updateAllExtraActionCard",
             "handlingContractUpgradeCard", //异常处理
+            "updateAllExtraActionCard",
             "finishNode"
         ]
     },
