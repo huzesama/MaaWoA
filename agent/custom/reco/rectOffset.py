@@ -1,13 +1,66 @@
 import ast
 import operator
 from collections.abc import Callable
+from typing import Any, cast
 
 from maa.agent.agent_server import AgentServer
 from maa.context import Context
 from maa.custom_recognition import CustomRecognition
+from maa.define import (
+    AndRecognitionResult,
+    NodeDetail,
+    OrRecognitionResult,
+    RecognitionDetail,
+    RecognitionResult,
+)
 from utils.logger import logger
-from utils.maa_types import best_box
 from utils.params import parse_params
+
+Box4 = tuple[int, int, int, int]
+
+
+def source_box(detail: RecognitionDetail | None) -> Box4 | None:
+    """取这次识别的整体框。
+
+    直接用 detail.box：任何算法（含 And / Or / OCR / ONNX）都适用。
+    不用 utils.best_box —— utils 会随上游项目更新覆盖，本地逻辑要自包含。
+    """
+    if detail is None or not detail.hit or detail.box is None:
+        return None
+    return cast(Box4, tuple(detail.box))
+
+
+def collect_source_boxes(detail: RecognitionDetail | None, use_filter: bool) -> list[Box4]:
+    """按 use_filter 收集源识别结果的 box 列表。
+
+    use_filter=True  -> filtered_results 全部（And/Or 递归展开到叶子）
+    use_filter=False -> 仅 best_result
+
+    注意：不用 utils 的 _iter_details / filtered_result_dicts —— 它们只沿
+    best_result 往下走，Or 多个命中时会漏掉非最佳分支。
+    """
+    if detail is None:
+        return []
+
+    if not use_filter:
+        box = source_box(detail)
+        return [box] if box is not None else []
+
+    boxes: list[Box4] = []
+
+    def walk(results: list[RecognitionResult]) -> None:
+        for result in results:
+            if isinstance(result, AndRecognitionResult | OrRecognitionResult):
+                for sub in result.sub_results:
+                    walk(sub.filtered_results)
+                continue
+            box = getattr(result, "box", None)
+            if box is not None:
+                boxes.append(cast(Box4, tuple(box)))
+
+    walk(detail.filtered_results)
+    return boxes
+
 
 # 表达式白名单：只允许 + - * / 与一元正负号
 _BIN_OPS: dict[type[ast.operator], Callable[[float, float], float]] = {
@@ -112,7 +165,8 @@ class rectOffset(CustomRecognition):
 
             {
                 "node_name": "someNode",
-                "offset": [0, 10, 0, -20]
+                "offset": [0, 10, 0, -20],
+                "filter": false(默认)
             }
 
     Notes:
@@ -148,57 +202,64 @@ class rectOffset(CustomRecognition):
             logger.error("rectOffset: offset must be a 4-element list, got {!r}", offset)
             return None
 
+        use_filter = params.get("filter", False)
+        if not isinstance(use_filter, bool):
+            logger.error("rectOffset: filter must be a bool, got {!r}", use_filter)
+            return None
+
         # 只读该节点上一次执行的结果，不重跑识别
-        node_detail = context.tasker.get_latest_node(node_name)
+        node_detail: NodeDetail | None = context.tasker.get_latest_node(node_name)
         detail = node_detail.recognition if node_detail else None
-        source_box = best_box(detail)
-        if source_box is None:
+        source_boxes = collect_source_boxes(detail, use_filter)
+        if not source_boxes:
             logger.debug("rectOffset: node {} has no valid box, offset failed", node_name)
             return None
 
-        x, y, w, h = source_box
         image_h, image_w = argv.image.shape[:2]
 
-        # 四项全部基于源框计算，互不影响
-        variables = {
-            "x": float(x),
-            "y": float(y),
-            "w": float(w),
-            "h": float(h),
-            "W": float(image_w),
-            "H": float(image_h),
-        }
-        deltas: list[int] = []
-        for index, item in enumerate(offset):
+        entries: list[dict[str, Any]] = []
+        first_box: Box4 | None = None
+        for source_box in source_boxes:
+            x, y, w, h = source_box
+            variables = {
+                "x": float(x),
+                "y": float(y),
+                "w": float(w),
+                "h": float(h),
+                "W": float(image_w),
+                "H": float(image_h),
+            }
             try:
-                deltas.append(round(resolve_value(item, variables)))
+                deltas = cast(
+                    tuple[int, int, int, int],
+                    tuple(round(resolve_value(item, variables)) for item in offset),
+                )
             except ValueError as error:
-                logger.error("rectOffset: offset[{}] invalid: {}", index, error)
+                logger.error("rectOffset: offset invalid: {}", error)
                 return None
 
-        box = apply_offset((x, y, w, h), (deltas[0], deltas[1], deltas[2], deltas[3]), image_w, image_h)
-        if box is None:
-            logger.warning(
-                "rectOffset: box is empty. node={} source={} offset={}",
-                node_name,
-                source_box,
-                deltas,
+            box = apply_offset(source_box, deltas, image_w, image_h)
+            if box is None:
+                continue
+            if first_box is None:
+                first_box = box
+            entries.append(
+                {
+                    "box": list(box),
+                    "detail": {  # ← 放在条目层级就不会被覆盖
+                        "source_box": list(source_box),
+                        "offset": list(deltas),
+                    },
+                }
             )
+
+        if first_box is None:
             return None
 
-        logger.debug(
-            "rectOffset: node={} source={} offset={} -> {}",
-            node_name,
-            source_box,
-            deltas,
-            box,
-        )
         return CustomRecognition.AnalyzeResult(
-            box=box,
+            box=first_box,
             detail={
-                "node_name": node_name,
-                "offset": deltas,
-                "source_box": list(source_box),
-                "box": list(box),
+                "$all": entries,
+                "$filtered": entries,
             },
         )
