@@ -47,35 +47,44 @@ agent/
 ### 3.1 `utils/logger.py` —— 日志
 
 ```python
-from utils.logger import logger
+from utils import logger
 ```
 
 `logger` 是一个**已经初始化好的** loguru logger（没装 loguru 时自动回退到标准 logging）。
 
-| 项         | 值                                                    |
-| ---------- | ----------------------------------------------------- |
+| 项 | 值 |
+|---|---|
 | 控制台等级 | `INFO`（可用 `change_console_level("DEBUG")` 动态改） |
-| 文件 sink  | `debug/custom/YYYY-MM-DD.log`，**固定 DEBUG 级**      |
-| 文件保留   | 2 周，每晚 00:00 轮转，自动 zip 压缩                  |
-| 占位符风格 | **`{}`**（loguru 风格），不是 f-string、不是 `%s`     |
+| 文件 sink | `debug/custom/YYYY-MM-DD.log`，**固定 DEBUG 级** |
+| 文件保留 | 2 周，每晚 00:00 轮转，自动 zip 压缩 |
+| 占位符风格 | 优先 **`{}`**（loguru 风格）；`%s` 也兼容 |
 
 ```python
-logger.info("cache {} at {} override: {}", roi_name, box, override)  # ✅
-logger.info(f"cache {roi_name}")  # ❌ 不要用 f-string
-logger.info("cache %s", roi_name)  # ❌ 不要用 % 风格
+logger.info("cache {} at {} override: {}", roi_name, box, override)   # ✅ 推荐
+logger.info("node %s not found", node_name)                          # ✅ 也支持
+logger.info(f"cache {roi_name}")                                      # ⚠️ 能跑，但不推荐
 ```
+
+> **两种占位符都能用的原因**：没有 loguru 时，`_BraceFormatLogger` 会先把含 `{}` 的消息
+> 用 `str.format` 预渲染，其余（如 `%s`）原样交给 stdlib 的 `getMessage()`。
+> 所以 `{}` 和 `%s` 在两条路径下行为一致 —— **推荐统一用 `{}`**，与 loguru 主路径一致。
+
+**文件日志额外带模板**：消息里若有占位符，文件行尾会追加 `| tpl=<原始模板>`，
+便于按模板聚合统计（无占位符时不追加，省一格）。
 
 **客户端差异会被自动处理**，你不需要关心：
 
-| 客户端      | 控制台渲染                                                                                 |
-| ----------- | ------------------------------------------------------------------------------------------ |
-| MFAAvalonia | 每行自动加 `info:` / `err:` 前缀（它逐行解析，无前缀的行会被丢弃）                         |
-| MXU         | 每行包成 `<span style="color:...">`，HTML 转义后只还原 `<font color="#RRGGBB">` 白名单标记 |
-| 其它        | ANSI 颜色                                                                                  |
+| 客户端 | 控制台渲染 |
+|---|---|
+| MFAAvalonia | 每行自动加 `info:` / `err:` 前缀（它逐行解析，无前缀的行会被丢弃） |
+| MXU | 每行包成 `<span style="color:...">`，HTML 转义后只还原 `<font color="#RRGGBB">` 白名单标记 |
+| 其它 | ANSI 颜色 |
 
 **多行日志**（`\n`）会被逐行处理，不用手动拆。
 
 导出：`setup_logger`、`change_console_level`、`logger`
+
+---
 
 ---
 
@@ -154,33 +163,49 @@ class MyReco(ParamOverrideMixin, CustomRecognition):
 
 ### 3.3 `utils/maa_types.py` —— 识别结果收窄
 
-MaaFW 的 `RecognitionDetail` 字段都是可选的，裸用要写一堆 `if detail and detail.hit and detail.box`。本模块用 `TypeGuard` 把这些检查收窄。
+MaaFW 的 `RecognitionDetail` 字段都是可选的，裸用要写一堆 `if detail and detail.hit and detail.box`。本模块用 `TypeGuard` 收窄，并提供几个取结果的捷径。
 
-| 函数                           | 返回                           | 说明                                                     |
-| ------------------------------ | ------------------------------ | -------------------------------------------------------- |
-| `is_hit(detail)`               | `TypeGuard`                    | 有 hit 且有 box 时 True（收窄成 `HitRecognitionDetail`） |
-| `require_hit(detail)`          | `HitRecognitionDetail`         | 不满足时抛 `ValueError`                                  |
-| `best_result_as(detail, T)`    | `T` 或 `None`                  | 最佳结果且类型匹配                                       |
-| `results_as(detail, T)`        | `list[T]`                      | `filtered_results` 里类型匹配的                          |
-| `all_results_as(detail, T)`    | `list[T]`                      | `all_results` 里类型匹配的                               |
-| `ocr_result(detail)`           | `OCRResult` 或 `None`          | `best_result_as(detail, OCRResult)`                      |
-| `require_ocr_result(detail)`   | `OCRResult`                    | 没有 OCR 结果时抛 `ValueError`                           |
-| `ocr_text(detail, default="")` | `str`                          | 最佳 OCR 的文本                                          |
-| `ocr_results(detail)`          | `list[OCRResult]`              | 全部 OCR 结果                                            |
-| `recognition_results(detail)`  | `list[RecognitionResult]`      | 命中时的 `filtered_results`                              |
-| `has_box_result(result)`       | `TypeGuard`                    | 是否带 box                                               |
-| `boxed_results(detail)`        | `list[BoxedRecognitionResult]` | 过滤出带 box 的结果                                      |
-| `best_box(detail)`             | `Rect` 或 `None`               | 最佳结果的 box                                           |
+| 函数 | 返回 | 说明 |
+|---|---|---|
+| `is_hit(detail)` | `TypeGuard` | 有 hit 且有 box 时 True（收窄成 `HitRecognitionDetail`） |
+| `require_hit(detail)` | `HitRecognitionDetail` | 不满足时抛 `ValueError` |
+| `best_result_as(detail, T)` | `T` 或 `None` | 最佳结果且类型匹配 |
+| `results_as(detail, T)` | `list[T]` | `filtered_results` 里类型匹配的 |
+| `all_results_as(detail, T)` | `list[T]` | `all_results` 里类型匹配的 |
+| `ocr_result(detail)` | `OCRResult` 或 `None` | `best_result_as(detail, OCRResult)` |
+| `require_ocr_result(detail)` | `OCRResult` | 没有 OCR 结果时抛 `ValueError` |
+| `ocr_text(detail, default="")` | `str` | 最佳 OCR 的文本 |
+| `ocr_results(detail)` | `list[OCRResult]` | 全部 OCR 结果 |
+| `recognition_results(detail)` | `list[RecognitionResult]` | 命中时的 `filtered_results` |
+| `best_box(detail)` | `Rect` 或 `None` | **直接取 `detail.box`**（见下方说明） |
+| `custom_result_dict(detail)` | `dict` 或 `None` | 取 `Custom` 识别的 payload（会穿透 And/Or 递归找） |
+| `filtered_result_dicts(detail)` | `list[dict]` | 取原始 `filtered` 结果字典（And/Or 按执行顺序拍平） |
+| `has_box_result(result)` | `TypeGuard` | 结果类型是否属于 `BoxAndScore/BoxAndCount/Custom` 三种 |
+| `boxed_results(detail)` | `list[BoxedRecognitionResult]` | 按上面的类型筛 `filtered_results` |
 
 ```python
-from utils.maa_types import is_hit, ocr_text
+from utils.maa_types import best_box, custom_result_dict, is_hit, ocr_text
 
 detail = context.run_recognition("__crewUsedCompareOCR__", image, pipeline_override={...})
 if not is_hit(detail):
     return None
 text = ocr_text(detail, "?/?")
-box = detail.box  # 已被收窄，类型检查器知道它非 None
+box = best_box(detail)          # 任何算法（含 And/Or/OCR/ONNX）都能拿到框
+payload = custom_result_dict(detail)   # Custom 识别的返回值
 ```
+
+> ⚠️ **`best_box` 曾经踩过的坑**：早期实现只接受 `BoxAndScoreResult | BoxAndCountResult |
+> CustomRecognitionResult` 三种 `best_result`，导致 **And / Or / OCR / NeuralNetworkDetect**
+> 的结果明明带 `box` 却被判成没有框。现在直接返回 `detail.box`，与算法类型无关。
+>
+> `has_box_result` / `boxed_results` 保留原语义 —— 它们回答的是「这个结果类型是否带框」，
+> 用于按类型筛选，**不是**取框的正确入口。
+
+> **注意 `_iter_details` / `filtered_result_dicts` 的边界**：它们沿 `best_result` 递归，
+> `Or` 节点有多个命中时**只跟最佳那一条链**，会漏掉非最佳分支。
+> 需要「全部命中框」时得自己沿 `filtered_results` 走（见 `rectOffset` 的 `collect_source_boxes`）。
+
+---
 
 ---
 
@@ -224,18 +249,32 @@ JSON 解析失败只打 warning 并返回 `None`，不会抛异常 —— 所以
 from utils.runtime_paths import get_runtime_paths
 
 paths = get_runtime_paths()
-paths.project_root  # 项目根（默认 agent/ 的上两级）
-paths.agent_dir  # <root>/agent
-paths.work_root  # 实际工作目录（= 客户端 cwd，可能不是 project_root）
-paths.config_dir  # <work_root>/config
-paths.resource_dir  # <work_root>/resource
-paths.debug_dir  # <work_root>/debug
+paths.project_root    # 项目根（只读包内，默认 agent/ 的上两级）
+paths.agent_dir       # <project_root>/agent
+paths.work_root       # 可写数据目录（= PI_USER_DATA_DIR，缺省时回落 cwd）
+paths.config_dir      # <work_root>/config
+paths.debug_dir       # <work_root>/debug
+paths.resource_dir    # <project_root>/resource   ← 注意：读包内，不是 work_root
 paths.interface_file  # <project_root>/interface.json
+
+paths.resolve("data/foo.json")   # 读包内文件：等价于 project_root / rel
 ```
 
-`agent_runtime.py` 启动时已经调用过 `configure_runtime_paths(project_root=..., work_root=os.getcwd())`，所以 **custom 代码里直接用 `get_runtime_paths()` 即可**，不要再算路径。
+`agent_runtime.py` 启动时已经调用过 `configure_runtime_paths(...)`，**custom 代码里直接用 `get_runtime_paths()` 即可**，不要再算路径。
 
-> `project_root` 和 `work_root` 可能不同：发行包里 agent 在 `<install>/agent/`，而 cwd 是安装目录。
+#### 为什么 `project_root` 和 `work_root` 会不同
+
+macOS 的 .app 里项目根位于应用包内、**普通用户不可写**，所以配置和日志必须写到客户端给的可写目录：
+
+| 函数 | 作用 |
+|---|---|
+| `default_work_root()` | 读 `PI_USER_DATA_DIR`；未设置时回落 `Path.cwd()`（MFAAvalonia 等桌面客户端就是这种情况） |
+| `link_work_root(paths)` | 把包内只读顶层条目（`resource/`、`agent/`、`interface.json` …）在 `work_root` 下建成**符号链接**，让 work_root 作为 cwd 自足；`config/`、`debug/` 不链；返回改动条目数 |
+
+> `link_work_root` 是幂等的：已指向正确的链接不动，用户自建的同名真实文件也不动，
+> 平台不支持符号链接时静默跳过。`work_root == project_root`（便携包）时直接返回 0。
+
+---
 
 ---
 
@@ -306,6 +345,38 @@ class MyReco(CustomRecognition):
             logger.error("myReco: unexpected {}", error)
             return None
 ```
+
+#### `$all` / `$filtered` —— 返回多个结果（官方契约）
+
+在 `AnalyzeResult.detail` 里写入 `$all` / `$filtered`，等于把这次识别的**多个结果**交回 MaaFW。
+契约见 `maa/custom_recognition.py` 的 `AnalyzeResult` docstring：
+
+> detail: 识别详情，会被记录到识别结果中。写入 `$all` / `$filtered` 多结果 JSON 对象可返回多个结果
+
+**典型用途**：一个 custom 识别出多个框后，让 **`And` 里的其它子识别节点也能看到这些结果**；
+不写这两个键的话，结果只对 custom 自己可见（别人拿不到）。
+
+```python
+entries = [{"box": list(box)} for box in boxes]
+return CustomRecognition.AnalyzeResult(
+    box=entries[0]["box"],                       # 主框
+    detail={"$all": entries, "$filtered": entries},
+)
+```
+
+> ⚠️ **坑**：一旦用了 `$all` / `$filtered`，`detail` 里的**其它字段不会出现在结果里** ——
+> MaaFW 会把整个 `detail` 当成「多结果容器」。想保留自定义信息，就塞进**每个条目**：
+
+```python
+entries.append({
+    "box": list(box),
+    "detail": {"source_box": list(source), "offset": deltas},   # ← 条目层级才留得住
+})
+```
+
+条目格式是 `{ "box": [x, y, w, h], "detail": <任意 JSON> }`，
+`box` 之外的追踪信息全部放条目内的 `detail` 里。
+
 
 ### 4.4 `general.py` 的定位
 
