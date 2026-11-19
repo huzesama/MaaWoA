@@ -33,6 +33,7 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "__cmatchAirlineCardListIn3DLandByGray__",
                     "__cmatchActionRequireLocationInAirlineCardList__",
                     "__cstGetActionRequireTypeDiffSetFromExcludeTypeByActionRequireLocation__"
                 ],
@@ -45,6 +46,7 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "__cmatchAirlineCardListIn3DLandByGray__",
                     "__cmatchActionRequireLocationInAirlineCardList__",
                     "__cstGetActionRequireTypeDiffSetFromExcludeTypeIncludeAssignCrewByActionRequireLocation__"
                 ],

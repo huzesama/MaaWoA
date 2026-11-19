@@ -235,6 +235,7 @@
             "type": "And",
             "param": {
                 "all_of": [
+                    "__cmatchAirlineCardListIn3DLandByGray__",
                     "__cmatchActionRequireLocationInAirlineCardList__",
                     "__tmatchActionRequireByLowThr__",
                     "__tmatchActionRequireDepartureType__"

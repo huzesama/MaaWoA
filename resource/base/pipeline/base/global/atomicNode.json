@@ -593,6 +593,19 @@
     //------------------HandlingActionRequiring·BEGIN------------------
     //
     ////------------------HandlingActionRequiring·ActionRequiringList·BEGIN------------------
+    "__cmatchAirlineCardListIn3DLandByGray__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "locateAirlineCardList",
+                "method": 6,
+                "lower": [26],
+                "upper": [58],
+                "connected": true,
+                "count": 3000
+            }
+        }
+    },
     "__cmatchActionRequireLocationInAirlineCardList__": {
         // 从航班卡片列表识别请求行动事件
         "recognition": {
