@@ -62,7 +62,7 @@ class RoiManager(CustomRecognition):
         if reco_detail and reco_detail.hit and reco_detail.best_result:
             box = reco_detail.best_result.box
             self._roi_boxes[roi_name] = box
-            logger.info("💾 {} 📍 {} ✍️ {}", roi_name, box, override)
+            logger.info("💾 {} 📍 {} ✍️ {}", roi_name, box, "✅" if override else "❎")
             return CustomRecognition.AnalyzeResult(box=box, detail={"source": "nn_detect", "roi_name": roi_name})
 
         # 3. 神经网络没有产生最佳结果 -> 节点未命中
