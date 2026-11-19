@@ -56,7 +56,7 @@
             "locateSpeedUpSlide",
             "enableTower",
             "finishWithCapture"
-        ]
+        ] // next列表由选项towerSpeedUpControl覆盖
     },
     "locateSpeedUpSlide": {
         "recognition": {
@@ -96,7 +96,10 @@
             }
         },
         "timeout": 10000,
-        "next": ["setTowerSpeedUpOption"],
+        "next": [
+            "setTowerSpeedUpOption",
+            "enableTower"
+        ],
         "on_error": [
             "finishWithDelay"
         ]
