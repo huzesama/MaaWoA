@@ -145,6 +145,26 @@
                 ],
                 "box_index": 1
             }
+        },
+        "next": [
+            "reverseAirlineCardListAction"
+        ]
+    },
+    "reverseAirlineCardListAction": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "locateAirlineCardList",
+                    "offset": [
+                        0,
+                        0,
+                        "-5*w/7",
+                        0
+                    ]
+                }
+            }
         }
     },
     "finishNode": {

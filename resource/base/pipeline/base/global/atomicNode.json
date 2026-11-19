@@ -611,7 +611,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "locateAirlineCardList",
+                "roi": "reverseAirlineCardListAction",
                 "method": 40,
                 "lower": [
                     11,
@@ -633,7 +633,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "roi": "locateAirlineCardList",
+                "roi": "reverseAirlineCardListAction",
                 "template": [
                     "航班类型-请求行动.png"
                 ],
