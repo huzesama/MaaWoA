@@ -70,7 +70,8 @@
         },
         "timeout": 10000,
         "next": [
-            "resetTowerSpeedUpOption"
+            "resetTowerSpeedUpOption",
+            "enableTower"
         ],
         "on_error": [
             "finishWithDelay"
@@ -97,9 +98,8 @@
         },
         "timeout": 10000,
         "next": [
-            "setTowerSpeedUpOption",
-            "enableTower"
-        ],
+            "setTowerSpeedUpOption"
+        ], // next列表受选项towerSpeedUpControl覆写
         "on_error": [
             "finishWithDelay"
         ]
