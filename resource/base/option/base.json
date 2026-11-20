@@ -101,8 +101,7 @@
                     "pipeline_override": {
                         "resetTowerSpeedUpOption": {
                             "next": [
-                                "enableTower",
-                                "finishWithCapture"
+                                "enableTower"
                             ]
                         }
                     }
