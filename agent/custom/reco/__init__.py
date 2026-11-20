@@ -1,7 +1,6 @@
 from importlib import import_module
 
 RECO_MODULES = (
-    "airlineCardListColorMatch",
     "crewUsedCompare",
     "dailyUniqueCompare",
     "freezeCheck",
