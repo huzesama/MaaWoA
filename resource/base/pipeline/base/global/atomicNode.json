@@ -538,7 +538,7 @@
             "param": {
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
-                    "roi_name": "__Docker__",
+                    "roi_name": "__Dock__",
                     "model": "MaaWoA-card.onnx",
                     "expected": "docker"
                 }
@@ -553,7 +553,7 @@
             "param": {
                 "custom_recognition": "roiManager",
                 "custom_recognition_param": {
-                    "roi_name": "__DockerTower__",
+                    "roi_name": "__DockTower__",
                     "model": "MaaWoA-widget.onnx",
                     "expected": "dockerTower"
                 }
