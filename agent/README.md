@@ -4,6 +4,52 @@
 
 ---
 
+## 零、改代码之前先问：能不能用 pipeline 配置解决
+
+**默认答案是不改 agent 代码。**
+
+agent 侧每一行都是长期维护成本：要跟 MaaFW 版本走、要处理各种边界、出问题只能翻日志。
+而 pipeline 配置是声明式的、可读、可回滚，别人也看得懂。
+
+### 判据
+
+| 问题类型 | 该在哪解决 |
+|---|---|
+| 节点关系、执行顺序、条件组合 | pipeline 的 `next` / `all_of` / `box_index` |
+| 取哪个子结果的框 | 节点的 `box_index` |
+| 多结果里的取舍 | `filtered` + `threshold` + `order_by` + `index` |
+| 重复框 | 模板 / 阈值 / `box_index` 的设计，而不是代码里加去重 |
+| 语义真的无法用现有配置表达 | ← **这时才改代码** |
+| 怀疑 MaaFW 行为不对 | 先查源码确认，再决定是否上报 |
+
+### 实例：`inverseDiff` 的过度修补（2026-11-21）
+
+当时连续报了三个现象：
+
+1. `AttributeError: 'AndRecognitionResult' object has no attribute 'box'`
+2. `filter` 节点未命中，`inverseDiff` 却返回命中
+3. 组合节点把内层子结果全读取了
+
+**当时的做法（错）**：在 `inverseDiff` 里加叶子展开、`hit` 检查、跨模板去重、严格 bool 参数……
+文件从 **245 行涨到 380 行**（+165 行），最终全部回退。
+
+**正确的做法**：`filter_node_name` 指向 `And` 的 `box_index` 选中的那个**叶子节点**就行。
+
+```jsonc
+// __sumMatchActionRequire__ 是 And，box_index: 6
+"all_of": ["__cmatchActionRequire__", ..., "__cmatchActionRequireInReverse__"],  // 索引 6
+"box_index": 6
+
+// 所以 inverseDiff 该这样配（指向叶子，原版就能跑）
+"filter_node_name": "__cmatchActionRequireInReverse__"
+```
+
+「7 个条件都要满足」这个语义留在 pipeline 的 `next` 链里表达，不需要 agent 知道。
+
+**教训**：那三个现象是**同一个根因** —— 输入节点选错了。改代码只是把错误盖了三层。
+
+---
+
 ## 一、启动流程
 
 ```
