@@ -7,14 +7,22 @@
         },
         "next": [
             "[Anchor]afterStart"
-        ]
+        ],
+        "focus": {
+            "Node.Action.Succeeded": "$pipeline.restartApp.focus.Node.Action.Succeeded",
+            "Node.Action.Failed": "$pipeline.restartApp.focus.Node.Action.Failed"
+        }
     },
     "stopApp": {
         "action": "StopApp",
         "package": "com.haugland.woa",
         "next": [
             "[Anchor]afterStop"
-        ]
+        ],
+        "focus": {
+            "Node.Action.Succeeded": "$pipeline.restartApp.focus.Node.Action.Succeeded",
+            "Node.Action.Failed": "$pipeline.restartApp.focus.Node.Action.Failed"
+        }
     },
     "restartApp": {
         "anchor": {
@@ -23,6 +31,10 @@
         },
         "next": [
             "stopApp"
-        ]
+        ],
+        "focus": {
+            "Node.Action.Starting": "$pipeline.restartApp.focus.Node.Action.Starting",
+            "Node.Action.Failed": "$pipeline.restartApp.focus.Node.Action.Failed"
+        }
     }
 }

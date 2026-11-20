@@ -6,13 +6,15 @@
         },
         "next": [
             "[Anchor]afterStart"
-        ]
+        ],
+        "focus": "$desktop.pipeline.restartApp.focus"
     },
     "stopApp": {
         "action": "DoNothing",
         "next": [
             "[Anchor]afterStop"
-        ]
+        ],
+        "focus": null
     },
     "restartApp": {
         "anchor": {
@@ -20,6 +22,7 @@
         },
         "next": [
             "stopApp"
-        ]
+        ],
+        "focus": null
     }
 }
