@@ -1,7 +1,7 @@
 {
     "actionRequireBribeFlight": {
-        "enabled": true,
-        //检测是否存在开关例如需要贿赂的超时处理离场航班//enabled由bribery选项覆写
+        // 检测是否存在需要贿赂的超时处理离场航班
+        "enabled": true, // enabled由bribery选项覆写
         "recognition": {
             "type": "And",
             "param": {

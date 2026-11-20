@@ -1,4 +1,19 @@
 {
+    "actionRequireAssignCrewDoNothing": {
+        // 指派地勤静默節點鏈,檢測AssignCrew面板
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetAssignCrewCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cstGetAssignCrewCardRampAgentSwitch__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchAssignCrewCardSlideBlock__",
+                    "__cmatchAssignCrewCardRampAgentSwitchBackground__",
+                    "__cmatchAssignCrewCardRampAgentSwitchForeground__"
+                ]
+            }
+        }
+    },
     "actionRequireAssignCrew": {
         //recognition由ONNX选项覆写
         //指派地勤節點鏈,檢測AssignCrew面板

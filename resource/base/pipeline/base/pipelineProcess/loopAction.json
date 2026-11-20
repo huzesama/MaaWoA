@@ -4,8 +4,9 @@
         "next": [
             "[JumpBack]actionRequiringSelect",
             "[JumpBack]detectFilter", //过滤器筛选的准备
-            "[JumpBack]actionRequiringSelectDeparture", //actionRequiringSelectDeparture必须在过滤器筛选准备后
+            "[JumpBack]actionRequiringSelectDeparture", // actionRequiringSelectDeparture必须在过滤器筛选准备后
             "[JumpBack]conditionNoneDeparture",
+            "[JumpBack]actionRequireSelectBribeType", // actionRequireSelectBribeType必须在过滤器筛选准备后
             "[JumpBack]entryDocker",
             "finishWithDelay" //跳回detectPage节点
         ]

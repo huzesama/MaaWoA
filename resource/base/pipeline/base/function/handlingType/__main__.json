@@ -33,6 +33,7 @@
         }
     },
     "actionRequiringSelect": {
+        // 常规的行动事件选择
         "recognition": {
             "type": "And",
             "param": {
@@ -49,23 +50,139 @@
             "method": 3
         },
         "next": [
-            "actionRequireAssignCrew", //分配地勤分支
-            "actionRequireStandSelect", //尋找standSelect面板
-            "actionRequireBribeFlight", //其它通用的actionRequire先检查有没有开关
-            "actionRequireUniversal", //其它通用的actionRequire
-            "handlingContractUpgradeCard", //异常处理
+            "actionRequireAssignCrew", // 分配地勤分支
+            "actionRequireStandSelect", // 尋找standSelect面板
+            "actionRequireBribeFlight", // 其它通用的actionRequire先检查有没有开关
+            "actionRequireUniversal", // 其它通用的actionRequire
+            "handlingContractUpgradeCard", // 异常处理
             "updateAllExtraActionCard",
             "finishNode"
         ]
     },
     "actionRequiringSelectDeparture": {
-        //选择departure//recognition由ONNX选项覆写
+        // 在常规的基础上过滤分配地勤的行动事件选择
         "recognition": {
             "type": "Or",
             "param": {
                 "any_of": [
                     "__findActionRequireExcludeAssignCrew__"
                 ]
+            }
+        }, // recognition由ONNX选项覆写
+        "action": "Click",
+        "post_wait_freezes": {
+            "time": 100,
+            "method": 3
+        },
+        "next": [
+            "actionRequireAssignCrewDoNothing",
+            "actionRequireStandSelect",
+            "actionRequireBribeFlight",
+            "actionRequireUniversal",
+            "handlingContractUpgradeCard",
+            "finishNode"
+        ]
+    },
+    "__cmatchTimeBarNoTime__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseTimeBarBoxByActionRequire__",
+                "method": 4,
+                "lower": [
+                    7,
+                    15,
+                    23
+                ],
+                "upper": [
+                    13,
+                    21,
+                    29
+                ],
+                "connected": true,
+                "count": 48
+            }
+        }
+    },
+    "__cmatchTimeBarExcludeType__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    [
+                        68,
+                        140,
+                        190
+                    ],
+                    [
+                        101,
+                        64,
+                        124
+                    ]
+                ],
+                "upper": [
+                    [
+                        78,
+                        148,
+                        240
+                    ],
+                    [
+                        109,
+                        72,
+                        132
+                    ]
+                ],
+                "connected": true
+            }
+        }
+    },
+    "__cstReverseTimeBarBoxByActionRequire__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchActionRequireLocationInAirlineCardList__",
+                    "filter": true,
+                    "offset": [
+                        "w",
+                        "-0.5*h",
+                        0,
+                        "2.5*h"
+                    ]
+                }
+            }
+        }
+    },
+    "__cstGetInverseTimeBarExcludeType__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "__cmatchTimeBarNoTime__",
+                    "exclude_node_name": "__cmatchTimeBarExcludeType__",
+                    "batch": false,
+                    "contains": true,
+                    "full_reco": true
+                }
+            }
+        }
+    },
+    "actionRequireSelectBribeType": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cmatchAirlineCardListIn3DLandByGray__",
+                    "__cmatchActionRequireLocationInAirlineCardList__",
+                    "__tmatchActionRequireByLowThr__",
+                    "__cstReverseTimeBarBoxByActionRequire__",
+                    "__cmatchTimeBarNoTime__",
+                    "__cstGetInverseTimeBarExcludeType__"
+                ],
+                "box_index": 5
             }
         },
         "action": "Click",
@@ -74,14 +191,15 @@
             "method": 3
         },
         "next": [
-            "actionRequireAssignCrew",
-            "actionRequireStandSelect",
-            "actionRequireBribeFlight",
-            "actionRequireUniversal",
-            "handlingContractUpgradeCard",
+            "actionRequireAssignCrewDoNothing", // 分配地勤分支
+            "actionRequireStandSelect", // 尋找standSelect面板
+            "actionRequireBribeFlight", // 其它通用的actionRequire先检查有没有开关
+            "actionRequireUniversal", // 其它通用的actionRequire
+            "handlingContractUpgradeCard", // 异常处理
             "finishNode"
         ]
     },
+
     "__cstGetFilterDepartureButtonBox__": {
         //缓存航班详细信息卡片
         "recognition": {
