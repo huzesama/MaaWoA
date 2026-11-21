@@ -692,6 +692,30 @@
                     }
                 },
                 {
+                    "name": "YVR",
+                    "icon": "resource/base/image/IATA/ca.png",
+                    "pipeline_override": {
+                        "ocrAirport_infoIATA": {
+                            "expected": [
+                                "(?i)yvr",
+                                "(?i)vancouver"
+                            ]
+                        },
+                        "ocrAirportListIATA": {
+                            "expected": [
+                                "(?i)yvr",
+                                "(?i)vancouver"
+                            ]
+                        },
+                        "selectTargetIATA": {
+                            "expected": [
+                                "(?i)yvr",
+                                "(?i)vancouver"
+                            ]
+                        }
+                    }
+                },
+                {
                     "name": "CNN",
                     "icon": "resource/base/image/IATA/in.png",
                     "pipeline_override": {
