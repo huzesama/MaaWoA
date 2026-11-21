@@ -106,9 +106,9 @@ from utils import logger
 | 占位符风格 | 优先 **`{}`**（loguru 风格）；`%s` 也兼容             |
 
 ```python
-logger.info("cache {} at {} override: {}", roi_name, box, override)   # ✅ 推荐
-logger.info("node %s not found", node_name)                          # ✅ 也支持
-logger.info(f"cache {roi_name}")                                      # ⚠️ 能跑，但不推荐
+logger.info("cache {} at {} override: {}", roi_name, box, override)  # ✅ 推荐
+logger.info("node %s not found", node_name)  # ✅ 也支持
+logger.info(f"cache {roi_name}")  # ⚠️ 能跑，但不推荐
 ```
 
 > **两种占位符都能用的原因**：没有 loguru 时，`_BraceFormatLogger` 会先把含 `{}` 的消息
@@ -236,8 +236,8 @@ detail = context.run_recognition("__crewUsedCompareOCR__", image, pipeline_overr
 if not is_hit(detail):
     return None
 text = ocr_text(detail, "?/?")
-box = best_box(detail)          # 任何算法（含 And/Or/OCR/ONNX）都能拿到框
-payload = custom_result_dict(detail)   # Custom 识别的返回值
+box = best_box(detail)  # 任何算法（含 And/Or/OCR/ONNX）都能拿到框
+payload = custom_result_dict(detail)  # Custom 识别的返回值
 ```
 
 > ⚠️ **`best_box` 曾经踩过的坑**：早期实现只接受 `BoxAndScoreResult | BoxAndCountResult |
@@ -295,15 +295,15 @@ JSON 解析失败只打 warning 并返回 `None`，不会抛异常 —— 所以
 from utils.runtime_paths import get_runtime_paths
 
 paths = get_runtime_paths()
-paths.project_root    # 项目根（只读包内，默认 agent/ 的上两级）
-paths.agent_dir       # <project_root>/agent
-paths.work_root       # 可写数据目录（= PI_USER_DATA_DIR，缺省时回落 cwd）
-paths.config_dir      # <work_root>/config
-paths.debug_dir       # <work_root>/debug
-paths.resource_dir    # <project_root>/resource   ← 注意：读包内，不是 work_root
+paths.project_root  # 项目根（只读包内，默认 agent/ 的上两级）
+paths.agent_dir  # <project_root>/agent
+paths.work_root  # 可写数据目录（= PI_USER_DATA_DIR，缺省时回落 cwd）
+paths.config_dir  # <work_root>/config
+paths.debug_dir  # <work_root>/debug
+paths.resource_dir  # <project_root>/resource   ← 注意：读包内，不是 work_root
 paths.interface_file  # <project_root>/interface.json
 
-paths.resolve("data/foo.json")   # 读包内文件：等价于 project_root / rel
+paths.resolve("data/foo.json")  # 读包内文件：等价于 project_root / rel
 ```
 
 `agent_runtime.py` 启动时已经调用过 `configure_runtime_paths(...)`，**custom 代码里直接用 `get_runtime_paths()` 即可**，不要再算路径。
@@ -405,7 +405,7 @@ class MyReco(CustomRecognition):
 ```python
 entries = [{"box": list(box)} for box in boxes]
 return CustomRecognition.AnalyzeResult(
-    box=entries[0]["box"],                       # 主框
+    box=entries[0]["box"],  # 主框
     detail={"$all": entries, "$filtered": entries},
 )
 ```
@@ -414,10 +414,12 @@ return CustomRecognition.AnalyzeResult(
 > MaaFW 会把整个 `detail` 当成「多结果容器」。想保留自定义信息，就塞进**每个条目**：
 
 ```python
-entries.append({
-    "box": list(box),
-    "detail": {"source_box": list(source), "offset": deltas},   # ← 条目层级才留得住
-})
+entries.append(
+    {
+        "box": list(box),
+        "detail": {"source_box": list(source), "offset": deltas},  # ← 条目层级才留得住
+    }
+)
 ```
 
 条目格式是 `{ "box": [x, y, w, h], "detail": <任意 JSON> }`，
