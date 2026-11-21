@@ -593,21 +593,9 @@
     //------------------HandlingActionRequiring·BEGIN------------------
     //
     ////------------------HandlingActionRequiring·ActionRequiringList·BEGIN------------------
-    "__cmatchAirlineCardListIn3DLandByGray__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "locateAirlineCardList",
-                "method": 6,
-                "lower": [26],
-                "upper": [58],
-                "connected": true,
-                "count": 3000
-            }
-        }
-    },
-    "__cmatchActionRequireLocationInAirlineCardList__": {
-        // 从航班卡片列表识别请求行动事件
+    //
+    //////------------------HandlingActionRequiring·ActionRequiringList·ActionRequireMatch·BEGIN------------------
+    "__cmatchActionRequire__": {
         "recognition": {
             "type": "ColorMatch",
             "param": {
@@ -628,21 +616,144 @@
             }
         }
     },
-    "__tmatchActionRequireByLowThr__": {
-        //低阈值模糊匹配
+    "__cstReverseFlightTypeLocationByActionRequire__": {
         "recognition": {
-            "type": "TemplateMatch",
+            "type": "Custom",
             "param": {
-                "roi": "reverseAirlineCardListAction",
-                "template": [
-                    "航班类型-请求行动.png"
-                ],
-                "green_mask": true,
-                "method": 10001,
-                "threshold": 0.2
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchActionRequire__",
+                    "filter": true,
+                    "offset": [
+                        "1.75*w",
+                        "1.25*h",
+                        "0.5*w",
+                        "0.5*h"
+                    ]
+                }
             }
         }
     },
+    "__cmatchFlightTypeInReverseBox__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseFlightTypeLocationByActionRequire__",
+                "method": 40,
+                "lower": [
+                    94,
+                    14,
+                    106
+                ],
+                "upper": [
+                    114,
+                    56,
+                    243
+                ],
+                "connected": true,
+                "count": 165
+            }
+        }
+    },
+    "__cstReverseActionRequireTypeLocation__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchFlightTypeInReverseBox__",
+                    "filter": true,
+                    "offset": [
+                        "-2.25*w",
+                        "-0.25*h",
+                        "0.5*w",
+                        "0.5*h"
+                    ]
+                }
+            }
+        }
+    },
+    "__cmatchActionRequireTypeInReverseBox__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseActionRequireTypeLocation__",
+                "method": 4,
+                "lower": [[
+                        201,
+                        212,
+                        223
+                    ]],
+                "upper": [[
+                        221,
+                        232,
+                        243
+                    ]],
+                "connected": false,
+                "count": 56
+            }
+        }
+    },
+    "__cstReverseActionRequireLocation__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchActionRequireTypeInReverseBox__",
+                    "filter": true,
+                    "offset": [
+                        "-0.25*w",
+                        "-1.85*h",
+                        "0.5*w",
+                        "0.5*h"
+                    ]
+                }
+            }
+        }
+    },
+    "__cmatchActionRequireInReverse__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseActionRequireLocation__",
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": false,
+                "count": 48
+            }
+        }
+    },
+    "__cstReverseActionRequireTypeLocationByActionRequireInReverse__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchActionRequireInReverse__",
+                    "filter": true,
+                    "offset": [
+                        "-0.25*w",
+                        "1.25*h",
+                        "0.5*w",
+                        "0.5*h"
+                    ]
+                }
+            }
+        }
+    },
+    //
+    //////------------------HandlingActionRequiring·ActionRequiringList·ActionRequireMatch·BEGIN------------------
+    //
     "__detectActionRequire__": {
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -697,14 +808,15 @@
             "param": {
                 "custom_recognition": "inverseDiff",
                 "custom_recognition_param": {
-                    "filter_node_name": "__tmatchActionRequireByLowThr__",
+                    "filter_node_name": "__cstReverseActionRequireTypeLocationByActionRequireInReverse__",
                     "exclude_node_name": "__tmatchExcludeActionRequireType__",
+                    "full_reco": true,
                     "batch": true,
                     "exclude_roi_offset": [
-                        -5,
-                        -5,
-                        10,
-                        35
+                        0,
+                        0,
+                        0,
+                        0
                     ],
                     "contains": false
                 }
@@ -718,14 +830,15 @@
             "param": {
                 "custom_recognition": "inverseDiff",
                 "custom_recognition_param": {
-                    "filter_node_name": "__tmatchActionRequireByLowThr__",
+                    "filter_node_name": "__cstReverseActionRequireTypeLocationByActionRequireInReverse__",
                     "exclude_node_name": "__tmatchExcludeActionRequireTypeIncludeAssignCrew__",
+                    "full_reco": true,
                     "batch": true,
                     "exclude_roi_offset": [
-                        -5,
-                        -5,
-                        10,
-                        35
+                        0,
+                        0,
+                        0,
+                        0
                     ],
                     "contains": false
                 }

@@ -143,7 +143,7 @@
             "param": {
                 "custom_recognition": "rectOffset",
                 "custom_recognition_param": {
-                    "node_name": "__cmatchActionRequireLocationInAirlineCardList__",
+                    "node_name": "__cmatchActionRequireInReverse__",
                     "filter": true,
                     "offset": [
                         "w",
@@ -175,14 +175,18 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cmatchAirlineCardListIn3DLandByGray__",
-                    "__cmatchActionRequireLocationInAirlineCardList__",
-                    "__tmatchActionRequireByLowThr__",
+                    "__cmatchActionRequire__",
+                    "__cstReverseFlightTypeLocationByActionRequire__",
+                    "__cmatchFlightTypeInReverseBox__",
+                    "__cstReverseActionRequireTypeLocation__",
+                    "__cmatchActionRequireTypeInReverseBox__",
+                    "__cstReverseActionRequireLocation__",
+                    "__cmatchActionRequireInReverse__",
                     "__cstReverseTimeBarBoxByActionRequire__",
                     "__cmatchTimeBarNoTime__",
                     "__cstGetInverseTimeBarExcludeType__"
                 ],
-                "box_index": 5
+                "box_index": 9
             }
         },
         "action": "Click",
@@ -333,7 +337,7 @@
         "recognition": {
             "type": "TemplateMatch",
             "param": {
-                "roi": "__tmatchActionRequireByLowThr__",
+                "roi": "__cmatchActionRequireInReverse__",
                 "roi_offset": [
                     -5,
                     -5,
@@ -353,12 +357,16 @@
             "type": "And",
             "param": {
                 "all_of": [
-                    "__cmatchAirlineCardListIn3DLandByGray__",
-                    "__cmatchActionRequireLocationInAirlineCardList__",
-                    "__tmatchActionRequireByLowThr__",
+                    "__cmatchActionRequire__",
+                    "__cstReverseFlightTypeLocationByActionRequire__",
+                    "__cmatchFlightTypeInReverseBox__",
+                    "__cstReverseActionRequireTypeLocation__",
+                    "__cmatchActionRequireTypeInReverseBox__",
+                    "__cstReverseActionRequireLocation__",
+                    "__cmatchActionRequireInReverse__",
                     "__tmatchActionRequireDepartureType__"
                 ],
-                "box_index": 3
+                "box_index": 7
             }
         }
     },
