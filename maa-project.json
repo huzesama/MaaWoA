@@ -76,7 +76,7 @@
         "submodulePath": "MaaCommonAssets/OCR"
     },
     "project": {
-        "displayName": "MaaWoA",
+        "displayName": "$pi.label",
         "github": "https://github.com/huzesama/MaaWoA",
         "initialTemplate": "agent",
         "slug": "maawoa",
