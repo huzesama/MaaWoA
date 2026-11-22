@@ -7,7 +7,15 @@
         "next": [
             "[Anchor]afterStart"
         ],
-        "focus": "$desktop.pipeline.restartApp.focus"
+        "focus": {
+            "Node.Action.Starting": {
+                "content": "$desktop.pipeline.restartApp.focus",
+                "display": [
+                    "log",
+                    "toast"
+                ]
+            }
+        }
     },
     "stopApp": {
         "action": "DoNothing",

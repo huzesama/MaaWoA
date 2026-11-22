@@ -7,7 +7,14 @@
             "restartApp"
         ],
         "focus": {
-            "Node.NextList.Starting": "$pipeline.checkAll.focus.Node.NextList.Starting"
+            "Node.NextList.Starting": {
+                "content": "$pipeline.checkAll.focus.Node.NextList.Starting",
+                "display": [
+                    "log",
+                    "toast",
+                    "notification"
+                ]
+            }
         }
     },
     "checkBack": {

@@ -10,7 +10,15 @@
         ],
         "focus": {
             "Node.Action.Succeeded": "$pipeline.restartApp.focus.Node.Action.Succeeded",
-            "Node.Action.Failed": "$pipeline.restartApp.focus.Node.Action.Failed"
+            "Node.Action.Failed": {
+                "content": "$pipeline.restartApp.focus.Node.Action.Failed",
+                "display": [
+                    "log",
+                    "toast",
+                    "dialog",
+                    "notification"
+                ]
+            }
         }
     },
     "stopApp": {
@@ -21,7 +29,15 @@
         ],
         "focus": {
             "Node.Action.Succeeded": "$pipeline.restartApp.focus.Node.Action.Succeeded",
-            "Node.Action.Failed": "$pipeline.restartApp.focus.Node.Action.Failed"
+            "Node.Action.Failed": {
+                "content": "$pipeline.restartApp.focus.Node.Action.Failed",
+                "display": [
+                    "log",
+                    "toast",
+                    "dialog",
+                    "notification"
+                ]
+            }
         }
     },
     "restartApp": {
@@ -34,7 +50,15 @@
         ],
         "focus": {
             "Node.Action.Starting": "$pipeline.restartApp.focus.Node.Action.Starting",
-            "Node.Action.Failed": "$pipeline.restartApp.focus.Node.Action.Failed"
+            "Node.Action.Failed": {
+                "content": "$pipeline.restartApp.focus.Node.Action.Failed",
+                "display": [
+                    "log",
+                    "toast",
+                    "dialog",
+                    "notification"
+                ]
+            }
         }
     }
 }
