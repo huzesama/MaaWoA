@@ -6,7 +6,7 @@
         "en_us": "resource/base/languages/en_us.json"
     },
     "name": "maawoa",
-    "label": "MaaWoA",
+    "label": "$pi.label",
     "icon": "resource/base/logo.png",
     "mirrorchyan_rid": "MaaWoA",
     "mirrorchyan_multiplatform": true,
@@ -19,7 +19,7 @@
     "controller": [
         {
             "name": "Adb",
-            "label": "Android / Emulator",
+            "label": "$pi.controller.Adb.name",
             "type": "Adb",
             "display_expand": [
                 1280,
@@ -28,7 +28,7 @@
         },
         {
             "name": "Windows",
-            "label": "Windows app",
+            "label": "$pi.controller.Windows.name",
             "type": "Win32",
             "display_expand": [
                 1280,
@@ -46,7 +46,7 @@
         },
         {
             "name": "MacOS",
-            "label": "MacOS App",
+            "label": "$pi.controller.MacOS.name",
             "type": "MacOS",
             "display_expand": [
                 1280,
@@ -63,7 +63,7 @@
         },
         {
             "name": "PlayCover",
-            "label": "PlayCover iOS app",
+            "label": "$pi.controller.PlayCover.name",
             "type": "PlayCover",
             "display_expand": [
                 1280,
@@ -75,7 +75,7 @@
         },
         {
             "name": "Gamepad",
-            "label": "Gamepad (Windows)",
+            "label": "$pi.controller.Gamepad.name",
             "type": "Gamepad",
             "display_expand": [
                 1280,
@@ -92,8 +92,8 @@
             ]
         },
         {
-            "name": "WindowsBackground",
-            "label": "Windows app(Background)",
+            "name": "Windows-Background",
+            "label": "$pi.controller.Windows-Background.name",
             "type": "Win32",
             "display_expand": [
                 1280,
@@ -111,7 +111,7 @@
         },
         {
             "name": "iOS",
-            "label": "IOS(xdb)",
+            "label": "$pi.controller.iOS.name",
             "type": "IOS",
             "display_expand": [
                 1280,

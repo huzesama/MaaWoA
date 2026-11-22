@@ -97,7 +97,7 @@
                 },
                 {
                     "name": "Mild",
-                    "label": "1",
+                    "label": "$pi.task.option.towerSpeedUpControl.Mild.name",
                     "pipeline_override": {
                         "resetTowerSpeedUpOption": {
                             "next": [
@@ -108,11 +108,11 @@
                 },
                 {
                     "name": "Medium",
-                    "label": "2"
+                    "label": "$pi.task.option.towerSpeedUpControl.Medium.name"
                 },
                 {
                     "name": "High",
-                    "label": "3",
+                    "label": "$pi.task.option.towerSpeedUpControl.High.name",
                     "pipeline_override": {
                         "setTowerSpeedUpOption": {
                             "action": {
