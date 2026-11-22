@@ -298,6 +298,10 @@ async function maafwReleaseTag(version) {
  *  与桌面 releaseArtifactName 是两套刻意分叉的逻辑：桌面保留 Unicode，APK 前缀必须 ASCII。 */
 function artifactPrefix(project) {
     const section = project.project ?? {};
+    /* 临时固定资产命名，后续看上游如何改动 */
+    if (section.displayName === "$pi.label") {
+        return "MaaWoA";
+    }
     for (const key of [
         "displayName",
         "slug",
