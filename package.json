@@ -17,8 +17,8 @@
     "private": true,
     "scripts": {
         "check": "pnpm format:check && pnpm check:schema && pnpm check:maa && pnpm check:i18n",
-        "check:maa": "pnpm exec maa-tools check",
         "check:i18n": "node tools/validate-i18n.mjs",
+        "check:maa": "pnpm exec maa-tools check",
         "check:py": "pnpm lint:py && pnpm typecheck:py",
         "check:schema": "node tools/validate-schema.mjs",
         "format": "prettier --write .",
@@ -32,5 +32,5 @@
         "typecheck:py": "uv run --frozen pyright"
     },
     "type": "module",
-    "version": "1.1.4"
+    "version": "1.1.5-beta.1"
 }
