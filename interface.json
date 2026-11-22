@@ -84,7 +84,7 @@
         },
         {
             "name": "Linux",
-            "label": "wlroots app (Linux)",
+            "label": "$pi.controller.Linux.name",
             "type": "Linux",
             "display_expand": [
                 1280,
