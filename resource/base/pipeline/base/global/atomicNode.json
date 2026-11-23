@@ -952,7 +952,7 @@
             }
         }
     },
-    "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__": {
+    "__cstOffsetYellowButton2PreviousColumnInFlightCard__": {
         "recognition": {
             "type": "Custom",
             "param": {
@@ -973,7 +973,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__",
+                "roi": "__cstOffsetYellowButton2PreviousColumnInFlightCard__",
                 "method": 40,
                 "lower": [
                     94,
