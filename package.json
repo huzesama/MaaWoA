@@ -32,5 +32,5 @@
         "typecheck:py": "uv run --frozen pyright"
     },
     "type": "module",
-    "version": "1.1.5-beta.1"
+    "version": "1.1.5-beta.2"
 }
