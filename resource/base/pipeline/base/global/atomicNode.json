@@ -1065,6 +1065,27 @@
             }
         }
     },
+    "__cmatchHandlingLimitUnknow__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstOffsetYellowButton2PreviousColumnInFlightCard__",
+                "method": 40,
+                "lower": [
+                    4,
+                    119,
+                    244
+                ],
+                "upper": [
+                    24,
+                    139,
+                    255
+                ],
+                "connected": true,
+                "count": 207
+            }
+        }
+    },
     "__cmatchYellowButton_inFlight_info__": {
         "recognition": {
             "type": "ColorMatch",

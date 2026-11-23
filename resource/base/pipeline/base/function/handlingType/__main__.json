@@ -53,6 +53,7 @@
             "actionRequireAssignCrew", // 分配地勤分支
             "actionRequireStandSelect", // 尋找standSelect面板
             "actionRequireBribeFlight", // 其它通用的actionRequire先检查有没有开关
+            "actionRequireAssignContract",
             "actionRequireUniversal", // 其它通用的actionRequire
             "handlingContractUpgradeCard", // 异常处理
             "updateAllExtraActionCard",
@@ -78,6 +79,7 @@
             "actionRequireAssignCrewDoNothing",
             "actionRequireStandSelect",
             "actionRequireBribeFlight",
+            "actionRequireAssignContract",
             "actionRequireUniversal",
             "handlingContractUpgradeCard",
             "finishNode"
@@ -198,6 +200,7 @@
             "actionRequireAssignCrewDoNothing", // 分配地勤分支
             "actionRequireStandSelect", // 尋找standSelect面板
             "actionRequireBribeFlight", // 其它通用的actionRequire先检查有没有开关
+            "actionRequireAssignContract",
             "actionRequireUniversal", // 其它通用的actionRequire
             "handlingContractUpgradeCard", // 异常处理
             "finishNode"
