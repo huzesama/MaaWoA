@@ -752,7 +752,7 @@
         }
     },
     //
-    //////------------------HandlingActionRequiring·ActionRequiringList·ActionRequireMatch·BEGIN------------------
+    //////------------------HandlingActionRequiring·ActionRequiringList·ActionRequireMatch·END------------------
     //
     "__detectActionRequire__": {
         "recognition": {
@@ -795,8 +795,8 @@
                 "method": 10001,
                 "threshold": [
                     0.85,
-                    0.8,
-                    0.8
+                    0.7,
+                    0.7
                 ]
             }
         }
