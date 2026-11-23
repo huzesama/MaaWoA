@@ -5,6 +5,7 @@
     //命名规则: __识别种类[cmatch|tmatch|detect|ocr|classify|cst(custom)...]目标__
     //
     //------------------GLOBAL·BEGIN------------------
+    //
     "__cmatchYellowButtonByROI__": {
         "recognition": {
             "type": "ColorMatch",
@@ -48,7 +49,9 @@
             }
         }
     },
+    //
     ////------------------GLOBAL·ERROR·BEGIN------------------
+    //
     "__detectErrorCard__": {
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -79,8 +82,11 @@
             }
         }
     },
+    //
     ////------------------GLOBAL·ERROR·END------------------
+    //
     ////------------------GLOBAL·LOADING·BEGIN------------------
+    //
     "__cmatchLoadingPageMenu__": {
         //操作加载时的全屏遮罩菜单或返回按钮，辅助识别
         "recognition": {
@@ -143,8 +149,11 @@
             }
         }
     },
+    //
     ////------------------GLOBAL·LOADING·END------------------
+    //
     ////------------------GLOBAL·页面分类·BEGIN------------------
+    //
     "__classifyAirportSelectPage__": {
         "recognition": {
             "type": "NeuralNetworkClassify",
@@ -375,9 +384,13 @@
             }
         }
     },
+    //
     ////------------------GLOBAL·页面分类·END------------------
+    //
     //------------------GLOBAL·END------------------
+    //
     //------------------ROI缓存·BEGIN------------------
+    //
     "__cstGetFlight_infoCard__": {
         //缓存航班详细信息卡片
         "recognition": {
@@ -588,13 +601,13 @@
             }
         }
     },
+    //
     //------------------ROI缓存·END------------------
     //
     //------------------HandlingActionRequiring·BEGIN------------------
     //
     ////------------------HandlingActionRequiring·ActionRequiringList·BEGIN------------------
     //
-    //////------------------HandlingActionRequiring·ActionRequiringList·ActionRequireMatch·BEGIN------------------
     "__cmatchActionRequire__": {
         "recognition": {
             "type": "ColorMatch",
@@ -751,9 +764,6 @@
             }
         }
     },
-    //
-    //////------------------HandlingActionRequiring·ActionRequiringList·ActionRequireMatch·END------------------
-    //
     "__detectActionRequire__": {
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -845,6 +855,97 @@
             }
         }
     },
+    "__cmatchTimeBarNoTime__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseTimeBarBoxByActionRequire__",
+                "method": 4,
+                "lower": [
+                    7,
+                    15,
+                    23
+                ],
+                "upper": [
+                    13,
+                    21,
+                    29
+                ],
+                "connected": true,
+                "count": 48
+            }
+        }
+    },
+    "__cmatchTimeBarExcludeType__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    [
+                        68,
+                        140,
+                        190
+                    ],
+                    [
+                        101,
+                        64,
+                        124
+                    ]
+                ],
+                "upper": [
+                    [
+                        78,
+                        148,
+                        240
+                    ],
+                    [
+                        109,
+                        72,
+                        132
+                    ]
+                ],
+                "connected": true
+            }
+        }
+    },
+    "__cstReverseTimeBarBoxByActionRequire__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchActionRequireInReverse__",
+                    "filter": true,
+                    "offset": [
+                        "w",
+                        "-0.5*h",
+                        0,
+                        "2.5*h"
+                    ]
+                }
+            }
+        }
+    },
+    "__cstGetInverseTimeBarExcludeType__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "__cmatchTimeBarNoTime__",
+                    "exclude_node_name": "__cmatchTimeBarExcludeType__",
+                    "batch": false,
+                    "contains": true,
+                    "full_reco": true
+                }
+            }
+        }
+    },
+    //
+    ////------------------HandlingActionRequiring·ActionRequiringList·END------------------
+    //
+    ////------------------HandlingActionRequiring·FlightInfoCard·BEGIN------------------
     "__cmatchFlight_infoTitleWithCache__": {
         "recognition": {
             "type": "ColorMatch",
@@ -935,9 +1036,6 @@
             }
         }
     },
-    ////------------------HandlingActionRequiring·ActionRequiringList·END------------------
-    //
-    ////------------------HandlingActionRequiring·FlightInfoCard·BEGIN------------------
     "__tmatchFlight_infoTimeLimitPass": {
         "recognition": {
             "type": "TemplateMatch",
@@ -1335,7 +1433,142 @@
             }
         }
     },
+    //
     ////------------------HandlingActionRequiring·StandSelectCard·END------------------
+    //
+    ////------------------HandlingActionRequiring·De-icingCompatible·BEGIN------------------
+    //
+    "__cstGetFilterDepartureButtonBox__": {
+        //缓存航班详细信息卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__FilterDepartureButton__",
+                    "model": "MaaWoA-widget.onnx",
+                    "expected": [
+                        "filterDeparturePressed",
+                        "filterDeparture"
+                    ],
+                    "threshold": 0.8
+                }
+            }
+        }
+    },
+    "__cstUpdateFilterDepartureButtonBox__": {
+        //更新缓存分配地勤卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__FilterDepartureButton__",
+                    "model": "MaaWoA-widget.onnx",
+                    "expected": [
+                        "filterDeparturePressed",
+                        "filterDeparture"
+                    ],
+                    "threshold": 0.85,
+                    "override": true
+                }
+            }
+        }
+    },
+    "__cmatchFilterButtonBox__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstGetFilterDepartureButtonBox__",
+                "method": 40,
+                "lower": [
+                    [
+                        93,
+                        19,
+                        192
+                    ],
+                    [
+                        94,
+                        67,
+                        90
+                    ]
+                ],
+                "upper": [
+                    [
+                        115,
+                        41,
+                        214
+                    ],
+                    [
+                        116,
+                        89,
+                        112
+                    ]
+                ],
+                "connected": true,
+                "count": 445
+            }
+        }
+    },
+    "__cstRelocateFilterButtonBox__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchFilterButtonBox__",
+                    "offset": [
+                        "-w/4",
+                        "-h/4",
+                        "-3*w/4-x+W",
+                        "-h/2"
+                    ]
+                }
+            }
+        }
+    },
+    "__cmatchFilterButtonBox2__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstRelocateFilterButtonBox__",
+                "method": 40,
+                "lower": [[
+                        93,
+                        13,
+                        222
+                    ]],
+                "upper": [[
+                        115,
+                        35,
+                        244
+                    ]],
+                "connected": false,
+                "count": 298
+            }
+        }
+    },
+    "__tmatchActionRequireDepartureType__": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": "__cmatchActionRequireInReverse__",
+                "roi_offset": [
+                    -5,
+                    -5,
+                    10,
+                    35
+                ],
+                "template": [
+                    "航班类型-离场.png"
+                ],
+                "method": 10001,
+                "threshold": 0.8
+            }
+        }
+    },
+    //
+    ////------------------HandlingActionRequiring·De-icingCompatible·END------------------
     //
     "__cmatchYellowButton_inUpgradeCard__": {
         "recognition": {
@@ -1359,8 +1592,11 @@
             }
         }
     },
+    //
     //------------------HandlingActionRequiring·END------------------
+    //
     //------------------Tower·BEGIN------------------
+    //
     "__cmatchDockerTowerLEDLocation__": {
         "recognition": {
             "type": "ColorMatch",
@@ -1487,8 +1723,11 @@
             }
         }
     },
+    //
     //------------------Tower·END------------------
+    //
     //------------------CONTRACT MANAGER·BEGIN------------------
+    //
     "__cstGetContractsManager__": {
         "max_hit": 1,
         //缓存Docker
@@ -1728,8 +1967,11 @@
             }
         }
     },
+    //
     //------------------CONTRACT MANAGER·END------------------
+    //
     //------------------OTHER·BEGIN------------------
+    //
     "__detectAnyRandomAirlineCard__": {
         "recognition": {
             "type": "NeuralNetworkDetect",
@@ -1872,5 +2114,7 @@
             }
         }
     }
+    //
     //------------------OTHER·END------------------
+    //
 }
