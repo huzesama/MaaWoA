@@ -54,6 +54,8 @@ const GUI_TYPES = {
         flatLayout: false,
         modifyInterface(iface, slug, ver) {
             const modified = {...iface};
+            const displayName = "MaaWoA"
+            modified.title = `${displayName} ${ver}`;
             modified.mirrorchyan_rid = "MaaWoA_MXU";
             // Deliberately no agent override: prepareReleaseInterface already sets the
             // platform-correct command (the bundled interpreter running agent/main.py), and
