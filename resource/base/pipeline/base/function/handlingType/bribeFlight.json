@@ -8,7 +8,7 @@
                 "all_of": [
                     "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
                     "__cmatchYellowButton_inFlight_info__",
-                    "__cstOffsetYellowButton2BriberySwitchOffInFlightCard__",
+                    "__cstOffsetYellowButton2PreviousColumnInFlightCard__",
                     "__cmatchFlight_infoBriberySwitchOff__"
                 ],
                 "box_index": 3
