@@ -3,8 +3,25 @@
     //引用类型的节点，命名以双下划线"__"开头并同样以"__"结尾
     //命名规则: __组合原子节点的功能名称__
     //
+    //"__sumMatchActionRequireFeature__": {
+    // ActionRequire选择节点模板、所有关于rectOffset和inverseDiff的custom识别器都要放在同一And子识别兄弟列表中
+    // pipeline节点 __cmatchActionRequireInReverse__ 从此识别类型And的子识别中引出到上层And类型识别的子识别中
+    //    "recognition": {
+    //        "type": "And",
+    //        "param": {
+    //            "all_of": [
+    //                "__cmatchActionRequire__",
+    //                "__cstReverseFlightTypeLocationByActionRequire__",
+    //                "__cmatchFlightTypeInReverseBox__",
+    //                "__cstReverseActionRequireTypeLocation__",
+    //                "__cmatchActionRequireTypeInReverseBox__",
+    //                "__cstReverseActionRequireLocation__"
+    //            ],
+    //            "box_index": 5
+    //        }
+    //    }
+    //},
     //------------------MATCH·BEGIN------------------
-
     "__combinationMatchLoading__": {
         "recognition": {
             "type": "Or",
@@ -28,25 +45,6 @@
             }
         }
     },
-    ///////
-    //"__sumMatchActionRequireFeature__": {
-    // ActionRequire选择节点模板、所有关于rectOffset和inverseDiff的custom识别器都要放在同一And子识别兄弟列表中
-    // pipeline节点 __cmatchActionRequireInReverse__ 从此识别类型And的子识别中引出到上层And类型识别的子识别中
-    //    "recognition": {
-    //        "type": "And",
-    //        "param": {
-    //            "all_of": [
-    //                "__cmatchActionRequire__",
-    //                "__cstReverseFlightTypeLocationByActionRequire__",
-    //                "__cmatchFlightTypeInReverseBox__",
-    //                "__cstReverseActionRequireTypeLocation__",
-    //                "__cmatchActionRequireTypeInReverseBox__",
-    //                "__cstReverseActionRequireLocation__"
-    //            ],
-    //            "box_index": 5
-    //        }
-    //    }
-    //},
     "__findActionRequire__": {
         "recognition": {
             "type": "And",
@@ -78,6 +76,42 @@
                     "__cstReverseActionRequireLocation__",
                     "__cmatchActionRequireInReverse__",
                     "__cstGetActionRequireTypeDiffSetFromExcludeTypeIncludeAssignCrewByActionRequireLocation__"
+                ],
+                "box_index": 7
+            }
+        }
+    },
+    "__ocrFilterNoneActionRequire__": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": "__cmatchFilterButtonBox2__",
+                "expected": [
+                    "^0/\\d+$"
+                ],
+                "replace": [
+                    [
+                        "\\|",
+                        "/"
+                    ]
+                ],
+                "only_rec": true
+            }
+        }
+    },
+    "__findDepartureType__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cmatchActionRequire__",
+                    "__cstReverseFlightTypeLocationByActionRequire__",
+                    "__cmatchFlightTypeInReverseBox__",
+                    "__cstReverseActionRequireTypeLocation__",
+                    "__cmatchActionRequireTypeInReverseBox__",
+                    "__cstReverseActionRequireLocation__",
+                    "__cmatchActionRequireInReverse__",
+                    "__tmatchActionRequireDepartureType__"
                 ],
                 "box_index": 7
             }

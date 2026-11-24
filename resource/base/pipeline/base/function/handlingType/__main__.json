@@ -53,6 +53,7 @@
             "actionRequireAssignCrew", // 分配地勤分支
             "actionRequireStandSelect", // 尋找standSelect面板
             "actionRequireBribeFlight", // 其它通用的actionRequire先检查有没有开关
+            "actionRequireAssignContract",
             "actionRequireUniversal", // 其它通用的actionRequire
             "handlingContractUpgradeCard", // 异常处理
             "updateAllExtraActionCard",
@@ -78,97 +79,11 @@
             "actionRequireAssignCrewDoNothing",
             "actionRequireStandSelect",
             "actionRequireBribeFlight",
+            "actionRequireAssignContract",
             "actionRequireUniversal",
             "handlingContractUpgradeCard",
             "finishNode"
         ]
-    },
-    "__cmatchTimeBarNoTime__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__cstReverseTimeBarBoxByActionRequire__",
-                "method": 4,
-                "lower": [
-                    7,
-                    15,
-                    23
-                ],
-                "upper": [
-                    13,
-                    21,
-                    29
-                ],
-                "connected": true,
-                "count": 48
-            }
-        }
-    },
-    "__cmatchTimeBarExcludeType__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "method": 40,
-                "lower": [
-                    [
-                        68,
-                        140,
-                        190
-                    ],
-                    [
-                        101,
-                        64,
-                        124
-                    ]
-                ],
-                "upper": [
-                    [
-                        78,
-                        148,
-                        240
-                    ],
-                    [
-                        109,
-                        72,
-                        132
-                    ]
-                ],
-                "connected": true
-            }
-        }
-    },
-    "__cstReverseTimeBarBoxByActionRequire__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "rectOffset",
-                "custom_recognition_param": {
-                    "node_name": "__cmatchActionRequireInReverse__",
-                    "filter": true,
-                    "offset": [
-                        "w",
-                        "-0.5*h",
-                        0,
-                        "2.5*h"
-                    ]
-                }
-            }
-        }
-    },
-    "__cstGetInverseTimeBarExcludeType__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "inverseDiff",
-                "custom_recognition_param": {
-                    "filter_node_name": "__cmatchTimeBarNoTime__",
-                    "exclude_node_name": "__cmatchTimeBarExcludeType__",
-                    "batch": false,
-                    "contains": true,
-                    "full_reco": true
-                }
-            }
-        }
     },
     "actionRequireSelectBribeType": {
         "recognition": {
@@ -198,178 +113,13 @@
             "actionRequireAssignCrewDoNothing", // 分配地勤分支
             "actionRequireStandSelect", // 尋找standSelect面板
             "actionRequireBribeFlight", // 其它通用的actionRequire先检查有没有开关
+            "actionRequireAssignContract",
             "actionRequireUniversal", // 其它通用的actionRequire
             "handlingContractUpgradeCard", // 异常处理
             "finishNode"
         ]
     },
 
-    "__cstGetFilterDepartureButtonBox__": {
-        //缓存航班详细信息卡片
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__FilterDepartureButton__",
-                    "model": "MaaWoA-widget.onnx",
-                    "expected": [
-                        "filterDeparturePressed",
-                        "filterDeparture"
-                    ],
-                    "threshold": 0.8
-                }
-            }
-        }
-    },
-    "__cstUpdateFilterDepartureButtonBox__": {
-        //更新缓存分配地勤卡片
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "roiManager",
-                "custom_recognition_param": {
-                    "roi_name": "__FilterDepartureButton__",
-                    "model": "MaaWoA-widget.onnx",
-                    "expected": [
-                        "filterDeparturePressed",
-                        "filterDeparture"
-                    ],
-                    "threshold": 0.85,
-                    "override": true
-                }
-            }
-        }
-    },
-
-    "__cmatchFilterButtonBox__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__cstGetFilterDepartureButtonBox__",
-                "method": 40,
-                "lower": [
-                    [
-                        93,
-                        19,
-                        192
-                    ],
-                    [
-                        94,
-                        67,
-                        90
-                    ]
-                ],
-                "upper": [
-                    [
-                        115,
-                        41,
-                        214
-                    ],
-                    [
-                        116,
-                        89,
-                        112
-                    ]
-                ],
-                "connected": true,
-                "count": 445
-            }
-        }
-    },
-    "__cstRelocateFilterButtonBox__": {
-        "recognition": {
-            "type": "Custom",
-            "param": {
-                "custom_recognition": "rectOffset",
-                "custom_recognition_param": {
-                    "node_name": "__cmatchFilterButtonBox__",
-                    "offset": [
-                        "-w/4",
-                        "-h/4",
-                        "-3*w/4-x+W",
-                        "-h/2"
-                    ]
-                }
-            }
-        }
-    },
-    "__cmatchFilterButtonBox2__": {
-        "recognition": {
-            "type": "ColorMatch",
-            "param": {
-                "roi": "__cstRelocateFilterButtonBox__",
-                "method": 40,
-                "lower": [[
-                        93,
-                        13,
-                        222
-                    ]],
-                "upper": [[
-                        115,
-                        35,
-                        244
-                    ]],
-                "connected": false,
-                "count": 298
-            }
-        }
-    },
-    "__ocrFilterNoneActionRequire__": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": "__cmatchFilterButtonBox2__",
-                "expected": [
-                    "^0/\\d+$"
-                ],
-                "replace": [
-                    [
-                        "\\|",
-                        "/"
-                    ]
-                ],
-                "only_rec": true
-            }
-        }
-    },
-    "__tmatchActionRequireDepartureType__": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": "__cmatchActionRequireInReverse__",
-                "roi_offset": [
-                    -5,
-                    -5,
-                    10,
-                    35
-                ],
-                "template": [
-                    "航班类型-离场.png"
-                ],
-                "method": 10001,
-                "threshold": 0.8
-            }
-        }
-    },
-    "__findDepartureType__": {
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__cmatchActionRequire__",
-                    "__cstReverseFlightTypeLocationByActionRequire__",
-                    "__cmatchFlightTypeInReverseBox__",
-                    "__cstReverseActionRequireTypeLocation__",
-                    "__cmatchActionRequireTypeInReverseBox__",
-                    "__cstReverseActionRequireLocation__",
-                    "__cmatchActionRequireInReverse__",
-                    "__tmatchActionRequireDepartureType__"
-                ],
-                "box_index": 7
-            }
-        }
-    },
     "conditionNoneDeparture": {
         "enabled": false, // enabled由选项de-icingCompatible覆写
         "recognition": {

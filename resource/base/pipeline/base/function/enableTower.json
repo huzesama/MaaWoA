@@ -161,11 +161,36 @@
         "action": "Click",
         "post_wait_freezes": 200,
         "next": [
-            "confirmEnableTower"
+            "waitConfirmButtonStopMove"
         ],
         "on_error": [
             "exitTowerPage",
             "checkAll"
+        ]
+    },
+    "waitConfirmButtonStopMove": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "method": 40,
+                "lower": [
+                    13,
+                    244,
+                    222
+                ],
+                "upper": [
+                    35,
+                    255,
+                    244
+                ],
+                "connected": true,
+                "count": 2000,
+                "order_by": "Area"
+            }
+        },
+        "next": [
+            "confirmEnableTower",
+            "waitConfirmButtonStopMove"
         ]
     },
     "confirmEnableTower": {
@@ -173,6 +198,7 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
+                "roi": "waitConfirmButtonStopMove",
                 "method": 40,
                 "lower": [
                     13,

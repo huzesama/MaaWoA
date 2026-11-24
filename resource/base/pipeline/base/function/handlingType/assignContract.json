@@ -1,0 +1,17 @@
+{
+    "actionRequireAssignContract": {
+        // 检测是否为分配航线的请求行动事件，默认静默
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
+                    "__cmatchYellowButton_inFlight_info__",
+                    "__cstOffsetYellowButton2PreviousColumnInFlightCard__",
+                    "__cmatchHandlingLimitUnknow__"
+                ],
+                "box_index": 1
+            }
+        }
+    }
+}
