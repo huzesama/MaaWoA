@@ -4,7 +4,7 @@ If you purchased this program by paying, please request a refund immediately and
 
 ## 💻 Resolution
 
-- This project uses 1280x720 as the testing baseline and is theoretically compatible with mainstream resolutions on the market. If you encounter recognition issues, please update MaaWoA first; if that does not help, adjust the resolution to 1280x720. On Android, select 16:9 in the background resolution mode.
+- This project uses 16:9 as the testing baseline and is theoretically compatible with mainstream resolutions on the market. If you encounter recognition issues, please update MaaWoA first; if that does not help, adjust the resolution to 1280x720. On Android, select 16:9 in the background resolution mode.
 
 ## 📱 Android Background Mode Resolution
 
@@ -16,14 +16,16 @@ If you purchased this program by paying, please request a refund immediately and
 - The built-in xdb client SDK is 1.6.1. iOS connection and Toolkit device discovery require xdb Server 1.6.0 or later. The client checks the running Server version when establishing a connection; older or unrecognized versions will prompt an upgrade.
 - On desktop, first follow the [XDeviceBridge installation instructions](https://github.com/scrctl/XDeviceBridge/blob/main/docs/INSTALL.md) to install the complete runtime package for your OS and architecture; it is available from [GitHub Releases](https://github.com/scrctl/XDeviceBridge/releases).
 
-## 🖥 Desktop Foreground Controller Notes and FAQ
+## 🖥 Desktop Controller Notes and FAQ
+
+### Foreground Controller
 
 1. The foreground controller completely occupies the foreground during operation. Manual operation at this time will interfere with the normal execution of the script, so it is not recommended to open other software at the same time.
 2. The screenshot function directly captures the current foreground window. Therefore, no obstructions may appear in the screenshot, such as frame rate displays, ad pop-ups, Windows activation watermarks, etc.; otherwise, recognition will be affected.
 
-## 🖥 Desktop Background Controller Notes and FAQ
+### Background Controller
 
-- The background controller can operate entirely in the background during execution and will not seize mouse control, but it requires support from the target program, and there is a possibility that its operations may be captured.
+- The background controller can operate entirely in the background during execution and will not seize mouse control, but it requires the target program to support keyboard and mouse message capture, and there is a possibility that the background controller's operations may be captured and analyzed by the target program.
 
 ## ⚖️ License
 
