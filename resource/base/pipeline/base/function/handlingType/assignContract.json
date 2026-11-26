@@ -1,4 +1,55 @@
 {
+    "__cstReverseHandlingLimitUnknow__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchYellowButton_inFlight_info__",
+                    "offset": [
+                        0,
+                        "-0.625*h", // -0.125*h-0.5*h
+                        0,
+                        "-1.125*h" // -h-0.125*h
+                    ]
+                }
+            }
+        }
+    },
+    "__cstReverseHandlingLimitUnknowTop__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchYellowButton_inFlight_info__",
+                    "offset": [
+                        0,
+                        "-1.625*h", // -1.3125*h-0.25*h-0.0625*h
+                        0,
+                        "-0.9375*h" // -h+0.0625*h
+                    ]
+                }
+            }
+        }
+    },
+    "__cstReverseHandlingLimitUnknowButton__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "__cmatchYellowButton_inFlight_info__",
+                    "offset": [
+                        0,
+                        "-0.3125*h", // -0.25*h-0.0625*h
+                        0,
+                        "-0.9375*h" // -h+0.0625*h
+                    ]
+                }
+            }
+        }
+    },
     "actionRequireAssignContract": {
         // 检测是否为分配航线的请求行动事件，默认静默
         "recognition": {
@@ -7,8 +58,12 @@
                 "all_of": [
                     "__cstGetFlight_infoCard__", //无论是否有缓存都至少运行一次确保存在有效BOX
                     "__cmatchYellowButton_inFlight_info__",
-                    "__cstOffsetYellowButton2PreviousColumnInFlightCard__",
-                    "__cmatchHandlingLimitUnknow__"
+                    "__cstReverseHandlingLimitUnknowTop__",
+                    "__cstReverseHandlingLimitUnknow__",
+                    "__cstReverseHandlingLimitUnknowButton__",
+                    "__cmatchHandlingLimitUnknowTop__",
+                    "__cmatchHandlingLimitUnknow__",
+                    "__cmatchHandlingLimitUnknowButton__"
                 ],
                 "box_index": 1
             }

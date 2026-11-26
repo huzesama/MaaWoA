@@ -1182,20 +1182,59 @@
         "recognition": {
             "type": "ColorMatch",
             "param": {
-                "roi": "__cstOffsetYellowButton2PreviousColumnInFlightCard__",
+                "roi": "__cstReverseHandlingLimitUnknow__",
                 "method": 40,
                 "lower": [
                     4,
-                    119,
-                    244
+                    82,
+                    129
                 ],
                 "upper": [
                     24,
                     139,
                     255
                 ],
-                "connected": true,
-                "count": 207
+                "count": 415
+            }
+        }
+    },
+    "__cmatchHandlingLimitUnknowTop__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseHandlingLimitUnknowTop__",
+                "method": 40,
+                "lower": [
+                    84,
+                    48,
+                    70
+                ],
+                "upper": [
+                    125,
+                    108,
+                    148
+                ],
+                "count": 200
+            }
+        }
+    },
+    "__cmatchHandlingLimitUnknowButton__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cstReverseHandlingLimitUnknowButton__",
+                "method": 40,
+                "lower": [
+                    84,
+                    48,
+                    70
+                ],
+                "upper": [
+                    125,
+                    108,
+                    148
+                ],
+                "count": 200
             }
         }
     },
