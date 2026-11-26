@@ -39,7 +39,7 @@
             "param": {
                 "all_of": [
                     "__cstGetTower_info__",
-                    "__detectTowerControlEntry__"
+                    "__cmatchTowerControlEntry__"
                 ],
                 "box_index": 1
             }

@@ -1699,7 +1699,7 @@
             }
         }
     },
-    "__detectTowerControlEntry__": {
+    "__cmatchTowerControlEntry__": {
         //在延时卡片中点击全部控制器的延时控制卡片
         "recognition": {
             "type": "ColorMatch",
