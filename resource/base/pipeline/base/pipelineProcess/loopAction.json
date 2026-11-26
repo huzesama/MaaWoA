@@ -39,13 +39,7 @@
         },
         "inverse": true,
         "action": "Click",
-        "target": "locateCrewUsedBox",
-        "target_offset": [
-            120,
-            160,
-            0,
-            0
-        ],
+        "target": "offsetCrewUsedBox2Space",
         "repeat": 2,
         "repeat_delay": 200,
         "next": [

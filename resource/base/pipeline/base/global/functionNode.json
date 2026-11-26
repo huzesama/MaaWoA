@@ -116,6 +116,26 @@
                 "expected": "crewUsed",
                 "model": "MaaWoA-widget.onnx"
             }
+        },
+        "next": [
+            "offsetCrewUsedBox2Space"
+        ]
+    },
+    "offsetCrewUsedBox2Space": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "rectOffset",
+                "custom_recognition_param": {
+                    "node_name": "locateCrewUsedBox",
+                    "offset": [
+                        "w",
+                        "0.5*h",
+                        0,
+                        "-0.5*h"
+                    ]
+                }
+            }
         }
     },
     "locateMenuButton": {
