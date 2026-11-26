@@ -142,8 +142,12 @@ def apply_offset(
     new_y = max(0, min(y + dy, image_h - 1))
     new_w = min(w + dw, image_w - new_x)
     new_h = min(h + dh, image_h - new_y)
-    if new_w <= 0 or new_h <= 0:
-        return None
+    if new_w <= 0:
+        new_w = new_w - (2 * new_w)
+        new_x = new_x - new_w
+    if new_h <= 0:
+        new_h = new_h - (2 * new_h)
+        new_y = new_y - new_h
     return (new_x, new_y, new_w, new_h)
 
 
