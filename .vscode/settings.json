@@ -36,5 +36,7 @@
             "url": "./tools/schema/pipeline.schema.json"
         }
     ],
-    "python-envs.defaultEnvManager": "ms-python.python:venv"
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "maa.outputLevel": "debug",
+    "python.analysis.logLevel": "Trace"
 }
