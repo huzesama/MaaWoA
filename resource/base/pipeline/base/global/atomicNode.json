@@ -587,6 +587,21 @@
             }
         }
     },
+    "__cstUpdateTower_info__": {
+        //缓存塔台页的延时卡片
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "roiManager",
+                "custom_recognition_param": {
+                    "roi_name": "__TowerInfo__",
+                    "model": "MaaWoA-card.onnx",
+                    "expected": "tower_info",
+                    "override": true
+                }
+            }
+        }
+    },
     "__cstGetTowerControlCard__": {
         //缓存Docker
         "recognition": {
@@ -742,7 +757,7 @@
                     244
                 ],
                 "connected": false,
-                "count": 48
+                "count": 32
             }
         }
     },
@@ -756,7 +771,7 @@
                     "filter": true,
                     "offset": [
                         "-0.25*w",
-                        "1.4*h",
+                        "1.3*h",
                         "0.5*w",
                         "0.5*h"
                     ]
