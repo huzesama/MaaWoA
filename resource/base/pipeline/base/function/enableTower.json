@@ -138,24 +138,13 @@
         ]
     },
     "enableTower": {
-        //启动塔台延时，暂不考虑速度和启动时长
+        //启动塔台延时，暂不考虑启动时长
         "recognition": {
-            "type": "ColorMatch",
+            "type": "And",
             "param": {
-                "method": 40,
-                "lower": [
-                    13,
-                    244,
-                    222
-                ],
-                "upper": [
-                    35,
-                    255,
-                    244
-                ],
-                "connected": true,
-                "count": 2000,
-                "order_by": "Area"
+                "all_of": [
+                    "__cmatchYellowButtonNoROI__"
+                ]
             }
         },
         "action": "Click",
@@ -170,23 +159,15 @@
     },
     "waitConfirmButtonStopMove": {
         "recognition": {
-            "type": "ColorMatch",
+            "type": "And",
             "param": {
-                "method": 40,
-                "lower": [
-                    13,
-                    244,
-                    222
-                ],
-                "upper": [
-                    35,
-                    255,
-                    244
-                ],
-                "connected": true,
-                "count": 2000,
-                "order_by": "Area"
+                "all_of": [
+                    "__cmatchYellowButtonNoROI__"
+                ]
             }
+        },
+        "anchor": {
+            "__anchor.YellowButtonByROI__": "waitConfirmButtonStopMove"
         },
         "next": [
             "confirmEnableTower",
@@ -196,23 +177,11 @@
     "confirmEnableTower": {
         //点击塔台延时二次确认按钮
         "recognition": {
-            "type": "ColorMatch",
+            "type": "And",
             "param": {
-                "roi": "waitConfirmButtonStopMove",
-                "method": 40,
-                "lower": [
-                    13,
-                    244,
-                    222
-                ],
-                "upper": [
-                    35,
-                    255,
-                    244
-                ],
-                "connected": true,
-                "count": 2000,
-                "order_by": "Area"
+                "all_of": [
+                    "__cmatchYellowButtonByROI__"
+                ]
             }
         },
         "action": "Click",
@@ -229,23 +198,11 @@
     "exitTowerPage": {
         //退出塔台页面
         "recognition": {
-            "type": "ColorMatch",
+            "type": "And",
             "param": {
-                "roi": "locateMenuButton",
-                "method": 40,
-                "lower": [
-                    94,
-                    145,
-                    51
-                ],
-                "upper": [
-                    116,
-                    167,
-                    73
-                ],
-                "connected": true,
-                "count": 2000,
-                "order_by": "Vertical"
+                "all_of": [
+                    "__findMenu__"
+                ]
             }
         },
         "action": "Click",

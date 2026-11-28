@@ -161,6 +161,9 @@
                 "model": "MaaWoA-card.onnx"
             }
         },
+        "anchor": {
+            "__anchor.YellowButtonByROI__": "detectContractAcceptConfirmCard"
+        },
         "next": [
             "acceptContractOfferConfirm"
         ]
@@ -168,23 +171,11 @@
     "acceptContractOfferConfirm": {
         //点击确认
         "recognition": {
-            "type": "ColorMatch",
+            "type": "And",
             "param": {
-                "roi": "detectContractAcceptConfirmCard",
-                "method": 40,
-                "lower": [
-                    13,
-                    244,
-                    222
-                ],
-                "upper": [
-                    35,
-                    255,
-                    244
-                ],
-                "connected": true,
-                "count": 2000,
-                "order_by": "Area"
+                "all_of": [
+                    "__cmatchYellowButtonByROI__"
+                ]
             }
         },
         "action": "Click",
