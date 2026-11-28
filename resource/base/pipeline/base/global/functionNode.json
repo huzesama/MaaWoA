@@ -69,24 +69,6 @@
         "action": "Click",
         "post_delay": 1500
     },
-    "popErrorCardAgain": {
-        // 再次错误弹窗
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "__detectErrorCard__",
-                    "__cmatchErrorUniversalConfirm__"
-                ],
-                "box_index": 1
-            }
-        },
-        "action": "Click",
-        "anchor": {
-            "popErrorCardTwice": ""
-        },
-        "post_delay": 1500
-    },
     "textBinarization": {
         // 全局适用，CUSTOM AGENT引用：crewUsedCompare
         // 顶栏图标背景色

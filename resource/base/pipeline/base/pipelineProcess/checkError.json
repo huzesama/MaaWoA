@@ -3,6 +3,7 @@
         "action": "Screencap",
         "next": [
             "checkUpgradeCard",
+            "popErrorCard",
             "checkBack",
             "restartApp"
         ],
