@@ -201,7 +201,6 @@
             "[JumpBack]actionRequiringSelectDeparture",
             "[JumpBack]conditionNoneDeparture",
             "[JumpBack]actionRequireSelectBribeType",
-            "[JumpBack]handlingContractUpgradeCard",
             "[JumpBack]entryDocker",
             "finishWithDelay"
         ]

@@ -6,6 +6,73 @@
     //
     //------------------GLOBAL·BEGIN------------------
     //
+    "__cmatchMenuBackground__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "locateMenuButton",
+                "method": 40,
+                "lower": [
+                    94,
+                    145,
+                    51
+                ],
+                "upper": [
+                    116,
+                    167,
+                    73
+                ],
+                "connected": true,
+                "count": 1460,
+                "order_by": "Vertical"
+            }
+        }
+    },
+    "__cmatchMenuForeground__": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": "__cmatchMenuBackground__",
+                "method": 40,
+                "lower": [
+                    0,
+                    0,
+                    245
+                ],
+                "upper": [
+                    10,
+                    10,
+                    255
+                ],
+                "count": 35,
+                "order_by": "Vertical"
+            }
+        }
+    },
+    "__cstExcludeMenuB__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "locateMenuButton",
+                    "exclude_node_name": "__cmatchMenuBackground__"
+                }
+            }
+        }
+    },
+    "__cstExcludeMenuF__": {
+        "recognition": {
+            "type": "Custom",
+            "param": {
+                "custom_recognition": "inverseDiff",
+                "custom_recognition_param": {
+                    "filter_node_name": "locateMenuButton",
+                    "exclude_node_name": "__cmatchMenuForeground__"
+                }
+            }
+        }
+    },
     "__cmatchYellowButtonByROI__": {
         "recognition": {
             "type": "ColorMatch",

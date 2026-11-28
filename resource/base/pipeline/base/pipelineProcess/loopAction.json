@@ -14,10 +14,11 @@
     "entryDocker": {
         "enabled": false, // 由base选项dockExtra覆写
         "recognition": {
-            "type": "Or",
+            "type": "And",
             "param": {
-                "any_of": [
-                    "__classifyEntryAirportPage__"
+                "all_of": [
+                    "__classifyEntryAirportPage__",
+                    "__findMenu__"
                 ]
             }
         },

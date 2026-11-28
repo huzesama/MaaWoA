@@ -22,6 +22,29 @@
     //    }
     //},
     //------------------MATCH·BEGIN------------------
+    "__findMenu__": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "__cmatchMenuBackground__",
+                    "__cmatchMenuForeground__"
+                ]
+            }
+        }
+    },
+    "__conditionExcludeMenu__": {
+        // 任意一个命中则判定为menu不存在或menu之上存在遮罩
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    "__cstExcludeMenuB__",
+                    "__cstExcludeMenuF__"
+                ]
+            }
+        }
+    },
     "__combinationMatchLoading__": {
         "recognition": {
             "type": "Or",

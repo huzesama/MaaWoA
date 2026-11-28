@@ -23,7 +23,8 @@
             "type": "Or",
             "param": {
                 "any_of": [
-                    "__classifyEntryAirportPage__"
+                    "__classifyEntryAirportPage__",
+                    "__findMenu__"
                 ]
             }
         },
